@@ -1,0 +1,153 @@
+/* Grid Gallery Styles */
+.grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.grid > div {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.grid > div:hover {
+  transform: translateY(-2px);
+}
+
+.grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+/* Scrollbar Styles */
+.overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: #CBD5E1 transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  width: 5px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: #CBD5E1;
+  border-radius: 20px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background-color: #94A3B8;
+}
+
+/* Hover Effects */
+.group:hover i {
+  transform: translateX(4px);
+}
+
+/* Animation for badges */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.flex-wrap > span {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.flex-wrap > span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+/* Galleria Modal Styles */
+:host ::ng-deep .custom-galleria {
+  height: 100%;
+
+  .p-galleria-content {
+    padding: 0;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .p-galleria-thumbnail-wrapper {
+    padding: 0.75rem;
+    background: #f3f4f6;
+    margin-top: auto;
+  }
+
+  .p-galleria-thumbnail-container {
+    background: transparent;
+  }
+
+  .p-galleria-thumbnail-item {
+    opacity: 0.6;
+    transition: all 0.2s;
+    padding: 0 2px;
+  }
+
+  .p-galleria-thumbnail-item:hover,
+  .p-galleria-thumbnail-item.p-galleria-thumbnail-item-current {
+    opacity: 1;
+  }
+
+  .p-galleria-item-wrapper {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .p-galleria-item-nav {
+    width: 3rem;
+    height: 3rem;
+    color: #000;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    margin: 0 1rem;
+    transition: all 0.2s;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  &:hover .p-galleria-item-nav {
+    opacity: 1;
+  }
+
+  .p-galleria-item-prev {
+    left: 1rem;
+  }
+
+  .p-galleria-item-next {
+    right: 1rem;
+  }
+
+  .p-galleria-item-nav:hover {
+    background: white;
+    transform: scale(1.1);
+  }
+
+  .p-galleria {
+    border: none;
+    background: white;
+    height: 100%;
+  }
+
+  .p-galleria-item-container {
+    background: white;
+  }
+}
