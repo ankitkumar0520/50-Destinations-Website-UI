@@ -1,0 +1,108 @@
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6">
+  <!-- Title Section -->
+  <div class="text-center mb-12">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3 tracking-tight">
+      Explore Local Artisan Shops
+    </h1>
+    <p class="text-base sm:text-lg text-gray-600 max-w-xl mx-auto">
+      Discover unique handcrafted treasures from your local community.
+    </p>
+    <div class="w-20 h-1 bg-blue-500 mx-auto mt-4 rounded-full"></div>
+  </div>
+
+  <!-- Grid for Shops -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+    <div
+      *ngFor="let shop of shops"
+      class="bg-white rounded-xl shadow-sm hover:shadow-md transition duration-300 border border-gray-100 overflow-hidden"
+    >
+      <!-- Shop Image -->
+      <div class="relative h-48 overflow-hidden">
+        <img
+          [src]="shop.image"
+          [alt]="shop.name"
+          class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold text-white">{{ shop.name }}</h2>
+            <div class="flex items-center gap-1 bg-blue-500/90 px-2 py-1 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <span class="text-white text-sm">{{ shop.rating }}</span>
+            </div>
+          </div>
+          <p class="text-blue-100 text-sm mt-1">{{ shop.category }}</p>
+        </div>
+      </div>
+
+      <!-- Shop Details -->
+      <div class="p-4">
+        <div class="flex items-start gap-2 mb-3">
+          <span class="text-blue-500 mt-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+            </svg>
+          </span>
+          <p class="text-gray-600 text-sm">{{ shop.address }}</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-2">
+          <button
+            class="flex-1 bg-blue-500 text-white hover:bg-blue-600 font-medium py-2 px-3 rounded-lg transition flex items-center justify-center gap-1"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+            </svg>
+            View Map
+          </button>
+          <button
+            (click)="toggleProducts(shop)"
+            class="flex-1 bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium py-2 px-3 rounded-lg transition flex items-center justify-center gap-1"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd" />
+            </svg>
+            {{ shop.isExpanded ? 'Hide Products' : 'Show Products' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Product List -->
+      <div
+        *ngIf="shop.isExpanded"
+        [@expandCollapse]="shop.isExpanded ? 'expanded' : 'collapsed'"
+        class="bg-gray-50 border-t border-gray-200 overflow-hidden"
+      >
+        <div class="p-4">
+          <h3 class="text-sm font-semibold text-gray-900 mb-3">Featured Products</h3>
+          <div class="space-y-3">
+            <div
+              *ngFor="let product of shop.products"
+              class="flex items-center gap-3 p-2 bg-white rounded-lg hover:bg-gray-50 transition-colors duration-200"
+            >
+              <div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                <img
+                  [src]="product.image"
+                  [alt]="product.name"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-sm font-medium text-gray-900 truncate">{{ product.name }}</h4>
+                <div class="flex items-center justify-between mt-0.5">
+                  <span class="text-xs text-gray-500">{{ product.category }}</span>
+                  <span class="text-xs font-semibold text-blue-600">{{ product.price }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  

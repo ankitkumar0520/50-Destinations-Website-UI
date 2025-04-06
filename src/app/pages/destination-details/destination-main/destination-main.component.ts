@@ -4,6 +4,10 @@ import { GalleryDescriptionComponent } from "../gallery-description/gallery-desc
 import { PointsOfInterestComponent } from "../points-of-interest/points-of-interest.component";
 import { FacilitiesComponent } from '../facilities/facilities.component';
 import { PoliceHospitalComponent } from '../police-hospital/police-hospital.component';
+import { ShopsComponent } from '../shops/shops.component';
+import { AccomodationEateryComponent } from '../accomodation-eatery/accomodation-eatery.component';
+
+
 @Component({
   selector: 'app-destination-main',
   standalone: true,
@@ -11,9 +15,14 @@ import { PoliceHospitalComponent } from '../police-hospital/police-hospital.comp
   styleUrls: ['./destination-main.component.css'],
   imports: [HeroSectionComponent, GalleryDescriptionComponent,
      PointsOfInterestComponent, FacilitiesComponent
-     , PoliceHospitalComponent]
+     , PoliceHospitalComponent,ShopsComponent,AccomodationEateryComponent,
+    ]
 })
 export class DestinationMainComponent implements OnInit {
+
+  showModal = false;
+  shareUrl = 'https://your-link.com'; // Provide actual link
+  
 
   constructor() { }
 
