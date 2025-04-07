@@ -112,4 +112,39 @@ export class HomeComponent implements AfterViewInit {
   ];
 
   activeDestination = this.destinations[0];
+
+  districts = [
+    {
+      name: 'EAST',
+      bg: 'bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500',
+      collage: Array.from({ length: 6 }).map(
+        () =>
+          `https://random.imagecdn.app/150/150?${Date.now()}_${Math.random()}`
+      ),
+    },
+    {
+      name: 'WEST',
+      bg: 'bg-gradient-to-r from-orange-300 via-orange-400 to-orange-500 flex-row-reverse',
+      collage: Array.from({ length: 6 }).map(
+        () =>
+          `https://random.imagecdn.app/150/150?${Date.now()}_${Math.random()}`
+      ),
+    },
+    {
+      name: 'NORTH',
+      bg: 'bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500',
+      collage: Array.from({ length: 6 }).map(
+        () =>
+          `https://random.imagecdn.app/150/150?${Date.now()}_${Math.random()}`
+      ),
+    },
+    {
+      name: 'SOUTH',
+      bg: 'bg-gradient-to-r from-green-300 via-green-400 to-green-500 flex-row-reverse',
+      collage: Array.from({ length: 6 }).map(
+        () =>
+          `https://random.imagecdn.app/150/150?${Date.now()}_${Math.random()}`
+      ),
+    },
+  ];
 }

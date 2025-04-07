@@ -94,3 +94,34 @@
     src="../../../assets/Images/WhiteMountain.png"
   />
 </div>
+
+<!-- app.component.html -->
+<div class="grid grid-cols-2 gap-12 p-6">
+  <!-- District Template Component -->
+  <section
+    *ngFor="let district of districts; let i = index"
+    class="rounded-2xl shadow-xl"
+  >
+    <div
+      [ngClass]="district.bg"
+      class="flex flex-row items-center rounded-2xl overflow-hidden"
+    >
+      <!-- Left: District Name -->
+      <div class="w-1/2 flex justify-center items-center">
+        <h2 class="text-7xl font-extrabold text-white transform -rotate-6">
+          {{ district.name }}
+        </h2>
+      </div>
+
+      <!-- Right: Creative Collage Grid -->
+      <div class="grid grid-cols-3 grid-rows-2 gap-2 p-4">
+        <img
+          *ngFor="let img of district.collage"
+          [src]="img"
+          alt="{{ district.name }} Image"
+          class="object-cover rounded-lg shadow-md"
+        />
+      </div>
+    </div>
+  </section>
+</div>
