@@ -1,0 +1,96 @@
+<div class="relative h-[calc(100vh_-_320px)] mb-[320px] w-full overflow-x-clip">
+  <!-- Background image with overlay -->
+  <div
+    *ngIf="activeDestination?.imageUrl"
+    class="absolute inset-0 bg-cover bg-center transition-opacity duration-500 ease-in-out"
+    [style.background-image]="'url(' + activeDestination.imageUrl + ')'"
+    [style.opacity]="activeDestination?.imageUrl ? 1 : 0"
+  >
+    <div class="absolute inset-0 bg-black/50"></div>
+  </div>
+
+  <!-- Content -->
+  <div
+    class="relative h-full flex flex-col justify-start items-center text-center px-4 pt-24 text-white"
+  >
+    <div class="max-w-4xl mx-auto">
+      <div class="flex flex-col justify-center items-center relative">
+        <h1 class="text-9xl font-bold mb-4 animate-fade-in lobster-regular">
+          50
+        </h1>
+        <div class="relative max-w-[200px] bottom-12">
+          <img src="assets/Images/orange-stroke.png" />
+          <h2
+            class="text-[1.8rem] rotate-[-3deg] font-semibold animate-fade-in-slow lobster-regular absolute bottom-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-6 text-center text-white"
+          >
+            Destinations
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex flex-row gap-4 animate-slide-up max-w-screen overflow-x-auto relative -bottom-12 sm:-bottom-0 snap-x"
+    >
+      <ng-container *ngFor="let item of destinations; let i = index">
+        <div
+          (mouseover)="activeDestination = item"
+          (click)="navigateToDestination(i)"
+          [ngClass]="activeDestination == item ? 'opacity-100' : 'opacity-50'"
+          class="min-w-[180px] max-w-[180px] rounded-xl overflow-hidden bg-black text-white shadow-lg snap-center hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+        >
+          <img
+            [src]="item.imageUrl"
+            [alt]="item.title"
+            class="w-full h-24 object-cover rounded-t-xl"
+          />
+
+          <div class="p-4 text-center">
+            <h2 class="text-xl font-semibold mb-2">{{ item.title }}</h2>
+
+            <div class="flex justify-center space-x-4 text-sm text-gray-300">
+              <div class="flex items-center space-x-1">
+                <i class="fas fa-praying-hands text-orange-400"></i>
+                <span>Religious</span>
+              </div>
+              <div class="flex items-center space-x-1">
+                <i class="fas fa-sun text-yellow-400"></i>
+                <span>Sunny</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="relative w-full bg-white py-8 z-[1]">
+    <div
+      class="flex justify-center items-center h-full flex-col text-center px-4"
+    >
+      <h2
+        class="text-5xl font-semibold mb-8 animate-fade-in-slow lobster-regular"
+      >
+        {{ activeDestination.title }}
+      </h2>
+
+      <p
+        class="text-lg md:text-xl mb-8 max-w-2xl mx-auto animate-slide-up-slow"
+      >
+        {{ activeDestination.description }}
+      </p>
+
+      <button
+        (click)="navigateToDestination(0)"
+        class="px-8 py-3 cursor-pointer bg-amber-500 hover:bg-amber-600 rounded-full text-white font-semibold text-lg transition-all duration-300 transform hover:scale-105 animate-bounce-in"
+      >
+        EXPLORE NOW
+      </button>
+    </div>
+  </div>
+
+  <img
+    class="absolute w-full -bottom-0.5 md:-bottom-10 lg:-bottom-20 xl:-bottom-30 2xl:-bottom-40 xl:scale-x-[1.3] z-[0] pointer-events-none"
+    src="../../../assets/Images/WhiteMountain.png"
+  />
+</div>
