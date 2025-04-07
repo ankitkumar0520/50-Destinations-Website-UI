@@ -163,9 +163,9 @@
 
 
  <!-- Share Modal -->
-<div class="p-6">
+<div class="p-6"  *ngIf="showModal">
     <app-share-qr-model
-      *ngIf="showModal"
+     
       [shareLink]="shareUrl"
       (close)="showModal = false"
     ></app-share-qr-model>

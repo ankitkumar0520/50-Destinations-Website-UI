@@ -2,16 +2,71 @@
 .grid {
   display: grid;
   gap: 0.75rem;
+  height: 400px; /* Match description height */
+  width: 100%;
+  grid-auto-flow: dense;
+  grid-auto-rows: minmax(100px, auto);
 }
 
+/* Base grid layout for all image counts */
+.grid {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+/* Special handling for small number of images */
+.grid[data-count="1"] {
+  grid-template-columns: 1fr;
+}
+
+.grid[data-count="2"] {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Dynamic row spans based on image count */
 .grid > div {
   position: relative;
   overflow: hidden;
   transition: transform 0.2s ease;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Calculate row spans based on total images */
+.grid > div:nth-child(1) {
+  grid-row: span 2;
+}
+
+.grid > div:nth-child(2) {
+  grid-row: span 2;
+}
+
+.grid > div:nth-child(3) {
+  grid-row: span 1;
+}
+
+.grid > div:nth-child(4) {
+  grid-row: span 1;
+}
+
+.grid > div:nth-child(5) {
+  grid-row: span 2;
+}
+
+.grid > div:nth-child(6) {
+  grid-row: span 1;
+}
+
+/* For more than 6 images, alternate between span 2 and span 1 */
+.grid > div:nth-child(7n + 1),
+.grid > div:nth-child(7n + 2),
+.grid > div:nth-child(7n + 5) {
+  grid-row: span 2;
 }
 
 .grid > div:hover {
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .grid img {
@@ -110,6 +165,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #f8fafc;
+  }
+
+  .p-galleria-item-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .p-galleria-item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .p-galleria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   .p-galleria-item-nav {
@@ -146,8 +226,141 @@
     background: white;
     height: 100%;
   }
+}
 
-  .p-galleria-item-container {
-    background: white;
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .grid {
+    height: 300px; /* Reduce height on mobile */
+  }
+}
+
+/* Description Section Styles */
+.description-container {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 1rem; /* Add margin to prevent overlap */
+}
+
+.description-header {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.description-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.description-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.description-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  background: #f3f4f6;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.description-content {
+  padding: 1rem;
+  height: calc(100% - 4rem);
+  overflow-y: auto;
+}
+
+.description-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 0.5rem;
+}
+
+.description-section-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.description-text {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #4b5563;
+}
+
+.description-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.description-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+  font-size: 0.875rem;
+}
+
+/* Responsive adjustments for description */
+@media (max-width: 640px) {
+  .description-container {
+    height: auto;
+    max-height: 400px;
+    margin-top: 0.5rem;
+  }
+
+  .description-title {
+    font-size: 1.25rem;
+  }
+
+  .description-section {
+    padding: 0.75rem;
+  }
+
+  .description-section-title {
+    font-size: 1rem;
+  }
+
+  .description-text {
+    font-size: 0.8125rem;
+  }
+
+  .description-list-item {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .description-container {
+    height: 400px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .description-container {
+    height: 400px;
   }
 }

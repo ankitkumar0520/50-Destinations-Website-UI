@@ -1,102 +1,93 @@
 <div class="w-full" id="gallery-description">
   <div class="flex flex-col md:flex-row p-4 gap-8 items-start">
     <!-- Grid Gallery -->
-    <div class="grid grid-cols-3 gap-4 w-full md:w-2/6">
-      <div *ngFor="let image of GalleryImages; let i = index" 
-           class="relative cursor-pointer hover:opacity-90 transition-opacity"
-           (click)="showGalleria(i)">
-        <img [src]="image.thumbnailImageSrc" 
-             [alt]="image.alt"
-             class="w-[100px] h-[100px] object-cover rounded-lg shadow-sm" />
+    <div class="w-full md:w-[45%]">
+      <div class="grid" [attr.data-count]="imageCount">
+        <div *ngFor="let image of GalleryImages; let i = index" 
+             class="relative hover:opacity-90 transition-opacity"
+             (click)="showGalleria(i)">
+          <img [src]="image.thumbnailImageSrc" 
+               [alt]="image.alt"
+               class="w-full h-full object-cover" />
+        </div>
       </div>
     </div>
 
     <!-- Description Section -->
-    <div class="p-2 w-full md:w-4/6 block bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-      <!-- Fixed Header -->
-      <div class="relative px-7 py-2 border-b backdrop-blur-3xl border-gray-200">
-        <div class="flex flex-col gap-5">
-          <h1 class="text-3xl font-bold text-gray-900 leading-tight">{{destination.name}}</h1>
-          <div class="flex flex-wrap items-center gap-3">
-            <span class="flex items-center gap-2 bg-gray-200 px-4 py-2 rounded-lg text-gray-800">
-              <i class="pi pi-map-marker"></i>
-              {{destination.location}}
-            </span>
-            <span class="flex items-center gap-2 bg-gray-200 px-4 py-2 rounded-lg text-gray-800">
-              <i class="pi pi-clock"></i>
-              Best time: {{destination.bestTimeToVisit}}
-            </span>
-          </div>
+    <div class="description-container w-full md:w-[55%]">
+      <div class="description-header">
+        <h1 class="description-title">{{destination.title}}</h1>
+        <div class="description-meta">
+          <span class="description-badge">
+            <i class="pi pi-map-marker"></i>
+            {{destination.location}}
+          </span>
+          <span class="description-badge">
+            <i class="pi pi-clock"></i>
+             Location: {{destination.location}}
+          </span>
         </div>
       </div>
 
-      <!-- Scrollable Content -->
-      <div class="overflow-y-auto shadow-sm bg-white/50" style="height: 400px; scrollbar-gutter: stable;">
-        <div class="p-6 space-y-6">
-          <div class="bg-gradient-to-r from-blue-100 to-blue-200/30 rounded-xl p-5">
-            <h2 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-              <i class="pi pi-info-circle text-blue-500"></i>
-              About this destination
-            </h2>
-            <p class="text-gray-600 leading-relaxed text-sm">{{destination.description}}</p>
-          </div>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-gradient-to-r from-orange-100 to-orange-200/30 rounded-xl p-5">
-              <h3 class="text-base font-medium text-gray-800 mb-3 flex items-center gap-2">
-                <i class="pi pi-check-circle text-orange-500"></i>
-                Highlights
-              </h3>
-              <ul class="space-y-2.5">
-                <li *ngFor="let highlight of destination.highlights" 
-                    class="flex items-start gap-2.5 text-gray-600 group">
-                  <i class="pi pi-chevron-right text-orange-400 mt-1 group-hover:translate-x-1 transition-transform"></i>
-                  <span class="text-sm">{{highlight}}</span>
-                </li>
-              </ul>
-            </div>
-            <div class="bg-gradient-to-r from-purple-100 to-purple-200/30 rounded-xl p-5">
-              <h3 class="text-base font-medium text-gray-800 mb-3 flex items-center gap-2">
-                <i class="pi pi-star text-purple-500"></i>
-                Activities
-              </h3>
-              <ul class="space-y-2.5">
-                <li *ngFor="let activity of destination.activities" 
-                    class="flex items-start gap-2.5 text-gray-600 group">
-                  <i class="pi pi-chevron-right text-purple-400 mt-1 group-hover:translate-x-1 transition-transform"></i>
-                  <span class="text-sm">{{activity}}</span>
-                </li>
-              </ul>
-            </div>
+      <div class="description-content">
+        <div class="description-section">
+          <h2 class="description-section-title">
+            <i class="pi pi-info-circle text-blue-500"></i>
+            About this destination
+          </h2>
+          <p class="description-text">{{destination.description}}</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="description-section">
+            <h3 class="description-section-title">
+              <i class="pi pi-check-circle text-orange-500"></i>
+              Highlights
+            </h3>
+            <ul class="description-list">
+              <li *ngFor="let highlight of destination.highlights" 
+                  class="description-list-item">
+                <i class="pi pi-chevron-right text-orange-400 mt-1"></i>
+                <span>{{highlight}}</span>
+              </li>
+            </ul>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-gradient-to-r from-green-100 to-green-200/30 rounded-xl p-5">
-              <h3 class="text-base font-medium text-gray-800 mb-3 flex items-center gap-2">
-                <i class="pi pi-directions text-green-500"></i>
-                Getting There
-              </h3>
-              <p class="text-sm text-gray-600">{{destination.gettingThere}}</p>
-            </div>
-            <div class="bg-gradient-to-r from-blue-100 to-blue-200/30 rounded-xl p-5">
-              <h3 class="text-base font-medium text-gray-800 mb-3 flex items-center gap-2">
-                <i class="pi pi-home text-blue-500"></i>
-                Accommodation
-              </h3>
-              <p class="text-sm text-gray-600">{{destination.accommodation}}</p>
-            </div>
+          <div class="description-section">
+            <h3 class="description-section-title">
+              <i class="pi pi-star text-purple-500"></i>
+              Activities
+            </h3>
+            <ul class="description-list">
+              <li *ngFor="let activity of destination.activities" 
+                  class="description-list-item">
+                <i class="pi pi-chevron-right text-purple-400 mt-1"></i>
+                <span>{{activity}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="description-section">
+            <h3 class="description-section-title">
+              <i class="pi pi-directions text-green-500"></i>
+              Getting There
+            </h3>
+            <p class="description-text">{{destination.gettingThere}}</p>
+          </div>
+
+          <div class="description-section">
+            <h3 class="description-section-title">
+              <i class="pi pi-home text-blue-500"></i>
+              Accommodation
+            </h3>
+            <p class="description-text">{{destination.accommodation}}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
 
   <!-- Galleria Modal -->
   <div *ngIf="displayGalleria" 
@@ -108,19 +99,22 @@
       <button class="absolute -top-10 right-0 text-white text-3xl z-10 hover:text-gray-300" 
               (click)="displayGalleria = false">×</button>
       <p-galleria [value]="GalleryImages" 
-                  [showItemNavigators]="false" 
+                  [showItemNavigators]="true" 
                   [responsiveOptions]="responsiveOptions" 
                   [circular]="true" 
                   [numVisible]="7" 
                   [activeIndex]="activeIndex"
                   [showThumbnails]="true"
                   [showIndicators]="false"
+                  [autoPlay]="false"
+                  [transitionInterval]="0"
+                  [containerStyle]="{'width': '100%', 'height': '100%'}"
                   class="custom-galleria">
         <ng-template pTemplate="item" let-item>
-          <div class="flex justify-center items-center h-[65vh]">
+          <div class="flex justify-center items-center h-[65vh] w-full">
             <img [src]="item.itemImageSrc" 
                  [alt]="item.alt"
-                 class="max-w-full max-h-full object-contain" />
+                 class="w-full h-full object-cover" />
           </div>
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>

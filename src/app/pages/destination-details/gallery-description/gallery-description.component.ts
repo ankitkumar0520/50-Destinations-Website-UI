@@ -11,9 +11,9 @@ interface GalleryImage {
 }
 
 interface Destination {
-  name: string;
+  title: string;
   location: string;
-  bestTimeToVisit: string;
+  distance: string;
   description: string;
   highlights: string[];
   activities: string[];
@@ -31,13 +31,14 @@ interface Destination {
 export class GalleryDescriptionComponent {
   displayGalleria: boolean = false;
   activeIndex: number = 0;
+  imageCount: number = 0;
 
   // Sample destination data
   destination: Destination = {
-    name: 'Monastery of Tigers Nest',
-    location: 'Paro, Bhutan',
-    bestTimeToVisit: 'March to May, September to November',
-    description: 'Paro Taktsang, also known as the Tiger\'s Nest Monastery, is a sacred Buddhist site located in the cliffside of the upper Paro valley in Bhutan. This stunning monastery is one of Bhutan\'s most iconic landmarks, built in 1692 around the Taktsang Senge Samdup cave where Guru Padmasambhava is said to have meditated for three years, three months, three weeks, three days and three hours in the 8th century.',
+    title: 'Rumtek Monastery: The Majestic Seat of the Karmapa',
+    location: 'Rumtek, Gangtok,Sikkim 737135, India',
+    distance: 'Approx. 24 km from Gangtok, on a hilltop overlooking the Ranipool River',
+    description: 'RumtekMonastery also known as the Dharma Chakra Centre is a prominent Buddhist monastery located near Gangtok in Sikkim India Founded in the 16th century by the 9th Karmapa Wangchuk Dorje it serves as the main seat in exile of the Karmapa Lama and is renowned for its stunning architecture and serene surroundings Perched at an elevation of 5 500 feet the monastery is a vital center for Tibetan Buddhism housing sacred relics and offering a glimpse into the rich cultural heritage of the region Visitors are often captivated by its tranquil atmosphere and the breathtaking views of the Himalayas The monastery has a rich history having been originally established in the mid 18th century under the guidance of the 12th Karmapa Changchub Dorje After the 16th Karmapa Rangjung Rigpe Dorje fled Tibet in 1959 he chose to rebuild Rumtek which had fallen into disrepair The reconstruction was completed in 1966 and the monastery became a significant site for the Karma Kagyu lineage symbolizing resilience and continuity of Tibetan Buddhism in exile Today Rumtek Monastery is not only a spiritual hub but also a center of learning with the Karma Shri Nalanda Institute for Higher Buddhist Studies.',
     highlights: [
       'Iconic cliffside monastery',
       'Sacred Buddhist pilgrimage site',
@@ -46,11 +47,11 @@ export class GalleryDescriptionComponent {
       'Ancient architecture'
     ],
     activities: [
-      'Hiking to the monastery',
-      'Photography',
-      'Meditation',
-      'Cultural tours',
-      'Local guide experiences'
+      'Attend Morning Prayers (6 AM)',
+      'Explore the Monastic Complex',
+      'Meditation Sessions',
+      'Stroll Around the Monastery',
+      'Shop for Souvenirs'
     ],
     gettingThere: 'The monastery is accessible via a 4-5 hour round trip hike from the Paro Valley. The trail is well-maintained but steep, with an option to ride a horse for the first part.',
     accommodation: 'Various hotels and resorts are available in Paro town, ranging from luxury hotels to traditional Bhutanese guesthouses.'
@@ -77,42 +78,35 @@ export class GalleryDescriptionComponent {
 
   GalleryImages: GalleryImage[] = [
     {
-      itemImageSrc: 'https://images.unsplash.com/photo-1514539079130-25950c84af65',
-      thumbnailImageSrc: 'https://images.unsplash.com/photo-1514539079130-25950c84af65?w=500',
+      itemImageSrc: 'assets/Images/rumtek-monastry/image1.jpg',
+      thumbnailImageSrc: 'assets/Images/rumtek-monastry/image1.jpg',
       alt: 'Monastery View 1'
     },
     {
-      itemImageSrc: 'https://images.unsplash.com/photo-1606902965551-dce093cda6e7',
-      thumbnailImageSrc: 'https://images.unsplash.com/photo-1606902965551-dce093cda6e7?w=500',
+      itemImageSrc: 'assets/Images/rumtek-monastry/image2.jpg',
+      thumbnailImageSrc: 'assets/Images/rumtek-monastry/image2.jpg',
       alt: 'Monastery View 2'
     },
     {
-      itemImageSrc: 'https://images.unsplash.com/photo-1623857584158-23c769acb3c5',
-      thumbnailImageSrc: 'https://images.unsplash.com/photo-1623857584158-23c769acb3c5?w=500',
+      itemImageSrc: 'assets/Images/rumtek-monastry/image3.jpg',
+        thumbnailImageSrc: 'assets/Images/rumtek-monastry/image3.jpg',
       alt: 'Monastery View 3'
     },
     {
-      itemImageSrc: 'https://images.unsplash.com/photo-1599422314077-f4dfdaa4cd09',
-      thumbnailImageSrc: 'https://images.unsplash.com/photo-1599422314077-f4dfdaa4cd09?w=500',
+      itemImageSrc: 'assets/Images/rumtek-monastry/image4.jpg',
+      thumbnailImageSrc: 'assets/Images/rumtek-monastry/image4.jpg',
       alt: 'Monastery View 4'
     },
-   
     {
-      itemImageSrc: 'https://images.unsplash.com/photo-1533669955142-6a73332af4db',
-      thumbnailImageSrc: 'https://images.unsplash.com/photo-1533669955142-6a73332af4db?w=500',
-      alt: 'Monastery View 6'
+      itemImageSrc: 'assets/Images/rumtek-monastry/image5.jpg',
+      thumbnailImageSrc: 'assets/Images/rumtek-monastry/image5.jpg',
+      alt: 'Monastery View 5'
     },
-    {
-      itemImageSrc: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9',
-      thumbnailImageSrc: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=500',
-      alt: 'Monastery View 7'
-    },
-    {
-      itemImageSrc: 'https://images.unsplash.com/photo-1518391846015-55a9cc003b25',
-      thumbnailImageSrc: 'https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=500',
-      alt: 'Monastery View 8'
-    }
   ];
+
+  constructor() {
+    this.imageCount = this.GalleryImages.length;
+  }
 
   showGalleria(index: number): void {
     this.activeIndex = index;
