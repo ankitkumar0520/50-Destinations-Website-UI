@@ -1,10 +1,10 @@
 <div class="relative h-[calc(100vh_-_320px)] mb-[320px] w-full overflow-x-clip">
   <!-- Background image with overlay -->
   <div
-    class="absolute inset-0 bg-cover bg-center"
-    style="
-      background-image: url('https://wallpaperaccess.com/full/4268736.jpg');
-    "
+    *ngIf="activeDestination?.imageUrl"
+    class="absolute inset-0 bg-cover bg-center transition-opacity duration-500 ease-in-out"
+    [style.background-image]="'url(' + activeDestination.imageUrl + ')'"
+    [style.opacity]="activeDestination?.imageUrl ? 1 : 0"
   >
     <div class="absolute inset-0 bg-black/50"></div>
   </div>
@@ -34,17 +34,19 @@
     >
       <ng-container *ngFor="let item of destinations; let i = index">
         <div
+          (mouseover)="activeDestination = item"
           (click)="navigateToDestination(i)"
-          class="min-w-[180px] max-w-[180px] rounded-xl overflow-hidden bg-black text-white shadow-lg snap-center opacity-50 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+          [ngClass]="activeDestination == item ? 'opacity-100' : 'opacity-50'"
+          class="min-w-[180px] max-w-[180px] rounded-xl overflow-hidden bg-black text-white shadow-lg snap-center hover:opacity-100 transition-opacity duration-300 cursor-pointer"
         >
           <img
-            src="../../../assets/Images/rumtek-monastry/Main-Shrine-Hall-image1.jpg"
-            alt="Rumtek Monastery"
+            [src]="item.imageUrl"
+            [alt]="item.title"
             class="w-full h-24 object-cover rounded-t-xl"
           />
 
           <div class="p-4 text-center">
-            <h2 class="text-xl font-semibold mb-2">Rumtek Monastery</h2>
+            <h2 class="text-xl font-semibold mb-2">{{ item.title }}</h2>
 
             <div class="flex justify-center space-x-4 text-sm text-gray-300">
               <div class="flex items-center space-x-1">
@@ -69,15 +71,13 @@
       <h2
         class="text-5xl font-semibold mb-8 animate-fade-in-slow lobster-regular"
       >
-        Rumtek Monastery
+        {{ activeDestination.title }}
       </h2>
 
       <p
         class="text-lg md:text-xl mb-8 max-w-2xl mx-auto animate-slide-up-slow"
       >
-        The Rumtek Monastery (Hindi: चार धाम, romanized: Cārdhām transl. the
-        four abodes), or the Chatur Dhama (Sanskrit: चतुर्धाम, romanized:
-        Caturdhāma), is a set of four Hindu pilgrimage sites in India.
+        {{ activeDestination.description }}
       </p>
 
       <button

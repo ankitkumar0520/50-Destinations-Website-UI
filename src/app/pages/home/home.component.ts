@@ -54,94 +54,60 @@ export class HomeComponent implements AfterViewInit {
   }
   destinations = [
     {
-      title: 'Dwarka',
-      description: 'Ancient kingdom of Lord Krishna on the western coast',
+      title: 'Rumtek Monastery',
+      description:
+        'One of the largest and most significant monasteries in Sikkim, known for its golden stupa and Tibetan architecture.',
       imageUrl:
-        'https://images.unsplash.com/photo-1585506942812-e72b29cef752?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://static.toiimg.com/photo/msid-56621729,width-96,height-65.cms',
     },
     {
-      title: 'Puri',
-      description: 'Famous for Jagannath Temple on the eastern coast',
+      title: 'Tsomgo Lake',
+      description:
+        'Glacial lake located at high altitude with stunning mountain views.',
       imageUrl:
-        'https://images.unsplash.com/photo-1605540436563-5bca919ae766?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://northbengaltourism.com/images/sikkim/tsomgo_changu_lake_1024.jpg',
     },
     {
-      title: 'Rameswaram',
-      description: 'Sacred Shiva temple in Tamil Nadu',
+      title: 'Nathula Pass',
+      description:
+        'Mountain pass connecting India and China, offering breathtaking Himalayan views.',
       imageUrl:
-        'https://images.unsplash.com/photo-1585506942812-e72b29cef752?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://melangeoftales.com/wp-content/uploads/2021/01/nathula-pass-scaled.jpeg',
     },
     {
-      title: 'Dwarka',
-      description: 'Ancient kingdom of Lord Krishna on the western coast',
+      title: 'Pelling',
+      description:
+        "Scenic town with spectacular views of Kanchenjunga, the world's third highest mountain.",
       imageUrl:
-        'https://images.unsplash.com/photo-1585506942812-e72b29cef752?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://www.oyorooms.com/travel-guide/wp-content/uploads/2019/11/shutterstock_377118010.jpg',
     },
     {
-      title: 'Puri',
-      description: 'Famous for Jagannath Temple on the eastern coast',
+      title: 'Yumthang Valley',
+      description:
+        'Beautiful valley known for its hot springs and colorful rhododendron flowers.',
       imageUrl:
-        'https://images.unsplash.com/photo-1605540436563-5bca919ae766?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://nomadicweekends.com/blog/wp-content/uploads/2019/02/30127578_1691986214228436_4746460975484370944_o-1.jpg',
     },
     {
-      title: 'Rameswaram',
-      description: 'Sacred Shiva temple in Tamil Nadu',
+      title: 'Gangtok',
+      description:
+        'The capital city of Sikkim, known for its scenic beauty and monasteries.',
       imageUrl:
-        'https://images.unsplash.com/photo-1585506942812-e72b29cef752?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://www.adotrip.com/public/images/city/5c3f09faa74cd-Gangtok_Package_Tour.jpg',
     },
     {
-      title: 'Dwarka',
-      description: 'Ancient kingdom of Lord Krishna on the western coast',
+      title: 'Lachung',
+      description:
+        'A beautiful mountain village in North Sikkim, known for its apple orchards and snow-capped peaks.',
       imageUrl:
-        'https://images.unsplash.com/photo-1585506942812-e72b29cef752?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://www.adotrip.com/public/images/areas/master_images/5e3d0dba837d9-Lachung_Lachen_and_Yumthang_Valley_Attractions.jpg',
     },
     {
-      title: 'Puri',
-      description: 'Famous for Jagannath Temple on the eastern coast',
+      title: 'Ravangla',
+      description:
+        'A tourist town in South Sikkim known for its scenic beauty, tea gardens, and the Buddha Park.',
       imageUrl:
-        'https://images.unsplash.com/photo-1605540436563-5bca919ae766?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    },
-    {
-      title: 'Rameswaram',
-      description: 'Sacred Shiva temple in Tamil Nadu',
-      imageUrl:
-        'https://images.unsplash.com/photo-1585506942812-e72b29cef752?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    },
-    {
-      title: 'Dwarka',
-      description: 'Ancient kingdom of Lord Krishna on the western coast',
-      imageUrl:
-        'https://images.unsplash.com/photo-1585506942812-e72b29cef752?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    },
-    {
-      title: 'Puri',
-      description: 'Famous for Jagannath Temple on the eastern coast',
-      imageUrl:
-        'https://images.unsplash.com/photo-1605540436563-5bca919ae766?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    },
-    {
-      title: 'Rameswaram',
-      description: 'Sacred Shiva temple in Tamil Nadu',
-      imageUrl:
-        'https://images.unsplash.com/photo-1585506942812-e72b29cef752?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    },
-    {
-      title: 'Dwarka',
-      description: 'Ancient kingdom of Lord Krishna on the western coast',
-      imageUrl:
-        'https://images.unsplash.com/photo-1585506942812-e72b29cef752?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    },
-    {
-      title: 'Puri',
-      description: 'Famous for Jagannath Temple on the eastern coast',
-      imageUrl:
-        'https://images.unsplash.com/photo-1605540436563-5bca919ae766?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    },
-    {
-      title: 'Rameswaram',
-      description: 'Sacred Shiva temple in Tamil Nadu',
-      imageUrl:
-        'https://images.unsplash.com/photo-1585506942812-e72b29cef752?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://1.bp.blogspot.com/-FG-tf_9FDH0/XR8VWVZdopI/AAAAAAAACfQ/WVkTfoJwZeY2wHLX-rnhKxqEnPlKcOU-wCLcBGAs/s1600/buddhapark0101010010101.jpg',
     },
   ];
 
