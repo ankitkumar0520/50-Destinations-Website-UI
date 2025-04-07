@@ -2,7 +2,6 @@
 .grid {
   display: grid;
   gap: 0.75rem;
-  height: 400px; /* Match description height */
   width: 100%;
   grid-auto-flow: dense;
   grid-auto-rows: minmax(100px, auto);
@@ -229,37 +228,59 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .grid {
-    height: 300px; /* Reduce height on mobile */
+    height: auto;
+    min-height: 300px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid > div:nth-child(n) {
+    grid-row: span 1;
   }
 }
 
 /* Description Section Styles */
 .description-container {
-  width: 100%;
+  padding: 0 1rem 1rem 1rem;
+  background: #ffffff;
+  border-radius: 0.75rem;
   height: 100%;
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin-top: 1rem; /* Add margin to prevent overlap */
+  max-height: 100%;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .description-header {
-  padding: 1rem;
-  border-bottom: 1px solid #e5e7eb;
-  background: white;
   position: sticky;
   top: 0;
+  background: #ffffff;
   z-index: 10;
+  padding: 0.75rem 0;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid #e5e7eb;
 }
 
-.description-title {
+.description-header h1 {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #1f2937;
   margin-bottom: 0.5rem;
+  letter-spacing: -0.025em;
+}
+
+.description-header .location {
+  display: flex;
+  align-items: center;
+  color: #4b5563;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.description-header .location i {
+  color: #3b82f6;
+  margin-right: 0.5rem;
 }
 
 .description-meta {
@@ -281,9 +302,7 @@
 }
 
 .description-content {
-  padding: 1rem;
-  height: calc(100% - 4rem);
-  overflow-y: auto;
+  padding-right: 0.5rem;
 }
 
 .description-section {
@@ -291,22 +310,27 @@
   padding: 1rem;
   background: #f8fafc;
   border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.description-section-title {
-  font-size: 1.125rem;
-  font-weight: 500;
+.description-section h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
   color: #1f2937;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.description-text {
-  font-size: 0.875rem;
-  line-height: 1.5;
+.description-section h2 i {
+  color: #3b82f6;
+}
+
+.description-section p {
   color: #4b5563;
+  line-height: 1.6;
+  font-size: 0.95rem;
 }
 
 .description-list {
@@ -324,43 +348,49 @@
   font-size: 0.875rem;
 }
 
-/* Responsive adjustments for description */
-@media (max-width: 640px) {
-  .description-container {
-    height: auto;
-    max-height: 400px;
-    margin-top: 0.5rem;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #gallery-description {
+    overflow-x: hidden;
   }
-
-  .description-title {
+  
+  .description-container {
+    max-height: 450px;
+    height: auto;
+    overflow-y: auto;
+  }
+  
+  .description-content {
+    max-height: none;
+    overflow-y: visible;
+  }
+  
+  .description-header h1 {
     font-size: 1.25rem;
   }
-
-  .description-section {
-    padding: 0.75rem;
+  
+  .description-section h2 {
+    font-size: 1.125rem;
   }
-
-  .description-section-title {
-    font-size: 1rem;
+  
+  .grid {
+    height: auto;
+    min-height: 300px;
+    grid-template-columns: repeat(2, 1fr);
   }
-
-  .description-text {
-    font-size: 0.8125rem;
-  }
-
-  .description-list-item {
-    font-size: 0.8125rem;
+  
+  .grid > div:nth-child(n) {
+    grid-row: span 1;
   }
 }
 
-@media (min-width: 641px) and (max-width: 1024px) {
+@media (min-width: 769px) {
   .description-container {
-    height: 400px;
+    height: 500px;
   }
-}
-
-@media (min-width: 1025px) {
-  .description-container {
-    height: 400px;
+  
+  .description-content {
+    max-height: none;
+    overflow-y: visible;
   }
 }

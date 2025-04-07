@@ -15,10 +15,6 @@ interface Destination {
   location: string;
   distance: string;
   description: string;
-  highlights: string[];
-  activities: string[];
-  gettingThere: string;
-  accommodation: string;
 }
 
 @Component({
@@ -39,23 +35,7 @@ export class GalleryDescriptionComponent {
     location: 'Rumtek, Gangtok,Sikkim 737135, India',
     distance: 'Approx. 24 km from Gangtok, on a hilltop overlooking the Ranipool River',
     description: 'RumtekMonastery also known as the Dharma Chakra Centre is a prominent Buddhist monastery located near Gangtok in Sikkim India Founded in the 16th century by the 9th Karmapa Wangchuk Dorje it serves as the main seat in exile of the Karmapa Lama and is renowned for its stunning architecture and serene surroundings Perched at an elevation of 5 500 feet the monastery is a vital center for Tibetan Buddhism housing sacred relics and offering a glimpse into the rich cultural heritage of the region Visitors are often captivated by its tranquil atmosphere and the breathtaking views of the Himalayas The monastery has a rich history having been originally established in the mid 18th century under the guidance of the 12th Karmapa Changchub Dorje After the 16th Karmapa Rangjung Rigpe Dorje fled Tibet in 1959 he chose to rebuild Rumtek which had fallen into disrepair The reconstruction was completed in 1966 and the monastery became a significant site for the Karma Kagyu lineage symbolizing resilience and continuity of Tibetan Buddhism in exile Today Rumtek Monastery is not only a spiritual hub but also a center of learning with the Karma Shri Nalanda Institute for Higher Buddhist Studies.',
-    highlights: [
-      'Iconic cliffside monastery',
-      'Sacred Buddhist pilgrimage site',
-      'Stunning mountain views',
-      'Rich cultural heritage',
-      'Ancient architecture'
-    ],
-    activities: [
-      'Attend Morning Prayers (6 AM)',
-      'Explore the Monastic Complex',
-      'Meditation Sessions',
-      'Stroll Around the Monastery',
-      'Shop for Souvenirs'
-    ],
-    gettingThere: 'The monastery is accessible via a 4-5 hour round trip hike from the Paro Valley. The trail is well-maintained but steep, with an option to ride a horse for the first part.',
-    accommodation: 'Various hotels and resorts are available in Paro town, ranging from luxury hotels to traditional Bhutanese guesthouses.'
-  };
+ };
 
   responsiveOptions: any[] = [
     {

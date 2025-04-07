@@ -1,10 +1,10 @@
-<div class="w-full" id="gallery-description">
-  <div class="flex flex-col md:flex-row p-4 gap-8 items-start">
+<div class="w-full px-4 md:px-6 py-4" id="gallery-description">
+  <div class="flex flex-col md:flex-row gap-4 md:gap-8">
     <!-- Grid Gallery -->
     <div class="w-full md:w-[45%]">
       <div class="grid" [attr.data-count]="imageCount">
         <div *ngFor="let image of GalleryImages; let i = index" 
-             class="relative hover:opacity-90 transition-opacity"
+             class="relative hover:opacity-90 transition-opacity cursor-pointer rounded-lg overflow-hidden shadow-sm"
              (click)="showGalleria(i)">
           <img [src]="image.thumbnailImageSrc" 
                [alt]="image.alt"
@@ -14,76 +14,25 @@
     </div>
 
     <!-- Description Section -->
-    <div class="description-container w-full md:w-[55%]">
-      <div class="description-header">
-        <h1 class="description-title">{{destination.title}}</h1>
-        <div class="description-meta">
-          <span class="description-badge">
-            <i class="pi pi-map-marker"></i>
-            {{destination.location}}
-          </span>
-          <span class="description-badge">
-            <i class="pi pi-clock"></i>
-             Location: {{destination.location}}
-          </span>
-        </div>
-      </div>
-
-      <div class="description-content">
-        <div class="description-section">
-          <h2 class="description-section-title">
-            <i class="pi pi-info-circle text-blue-500"></i>
-            About this destination
-          </h2>
-          <p class="description-text">{{destination.description}}</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="description-section">
-            <h3 class="description-section-title">
-              <i class="pi pi-check-circle text-orange-500"></i>
-              Highlights
-            </h3>
-            <ul class="description-list">
-              <li *ngFor="let highlight of destination.highlights" 
-                  class="description-list-item">
-                <i class="pi pi-chevron-right text-orange-400 mt-1"></i>
-                <span>{{highlight}}</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="description-section">
-            <h3 class="description-section-title">
-              <i class="pi pi-star text-purple-500"></i>
-              Activities
-            </h3>
-            <ul class="description-list">
-              <li *ngFor="let activity of destination.activities" 
-                  class="description-list-item">
-                <i class="pi pi-chevron-right text-purple-400 mt-1"></i>
-                <span>{{activity}}</span>
-              </li>
-            </ul>
+    <div class="w-full md:w-[55%] p-2 mt-4 md:mt-0 shadow-lg">
+      <div class="description-container">
+        <div class="description-header mb-4">
+          <h1 class="text-lg md:text-2xl font-bold text-gray-900 mb-2">{{destination.title}}</h1>
+          <div class="flex items-center text-gray-600 text-sm md:text-base">
+            <i class="pi pi-map-marker mr-2"></i>
+            <span>{{destination.location}}</span>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="description-section">
-            <h3 class="description-section-title">
-              <i class="pi pi-directions text-green-500"></i>
-              Getting There
-            </h3>
-            <p class="description-text">{{destination.gettingThere}}</p>
+        <div class="description-content space-y-6 bg-">
+          <div class="description-section !bg-gray-200">
+            <h2 class="text-xl font-semibold mb-3 flex items-center">
+              <i class="pi pi-info-circle text-blue-500 mr-2"></i>
+              About this destination
+            </h2>
+            <p class="text-gray-700 leading-relaxed">{{destination.description}}</p>
           </div>
 
-          <div class="description-section">
-            <h3 class="description-section-title">
-              <i class="pi pi-home text-blue-500"></i>
-              Accommodation
-            </h3>
-            <p class="description-text">{{destination.accommodation}}</p>
-          </div>
         </div>
       </div>
     </div>
