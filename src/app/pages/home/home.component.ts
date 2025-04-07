@@ -10,6 +10,7 @@ import {
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
+import { Router } from '@angular/router';
 register();
 
 @Component({
@@ -21,9 +22,13 @@ register();
   encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements AfterViewInit {
+  navigateToDestination(_t15: number) {
+    this.router.navigate(['/destination', _t15]);
+  }
   constructor(
     private cdr: ChangeDetectorRef,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
   ) {
     register();
   }
