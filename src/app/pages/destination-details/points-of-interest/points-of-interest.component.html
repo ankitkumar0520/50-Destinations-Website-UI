@@ -4,7 +4,7 @@
     <!-- Background Elements -->
     <div class="absolute top-0 left-0 w-full h-full">
       <div class="absolute top-10 right-20 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-         </div>
+    </div>
 
     <!-- Content Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 relative">
@@ -16,7 +16,7 @@
               <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
               </svg>
-              Must-Visit Spots in [Destination]
+              Must-Visit Spots
             </span>
             <div class="h-px w-12 bg-indigo-600/30 ml-4"></div>
           </div>
@@ -40,192 +40,91 @@
     </div>
   </div>
 
-  <!-- Cards Grid with updated responsive layout -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center auto-rows-fr">
+  <!-- Cards Carousel -->
+  <div class="max-w-7xl mx-auto shadow-lg px-4 sm:px-6 lg:px-8 pb-16">
+    <swiper-container 
+      class="w-full"
+      init="false"
+      slides-per-view="1"
+      space-between="24"
+      breakpoints='{
+        "640": {
+          "slidesPerView": 1,
+          "spaceBetween": 24
+        },
+        "768": {
+          "slidesPerView": 2,
+          "spaceBetween": 24
+        },
+        "1024": {
+          "slidesPerView": 3,
+          "spaceBetween": 24
+        },
+        "1280": {
+          "slidesPerView": 4,
+          "spaceBetween": 24
+        }
+      }'
+      pagination="true"
+      pagination-dynamic-bullets="true"
+      pagination-clickable="true"
+      grab-cursor="true"
+      style="--swiper-pagination-color: #4f46e5; 
+             --swiper-pagination-bullet-inactive-color: #c7d2fe;
+             --swiper-pagination-bullet-size: 10px;
+             --swiper-pagination-bullet-horizontal-gap: 6px;
+             --swiper-pagination-bottom: 0;">
       
-      <!-- Card -->
-      <div class="flex flex-col bg-white rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[430px] w-full">
-        <!-- Image Slider Container -->
-        <div class="h-[230px] relative w-full overflow-hidden">
-          <swiper-container 
-            class="h-full w-full" 
-            pagination="true"
-            loop="true" 
-            autoplay-delay="3000"
-            grab-cursor="true"
-            slides-per-view="1"
-            init="false"
-            style="width: 100%; height: 100%; display: block;">
-            <swiper-slide style="width: 100%; height: 100%; display: block;">
-              <img src="assets/Images/sample-images/image1.png" 
-                   alt="Mountain View 1" 
-                   class="w-full h-full object-cover"
-                   style="width: 100%; height: 100%; display: block;">
-            </swiper-slide>
-            <swiper-slide style="width: 100%; height: 100%; display: block;">
-              <img src="assets/Images/sample-images/image2.png" 
-                   alt="Mountain View 2" 
-                   class="w-full h-full object-cover"
-                   style="width: 100%; height: 100%; display: block;">
-            </swiper-slide>
-            <swiper-slide style="width: 100%; height: 100%; display: block;">
-              <img src="assets/Images/sample-images/image3.png" 
-                   alt="Mountain View 3" 
-                   class="w-full h-full object-cover"
-                   style="width: 100%; height: 100%; display: block;">
-            </swiper-slide>
-          </swiper-container>
+      <swiper-slide *ngFor="let point of points" class="h-auto pb-8">
+        <!-- Card -->
+        <div class="shadow-lg flex flex-col bg-white rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[430px] w-full">
+          <!-- Image Slider Container -->
+          <div class="h-[230px] relative w-full overflow-hidden">
+            <swiper-container 
+              class="h-full w-full" 
+              pagination="true"
+              pagination-dynamic-bullets="true"
+              pagination-clickable="true"
+              loop="true" 
+              autoplay-delay="3000"
+              grab-cursor="true"
+              slides-per-view="1"
+              init="false"
+              style="--swiper-pagination-color: #fff; 
+                     --swiper-pagination-bullet-inactive-color: rgba(255,255,255,0.5);
+                     --swiper-pagination-bullet-size: 8px;
+                     --swiper-pagination-bullet-horizontal-gap: 4px;">
+              <swiper-slide *ngFor="let image of point.images" class="w-full h-full">
+                <img [src]="image" 
+                     [alt]="point.imageAlt" 
+                     class="w-full h-full object-cover"
+                     loading="eager">
+              </swiper-slide>
+            </swiper-container>
+          </div>
+
+          <!-- Content Box -->
+          <div class="flex-1 bg-[#FDF6ED] p-5 rounded-t-[1.5rem]">
+            <!-- Location -->
+            <div class="text-sm font-medium text-indigo-600 mb-2">{{point.location}}</div>
+            
+            <!-- Title -->
+            <h3 class="text-lg font-bold text-gray-900 mb-2">
+              {{point.title}}
+            </h3>
+
+            <!-- Description -->
+            <p class="text-sm text-gray-600 mb-3 line-clamp-2">
+              {{point.description}}
+            </p>
+
+            <!-- Button -->
+            <button class="w-full bg-indigo-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-indigo-700 transition-colors text-sm">
+              Explore Location
+            </button>
+          </div>
         </div>
-
-        <!-- Content Box -->
-        <div class="flex-1 bg-[#FDF6ED] p-5 rounded-t-[1.5rem]">
-          <!-- Location -->
-          <div class="text-sm font-medium text-indigo-600 mb-2">Andes, South America</div>
-          
-          <!-- Title -->
-          <h3 class="text-lg font-bold text-gray-900 mb-2">
-            Machu Picchu
-          </h3>
-
-          <!-- Description -->
-          <p class="text-sm text-gray-600 mb-3 line-clamp-2">
-            Ancient Incan citadel set high in the Andes Mountains, renowned for its sophisticated dry-stone walls.
-          </p>
-
-          <!-- Button -->
-          <button class="w-full bg-indigo-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-indigo-700 transition-colors text-sm">
-            Explore Location
-          </button>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="flex flex-col bg-white rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[430px] w-full">
-        <div class="h-[230px] relative">
-          <swiper-container 
-            class="h-full" 
-            pagination="true"
-            loop="true" 
-            autoplay-delay="3000"
-            grab-cursor="true"
-            slides-per-view="1">
-            <swiper-slide>
-              <img src="assets/Images/sample-images/image4.png" 
-                   alt="Temple 1" 
-                   class="w-full h-full object-cover">
-            </swiper-slide>
-            <swiper-slide>
-              <img src="assets/Images/sample-images/image1.png" 
-                   alt="Temple 2" 
-                   class="w-full h-full object-cover">
-            </swiper-slide>
-            <swiper-slide>
-              <img src="assets/Images/sample-images/image2.png" 
-                   alt="Temple 3" 
-                   class="w-full h-full object-cover">
-            </swiper-slide>
-          </swiper-container>
-        </div>
-
-        <div class="flex-1 bg-[#FDF6ED] p-5 rounded-t-[1.5rem]">
-          <div class="text-sm font-medium text-indigo-600 mb-2">Sacred Valley, Peru</div>
-          <h3 class="text-lg font-bold text-gray-900 mb-2">
-            Temple of the Sun
-          </h3>
-          <p class="text-sm text-gray-600 mb-3 line-clamp-2">
-            Sacred Incan temple dedicated to the Sun God Inti, featuring remarkable stonework.
-          </p>
-          <button class="w-full bg-indigo-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-indigo-700 transition-colors text-sm">
-            Explore Location
-          </button>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-        <div class="flex flex-col bg-white rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[430px] w-full">
-        <div class="h-[230px] relative">
-          <swiper-container 
-            class="h-full" 
-            pagination="true"
-            loop="true" 
-            autoplay-delay="3000"
-            grab-cursor="true"
-            slides-per-view="1">
-            <swiper-slide>
-              <img src="assets/Images/sample-images/image3.png" 
-                   alt="Nature 1" 
-                   class="w-full h-full object-cover">
-            </swiper-slide>
-            <swiper-slide>
-              <img src="assets/Images/sample-images/image2.png" 
-                   alt="Nature 2" 
-                   class="w-full h-full object-cover">
-            </swiper-slide>
-            <swiper-slide>
-              <img src="assets/Images/sample-images/image1.png" 
-                   alt="Nature 3" 
-                   class="w-full h-full object-cover">
-            </swiper-slide>
-          </swiper-container>
-        </div>
-
-        <div class="flex-1 bg-[#FDF6ED] p-5 rounded-t-[1.5rem]">
-          <div class="text-sm font-medium text-indigo-600 mb-2">Cusco Region, Peru</div>
-          <h3 class="text-lg font-bold text-gray-900 mb-2">
-            Rainbow Mountain
-          </h3>
-          <p class="text-sm text-gray-600 mb-3 line-clamp-2">
-            Stunning geological formation with vibrant stripes of different colored minerals.
-          </p>
-          <button class="w-full bg-indigo-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-indigo-700 transition-colors text-sm">
-            Explore Location
-          </button>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-        <div class="flex flex-col bg-white rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[430px] w-full">
-        <div class="h-[230px] relative">
-          <swiper-container 
-            class="h-full" 
-            pagination="true"
-            loop="true" 
-            autoplay-delay="3000"
-            grab-cursor="true"
-            slides-per-view="1">
-            <swiper-slide>
-              <img src="assets/Images/sample-images/image1.png" 
-                   alt="Cultural 1" 
-                   class="w-full h-full object-cover">
-            </swiper-slide>
-            <swiper-slide>
-              <img src="assets/Images/sample-images/image2.png" 
-                   alt="Cultural 2" 
-                   class="w-full h-full object-cover">
-            </swiper-slide>
-            <swiper-slide>
-              <img src="assets/Images/sample-images/image3.png" 
-                   alt="Cultural 3" 
-                   class="w-full h-full object-cover">
-            </swiper-slide>
-          </swiper-container>
-        </div>
-
-        <div class="flex-1 bg-[#FDF6ED] p-5 rounded-t-[1.5rem]">
-          <div class="text-sm font-medium text-indigo-600 mb-2">Cusco, Peru</div>
-          <h3 class="text-lg font-bold text-gray-900 mb-2">
-            San Blas District
-          </h3>
-          <p class="text-sm text-gray-600 mb-3 line-clamp-2">
-            Charming artistic neighborhood known for its colonial architecture.
-          </p>
-          <button class="w-full bg-indigo-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-indigo-700 transition-colors text-sm">
-            Explore Location
-          </button>
-        </div>
-      </div>
-
-    </div>
+      </swiper-slide>
+    </swiper-container>
   </div>
 </div>
