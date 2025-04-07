@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
+
 @Component({
   selector: 'app-destination-main',
   standalone: true,

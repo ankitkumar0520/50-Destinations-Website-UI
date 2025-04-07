@@ -1,5 +1,4 @@
-<div class="relative w-full">
-  <!-- Initial View - Half Map with Text -->
+<div class="relative w-full" id="map-section">
   <div class="flex flex-col md:flex-row gap-4">
     <!-- How to Reach Section -->
     <div class="w-full md:w-1/2 h-[400px] bg-white rounded-2xl p-6 shadow-lg overflow-y-auto">
@@ -74,15 +73,11 @@
     <div class="w-full md:w-1/2 h-[400px] bg-gray-100 rounded-2xl overflow-hidden shadow-lg relative">
       <div class="relative w-full h-full">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 z-10 pointer-events-none"></div>
-        <iframe 
-          [src]="mapUrl | safeUrl"
-          width="100%"
-          height="100%"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+        <img 
+          src="https://maps.googleapis.com/maps/api/staticmap?center=51.5074,-0.1278&zoom=12&size=800x400&maptype=roadmap&markers=color:red%7C51.5074,-0.1278&key=YOUR_API_KEY" 
+          alt="London Map"
+          class="w-full h-full object-cover"
+        />
         
         <!-- Eye Button -->
         <button (click)="toggleMapSize()" class="absolute top-4 right-4 p-3 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg hover:bg-white transition-colors">
@@ -122,15 +117,11 @@
   <div *ngIf="isMapExpanded" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
     <div class="absolute inset-4 bg-white rounded-2xl overflow-hidden">
       <div class="relative w-full h-full">
-        <iframe 
-          [src]="mapUrl | safeUrl"
-          width="100%"
-          height="100%"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+        <img 
+          src="https://maps.googleapis.com/maps/api/staticmap?center=51.5074,-0.1278&zoom=12&size=1200x800&maptype=roadmap&markers=color:red%7C51.5074,-0.1278&key=YOUR_API_KEY" 
+          alt="London Map"
+          class="w-full h-full object-cover"
+        />
         
         <!-- Close Button -->
         <button (click)="toggleMapSize()" class="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg hover:bg-white transition-colors z-50">

@@ -1,37 +1,42 @@
 <div class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
   <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative transform transition-all duration-300 hover:scale-[1.02]">
     <!-- Close Button -->
-    <button (click)="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+    <button (click)="closeModal()" class="cursor-pointer absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
 
     <!-- Cover Art -->
-    <div class="relative group">
-      <img src="assets/Images/sample-images/cover.jpg" class="w-48 h-48 mx-auto rounded-xl shadow-lg mb-6 object-cover transform transition-transform duration-300 group-hover:scale-105" alt="Audio Cover" />
+    <div class="relative group overflow-hidden">
+      <img [src]="selectedLanguage.image" class="w-48 h-48 mx-auto rounded-xl shadow-lg mb-6 object-cover transition-transform duration-300 group-hover:scale-105" alt="Audio Cover" />
       <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
     </div>
 
     <!-- Track Info -->
     <div class="text-center mb-6">
-      <h3 class="text-xl font-bold text-gray-900 mb-1">Peaceful Podcast</h3>
-      <p class="text-sm text-gray-500">Episode 2 - Mindfulness</p>
+      <h3 class="text-xl font-bold text-gray-900 mb-1">{{ selectedLanguage.title }}</h3>
     </div>
 
-    <!-- Language Selector -->
-    <div class="flex items-center justify-center gap-2 mb-6">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389 21.034 21.034 0 01-.554-.6 19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.724 1.447a1 1 0 11-1.788-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z" clip-rule="evenodd" />
-      </svg>
-      <select
-        [value]="selectedLang"
-        (change)="changeLanguage($any($event.target).value)"
-        class="text-base bg-blue-50 text-blue-700 border-0 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium cursor-pointer hover:bg-blue-100 transition-colors"
-      >
-        <option *ngFor="let lang of languages" [value]="lang.value">{{ lang.label }}</option>
-      </select>
-    </div>
+   <!-- Language Selector -->
+<div class="flex items-center justify-center gap-2 mb-6">
+  <!-- Globe Icon -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+    <path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389 21.034 21.034 0 01-.554-.6 19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.724 1.447a1 1 0 11-1.788-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z" clip-rule="evenodd" />
+  </svg>
+
+  <!-- Dropdown -->
+  <select
+    [value]="selectedLang"
+    (change)="changeLanguage($any($event.target).value)"
+    class="text-base bg-blue-50 text-blue-700 border-0 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium cursor-pointer hover:bg-blue-100 transition-colors"
+  >
+    <option class="cursor-pointer" *ngFor="let lang of languages | keyvalue" [value]="lang.value.languageCode">
+      {{ lang.value.language }}
+    </option>
+  </select>
+</div>
+
 
     <!-- Audio Visualization -->
     <div class="flex items-center justify-center gap-1.5 h-12 mb-6">

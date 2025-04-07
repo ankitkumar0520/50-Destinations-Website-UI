@@ -5,11 +5,13 @@
               class="w-full h-full object-cover absolute inset-0">
               <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-black/70">
               <!-- Hamburger button - hidden when sidebar is open -->
-              <button class="lg:hidden fixed top-4 right-4 z-50 p-2 rounded-lg bg-white/10 backdrop-blur-sm"
-                      (click)="toggleMenu()"
-                      [class.hidden]="isMenuOpen">
-                  <fa-icon [icon]="bars" class="text-white text-2xl"></fa-icon>
-              </button>
+              <button class="lg:hidden fixed top-4 right-4 z-50 p-2 rounded-lg 
+              bg-black/30 text-white backdrop-blur-md shadow-lg hover:bg-black/40 transition"
+        (click)="toggleMenu()"
+        [class.hidden]="isMenuOpen">
+  <fa-icon [icon]="bars" class="text-2xl"></fa-icon>
+</button>
+
               <div class="container mx-auto px-4 sm:px-6 h-full relative pt-16 sm:pt-24">
                   <!-- Title and Description -->
                   <div class="text-white max-w-4xl">
@@ -50,7 +52,7 @@
                       </div>
                       <!-- Action Buttons -->
                       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                          <button class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
+                          <button (click)="scrollToSection('gallery-description')" class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
                               <fa-icon [icon]="fileAlt" class="mr-2 sm:mr-3"></fa-icon>
                               <span>Explore More</span>
                           </button>
@@ -58,7 +60,7 @@
                               <fa-icon [icon]="volumeUp" class="mr-2 sm:mr-3"></fa-icon>
                               <span>Audio Guide</span>
                           </button>
-                          <button class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-red-500 to-red-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-red-600 hover:to-red-700 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
+                          <button (click)="scrollToSection('map-section')" class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-red-500 to-red-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-red-600 hover:to-red-700 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
                               <fa-icon [icon]="mapMarker" class="mr-2 sm:mr-3"></fa-icon>
                               <span>Navigate Now</span>
                           </button>
@@ -74,31 +76,31 @@
 
                       <div class="bg-trans-white backdrop-blur-md p-6 rounded-2xl shadow-lg w-[330px]">
                           <div class="grid grid-cols-1 gap-4">
-                              <div class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                              <div (click)="scrollToSection('points-of-interest')" class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                                   <fa-icon [icon]="mapMarker" class="text-red-500 text-2xl w-8"></fa-icon>
                                   <span class="font-medium">Points of Interest</span>
                               </div>
                               <div class="grid grid-cols-2 gap-4">
-                                  <div class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                                  <div (click)="scrollToSection('parking')" class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                                       <fa-icon [icon]="parking" class="text-blue-500 text-2xl w-8"></fa-icon>
                                       <span class="font-medium">Parking</span>
                                   </div>
-                                  <div class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                                  <div (click)="scrollToSection('eateries')" class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                                       <fa-icon [icon]="utensils" class="text-green-500 text-2xl w-8"></fa-icon>
                                       <span class="font-medium">Foods</span>
                                   </div>
                               </div>
                               <div class="grid grid-cols-2 gap-4">
-                                  <div class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                                  <div (click)="scrollToSection('atm')" class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                                       <fa-icon [icon]="calculator" class="text-purple-500 text-2xl w-8"></fa-icon>
                                       <span class="font-medium">Monetary</span>
                                   </div>
-                                  <div class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                                  <div (click)="scrollToSection('police-services')" class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                                       <fa-icon [icon]="shield" class="text-yellow-500 text-2xl w-8"></fa-icon>
-                                      <span class="font-medium">Security</span>
+                                      <span class="font-mediums">Security</span>
                                   </div>
                               </div>
-                              <div class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                              <div (click)="scrollToSection('hospital-services')" class="feature-card cursor-pointer rounded-xl p-4 flex items-center space-x-3 bg-white shadow-md hover:bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                                   <fa-icon [icon]="medkit" class="text-red-500 text-2xl w-8"></fa-icon>
                                   <span class="font-medium">Medical Emergency</span>
                               </div>
@@ -118,27 +120,27 @@
                               </button>
                           </div>
                           <div class="grid grid-cols-1 gap-3 sm:gap-4">
-                              <div class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
+                              <div (click)="scrollToSection('points-of-interest')" class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
                                   <fa-icon [icon]="mapMarker" class="text-red-500 text-xl sm:text-2xl w-8"></fa-icon>
                                   <span class="font-medium">Points of Interest</span>
                               </div>
-                              <div class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
+                              <div (click)="scrollToSection('parking')" class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
                                   <fa-icon [icon]="parking" class="text-blue-500 text-xl sm:text-2xl w-8"></fa-icon>
                                   <span class="font-medium">Parking</span>
                               </div>
-                              <div class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
+                              <div (click)="scrollToSection('eateries')" class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
                                   <fa-icon [icon]="utensils" class="text-green-500 text-xl sm:text-2xl w-8"></fa-icon>
                                   <span class="font-medium">Foods</span>
                               </div>
-                              <div class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
+                              <div (click)="scrollToSection('atm')" class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
                                   <fa-icon [icon]="calculator" class="text-purple-500 text-xl sm:text-2xl w-8"></fa-icon>
                                   <span class="font-medium">Monetary</span>
                               </div>
-                              <div class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
+                              <div (click)="scrollToSection('police-services')" class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
                                   <fa-icon [icon]="shield" class="text-yellow-500 text-xl sm:text-2xl w-8"></fa-icon>
                                   <span class="font-medium">Security</span>
                               </div>
-                              <div class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
+                              <div (click)="scrollToSection('hospital-services')" class="feature-card cursor-pointer rounded-xl p-3 sm:p-4 flex items-center space-x-3 bg-white shadow-md">
                                         <fa-icon [icon]="medkit" class="text-red-500 text-xl sm:text-2xl w-8"></fa-icon>
                                   <span class="font-medium">Medical Emergency</span>
                               </div>
@@ -151,6 +153,8 @@
                       class="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-30"
                       (click)="toggleMenu()">
                   </div>
+
+                  
               </div>
           </div>
       </div>

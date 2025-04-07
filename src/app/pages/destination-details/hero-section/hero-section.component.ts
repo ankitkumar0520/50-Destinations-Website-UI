@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ShareQRModelComponent } from '../share-qr-model/share-qr-model.component';
 import { AiAudioModelComponent } from '../ai-audio-model/ai-audio-model.component';
 import { FontAwesomeModule,FaIconLibrary  } from '@fortawesome/angular-fontawesome';
@@ -64,4 +64,22 @@ export class HeroSectionComponent implements OnInit {
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
+
+
+  scrollToSection(id:string) {
+    this.isMenuOpen = false;
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80; // Adjust this value based on your header height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  
 }
