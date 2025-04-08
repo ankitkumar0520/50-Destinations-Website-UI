@@ -12,42 +12,20 @@ import { RouterModule } from '@angular/router';
 export class NavbarComponent {
   isScrolled = false;
   isMobileMenuOpen = false;
-  isDarkMode = false;
-  currentLanguage = 'EN';
+  searchQuery = '';
 
   @HostListener('window:scroll')
   onWindowScroll() {
     this.isScrolled = window.scrollY > 10;
   }
 
-  ngOnInit() {
-    // Check for saved theme preference
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme');
-      this.isDarkMode = savedTheme === 'dark';
-      this.applyTheme();
-    }
-  }
-
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
-  toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
-    this.applyTheme();
-    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
-  }
-
-  changeLanguage() {
-    this.currentLanguage = this.currentLanguage === 'EN' ? 'HI' : 'EN';
-  }
-
-  private applyTheme() {
-    if (this.isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+  onSearch(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchQuery = target.value;
+    // Implement search logic here
   }
 }
