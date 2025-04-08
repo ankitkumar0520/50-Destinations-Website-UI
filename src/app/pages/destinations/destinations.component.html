@@ -1,0 +1,475 @@
+<div class="container mx-auto px-4 py-8 pt-24">
+  <div class="flex flex-col md:flex-row gap-6">
+    <!-- Sidebar Filters -->
+    <div class="w-full md:w-64 flex-shrink-0">
+      <div class="bg-white rounded-lg shadow p-4 sticky top-24">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Filters</h3>
+
+        <!-- Price Range -->
+        <div class="mb-6">
+          <h4 class="text-sm font-medium text-gray-700 mb-2">Price Range</h4>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs text-gray-500">₹0</span>
+            <span class="text-xs text-gray-500">₹2000+</span>
+          </div>
+          <input
+            type="range"
+            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+          />
+          <div class="flex justify-between mt-2">
+            <span class="text-xs font-medium text-primary">₹200</span>
+            <span class="text-xs font-medium text-primary">₹1200</span>
+          </div>
+        </div>
+
+        <!-- Destination Type -->
+        <div class="mb-6">
+          <h4 class="text-sm font-medium text-gray-700 mb-2">
+            Destination Type
+          </h4>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">Beach</span>
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">Mountain</span>
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">City</span>
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">Countryside</span>
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">Historical</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Rating -->
+        <div class="mb-6">
+          <h4 class="text-sm font-medium text-gray-700 mb-2">Rating</h4>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+              </span>
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="far fa-star text-yellow-400"></i>
+                4+
+              </span>
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="far fa-star text-yellow-400"></i>
+                <i class="far fa-star text-yellow-400"></i>
+                3+
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Activities -->
+        <div class="mb-6">
+          <h4 class="text-sm font-medium text-gray-700 mb-2">Activities</h4>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">Hiking</span>
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">Sightseeing</span>
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">Water Sports</span>
+            </label>
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="rounded text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-gray-600">Shopping</span>
+            </label>
+          </div>
+        </div>
+
+        <button
+          class="w-full bg-primary hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition duration-200"
+        >
+          Apply Filters
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1">
+      <!-- Sorting and Results Count -->
+      <div class="bg-white rounded-lg shadow p-4 mb-6">
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between"
+        >
+          <div class="mb-3 md:mb-0">
+            <h2 class="text-xl font-bold text-gray-800">Travel Destinations</h2>
+            <p class="text-sm text-gray-500">124 results found</p>
+          </div>
+          <div class="flex items-center">
+            <label for="sort" class="text-sm font-medium text-gray-700 mr-2"
+              >Sort by:</label
+            >
+            <select
+              id="sort"
+              class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            >
+              <option>Popularity</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>Rating</option>
+              <option>Newest</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Destinations Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Destination Card 1 -->
+        <div
+          class="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition duration-200"
+        >
+          <div class="relative">
+            <img
+              src="https://images.unsplash.com/photo-1503917988258-f87a78e3c995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+              alt="Bali, Indonesia"
+              class="w-full h-48 object-cover"
+            />
+            <div
+              class="absolute top-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              <i class="fas fa-fire mr-1"></i> Popular
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-lg font-semibold text-gray-800">
+                Bali, Indonesia
+              </h3>
+              <div class="flex items-center">
+                <i class="fas fa-star text-yellow-400"></i>
+                <span class="ml-1 text-sm font-medium">4.8</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">
+              Tropical paradise with beautiful beaches, lush jungles, and rich
+              culture.
+            </p>
+            <div class="flex items-center text-sm text-gray-500 mb-3">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Southeast Asia</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-lg font-bold text-primary">₹1,299</span>
+              <button
+                class="text-sm bg-primary hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition duration-200"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Destination Card 2 -->
+        <div
+          class="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition duration-200"
+        >
+          <div class="relative">
+            <img
+              src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+              alt="Paris, France"
+              class="w-full h-48 object-cover"
+            />
+          </div>
+          <div class="p-4">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-lg font-semibold text-gray-800">Paris, France</h3>
+              <div class="flex items-center">
+                <i class="fas fa-star text-yellow-400"></i>
+                <span class="ml-1 text-sm font-medium">4.7</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">
+              The city of love with iconic landmarks, art, and exquisite
+              cuisine.
+            </p>
+            <div class="flex items-center text-sm text-gray-500 mb-3">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Western Europe</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-lg font-bold text-primary">₹1,899</span>
+              <button
+                class="text-sm bg-primary hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition duration-200"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Destination Card 3 -->
+        <div
+          class="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition duration-200"
+        >
+          <div class="relative">
+            <img
+              src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+              alt="Kyoto, Japan"
+              class="w-full h-48 object-cover"
+            />
+            <div
+              class="absolute top-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              <i class="fas fa-bolt mr-1"></i> Trending
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-lg font-semibold text-gray-800">Kyoto, Japan</h3>
+              <div class="flex items-center">
+                <i class="fas fa-star text-yellow-400"></i>
+                <span class="ml-1 text-sm font-medium">4.9</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">
+              Ancient temples, traditional tea houses, and stunning cherry
+              blossoms.
+            </p>
+            <div class="flex items-center text-sm text-gray-500 mb-3">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>East Asia</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-lg font-bold text-primary">₹2,199</span>
+              <button
+                class="text-sm bg-primary hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition duration-200"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Destination Card 4 -->
+        <div
+          class="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition duration-200"
+        >
+          <div class="relative">
+            <img
+              src="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+              alt="Santorini, Greece"
+              class="w-full h-48 object-cover"
+            />
+          </div>
+          <div class="p-4">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-lg font-semibold text-gray-800">
+                Santorini, Greece
+              </h3>
+              <div class="flex items-center">
+                <i class="fas fa-star text-yellow-400"></i>
+                <span class="ml-1 text-sm font-medium">4.8</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">
+              White-washed buildings, blue domes, and breathtaking sunsets.
+            </p>
+            <div class="flex items-center text-sm text-gray-500 mb-3">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Southern Europe</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-lg font-bold text-primary">₹1,599</span>
+              <button
+                class="text-sm bg-primary hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition duration-200"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Destination Card 5 -->
+        <div
+          class="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition duration-200"
+        >
+          <div class="relative">
+            <img
+              src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+              alt="New York, USA"
+              class="w-full h-48 object-cover"
+            />
+          </div>
+          <div class="p-4">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-lg font-semibold text-gray-800">New York, USA</h3>
+              <div class="flex items-center">
+                <i class="fas fa-star text-yellow-400"></i>
+                <span class="ml-1 text-sm font-medium">4.6</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">
+              The city that never sleeps with iconic skyscrapers and diverse
+              culture.
+            </p>
+            <div class="flex items-center text-sm text-gray-500 mb-3">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>North America</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-lg font-bold text-primary">₹1,499</span>
+              <button
+                class="text-sm bg-primary hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition duration-200"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Destination Card 6 -->
+        <div
+          class="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition duration-200"
+        >
+          <div class="relative">
+            <img
+              src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+              alt="Cape Town, South Africa"
+              class="w-full h-48 object-cover"
+            />
+            <div
+              class="absolute top-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded"
+            >
+              <i class="fas fa-tag mr-1"></i> Deal
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-lg font-semibold text-gray-800">
+                Cape Town, South Africa
+              </h3>
+              <div class="flex items-center">
+                <i class="fas fa-star text-yellow-400"></i>
+                <span class="ml-1 text-sm font-medium">4.7</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">
+              Stunning landscapes, wildlife, and vibrant cultural experiences.
+            </p>
+            <div class="flex items-center text-sm text-gray-500 mb-3">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Africa</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-lg font-bold text-primary">₹1,799</span>
+              <button
+                class="text-sm bg-primary hover:bg-primary-600 text-white py-2 px-4 rounded-lg transition duration-200"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <div class="flex items-center justify-between">
+          <button
+            class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            Previous
+          </button>
+          <div class="flex space-x-1">
+            <button
+              class="w-10 h-10 rounded-lg bg-primary text-white font-medium"
+            >
+              1
+            </button>
+            <button class="w-10 h-10 rounded-lg hover:bg-gray-100 font-medium">
+              2
+            </button>
+            <button class="w-10 h-10 rounded-lg hover:bg-gray-100 font-medium">
+              3
+            </button>
+            <button class="w-10 h-10 rounded-lg hover:bg-gray-100 font-medium">
+              4
+            </button>
+            <button class="w-10 h-10 rounded-lg hover:bg-gray-100 font-medium">
+              5
+            </button>
+          </div>
+          <button
+            class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

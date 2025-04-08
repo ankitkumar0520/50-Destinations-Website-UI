@@ -1,11 +1,10 @@
-module.exports = {   //tailwind configuration
-  content: [
-    "./src/**/*.{html,ts}" // Ensures Tailwind scans all Angular templates and components
-  ],
+module.exports = {
+  darkMode: "class",
+  content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ["Inter", "sans-serif"],
       },
     },
   },

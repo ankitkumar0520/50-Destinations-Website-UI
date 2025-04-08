@@ -1,18 +1,20 @@
 <!-- navbar.component.html -->
 <nav
-  [class]="
+  [ngClass]="[
+    'fixed w-full z-50 transition-all duration-500 ease-in-out border-b',
     isScrolled
-      ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm'
-      : 'bg-transparent'
-  "
-  class="fixed w-full z-50 transition-all duration-500 ease-in-out border-b border-transparent dark:border-gray-800"
+      ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm border-gray-200 dark:border-gray-800'
+      : 'bg-gray-900/40 border-transparent'
+  ]"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo on left -->
       <div class="flex-shrink-0 flex items-center">
         <img class="h-8 w-auto" src="assets/Images/h15.png" alt="Logo" />
-        <span class="ml-2 text-xl font-semibold dark:text-white"
+        <span
+          class="ml-2 text-xl font-semibold"
+          [ngClass]="isScrolled ? 'dark:text-white' : 'text-gray-300'"
           >50 Destinations</span
         >
       </div>
@@ -22,29 +24,37 @@
         <div class="flex space-x-8">
           <a
             routerLink="/"
-            routerLinkActive="text-amber-500 dark:text-amber-400 font-medium"
-            class="px-3 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+            routerLinkActive="!text-amber-500 !dark:text-amber-400 font-medium"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="px-3 py-2 cursor-pointer hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+            [ngClass]="isScrolled ? ' dark:text-gray-300' : 'text-gray-300'"
           >
             Home
           </a>
           <a
-            routerLink="/destination/rumtek"
-            routerLinkActive="text-amber-500 dark:text-amber-400 font-medium"
-            class="px-3 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+            routerLink="/destinations"
+            routerLinkActive="!text-amber-500 !dark:text-amber-400 font-medium"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="px-3 py-2 cursor-pointer hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+            [ngClass]="isScrolled ? ' dark:text-gray-300' : 'text-gray-300'"
           >
             Destinations
           </a>
           <a
             routerLink="/about"
-            routerLinkActive="text-amber-500 dark:text-amber-400 font-medium"
-            class="px-3 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+            routerLinkActive="!text-amber-500 !dark:text-amber-400 font-medium"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="px-3 py-2 cursor-pointer hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+            [ngClass]="isScrolled ? ' dark:text-gray-300' : 'text-gray-300'"
           >
             About
           </a>
           <a
             routerLink="/contact"
-            routerLinkActive="text-amber-500 dark:text-amber-400 font-medium"
-            class="px-3 py-2 cursor-pointer text-gray-700 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+            routerLinkActive="!text-amber-500 !dark:text-amber-400 font-medium"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="px-3 py-2 cursor-pointer hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+            [ngClass]="isScrolled ? ' dark:text-gray-300' : 'text-gray-300'"
           >
             Contact
           </a>
