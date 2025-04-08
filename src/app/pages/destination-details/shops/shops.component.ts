@@ -14,9 +14,7 @@ interface Shop {
   address: string;
   image: string;
   products: Product[];
-  rating?: number;
   category: string;
-  isExpanded: boolean;
 }
 
 @Component({
@@ -26,11 +24,11 @@ interface Shop {
   templateUrl: './shops.component.html',
   styleUrl: './shops.component.css',
   animations: [
-    trigger('expandCollapse', [
-      state('collapsed', style({ height: '0px', opacity: 0 })),
-      state('expanded', style({ height: '*', opacity: 1 })),
-      transition('collapsed <=> expanded', [
-        animate('300ms ease-in-out')
+    trigger('modalAnimation', [
+      state('void', style({ opacity: 0, transform: 'scale(0.95)' })),
+      state('*', style({ opacity: 1, transform: 'scale(1)' })),
+      transition('void <=> *', [
+        animate('200ms ease-out')
       ])
     ])
   ]
@@ -38,39 +36,55 @@ interface Shop {
 export class ShopsComponent {
   shops: Shop[] = [
     {
-      name: "Heritage Crafts",
-      address: "123 Market Street, Near City Center",
-      image: "assets/Images/sample-images/shop.jpg",
-      category: "Handicrafts",
-      rating: 4.5,
-      isExpanded: false,
+      name: "Rumtek Monastery Souvenir Shop",
+      address: "Inside Rumtek Monastery Complex, Rumtek, Sikkim 737135, India",
+      image: "assets/Images/rumtek-monastry/shop1.jpg",
+      category: "Souvenirs & Religious Items",
       products: [
-        { name: "Handmade Pottery", image: "assets/Images/sample-images/product1.jpg", price: "$25", category: "Pottery" },
-        { name: "Traditional Textiles", image: "assets/Images/sample-images/product2.jpg", price: "$45", category: "Textiles" }
+        { name: "Buddhist Texts", image: "assets/Images/rumtek-monastry/shop1-product1.jpg", price: "₹500 - ₹2,000", category: "Books" },
+        { name: "Prayer Flags", image: "assets/Images/rumtek-monastry/shop1-product2.jpg", price: "₹200 - ₹800", category: "Religious Items" },
+        { name: "Thangka Paintings",image: "assets/Images/rumtek-monastry/shop1-product3.jpg", price: "₹2,000 - ₹15,000", category: "Art" }
       ]
     },
     {
-      name: "Artisan's Corner",
-      address: "456 Tourist Lane, Main Square",
-      image: "assets/Images/sample-images/shop.jpg",
-      category: "Art Gallery",
-      rating: 4.8,
-      isExpanded: false,
+      name: "Local Handicrafts Stall",
+      address: "Near Rumtek Monastery Entrance, Rumtek, Sikkim 737135, India",
+      image: "assets/Images/rumtek-monastry/shop2.jpg",
+      category: "Traditional Handicrafts",
       products: [
-        { name: "Local Art Prints", image: "assets/Images/sample-images/product1.jpg", price: "$35", category: "Prints" },
-        { name: "Cultural Keychains", image: "assets/Images/sample-images/product2.jpg", price: "$15", category: "Souvenirs" }
+        { name: "Handwoven Woolen Shawls", image: "assets/Images/rumtek-monastry/shop2-product2.jpg", price: "₹1,000 - ₹5,000", category: "Textiles" },
+        { name: "Wooden Masks", image: "assets/Images/rumtek-monastry/shop2-product2-1.jpg", price: "₹800 - ₹3,500", category: "Decor" },
+        { name: "Bamboo Crafts", image: "assets/Images/rumtek-monastry/shop2-product3.jpg", price: "₹300 - ₹1,500", category: "Crafts" }
+      ]
+    },
+    {
+      name: "Sikkimese Handicraft",
+      address: "Rumtek, Sikkim 737135, India",
+      image: "assets/Images/rumtek-monastry/shop3.jpg",
+      category: "Handicrafts & Home Decor",
+      products: [
+        { name: "Silver Jewelry", image: "assets/Images/rumtek-monastry/shop3-product1.jpg", price: "₹1,000 - ₹7,000", category: "Jewelry" },
+        { name: "Puja Statues", image: "assets/Images/rumtek-monastry/shop3-product2.jpg", price: "₹500 - ₹5,000", category: "Religious Items" },
+        { name: "Home Decorations", image: "assets/Images/rumtek-monastry/shop3-product3.jpg", price: "₹1,000 - ₹10,000", category: "Decor" }
       ]
     }
   ];
+  
 
-  toggleProducts(shop: Shop) {
-    // Close all other shops
-    this.shops.forEach(s => {
-      if (s !== shop) {
-        s.isExpanded = false;
-      }
-    });
-    // Toggle the clicked shop
-    shop.isExpanded = !shop.isExpanded;
+  selectedShop: Shop | null = null;
+  isModalOpen = false;
+
+  openModal(shop: Shop) {
+    this.selectedShop = shop;
+    this.isModalOpen = true;
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeModal() {
+    this.selectedShop = null;
+    this.isModalOpen = false;
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
   }
 }
