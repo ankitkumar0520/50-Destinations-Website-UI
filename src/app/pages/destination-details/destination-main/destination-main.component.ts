@@ -26,7 +26,7 @@ import { MapComponent } from '../map/map.component';
     ShopsComponent,
     AccomodationEateryComponent,
     FontAwesomeModule,
-    MapComponent,
+    MapComponent
   ],
 })
 export class DestinationMainComponent implements OnInit {
