@@ -4,24 +4,17 @@ import { CommonModule } from '@angular/common';
 interface Accommodation {
   name: string;
   image: string;
-  rating: number;
-  price: string;
   address: string;
   contact: string;
-  amenities: string[];
-  description: string;
+  facilities: string[];
 }
 
 interface Eatery {
   name: string;
   image: string;
-  rating: number;
-  cuisine: string;
-  priceRange: string;
   address: string;
   contact: string;
   facilities: string[];
-  description: string;
 }
 
 @Component({
@@ -32,138 +25,143 @@ interface Eatery {
   styleUrl: './accomodation-eatery.component.css'
 })
 export class AccomodationEateryComponent {
+  selectedHotel: Accommodation | null = null;
+  selectedEatery: Eatery | null = null;
+
+
   accommodations: Accommodation[] = [
     {
-      name: "Grand Hotel",
-      image: "assets/Images/sample-images/hotel1.jpg",
-      rating: 4.5,
-      price: "$150/night",
-      address: "123 Main Street, City Center, 12345",
-      contact: "+1 (555) 123-4567",
-      amenities: [
+      name: "Sungay Guest House",
+      image: "assets/Images/rumtek-monastry/hotel1.jpg",
+      address: "Rumtek, Sikkim 737135, India",
+      contact: "+91 3592 251 123",
+      facilities: [
         "Free WiFi",
-        "Swimming Pool",
-        "Spa & Wellness Center",
-        "24/7 Room Service",
-        "Restaurant & Bar",
-        "Conference Rooms",
-        "Fitness Center",
-        "Parking Facility",
-        "Airport Shuttle",
-        "Laundry Service"
-      ],
-      description: "Luxurious accommodation with modern amenities and excellent service."
-    },
-    {
-      name: "Seaside Resort",
-      image: "assets/Images/sample-images/hotel2.jpg",
-      rating: 4.8,
-      price: "$200/night",
-      address: "456 Beach Road, Coastal Area, 23456",
-      contact: "+1 (555) 234-5678",
-      amenities: [
-        "Ocean View Rooms",
-        "Private Beach Access",
-        "Gym & Yoga Studio",
-        "Poolside Bar",
-        "Fine Dining Restaurant",
-        "Kids Club",
-        "Water Sports",
-        "Beachfront Spa",
-        "Valet Parking",
-        "Concierge Service"
-      ],
-      description: "Stunning beachfront property with breathtaking views."
-    },
-    {
-      name: "Mountain View Lodge",
-      image: "assets/Images/sample-images/hotel3.jpg",
-      rating: 4.3,
-      price: "$120/night",
-      address: "789 Hilltop Avenue, Mountain Area, 34567",
-      contact: "+1 (555) 345-6789",
-      amenities: [
+        "Complimentary Breakfast",
         "Mountain View Rooms",
-        "Hiking Trails Access",
-        "On-site Restaurant",
-        "Spa & Massage",
-        "Fireplace Lounge",
-        "Outdoor Hot Tub",
-        "Bike Rental",
-        "Guided Tours",
-        "Free Parking",
+        "24/7 Front Desk",
+        "Laundry Service",
+        "Parking Facility",
+        "Room Service",
+        "Tour Assistance",
+        "Non-Smoking Rooms",
         "Pet Friendly"
-      ],
-      description: "Peaceful retreat with panoramic mountain views."
+      ]
+    },
+    {
+      name: "Treebo Trend D'wang Rumtek Resort",
+      image: "assets/Images/rumtek-monastry/hotel2.jpg",
+      address: "Near Rumtek Monastery, Rumtek, Sikkim 737135, India",
+      contact: "+91 9322 800 100",
+      facilities: [
+        "Free WiFi",
+        "On-site Restaurant",
+        "Bar & Lounge",
+        "Conference Rooms",
+        "Garden Area",
+        "24/7 Room Service",
+        "Parking Facility",
+        "Laundry Service",
+        "Airport Shuttle",
+        "Wheelchair Accessible"
+      ]
+    },
+    {
+      name: "Zharna Waterfall Resort",
+      image: "assets/Images/rumtek-monastry/hotel3.jpg",
+      address: "Rumtek, Sikkim 737135, India",
+      contact: "+91 3592 251 456",
+      facilities: [
+        "Natural Waterfall On-site",
+        "Eco-friendly Cottages",
+        "Organic Restaurant",
+        "Hiking Trails Access",
+        "Spa & Wellness Center",
+        "Yoga Sessions",
+        "Free Parking",
+        "24/7 Front Desk",
+        "Room Service",
+        "Pet Friendly"
+      ]
     }
   ];
+  
 
   eateries: Eatery[] = [
     {
-      name: "The Gourmet Kitchen",
-      image: "assets/Images/sample-images/restaurant1.jpg",
-      rating: 4.7,
-      cuisine: "International",
-      priceRange: "$$$",
-      address: "321 Food Street, Downtown, 12345",
-      contact: "+1 (555) 456-7890",
+      name: "Dragon Wok",
+      image: "assets/Images/rumtek-monastry/eatery1.jpg",
+      address: "Near Rumtek Monastery, Rumtek, Sikkim 737135, India",
+      contact: "+91 3592 251 789",
+      facilities: [
+        "Authentic Tibetan Cuisine",
+        "Outdoor Seating",
+        "Takeaway Available",
+        "Free WiFi",
+        "Family Friendly",
+        "Parking Available",
+        "Wheelchair Accessible",
+        "Reservations Recommended",
+        "Live Music on Weekends",
+        "Credit Cards Accepted"
+      ]
+    },
+    {
+      name: "Taste of Tibet",
+      image: "assets/Images/rumtek-monastry/eatery2.jpg",
+      address: "Sang's Retreat, Rumtek, Sikkim 737135, India",
+      contact: "+91 3592 251 567",
+      facilities: [
+        "Traditional Tibetan Dishes",
+        "Vegan Options",
+        "Cozy Ambience",
+        "Free WiFi",
+        "Outdoor Seating",
+        "Takeaway Available",
+        "Parking Facility",
+        "Wheelchair Accessible",
+        "Reservations Accepted",
+        "Cash Only"
+      ]
+    },
+    {
+      name: "The Orchid Dining Room",
+      image: "assets/Images/rumtek-monastry/eatery3.jpg",
+      address: "Mayfair Spa Resort & Casino, Rumtek, Sikkim 737135, India",
+      contact: "+91 3592 250 555",
       facilities: [
         "Fine Dining",
+        "Multi-Cuisine Menu",
         "Wine Cellar",
         "Private Dining Rooms",
         "Outdoor Seating",
         "Live Music",
-        "Chef's Table",
-        "Catering Service",
         "Valet Parking",
         "Wheelchair Accessible",
-        "Reservations Available"
-      ],
-      description: "Fine dining experience with a diverse menu."
-    },
-    {
-      name: "Seaside Bistro",
-      image: "assets/Images/sample-images/restaurant2.jpg",
-      rating: 4.4,
-      cuisine: "Seafood",
-      priceRange: "$$",
-      address: "654 Harbor Road, Waterfront, 23456",
-      contact: "+1 (555) 567-8901",
-      facilities: [
-        "Fresh Seafood",
-        "Ocean View Dining",
-        "Bar & Lounge",
-        "Outdoor Terrace",
-        "Happy Hour",
-        "Takeout Available",
-        "Gluten-free Options",
-        "Parking Available",
-        "Reservations Recommended",
-        "Family Friendly"
-      ],
-      description: "Fresh seafood with ocean views."
-    },
-    {
-      name: "Local Flavors",
-      image: "assets/Images/sample-images/restaurant3.jpg",
-      rating: 4.6,
-      cuisine: "Local",
-      priceRange: "$$",
-      address: "987 Market Square, Old Town, 34567",
-      contact: "+1 (555) 678-9012",
-      facilities: [
-        "Traditional Cuisine",
-        "Local Ingredients",
-        "Cooking Classes",
-        "Garden Seating",
-        "Wine Pairing",
-        "Takeout & Delivery",
-        "Vegetarian Options",
-        "Street Parking",
-        "Reservations Available",
-        "Cultural Events"
-      ],
-      description: "Authentic local cuisine in a cozy setting."
+        "Reservations Required",
+        "Credit Cards Accepted"
+      ]
     }
   ];
+  
+
+  openHotelModal(hotel: Accommodation) {
+    this.selectedHotel = hotel;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeHotelModal() {
+    this.selectedHotel = null;
+    document.body.style.overflow = 'auto';
+  }
+
+  openEateryModal(eatery: Eatery) {
+    this.selectedEatery = eatery;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeEateryModal() {
+    this.selectedEatery = null;
+    document.body.style.overflow = 'auto';
+  }
 }
