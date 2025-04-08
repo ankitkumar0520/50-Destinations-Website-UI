@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { HeroSectionComponent } from "../../destination-details/hero-section/hero-section.component";
-import { GalleryDescriptionComponent } from "../gallery-description/gallery-description.component";
-import { PointsOfInterestComponent } from "../points-of-interest/points-of-interest.component";
+import { HeroSectionComponent } from '../../destination-details/hero-section/hero-section.component';
+import { GalleryDescriptionComponent } from '../gallery-description/gallery-description.component';
+import { PointsOfInterestComponent } from '../points-of-interest/points-of-interest.component';
 import { FacilitiesComponent } from '../facilities/facilities.component';
 import { PoliceHospitalComponent } from '../police-hospital/police-hospital.component';
 import { ShopsComponent } from '../shops/shops.component';
@@ -9,7 +9,7 @@ import { AccomodationEateryComponent } from '../accomodation-eatery/accomodation
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
-
+import { MapComponent } from '../map/map.component';
 
 @Component({
   selector: 'app-destination-main',
@@ -18,15 +18,16 @@ import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./destination-main.component.css'],
   imports: [
     CommonModule,
-    HeroSectionComponent, 
+    HeroSectionComponent,
     GalleryDescriptionComponent,
-    PointsOfInterestComponent, 
+    PointsOfInterestComponent,
     FacilitiesComponent,
     PoliceHospitalComponent,
     ShopsComponent,
     AccomodationEateryComponent,
-    FontAwesomeModule
-  ]
+    FontAwesomeModule,
+    MapComponent,
+  ],
 })
 export class DestinationMainComponent implements OnInit {
   showModal = false;
@@ -37,10 +38,9 @@ export class DestinationMainComponent implements OnInit {
   // Define icon property
   arrowUp = faArrowUp;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -50,7 +50,7 @@ export class DestinationMainComponent implements OnInit {
   scrollToTop() {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
 }

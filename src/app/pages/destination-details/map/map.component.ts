@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit {
   isMapExpanded = false;
@@ -14,7 +14,7 @@ export class MapComponent implements OnInit {
   markers = [
     { title: 'London Eye', description: 'Iconic observation wheel' },
     { title: 'Big Ben', description: 'Historic clock tower' },
-    { title: 'Buckingham Palace', description: 'Royal residence' }
+    { title: 'Buckingham Palace', description: 'Royal residence' },
   ];
 
   constructor() {}
