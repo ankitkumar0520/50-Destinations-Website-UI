@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 
 @Component({
@@ -30,11 +30,29 @@ export class NavbarComponent {
     }
   }
 
+  @ViewChild('searchContainer') searchContainer!: ElementRef;
+  @ViewChild('searchButton') searchButton!: ElementRef;
+
   toggleSearch(): void {
     this.isSearchOpen = !this.isSearchOpen;
-    // Close mobile menu when opening search
     if (this.isSearchOpen) {
       this.isMobileMenuOpen = false;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent): void {
+    if (!this.isSearchOpen) return;
+
+    const clickedInsideSearch = this.searchContainer?.nativeElement.contains(
+      event.target
+    );
+    const clickedOnButton = this.searchButton?.nativeElement.contains(
+      event.target
+    );
+
+    if (!clickedInsideSearch && !clickedOnButton) {
+      this.isSearchOpen = false;
     }
   }
 }
