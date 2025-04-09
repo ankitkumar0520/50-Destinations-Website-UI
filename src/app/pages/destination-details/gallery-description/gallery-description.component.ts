@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CarouselModule } from 'primeng/carousel';
 import { GalleriaModule } from 'primeng/galleria';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
@@ -20,7 +21,7 @@ interface Destination {
 @Component({
   selector: 'app-gallery-description',
   standalone: true,
-  imports: [CommonModule, GalleriaModule, RadioButtonModule, FormsModule],
+  imports: [CommonModule, CarouselModule, GalleriaModule, RadioButtonModule, FormsModule],
   templateUrl: './gallery-description.component.html',
   styleUrls: ['./gallery-description.component.css']
 })
@@ -53,6 +54,24 @@ export class GalleryDescriptionComponent {
     {
       breakpoint: '560px',
       numVisible: 2
+    }
+  ];
+
+  carouselResponsiveOptions = [
+    {
+      breakpoint: '1199px',
+      numVisible: 3,
+      numScroll: 1
+    },
+    {
+      breakpoint: '991px',
+      numVisible: 2,
+      numScroll: 1
+    },
+    {
+      breakpoint: '767px',
+      numVisible: 1,
+      numScroll: 1
     }
   ];
 

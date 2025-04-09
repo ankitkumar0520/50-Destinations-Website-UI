@@ -1,49 +1,61 @@
 <div class="w-full px-4 md:px-6 py-4" id="gallery-description">
-  <div class="flex flex-col md:flex-row gap-4 md:gap-8">
-    <!-- Grid Gallery -->
-    <div class="w-full md:w-[45%]">
-      <div class="grid" [attr.data-count]="imageCount">
-        <div *ngFor="let image of GalleryImages; let i = index" 
-             class="relative hover:opacity-90 transition-opacity cursor-pointer rounded-lg overflow-hidden shadow-sm"
-             (click)="showGalleria(i)">
-          <img [src]="image.thumbnailImageSrc" 
-               [alt]="image.alt"
-               class="w-full h-full object-cover" />
-        </div>
-      </div>
-    </div>
-
-    <!-- Description Section -->
-    <div class="w-full md:w-[55%] p-2 mt-4 md:mt-0 shadow-lg">
-      <div class="description-container">
-        <div class="description-header mb-4">
-          <h1 class="text-lg md:text-2xl font-bold text-gray-900 mb-2">{{destination.title}}</h1>
-          <div class="flex items-center text-gray-600 text-sm md:text-base">
+  <!-- Description Section - Full Width -->
+  <div class="w-full p-4 mb-8 shadow-lg rounded-lg bg-white">
+    <div class="description-container max-w-[1200px] mx-auto">
+      <div class="description-header mb-6">
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{{destination.title}}</h1>
+        <div class="flex items-center gap-4 text-gray-600 text-base md:text-lg flex-wrap">
+          <div class="flex items-center">
             <i class="pi pi-map-marker mr-2"></i>
             <span>{{destination.location}}</span>
           </div>
-        </div>
-
-        <div class="description-content space-y-6 bg-">
-          <div class="description-section !bg-gray-200">
-            <h2 class="text-xl font-semibold mb-3 flex items-center">
-              <i class="pi pi-info-circle text-blue-500 mr-2"></i>
-              About this destination
-            </h2>
-            <p class="text-gray-700 leading-relaxed">{{destination.description}}</p>
+          <div class="flex items-center" *ngIf="destination.distance">
+            <i class="pi pi-arrows-h mr-2"></i>
+            <span>{{destination.distance}}</span>
           </div>
+        </div>
+      </div>
 
+      <div class="description-content">
+        <div class="description-section bg-gray-50 p-6 rounded-lg">
+          <h2 class="text-xl font-semibold mb-4 flex items-center">
+            <i class="pi pi-info-circle text-blue-500 mr-2"></i>
+            About this destination
+          </h2>
+          <div [innerHTML]="destination.description" class="text-gray-700 leading-relaxed text-base md:text-lg break-words"></div>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Gallery Carousel Section -->
+  <div class="w-full mt-6 max-w-[1200px] mx-auto">
+    <p-carousel [value]="GalleryImages" 
+                [numVisible]="3" 
+                [numScroll]="1" 
+                [circular]="true"
+                [responsiveOptions]="carouselResponsiveOptions"
+                [autoplayInterval]="3000"
+                styleClass="custom-carousel">
+      <ng-template let-image pTemplate="item">
+        <div class="p-2">
+          <div class="relative hover:opacity-90 transition-opacity cursor-pointer rounded-lg overflow-hidden shadow-md"
+               (click)="showGalleria(GalleryImages.indexOf(image))">
+            <img [src]="image.thumbnailImageSrc" 
+                 [alt]="image.alt"
+                 class="w-full aspect-[4/3] object-cover rounded-lg" />
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
   </div>
 
   <!-- Galleria Modal -->
   <div *ngIf="displayGalleria" 
        class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-6"
        (click)="displayGalleria = false">
-    <div class="relative bg-white rounded-lg shadow-xl w-full max-h-[85vh] overflow-hidden" 
-         style="max-width: 900px;"
+    <div class="relative bg-white rounded-lg shadow-xl w-full max-h-[90vh] overflow-hidden" 
+         style="max-width: 1000px;"
          (click)="$event.stopPropagation()">
       <button class="absolute -top-10 right-0 text-white text-3xl z-10 hover:text-gray-300" 
               (click)="displayGalleria = false">×</button>
@@ -57,13 +69,12 @@
                   [showIndicators]="false"
                   [autoPlay]="false"
                   [transitionInterval]="0"
-                  [containerStyle]="{'width': '100%', 'height': '100%'}"
                   class="custom-galleria">
         <ng-template pTemplate="item" let-item>
-          <div class="flex justify-center items-center h-[65vh] w-full">
+          <div class="flex justify-center items-center">
             <img [src]="item.itemImageSrc" 
                  [alt]="item.alt"
-                 class="w-full h-full object-cover" />
+                 class="max-w-full max-h-[70vh] object-contain" />
           </div>
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
