@@ -1,27 +1,34 @@
-<!-- navbar.component.html -->
-<nav class="fixed top-0 left-0 w-full z-50">
+<nav
+  class="fixed top-0 left-0 w-full z-50 rounded-b-[2rem] overflow-hidden"
+  [ngClass]="navClasses"
+>
   <div class="w-full">
-    <div class="border-b-2 border-gray-200 rounded-b-[2rem] bg-gray-50">
+    <div class="border-b-2 border-gray-200 rounded-b-[2rem]">
       <div class="max-w-full mx-auto px-8">
         <div class="flex items-center justify-between h-17">
           <!-- Left Logo -->
-          <div class="flex items-center w-1/4  ">
+          <div class="flex items-center w-1/4">
             <a routerLink="/" class="flex items-center space-x-2">
               <img
                 class="h-12 w-auto drop-shadow-lg"
                 src="assets/Images/logo/tourism-logo-no-bg-skyblue.png"
                 alt="Sikkim Tourism Logo"
               />
-              <span class="text-gray-800 font-semibold text-xl tracking-tight drop-shadow-sm">WebsiteName</span>
+              <span
+                class="text-gray-800 font-semibold text-xl tracking-tight drop-shadow-sm"
+                >WebsiteName</span
+              >
             </a>
           </div>
 
           <!-- Desktop menu in center -->
-          <div class="hidden md:flex items-center justify-center space-x-8 flex-1">
+          <div
+            class="hidden md:flex items-center justify-center space-x-8 flex-1"
+          >
             <a
               [routerLink]="'/'"
-              routerLinkActive="text-gray-900"
-              [routerLinkActiveOptions]="{exact: true}"
+              routerLinkActive="text-gray-900 pointer-events-none"
+              [routerLinkActiveOptions]="{ exact: true }"
               class="relative text-gray-700 hover:text-gray-900 py-5 text-sm font-medium group"
             >
               <span>Home</span>
@@ -34,7 +41,7 @@
             </a>
             <a
               routerLink="/destinations"
-              routerLinkActive="text-gray-900"
+              routerLinkActive="text-gray-900 pointer-events-none"
               class="relative text-gray-700 hover:text-gray-900 py-5 text-sm font-medium group"
             >
               <span>Destinations</span>
@@ -46,21 +53,8 @@
               ></span>
             </a>
             <a
-              routerLink="/book"
-              routerLinkActive="text-gray-900"
-              class="relative text-gray-700 hover:text-gray-900 py-5 text-sm font-medium group"
-            >
-              <span>Search</span>
-              <span
-                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
-                [class.w-full]="router.isActive('/search', true)"
-                [class.left-0]="router.isActive('/search', true)"
-                [class.-translate-x-0]="router.isActive('/search', true)"
-              ></span>
-            </a>
-            <a
               routerLink="/help"
-              routerLinkActive="text-gray-900"
+              routerLinkActive="text-gray-900 pointer-events-none"
               class="relative text-gray-700 hover:text-gray-900 py-5 text-sm font-medium group"
             >
               <span>Log in</span>
@@ -73,9 +67,59 @@
             </a>
           </div>
 
-          <!-- Right Logo and Mobile Menu Button -->
+          <!-- Right section with search and logo -->
           <div class="flex items-center justify-end w-1/4">
-            <div class="hidden md:block">
+            <!-- Search container - positioned absolutely to overlay -->
+            <div #searchContainer class="relative flex items-center">
+              <!-- Search bar that expands -->
+              <div
+                class="absolute -right-3 z-10 bg-gray-50 transition-all duration-300 ease-in-out"
+              >
+                <div
+                  class="transition-all duration-300 ease-in-out origin-right"
+                  [ngClass]="{
+                    'w-64 opacity-100': isSearchOpen,
+                    'w-0 opacity-0': !isSearchOpen
+                  }"
+                >
+                  <div class="py-2 pr-2">
+                    <div class="relative">
+                      <input
+                        type="text"
+                        placeholder="Search destinations..."
+                        class="w-full py-2 pl-4 pr-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Search icon button - stays fixed -->
+              <button
+                (click)="toggleSearch()"
+                [class.bg-gray-200]="isSearchOpen"
+                class="relative z-20 p-2 rounded-full text-gray-700 hover:text-gray-900 hover:bg-gray-200 transition-colors duration-200"
+                aria-label="Search"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Right Logo -->
+            <div class="hidden md:block ml-4">
               <a routerLink="/" class="flex items-center">
                 <img
                   class="h-12 w-auto drop-shadow-lg"
@@ -84,15 +128,19 @@
                 />
               </a>
             </div>
+
             <!-- Mobile menu button -->
-            <div class="md:hidden flex items-center">
+            <div class="md:hidden flex items-center ml-4 z-[11]">
               <button
                 (click)="toggleMobileMenu()"
                 class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none"
                 aria-label="Toggle menu"
               >
                 <svg
-                  [ngClass]="{ hidden: isMobileMenuOpen, block: !isMobileMenuOpen }"
+                  [ngClass]="{
+                    hidden: isMobileMenuOpen,
+                    block: !isMobileMenuOpen
+                  }"
                   class="h-6 w-6"
                   fill="none"
                   stroke="currentColor"
@@ -106,7 +154,10 @@
                   />
                 </svg>
                 <svg
-                  [ngClass]="{ hidden: !isMobileMenuOpen, block: isMobileMenuOpen }"
+                  [ngClass]="{
+                    hidden: !isMobileMenuOpen,
+                    block: isMobileMenuOpen
+                  }"
                   class="h-6 w-6"
                   fill="none"
                   stroke="currentColor"
@@ -123,47 +174,38 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Mobile menu -->
-      <div
-        [class]="isMobileMenuOpen ? 'block md:hidden' : 'hidden'"
-        class="border-t border-gray-200"
-      >
-        <div class="px-2 pt-2 pb-3 space-y-1 flex flex-col items-center">
-          <a
-            routerLink="/"
-            routerLinkActive="text-gray-900"
-            [routerLinkActiveOptions]="{exact: true}"
-            class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
-          >
-            Home
-          </a>
-          <a
-            routerLink="/destinations"
-            routerLinkActive="text-gray-900"
-            class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
-          >
-            Destinations
-          </a>
-          <a
-            routerLink="/book"
-            routerLinkActive="text-gray-900"
-            class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
-          >
-            Search
-          </a>
-          <a
-            routerLink="/help"
-            routerLinkActive="text-gray-900"
-            class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
-          >
-            Log in
-          </a>
+        <!-- Mobile menu -->
+        <div
+          [class]="isMobileMenuOpen ? 'block md:hidden' : 'hidden'"
+          class="border-t border-gray-200"
+        >
+          <div class="px-2 pt-2 pb-3 space-y-1 flex flex-col items-center">
+            <a
+              routerLink="/"
+              routerLinkActive="text-gray-900"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
+            >
+              Home
+            </a>
+            <a
+              routerLink="/destinations"
+              routerLinkActive="text-gray-900"
+              class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
+            >
+              Destinations
+            </a>
+            <a
+              routerLink="/help"
+              routerLinkActive="text-gray-900"
+              class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
+            >
+              Log in
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </nav>
-
-
