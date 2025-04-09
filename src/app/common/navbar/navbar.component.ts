@@ -10,15 +10,9 @@ import { RouterModule, Router } from '@angular/router';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  isScrolled = false;
   isMobileMenuOpen = false;
 
   constructor(public router: Router) {}
-
-  @HostListener('window:scroll')
-  onWindowScroll() {
-    this.isScrolled = window.scrollY > 10;
-  }
 
   isSearchOpen = false;
 
@@ -54,5 +48,19 @@ export class NavbarComponent {
     if (!clickedInsideSearch && !clickedOnButton) {
       this.isSearchOpen = false;
     }
+  }
+
+  isScrolled = false;
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 10;
+  }
+
+  get navClasses() {
+    return {
+      'bg-white': !this.isScrolled,
+      'backdrop-blur-md bg-white/80 shadow-lg': this.isScrolled,
+      'transition-all duration-300 ease-in-out': true,
+    };
   }
 }
