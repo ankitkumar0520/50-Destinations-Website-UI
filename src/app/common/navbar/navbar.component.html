@@ -72,9 +72,7 @@
             <!-- Search container - positioned absolutely to overlay -->
             <div #searchContainer class="relative flex items-center">
               <!-- Search bar that expands -->
-              <div
-                class="absolute -right-3 z-10 bg-gray-50 transition-all duration-300 ease-in-out"
-              >
+              <div class="absolute -right-3 z-10 bg-transparent">
                 <div
                   class="transition-all duration-300 ease-in-out origin-right"
                   [ngClass]="{
@@ -87,7 +85,7 @@
                       <input
                         type="text"
                         placeholder="Search destinations..."
-                        class="w-full py-2 pl-4 pr-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        class="bg-gray-50 w-full py-2 pl-4 pr-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       />
                     </div>
                   </div>
