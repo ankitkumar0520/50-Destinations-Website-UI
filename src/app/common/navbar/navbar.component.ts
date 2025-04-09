@@ -20,7 +20,21 @@ export class NavbarComponent {
     this.isScrolled = window.scrollY > 10;
   }
 
-  toggleMobileMenu() {
+  isSearchOpen = false;
+
+  toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    // Close search when opening mobile menu
+    if (this.isMobileMenuOpen) {
+      this.isSearchOpen = false;
+    }
+  }
+
+  toggleSearch(): void {
+    this.isSearchOpen = !this.isSearchOpen;
+    // Close mobile menu when opening search
+    if (this.isSearchOpen) {
+      this.isMobileMenuOpen = false;
+    }
   }
 }
