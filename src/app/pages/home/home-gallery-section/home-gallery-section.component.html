@@ -1,1 +1,121 @@
-<p>home-gallery-section works!</p>
+<!-- Gallery Section -->
+<section class="py-8 bg-gradient-to-b from-white to-blue-50">
+    <div class="container mx-auto px-4 md:px-8 lg:px-16">
+        <!-- Header Section -->
+        <div class="max-w-[1400px] mx-auto mb-8">
+            <!-- Highlight Badge -->
+            <div class="mb-3">
+                <span class="inline-block px-4 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold shadow-sm">
+                    Must-Visit Destinations
+                </span>
+            </div>
+
+            <!-- Main Heading -->
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 leading-tight mb-4">
+                Unveiling the 
+                <span class="text-blue-600">Wonders </span>
+                of Sikkim
+            </h2>
+
+            <!-- Description -->
+            <p class="text-gray-600 text-lg md:text-xl leading-relaxed mb-6 max-w-3xl">
+                From pristine lakes to historic passes, discover the most captivating destinations that make Sikkim a paradise for travelers.
+            </p>
+
+            <!-- Features -->
+            <div class="flex flex-wrap gap-6 text-sm text-gray-600">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    <span>Natural Wonders</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                    <span>Travel Tips</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Best Seasons</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="max-w-[1400px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Destination Cards -->
+                <div *ngFor="let dest of destinations" 
+                     class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group">
+                    <div class="flex flex-col md:flex-row h-full">
+                        <!-- Image Section -->
+                        <div class="md:w-2/5 relative overflow-hidden">
+                            <img [src]="dest.image" [alt]="dest.name"
+                                 class="w-full h-full object-cover min-h-[240px] transform group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute bottom-2 left-2">
+                                <span class="px-2.5 py-0.5 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-blue-600">
+                                    {{dest.type}}
+                                </span>
+                            </div>
+                            <!-- Image Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+
+                        <!-- Content Section -->
+                        <div class="md:w-3/5 p-4 flex flex-col">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-bold text-gray-800 mb-1.5 group-hover:text-blue-600 transition-colors duration-300">{{dest.name}}</h3>
+                                <p class="text-gray-600 text-sm mb-3 line-clamp-2">{{dest.description}}</p>
+
+                                <!-- Highlights -->
+                                <div class="mb-3">
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <span *ngFor="let highlight of dest.highlights"
+                                              class="px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs whitespace-nowrap">
+                                            {{highlight}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer Info -->
+                            <div class="border-t border-gray-100 pt-3">
+                                <div class="grid grid-cols-3 gap-2 text-xs text-gray-500 mb-3">
+                                    <div>
+                                        <p class="font-medium text-gray-700">Location</p>
+                                        <p>{{dest.location}}</p>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-700">Best Time</p>
+                                        <p>{{dest.bestTime}}</p>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-700">Duration</p>
+                                        <p>{{dest.duration}}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Explore Button -->
+                                <button class="cursor-pointer w-full bg-blue-600 text-white py-1.5 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center gap-2 group text-sm">
+                                    <span>Explore Now</span>
+                                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
