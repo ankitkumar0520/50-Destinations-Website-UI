@@ -3,7 +3,7 @@ declare var $: any; // Declare jQuery
 
 
   export function initializeOwlCarousel(carouselClass:string,Iloop:boolean=true,Iautoplay:boolean=true,
-    Imargin:number=5,Inavigation:boolean=true,Iresponsive:number[]=[1,3,4]
+    Imargin:number=5,Inavigation:boolean=true,Iresponsive:number[]=[1,3,4],dots:boolean=true
   ): Boolean {
     if (typeof document !== 'undefined') {
       const carouselElement = $(carouselClass);
@@ -15,7 +15,7 @@ declare var $: any; // Declare jQuery
         loop:Iloop, //loop the carousel
         margin:Imargin,  //margin between item 
         nav:Inavigation,  //add next and prev button
-        dots:true,  //add dots for items
+        dots:dots,  //add dots for items
         autoplay: Iautoplay, // Enable auto-move
         autoplayTimeout: 3000, // Time between auto-moves (in milliseconds)
         autoplayHoverPause: true ,// Pause on hover
