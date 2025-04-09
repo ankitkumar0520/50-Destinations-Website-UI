@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+  background-color: transparent;
+}
+
 .lobster-regular {
   font-family: "Lobster", sans-serif;
   font-weight: 400;

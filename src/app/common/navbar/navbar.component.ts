@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +12,8 @@ import { RouterModule } from '@angular/router';
 export class NavbarComponent {
   isScrolled = false;
   isMobileMenuOpen = false;
-  searchQuery = '';
+
+  constructor(public router: Router) {}
 
   @HostListener('window:scroll')
   onWindowScroll() {
@@ -21,11 +22,5 @@ export class NavbarComponent {
 
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
-  }
-
-  onSearch(event: Event) {
-    const target = event.target as HTMLInputElement;
-    this.searchQuery = target.value;
-    // Implement search logic here
   }
 }

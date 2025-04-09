@@ -1,223 +1,169 @@
 <!-- navbar.component.html -->
-<nav
-  [class]="isScrolled ? 'bg-white shadow-sm' : 'bg-white'"
-  class="w-full z-50 transition-all duration-500 ease-in-out border-b border-gray-200"
->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <!-- Mobile menu button on left -->
-      <div class="md:hidden flex items-center">
-        <button
-          (click)="toggleMobileMenu()"
-          class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none"
-          aria-label="Toggle menu"
-        >
-          <svg
-            [ngClass]="{ hidden: isMobileMenuOpen, block: !isMobileMenuOpen }"
-            class="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-          <svg
-            [ngClass]="{ hidden: !isMobileMenuOpen, block: isMobileMenuOpen }"
-            class="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-      </div>
-
-      <!-- Desktop menu on left -->
-      <div class="hidden md:flex items-center space-x-8">
-        <a
-          [routerLink]="'/'"
-          class="relative text-gray-500 hover:text-gray-900 py-6 text-[15px] font-medium group"
-        >
-          <span>Home</span>
-          <span
-            class="absolute bottom-4 left-1/2 w-0 h-[2px] bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"
-          ></span>
-        </a>
-        <a
-          routerLink="/destinations"
-          class="relative text-gray-500 hover:text-gray-900 py-6 text-[15px] font-medium group"
-        >
-          <span>Destinations</span>
-          <span
-            class="absolute bottom-4 left-1/2 w-0 h-[2px] bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"
-          ></span>
-        </a>
-        <a
-          routerLink="/book"
-          class="relative text-gray-500 hover:text-gray-900 py-6 text-[15px] font-medium group"
-        >
-          <span>Contact</span>
-          <span
-            class="absolute bottom-4 left-1/2 w-0 h-[2px] bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"
-          ></span>
-        </a>
-        <a
-          routerLink="/help"
-          class="relative text-gray-500 hover:text-gray-900 py-6 text-[15px] font-medium group"
-        >
-          <span>About</span>
-          <span
-            class="absolute bottom-4 left-1/2 w-0 h-[2px] bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out"
-          ></span>
-        </a>
-      </div>
-
-      <!-- Logo in center -->
-      <div class="flex-1 flex justify-center items-center">
-        <div
-          class="flex items-center space-x-6 px-4 py-2 hover:scale-105 transition-transform duration-300"
-        >
-          <img
-            class="h-14 w-auto"
-            src="assets/Images/logo/sikkim-tourism-logo-no-bg.png"
-            alt="Logo"
-          />
-          <div class="flex flex-col items-center">
-            <span
-              class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent tracking-wide"
-              >50+</span
-            >
-            <span class="text-lg font-medium text-gray-800">Destinations</span>
-          </div>
-          <img
-            class="h-14 w-auto"
-            src="assets/Images/logo/sunawlo-sikkim-logo-no-bg.png"
-            alt="Logo"
-          />
-        </div>
-      </div>
-
-      <!-- Search bar on right for desktop -->
-      <div class="hidden md:flex items-center justify-end w-64">
-        <div class="w-full relative">
-          <input
-            type="text"
-            placeholder="Search for destinations"
-            class="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-300 focus:outline-none focus:border-gray-400 text-[15px]"
-          />
-          <div
-            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-          >
-            <svg
-              class="h-5 w-5 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+<nav class="fixed top-0 left-0 w-full z-50">
+  <div class="w-full">
+    <div class="border-b-2 border-gray-200 rounded-b-[2rem] bg-gray-50">
+      <div class="max-w-full mx-auto px-8">
+        <div class="flex items-center justify-between h-17">
+          <!-- Left Logo -->
+          <div class="flex items-center w-1/4  ">
+            <a routerLink="/" class="flex items-center space-x-2">
+              <img
+                class="h-12 w-auto drop-shadow-lg"
+                src="assets/Images/logo/tourism-logo-no-bg-skyblue.png"
+                alt="Sikkim Tourism Logo"
               />
-            </svg>
+              <span class="text-gray-800 font-semibold text-xl tracking-tight drop-shadow-sm">WebsiteName</span>
+            </a>
           </div>
-        </div>
-      </div>
 
-      <!-- Mobile search button on right -->
-      <div class="md:hidden flex items-center">
-        <button
-          class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none"
-          aria-label="Search"
-        >
-          <svg
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mobile menu -->
-  <div
-    [class]="isMobileMenuOpen ? 'block md:hidden' : 'hidden'"
-    class="border-t border-gray-200"
-  >
-    <div class="px-2 pt-2 pb-3 space-y-1">
-      <!-- Search bar for mobile -->
-      <div class="px-3 py-2">
-        <div class="relative">
-          <input
-            type="text"
-            placeholder="Search for destinations"
-            class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-gray-400"
-          />
-          <div
-            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-          >
-            <svg
-              class="h-5 w-5 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          <!-- Desktop menu in center -->
+          <div class="hidden md:flex items-center justify-center space-x-8 flex-1">
+            <a
+              [routerLink]="'/'"
+              routerLinkActive="text-gray-900"
+              [routerLinkActiveOptions]="{exact: true}"
+              class="relative text-gray-700 hover:text-gray-900 py-5 text-sm font-medium group"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+              <span>Home</span>
+              <span
+                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
+                [class.w-full]="router.isActive('/', true)"
+                [class.left-0]="router.isActive('/', true)"
+                [class.-translate-x-0]="router.isActive('/', true)"
+              ></span>
+            </a>
+            <a
+              routerLink="/destinations"
+              routerLinkActive="text-gray-900"
+              class="relative text-gray-700 hover:text-gray-900 py-5 text-sm font-medium group"
+            >
+              <span>Destinations</span>
+              <span
+                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
+                [class.w-full]="router.isActive('/destinations', true)"
+                [class.left-0]="router.isActive('/destinations', true)"
+                [class.-translate-x-0]="router.isActive('/destinations', true)"
+              ></span>
+            </a>
+            <a
+              routerLink="/book"
+              routerLinkActive="text-gray-900"
+              class="relative text-gray-700 hover:text-gray-900 py-5 text-sm font-medium group"
+            >
+              <span>Search</span>
+              <span
+                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
+                [class.w-full]="router.isActive('/search', true)"
+                [class.left-0]="router.isActive('/search', true)"
+                [class.-translate-x-0]="router.isActive('/search', true)"
+              ></span>
+            </a>
+            <a
+              routerLink="/help"
+              routerLinkActive="text-gray-900"
+              class="relative text-gray-700 hover:text-gray-900 py-5 text-sm font-medium group"
+            >
+              <span>Log in</span>
+              <span
+                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
+                [class.w-full]="router.isActive('/login', true)"
+                [class.left-0]="router.isActive('/login', true)"
+                [class.-translate-x-0]="router.isActive('/login', true)"
+              ></span>
+            </a>
+          </div>
+
+          <!-- Right Logo and Mobile Menu Button -->
+          <div class="flex items-center justify-end w-1/4">
+            <div class="hidden md:block">
+              <a routerLink="/" class="flex items-center">
+                <img
+                  class="h-12 w-auto drop-shadow-lg"
+                  src="assets/Images/logo/sunawlo-sikkim-logo-no-bg.png"
+                  alt="Sikkim Tourism Logo"
+                />
+              </a>
+            </div>
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center">
+              <button
+                (click)="toggleMobileMenu()"
+                class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none"
+                aria-label="Toggle menu"
+              >
+                <svg
+                  [ngClass]="{ hidden: isMobileMenuOpen, block: !isMobileMenuOpen }"
+                  class="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+                <svg
+                  [ngClass]="{ hidden: !isMobileMenuOpen, block: isMobileMenuOpen }"
+                  class="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      <a
-        routerLink="/search"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+      <!-- Mobile menu -->
+      <div
+        [class]="isMobileMenuOpen ? 'block md:hidden' : 'hidden'"
+        class="border-t border-gray-200"
       >
-        Search
-      </a>
-      <a
-        routerLink="/explore"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-      >
-        Explore
-      </a>
-      <a
-        routerLink="/book"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-      >
-        Book now
-      </a>
-      <a
-        routerLink="/help"
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-      >
-        Help
-      </a>
+        <div class="px-2 pt-2 pb-3 space-y-1 flex flex-col items-center">
+          <a
+            routerLink="/"
+            routerLinkActive="text-gray-900"
+            [routerLinkActiveOptions]="{exact: true}"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
+          >
+            Home
+          </a>
+          <a
+            routerLink="/destinations"
+            routerLinkActive="text-gray-900"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
+          >
+            Destinations
+          </a>
+          <a
+            routerLink="/book"
+            routerLinkActive="text-gray-900"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
+          >
+            Search
+          </a>
+          <a
+            routerLink="/help"
+            routerLinkActive="text-gray-900"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
+          >
+            Log in
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
+
+
