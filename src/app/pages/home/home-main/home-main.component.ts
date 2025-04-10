@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { HomeMinisterProfileComponent } from "../home-minister-profile/home-minister-profile.component";
-import { HomeHeroSectionComponent } from "../home-hero-section/home-hero-section.component";
-import { HomeDistrictCarouselComponent } from "../home-district-carousel/home-district-carousel.component";
-import { HomeGallerySectionComponent } from "../home-gallery-section/home-gallery-section.component";
-import { FooterComponent } from "../../../common/footer/footer.component";
-import { HomeAboutSectionComponent } from "../home-about-section/home-about-section.component";
+import { HomeHeroSectionComponent } from '../home-hero-section/home-hero-section.component';
+import { HomeDistrictCarouselComponent } from '../home-district-carousel/home-district-carousel.component';
+import { HomeGallerySectionComponent } from '../home-gallery-section/home-gallery-section.component';
+import { FooterComponent } from '../../../common/footer/footer.component';
+import { HomeAboutSectionComponent } from '../home-about-section/home-about-section.component';
 @Component({
   selector: 'app-home-main',
-  imports: [HomeMinisterProfileComponent,
+  imports: [
     HomeDistrictCarouselComponent,
     HomeHeroSectionComponent,
-    HomeGallerySectionComponent, FooterComponent, HomeAboutSectionComponent],
+    HomeGallerySectionComponent,
+    FooterComponent,
+    HomeAboutSectionComponent,
+  ],
   templateUrl: './home-main.component.html',
-  styleUrl: './home-main.component.css'
+  styleUrl: './home-main.component.css',
 })
-export class HomeMainComponent {
-
-}
+export class HomeMainComponent {}

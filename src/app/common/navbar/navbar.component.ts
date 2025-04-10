@@ -58,7 +58,7 @@ export class NavbarComponent {
 
   get navClasses() {
     return {
-      'bg-white': !this.isScrolled,
+      'bg-gray-50': !this.isScrolled,
       'backdrop-blur-md bg-white/80 shadow-lg': this.isScrolled,
       'transition-all duration-300 ease-in-out': true,
     };
