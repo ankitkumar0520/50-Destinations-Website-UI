@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './search-filters.component.css'
 })
 export class SearchFiltersComponent {
-  showFilters = true;
+  showFilters = false;
 
   districts = [
     'Gangtok',
