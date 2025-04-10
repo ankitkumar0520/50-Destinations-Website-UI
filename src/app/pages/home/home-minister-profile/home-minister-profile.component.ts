@@ -57,7 +57,7 @@ export class HomeMinisterProfileComponent
         false,
         [1, 1, 3]
       );
-    }, 300);
+    }, 0);
   }
 
   ngOnDestroy() {
