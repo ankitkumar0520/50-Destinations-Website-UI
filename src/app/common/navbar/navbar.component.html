@@ -3,7 +3,9 @@
   [ngClass]="navClasses"
 >
   <div class="w-full">
-    <div class="border-b-2 border-gray-200 rounded-b-[2rem]">
+    <div
+      class="border-b-2 border-gray-200 dark:border-gray-800 rounded-b-[2rem]"
+    >
       <div class="max-w-full mx-auto px-8">
         <div class="flex items-center justify-between h-17">
           <!-- Left Logo -->
@@ -15,7 +17,7 @@
                 alt="Sikkim Tourism Logo"
               />
               <span
-                class="text-gray-800 font-semibold text-xl tracking-tight drop-shadow-sm"
+                class="text-gray-800 dark:text-gray-100 font-semibold text-xl tracking-tight drop-shadow-sm"
                 >WebsiteName</span
               >
             </a>
@@ -27,13 +29,13 @@
           >
             <a
               [routerLink]="'/'"
-              routerLinkActive="text-gray-900 pointer-events-none"
+              routerLinkActive="text-gray-900 dark:text-gray-100 pointer-events-none"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="relative text-gray-700 hover:text-gray-900 py-5 text-sm font-medium group"
+              class="relative text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 py-5 text-sm font-medium group"
             >
               <span>Home</span>
               <span
-                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
+                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
                 [class.w-full]="router.isActive('/', true)"
                 [class.left-0]="router.isActive('/', true)"
                 [class.-translate-x-0]="router.isActive('/', true)"
@@ -41,12 +43,12 @@
             </a>
             <a
               routerLink="/destinations"
-              routerLinkActive="text-gray-900 pointer-events-none"
-              class="relative text-gray-700 hover:text-gray-900 py-5 text-sm font-medium group"
+              routerLinkActive="text-gray-900 dark:text-gray-100 pointer-events-none"
+              class="relative text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 py-5 text-sm font-medium group"
             >
               <span>Destinations</span>
               <span
-                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
+                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
                 [class.w-full]="router.isActive('/destinations', true)"
                 [class.left-0]="router.isActive('/destinations', true)"
                 [class.-translate-x-0]="router.isActive('/destinations', true)"
@@ -54,12 +56,12 @@
             </a>
             <a
               routerLink="/help"
-              routerLinkActive="text-gray-900 pointer-events-none"
-              class="relative text-gray-700 hover:text-gray-900 py-5 text-sm font-medium group"
+              routerLinkActive="text-gray-900 dark:text-gray-100 pointer-events-none"
+              class="relative text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 py-5 text-sm font-medium group"
             >
               <span>Log in</span>
               <span
-                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
+                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
                 [class.w-full]="router.isActive('/login', true)"
                 [class.left-0]="router.isActive('/login', true)"
                 [class.-translate-x-0]="router.isActive('/login', true)"
@@ -70,7 +72,7 @@
           <!-- Right section with search and logo -->
           <div class="flex items-center justify-end w-1/4">
             <!-- Search container - positioned absolutely to overlay -->
-            <div #searchContainer class="relative flex items-center">
+            <div #searchContainer class="relative flex items-center lg:mr-4">
               <!-- Search bar that expands -->
               <div class="absolute -right-3 z-10 bg-transparent">
                 <div
@@ -85,7 +87,7 @@
                       <input
                         type="text"
                         placeholder="Search destinations..."
-                        class="bg-gray-50 w-full py-2 pl-4 pr-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        class="bg-gray-50 dark:bg-gray-700 w-full py-2 pl-4 pr-10 rounded-full border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
                       />
                     </div>
                   </div>
@@ -95,8 +97,9 @@
               <!-- Search icon button - stays fixed -->
               <button
                 (click)="toggleSearch()"
-                [class.bg-gray-200]="isSearchOpen"
-                class="relative z-20 p-2 rounded-full text-gray-700 hover:text-gray-900 hover:bg-gray-200 transition-colors duration-200"
+                [class.bg-gray-200]="isSearchOpen && !isDarkMode"
+                [class.bg-gray-700]="isSearchOpen && isDarkMode"
+                class="relative z-20 p-2 rounded-full text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
                 aria-label="Search"
               >
                 <svg
@@ -116,8 +119,27 @@
               </button>
             </div>
 
+            <!-- Dark mode toggle button -->
+            <button
+              (click)="toggleDarkMode()"
+              [class.bg-gray-200]="!isDarkMode"
+              [class.bg-gray-700]="isDarkMode"
+              class="relative lg:min-h-5 lg:min-w-5 aspect-square z-20 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300 ease-in-out"
+              aria-label="Toggle dark mode"
+            >
+              <!-- Moon icon for dark mode, Sun icon for light mode with animations -->
+              <i
+                class="fas transition-all p-2 duration-500 ease-in-out transform"
+                [class.fa-moon]="!isDarkMode"
+                [class.fa-sun]="isDarkMode"
+                [class.rotate-180]="isDarkMode"
+                [class.text-yellow-400]="isDarkMode"
+                [class.text-gray-700]="!isDarkMode"
+              ></i>
+            </button>
+
             <!-- Right Logo -->
-            <div class="hidden md:block ml-4">
+            <div class="hidden md:block lg:ml-4">
               <a routerLink="/" class="flex items-center">
                 <img
                   class="h-12 w-auto drop-shadow-lg"
@@ -128,10 +150,10 @@
             </div>
 
             <!-- Mobile menu button -->
-            <div class="md:hidden flex items-center ml-4 z-[11]">
+            <div class="md:hidden flex items-center lg:ml-4 z-[11]">
               <button
                 (click)="toggleMobileMenu()"
-                class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none"
+                class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none"
                 aria-label="Toggle menu"
               >
                 <svg
@@ -176,28 +198,28 @@
         <!-- Mobile menu -->
         <div
           [class]="isMobileMenuOpen ? 'block md:hidden' : 'hidden'"
-          class="border-t border-gray-200"
+          class="border-t border-gray-200 dark:border-gray-700"
         >
           <div class="px-2 pt-2 pb-3 space-y-1 flex flex-col items-center">
             <a
               routerLink="/"
-              routerLinkActive="text-gray-900"
+              routerLinkActive="text-gray-900 dark:text-gray-100"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
+              class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 text-center w-full"
             >
               Home
             </a>
             <a
               routerLink="/destinations"
-              routerLinkActive="text-gray-900"
-              class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
+              routerLinkActive="text-gray-900 dark:text-gray-100"
+              class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 text-center w-full"
             >
               Destinations
             </a>
             <a
               routerLink="/help"
-              routerLinkActive="text-gray-900"
-              class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 text-center w-full"
+              routerLinkActive="text-gray-900 dark:text-gray-100"
+              class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 text-center w-full"
             >
               Log in
             </a>

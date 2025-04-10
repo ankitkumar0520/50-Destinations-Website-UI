@@ -1,0 +1,6 @@
+.rotate-90 {
+  transform: rotate(90deg);
+}
+.scale-110 {
+  transform: scale(1.1);
+}
