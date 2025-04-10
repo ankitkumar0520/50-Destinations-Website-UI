@@ -9,19 +9,30 @@ import { CommonModule } from '@angular/common';
   styleUrl: './footer.component.css',
 })
 export class FooterComponent {
-
-   footerData = {
+  footerData = {
     links: [
       {
         title: 'Quick Links',
-        items: ['Home', 'Destinations', 'Travel Guide', 'About Sikkim', 'Contact Us'],
+        items: [
+          'Home',
+          'Destinations',
+          'Travel Guide',
+          'About Sikkim',
+          'Contact Us',
+        ],
       },
       {
         title: 'Travel Essentials',
-        items: ['Best Time to Visit', 'Local Cuisine Guide', 'Cultural Experiences', 'Adventure Activities', 'Travel Tips'],
-      }
+        items: [
+          'Best Time to Visit',
+          'Local Cuisine Guide',
+          'Cultural Experiences',
+          'Adventure Activities',
+          'Travel Tips',
+        ],
+      },
     ],
-    websiteName: 'WebsiteName',
+    websiteName: 'QR Sikkim',
     socialMedia: [
       {
         name: 'Facebook',
@@ -38,12 +49,11 @@ export class FooterComponent {
       {
         name: 'Youtube',
         url: 'https://www.youtube.com/sikkim.tourism',
-      }
+      },
     ],
-    copyright: '2024 Tourism and Civil Aviation Department. All rights reserved.',
+    copyright:
+      '2024 Tourism and Civil Aviation Department. All rights reserved.',
     description:
       'Embark on a journey through the vibrant culture and natural beauty of Sikkim. Discover timeless monasteries, snow-capped peaks, and local traditions with our curated travel guide.',
   };
-  
-
 }
