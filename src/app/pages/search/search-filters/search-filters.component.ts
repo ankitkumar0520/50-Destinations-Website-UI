@@ -1,20 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { SearchService } from '../../../services/search.service';
 
 @Component({
   selector: 'app-search-filters',
-  imports: [CommonModule, FormsModule ],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './search-filters.component.html',
   styleUrl: './search-filters.component.css'
 })
-export class SearchFiltersComponent {
+export class SearchFiltersComponent implements OnInit {
   showFilters = false;
+  isDarkMode = false;
 
   districts = [
     'Gangtok',
     'Namchi',
-    'Pelling',
+    'Soreng',
     'Mangan',
     'Gyalshing',
     'Pakyong'
@@ -36,9 +39,7 @@ export class SearchFiltersComponent {
     "Festivals & Celebrations",
     "Snow Activities",
     "Bird Watching",
-    "Wellness & Meditation"
   ];
-  
 
   destinationTags = [
     { id: 'monasteries', name: 'Monasteries', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
@@ -55,6 +56,31 @@ export class SearchFiltersComponent {
   selectedExperience: string = '';
   searchQuery: string = '';
   selectedTags: Set<string> = new Set();
+  selectedSort = '';
+  selectedRating: number | null = null;
+  selectedSeasons: Set<string> = new Set();
+  selectedDurations: Set<string> = new Set();
+
+  constructor(private searchService: SearchService) {
+    // Check for dark mode preference
+    this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Listen for dark mode changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      this.isDarkMode = e.matches;
+    });
+  }
+
+  ngOnInit() {
+    // Initialize with current filter state
+    const currentFilters = this.searchService.getFilters();
+    this.selectedDistrict = currentFilters.district;
+    this.selectedExperience = currentFilters.experience;
+    this.searchQuery = currentFilters.searchQuery;
+    this.selectedTags = new Set(currentFilters.tags);
+    this.selectedSort = currentFilters.sort;
+    this.selectedSeasons = new Set(currentFilters.seasons);
+    this.selectedDurations = new Set(currentFilters.durations);
+  }
 
   toggleFilters() {
     this.showFilters = !this.showFilters;
@@ -66,6 +92,7 @@ export class SearchFiltersComponent {
     } else {
       this.selectedTags.add(tagId);
     }
+    this.applyFilters();
   }
 
   clearFilters() {
@@ -73,21 +100,31 @@ export class SearchFiltersComponent {
     this.selectedRating = null;
     this.selectedSeasons.clear();
     this.selectedDurations.clear();
+    this.applyFilters();
+  }
+
+  clearSearchSection() {
+    this.selectedDistrict = '';
+    this.selectedExperience = '';
+    this.searchQuery = '';
+    this.selectedTags.clear();
+    this.applyFilters();
   }
 
   clearTags() {
     this.selectedTags.clear();
+    this.applyFilters();
   }
 
   onSearch() {
-    console.log({
+    console.log('Search triggered with:', {
       district: this.selectedDistrict,
       experience: this.selectedExperience,
       query: this.searchQuery,
       tags: Array.from(this.selectedTags)
     });
+    this.applyFilters();
   }
-
 
   // Sort options
   sortOptions = [
@@ -95,11 +132,9 @@ export class SearchFiltersComponent {
     { id: 'rating', name: 'Highest Rated' },
     { id: 'newest', name: 'Newest First' }
   ];
-  selectedSort = 'popularity';
 
   // Rating filter
   ratings = [5, 4, 3, 2, 1];
-  selectedRating: number | null = null;
 
   // Season filter
   seasons = [
@@ -109,7 +144,6 @@ export class SearchFiltersComponent {
     { id: 'autumn', name: 'Autumn (September - November)' },
     { id: 'winter', name: 'Winter (December - February)' }
   ];
-  selectedSeasons: Set<string> = new Set();
 
   // Duration filter
   durations = [
@@ -119,45 +153,50 @@ export class SearchFiltersComponent {
     { id: '2-3-days', name: '2-3 days' },
     { id: '4-plus', name: '4+ days' }
   ];
-  selectedDurations: Set<string> = new Set();
 
   toggleSeason(seasonId: string) {
     if (this.selectedSeasons.has(seasonId)) {
       this.selectedSeasons.delete(seasonId);
     } else {
-      this.selectedSeasons.clear(); // Clear other selections
       this.selectedSeasons.add(seasonId);
     }
+    this.applyFilters();
   }
 
   toggleDuration(durationId: string) {
     if (this.selectedDurations.has(durationId)) {
       this.selectedDurations.delete(durationId);
     } else {
-      this.selectedDurations.clear(); // Clear other selections
+      this.selectedDurations.clear(); // Only allow one duration selection
       this.selectedDurations.add(durationId);
     }
+    this.applyFilters();
   }
 
   setRating(rating: number | null) {
     this.selectedRating = this.selectedRating === rating ? null : rating;
+    this.applyFilters();
   }
 
-
-
   applyFilters() {
-    // Apply all filters and search
     console.log('Applying filters:', {
       district: this.selectedDistrict,
       experience: this.selectedExperience,
       searchQuery: this.searchQuery,
+      tags: Array.from(this.selectedTags),
       sort: this.selectedSort,
-      rating: this.selectedRating,
       seasons: Array.from(this.selectedSeasons),
-      durations: Array.from(this.selectedDurations),
-      tags: Array.from(this.selectedTags)
+      durations: Array.from(this.selectedDurations)
+    });
+
+    this.searchService.updateFilters({
+      district: this.selectedDistrict,
+      experience: this.selectedExperience,
+      searchQuery: this.searchQuery,
+      tags: this.selectedTags,
+      sort: this.selectedSort,
+      seasons: this.selectedSeasons,
+      durations: this.selectedDurations
     });
   }
-
-
 }

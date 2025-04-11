@@ -43,11 +43,11 @@ export class AboutComponent {
   ];
 
   projectHighlights = [
-    'Interactive destination discovery',
-    'Real-time weather updates',
-    'Local guide connections',
-    'Cultural event calendar',
-    'Accommodation booking',
-    'Travel planning tools'
+    'Advanced search with filters for districts, experiences, and tags',
+    'Detailed destination information with images and descriptions',
+    'Comprehensive district-wise categorization',
+    'Experience-based destination filtering',
+    'Seasonal recommendations and best times to visit',
+    'Interactive map integration for location visualization'
   ];
 }
