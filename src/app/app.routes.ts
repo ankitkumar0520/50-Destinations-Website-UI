@@ -6,8 +6,7 @@ import { SearchMainComponent } from './pages/search/search-main/search-main.comp
 import { AboutComponent } from './pages/about/about.component';
 export const routes: Routes = [
   { path: '', component: HomeMainComponent },
-  { path: 'destinations', component: DestinationsComponent },
+  { path: 'destinations', component: SearchMainComponent },
   { path: 'destination/:id', component: DestinationMainComponent },
-  { path: 'search', component: SearchMainComponent },
   {path:'about',component:AboutComponent}
 ];

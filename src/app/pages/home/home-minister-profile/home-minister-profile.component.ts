@@ -15,14 +15,14 @@ import {
 export class HomeMinisterProfileComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  ministers = [
+   ministers = [
     {
       id: 2,
       name: 'Shri Tshering Thendup Bhutia',
-      designation: "Hon'ble Tourism Minister",
+      designation: "Hon'ble Tourism Minister of Sikkim",
       image: 'assets/Images/minister/tshering-thendup.jpg',
       message:
-        'Our focus is on developing world-class tourism infrastructure and promoting India as a premier travel destination. We invite you to explore the incredible diversity of our nation.',
+        "This portal reflects our vision of sustainable tourism and world-class experiences. From the majestic Kanchenjunga to serene monasteries and vibrant local life — Sikkim has something for every traveler. We invite you to discover and connect with our beautiful state.",
     },
     {
       id: 1,
@@ -30,17 +30,18 @@ export class HomeMinisterProfileComponent
       designation: "Hon'ble Chief Minister of Sikkim",
       image: 'assets/Images/minister/ps-golay.jpg',
       message:
-        'Let us join this mass movement towards Surajya, realize the hopes and aspirations of the people and take India to greater heights! Together we can build a stronger, more prosperous nation for all.',
+        "Sikkim is a land of peace, purity, and endless natural beauty. Through this digital platform, we welcome you to explore our traditions, landscapes, and heartfelt hospitality. Let us together celebrate the spirit of Sikkim and elevate it as a global travel destination.",
     },
     {
       id: 3,
       name: 'Shri Sudesh Kumar Subba',
       designation: "Hon'ble Advisor Tourism",
-      image: 'assets/Images/minister/sudesh-subba.jpg',
+      image: 'assets/Images/minister/sudesh-kumar-subba.jpeg',
       message:
-        "India's rich cultural heritage and diverse landscapes offer unique experiences to travelers. We are committed to showcasing our nation's treasures to the world while promoting sustainable tourism.",
+        "Through this website, we aim to offer seamless information and access to Sikkim’s unique offerings. Our focus remains on preserving our environment while opening new avenues for cultural exchange, eco-tourism, and responsible travel.",
     },
   ];
+  
 
   ngOnInit() {
     // Any initialization code

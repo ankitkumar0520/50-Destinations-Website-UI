@@ -82,10 +82,9 @@
           <ul class="space-y-1.5">
             <li *ngFor="let link of footerData.links[0].items">
               <a
-                [href]="link"
+                [href]="link.link"
                 class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                >{{ link }}</a
-              >
+                >{{link.name}}</a>
             </li>
           </ul>
         </div>
@@ -98,10 +97,9 @@
           <ul class="space-y-1.5">
             <li *ngFor="let link of footerData.links[1].items">
               <a
-                [href]="link"
+                [href]="link.link"
                 class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                >{{ link }}</a
-              >
+                >{{link.name}}</a>
             </li>
           </ul>
         </div>

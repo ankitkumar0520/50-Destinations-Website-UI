@@ -1,6 +1,23 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+interface FooterLink {
+  name: string;
+  link: string;
+}
+
+interface FooterSection {
+  title: string;
+  items: FooterLink[];
+}
+
+interface FooterData {
+  websiteName: string;
+  description: string;
+  socialMedia: { url: string }[];
+  links: FooterSection[];
+}
+
 @Component({
   selector: 'app-footer',
   imports: [CommonModule],
@@ -9,51 +26,36 @@ import { CommonModule } from '@angular/common';
   styleUrl: './footer.component.css',
 })
 export class FooterComponent {
-  footerData = {
+  footerData: FooterData = {
+    websiteName: 'Sikkim Tourism',
+    description: 'Discover the beauty of Sikkim through our curated destinations and experiences.',
+    socialMedia: [
+      { url: 'https://twitter.com/sikkimtourism' },
+      { url: 'https://youtube.com/sikkimtourism' },
+      { url: 'https://facebook.com/sikkimtourism' },
+      { url: 'https://instagram.com/sikkimtourism' }
+    ],
     links: [
       {
         title: 'Quick Links',
         items: [
-          'Home',
-          'Destinations',
-          'Travel Guide',
-          'About Sikkim',
-          'Contact Us',
-        ],
+          { name: 'Home', link: '/' },
+          { name: 'About', link: '/about' },
+          { name: 'Destinations', link: '/destinations' },
+          { name: 'Monastery', link: '/none' },
+          { name: 'Best Destinations', link: '/best' }
+        ]
       },
       {
-        title: 'Travel Essentials',
+        title: 'Permits & Services',
         items: [
-          'Best Time to Visit',
-          'Local Cuisine Guide',
-          'Cultural Experiences',
-          'Adventure Activities',
-          'Travel Tips',
-        ],
-      },
-    ],
-    websiteName: 'QR Sikkim',
-    socialMedia: [
-      {
-        name: 'Facebook',
-        url: 'https://www.facebook.com/sikkim.tourism',
-      },
-      {
-        name: 'Instagram',
-        url: 'https://www.instagram.com/sikkim.tourism',
-      },
-      {
-        name: 'Twitter',
-        url: 'https://www.twitter.com/sikkim.tourism',
-      },
-      {
-        name: 'Youtube',
-        url: 'https://www.youtube.com/sikkim.tourism',
-      },
-    ],
-    copyright:
-      '2024 Tourism and Civil Aviation Department. All rights reserved.',
-    description:
-      'Embark on a journey through the vibrant culture and natural beauty of Sikkim. Discover timeless monasteries, snow-capped peaks, and local traditions with our curated travel guide.',
+          { name: 'Sikkim Tourism', link: 'https://sikkimtourism.gov.in/Public/Index' },
+          { name: 'Permit', link: 'https://sikkimtourism.gov.in/Public/TravellerEssentials/pap' },
+          { name: 'Travel Agents', link: 'https://sikkimtourism.gov.in/Public/TravellerEssentials/travelagents' },
+          { name: 'Travel Essentials', link: 'https://sikkimtourism.gov.in/Public/TravellerEssentials' },
+          { name: 'TIC', link: 'https://sikkimtourism.gov.in/Public/ExploreByMap/Map/TIC' }
+        ]
+      }
+    ]
   };
 }
