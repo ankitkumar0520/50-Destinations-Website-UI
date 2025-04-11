@@ -1,10 +1,10 @@
 <div class="w-full px-4 md:px-6 py-4" id="gallery-description">
   <!-- Description Section - Full Width -->
-  <div class="w-full p-4 mb-8 shadow-lg rounded-lg bg-white">
+  <div class="w-full p-4 mb-8 shadow-lg rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
     <div class="description-container max-w-[1200px] mx-auto">
       <div class="description-header mb-6">
-        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{{destination.title}}</h1>
-        <div class="flex items-center gap-4 text-gray-600 text-base md:text-lg flex-wrap">
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">{{destination.title}}</h1>
+        <div class="flex items-center gap-4 text-gray-600 dark:text-gray-400 text-base md:text-lg flex-wrap">
           <div class="flex items-center">
             <i class="pi pi-map-marker mr-2"></i>
             <span>{{destination.location}}</span>
@@ -17,12 +17,12 @@
       </div>
 
       <div class="description-content">
-        <div class="description-section bg-gray-50 p-6 rounded-lg">
+        <div class="description-section bg-primary-50/50 dark:bg-primary-900/20 p-6 rounded-lg">
           <h2 class="text-xl font-semibold mb-4 flex items-center">
-            <i class="pi pi-info-circle text-blue-500 mr-2"></i>
+            <i class="pi pi-info-circle text-primary-600 dark:text-primary-400 mr-2"></i>
             About this destination
           </h2>
-          <div [innerHTML]="destination.description" class="text-gray-700 leading-relaxed text-base md:text-lg break-words"></div>
+          <div [innerHTML]="destination.description" class="text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg break-words"></div>
         </div>
       </div>
     </div>
@@ -30,61 +30,68 @@
 
   <!-- Gallery Carousel Section -->
   <div class="w-full mt-6 max-w-[1200px] mx-auto">
-    <p-carousel [value]="GalleryImages" 
-                [numVisible]="3" 
-                [numScroll]="1" 
-                [circular]="true"
-                [responsiveOptions]="carouselResponsiveOptions"
-                [autoplayInterval]="3000"
-                styleClass="custom-carousel">
-      <ng-template let-image pTemplate="item">
-        <div class="p-2">
-          <div class="relative hover:opacity-90 transition-opacity cursor-pointer rounded-lg overflow-hidden shadow-md"
-               (click)="showGalleria(GalleryImages.indexOf(image))">
-            <img [src]="image.thumbnailImageSrc" 
-                 [alt]="image.alt"
-                 class="w-full aspect-[4/3] object-cover rounded-lg" />
+    <!-- Gallery Header -->
+    <div class="mb-8 text-center">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{galleryInfo.title}}</h2>
+      <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{{galleryInfo.description}}</p>
+      <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+        <span class="flex items-center justify-center gap-2">
+          <i class="pi pi-images"></i>
+          {{galleryInfo.totalImages}} Images
+        </span>
+      </div>
+    </div>
+
+    <!-- Gallery Carousel -->
+    <div class="destination-gallery-carousel owl-carousel owl-theme">
+      <div *ngFor="let image of GalleryImages; let i = index" 
+           class="item p-2">
+        <div class="relative group cursor-pointer rounded-lg overflow-hidden shadow-md h-full"
+             (click)="showGalleria(i)">
+          <img [src]="image.thumbnailImageSrc" 
+               [alt]="image.alt"
+               class="w-full h-full aspect-[4/3] object-cover rounded-lg transition-transform duration-300 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-300"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+            <p class="text-white text-sm font-medium truncate">{{image.alt}}</p>
           </div>
         </div>
-      </ng-template>
-    </p-carousel>
+      </div>
+    </div>
   </div>
 
   <!-- Galleria Modal -->
   <div *ngIf="displayGalleria" 
        class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-6"
        (click)="displayGalleria = false">
-    <div class="relative bg-white rounded-lg shadow-xl w-full max-h-[90vh] overflow-hidden" 
+    <div class="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg shadow-xl w-full max-h-[90vh] overflow-hidden" 
          style="max-width: 1000px;"
          (click)="$event.stopPropagation()">
-      <button class="absolute -top-10 right-0 text-white text-3xl z-10 hover:text-gray-300" 
+      <button class="absolute top-4 right-4 text-gray-600 dark:text-gray-300 text-3xl z-10 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300" 
               (click)="displayGalleria = false">×</button>
-      <p-galleria [value]="GalleryImages" 
-                  [showItemNavigators]="true" 
-                  [responsiveOptions]="responsiveOptions" 
-                  [circular]="true" 
-                  [numVisible]="7" 
-                  [activeIndex]="activeIndex"
-                  [showThumbnails]="true"
-                  [showIndicators]="false"
-                  [autoPlay]="false"
-                  [transitionInterval]="0"
-                  class="custom-galleria">
-        <ng-template pTemplate="item" let-item>
+      <div class="p-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="flex justify-center items-center">
-            <img [src]="item.itemImageSrc" 
-                 [alt]="item.alt"
-                 class="max-w-full max-h-[70vh] object-contain" />
+            <img [src]="GalleryImages[activeIndex].itemImageSrc" 
+                 [alt]="GalleryImages[activeIndex].alt"
+                 class="max-w-full max-h-[70vh] object-contain rounded-lg" />
           </div>
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-          <div class="flex justify-center items-center p-1">
-            <img [src]="item.thumbnailImageSrc" 
-                 [alt]="item.alt"
-                 class="w-[100px] h-[70px] object-cover" />
+          <div class="flex flex-col justify-center">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{GalleryImages[activeIndex].alt}}</h3>
+            <p class="text-gray-600 dark:text-gray-400">Image {{activeIndex + 1}} of {{imageCount}}</p>
+            <div class="mt-4 flex gap-2">
+              <button class="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors duration-300"
+                      (click)="activeIndex = (activeIndex - 1 + imageCount) % imageCount">
+                Previous
+              </button>
+              <button class="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors duration-300"
+                      (click)="activeIndex = (activeIndex + 1) % imageCount">
+                Next
+              </button>
+            </div>
           </div>
-        </ng-template>
-      </p-galleria>
+        </div>
+      </div>
     </div>
   </div>
 </div>
