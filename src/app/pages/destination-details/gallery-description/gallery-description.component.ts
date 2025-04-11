@@ -37,28 +37,28 @@ export class GalleryDescriptionComponent implements OnInit, AfterViewInit, OnDes
 
   GalleryImages: GalleryImage[] = [
     {
-      itemImageSrc: 'assets/images/rumtek-monastry/hero-img.jpg',
-      thumbnailImageSrc: 'assets/images/rumtek-monastry/hero-img.jpg',
+      itemImageSrc: 'assets/Images/rumtek-monastry/rumtek1.jpeg',
+      thumbnailImageSrc: 'assets/Images/rumtek-monastry/rumtek1.jpeg',
       alt: 'Rumtek Monastery Main View'
     },
     {
-      itemImageSrc: 'assets/images/rumtek-monastry/Main-Shrine-Hall-image1.jpg',
-      thumbnailImageSrc: 'assets/images/rumtek-monastry/Main-Shrine-Hall-image1.jpg',
+      itemImageSrc: 'assets/Images/rumtek-monastry/rumtek2.jpeg',
+      thumbnailImageSrc: 'assets/Images/rumtek-monastry/rumtek2.jpeg',
       alt: 'Main Shrine Hall'
     },
     {
-      itemImageSrc: 'assets/images/rumtek-monastry/Main-Shrine-Hall-image2.jpg',
-      thumbnailImageSrc: 'assets/images/rumtek-monastry/Main-Shrine-Hall-image2.jpg',
+      itemImageSrc: 'assets/Images/rumtek-monastry/rumtek3.jpeg',
+      thumbnailImageSrc: 'assets/Images/rumtek-monastry/rumtek3.jpeg',
       alt: 'Main Shrine Hall Interior'
     },
     {
-      itemImageSrc: 'assets/images/rumtek-monastry/stupa1.jpg',
-      thumbnailImageSrc: 'assets/images/rumtek-monastry/stupa1.jpg',
+      itemImageSrc: 'assets/Images/rumtek-monastry/rumtek4.jpeg',
+      thumbnailImageSrc: 'assets/Images/rumtek-monastry/rumtek4.jpeg',
       alt: 'Monastery Stupa'
     },
     {
-      itemImageSrc: 'assets/images/rumtek-monastry/garden1.jpg',
-      thumbnailImageSrc: 'assets/images/rumtek-monastry/garden1.jpg',
+      itemImageSrc: 'assets/Images/rumtek-monastry/rumtek5.jpeg',
+      thumbnailImageSrc: 'assets/Images/rumtek-monastry/rumtek5.jpeg',
       alt: 'Monastery Garden'
     }
   ];

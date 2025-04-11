@@ -60,34 +60,54 @@
     </div>
   </div>
 
-  <!-- Galleria Modal -->
-  <div *ngIf="displayGalleria" 
-       class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-6"
+ <!-- Galleria Modal -->
+ <div *ngIf="displayGalleria" 
+       class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
        (click)="displayGalleria = false">
-    <div class="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg shadow-xl w-full max-h-[90vh] overflow-hidden" 
-         style="max-width: 1000px;"
+    <div class="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-xl shadow-2xl" 
          (click)="$event.stopPropagation()">
-      <button class="absolute top-4 right-4 text-gray-600 dark:text-gray-300 text-3xl z-10 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300" 
+      <!-- Close Button -->
+      <button class="absolute top-4 right-4 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center" 
               (click)="displayGalleria = false">×</button>
-      <div class="p-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="flex justify-center items-center">
-            <img [src]="GalleryImages[activeIndex].itemImageSrc" 
-                 [alt]="GalleryImages[activeIndex].alt"
-                 class="max-w-full max-h-[70vh] object-contain rounded-lg" />
-          </div>
-          <div class="flex flex-col justify-center">
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{GalleryImages[activeIndex].alt}}</h3>
-            <p class="text-gray-600 dark:text-gray-400">Image {{activeIndex + 1}} of {{imageCount}}</p>
-            <div class="mt-4 flex gap-2">
-              <button class="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors duration-300"
-                      (click)="activeIndex = (activeIndex - 1 + imageCount) % imageCount">
-                Previous
-              </button>
-              <button class="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors duration-300"
-                      (click)="activeIndex = (activeIndex + 1) % imageCount">
-                Next
-              </button>
+      
+      <!-- Navigation Buttons -->
+      <button class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+              (click)="activeIndex = (activeIndex - 1 + imageCount) % imageCount">
+        ‹
+      </button>
+      <button class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+              (click)="activeIndex = (activeIndex + 1) % imageCount">
+        ›
+      </button>
+
+      <!-- Main Image Container -->
+      <div class="flex flex-col h-full bg-gray-900">
+        <!-- Main Image -->
+        <div class="flex-1 flex items-center justify-center p-4 md:p-6 min-h-[50vh] md:min-h-[60vh]">
+          <img [src]="GalleryImages[activeIndex].itemImageSrc" 
+               [alt]="GalleryImages[activeIndex].alt"
+               class="max-w-full h-[50vh] md:h-[65vh] object-contain rounded-lg shadow-lg" />
+        </div>
+
+        <!-- Image Info -->
+        <div class="text-center p-2 text-white border-t border-gray-700">
+          <h3 class="text-lg md:text-xl font-semibold mb-1">{{GalleryImages[activeIndex].alt}}</h3>
+          <p class="text-gray-300 text-xs md:text-sm">Image {{activeIndex + 1}} of {{imageCount}}</p>
+        </div>
+
+        <!-- Thumbnail Navigation -->
+        <div class="bg-black/50 backdrop-blur-sm py-2 border-t border-gray-700">
+          <div class="container mx-auto px-2 md:px-4">
+            <div class="flex justify-center gap-1 md:gap-2 overflow-x-auto scrollbar-hide">
+              <div *ngFor="let image of GalleryImages; let i = index"
+                   class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-300"
+                   [class.border-primary-500]="i === activeIndex"
+                   [class.border-transparent]="i !== activeIndex"
+                   (click)="activeIndex = i">
+                <img [src]="image.thumbnailImageSrc"
+                     [alt]="image.alt"
+                     class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              </div>
             </div>
           </div>
         </div>
