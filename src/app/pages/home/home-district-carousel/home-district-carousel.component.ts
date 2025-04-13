@@ -181,4 +181,43 @@ export class HomeDistrictCarouselComponent
   switchQR(i: number): void {
     this.isQRVisibleMap[i] = !this.isQRVisibleMap[i];
   }
+
+  shareQR(i: number): void {
+    const district = this.districts[i];
+    const url = `${this.siteUrl}/${district.name.toLowerCase()}`;
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: `Explore ${district.name}`,
+          text: `Check out ${district.name} in Sikkim!`,
+          url: url,
+        })
+        .catch(console.error);
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      const tempInput = document.createElement('input');
+      tempInput.value = url;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      alert('Link copied to clipboard!');
+    }
+  }
+
+  downloadQR(i: number): void {
+    const district = this.districts[i];
+    const qrElement = document.querySelector(
+      `.qr-container:nth-child(${i + 1}) canvas`
+    );
+
+    if (qrElement) {
+      const canvas = qrElement as HTMLCanvasElement;
+      const link = document.createElement('a');
+      link.download = `${district.name.toLowerCase()}-qr.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  }
 }
