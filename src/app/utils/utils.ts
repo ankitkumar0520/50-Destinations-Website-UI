@@ -5,6 +5,9 @@ declare var $: any; // Declare jQuery
   export function initializeOwlCarousel(carouselClass:string,Iloop:boolean=true,Iautoplay:boolean=true,
     Imargin:number=5,Inavigation:boolean=true,Iresponsive:number[]=[1,3,4],dots:boolean=true
   ): Boolean {
+    
+    if ($(carouselClass).hasClass('owl-loaded')) return false; // prevent re-initialization
+
     if (typeof document !== 'undefined') {
       const carouselElement = $(carouselClass);
       if (carouselElement.length === 0) {

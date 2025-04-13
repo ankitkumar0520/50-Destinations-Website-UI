@@ -93,17 +93,49 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Destination Cards -->
         <div
-          *ngFor="let dest of destinations"
-          class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 group"
+          *ngFor="let dest of destinations; let i = index"
+          class="relative dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 group"
         >
-          <div class="flex flex-col md:flex-row h-full max-h-[300px]">
+          <div class="flex flex-col md:flex-row h-[320px]">
+            <!-- QR Code Toggle Button -->
+            <div
+              (click)="switchQR(i)"
+              class="w-8 h-8 border-1 border-blue-300 bg-white absolute top-2 left-1 z-20 p-1 rounded cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="#000"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm10-2h2v2h-2v-2zm0 4h2v2h-2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2z"
+                />
+              </svg>
+            </div>
+
             <!-- Image Section -->
-            <div class="md:w-2/5 relative overflow-hidden">
+            <div class="md:w-2/5 relative overflow-hidden h-full">
               <img
+                *ngIf="!isQRVisibleMap[i]"
                 [src]="dest.image"
                 [alt]="dest.name"
-                class="w-full h-full object-cover min-h-[240px] transform group-hover:scale-110 transition-transform duration-500"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
               />
+
+              <div
+                *ngIf="isQRVisibleMap[i]"
+                class="w-full h-full flex items-center justify-center bg-white p-4"
+              >
+                <qr-code
+                  [value]="siteUrl + '/' + dest.name.toLowerCase()"
+                  [size]="200"
+                  centerImageSrc="assets/Images/logo/tourism-logo.gif"
+                  centerImageSize="30"
+                  [errorCorrectionLevel]="'M'"
+                >
+                </qr-code>
+              </div>
+
               <div class="absolute bottom-2 left-2">
                 <span
                   class="px-2.5 py-0.5 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full text-xs font-medium text-secondary-900 dark:text-secondary-400"
@@ -118,7 +150,7 @@
             </div>
 
             <!-- Content Section -->
-            <div class="md:w-3/5 p-4 flex flex-col">
+            <div class="md:w-3/5 p-4 flex flex-col h-full">
               <div class="flex-1">
                 <h3
                   class="text-lg font-bold text-gray-800 dark:text-white mb-1.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
@@ -171,6 +203,7 @@
 
                 <!-- Explore Button -->
                 <button
+                  *ngIf="!isQRVisibleMap[i]"
                   class="cursor-pointer w-full bg-primary-600 dark:bg-primary-500 text-white py-1.5 px-4 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors duration-300 flex items-center justify-center gap-2 group text-sm"
                 >
                   <span>Explore Now</span>

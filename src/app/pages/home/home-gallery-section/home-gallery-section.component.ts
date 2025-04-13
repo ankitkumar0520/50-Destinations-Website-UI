@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { QrCodeComponent } from 'ng-qrcode';
 
 @Component({
   selector: 'app-home-gallery-section',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,QrCodeComponent],
   templateUrl: './home-gallery-section.component.html',
   styleUrl: './home-gallery-section.component.css'
 })
 export class HomeGallerySectionComponent {
+
+  isQRVisibleMap: { [key: number]: boolean } = {};
+  siteUrl:string=window.location.origin;
+
   destinations = [
     {
       id: 1,
@@ -77,4 +82,10 @@ export class HomeGallerySectionComponent {
       duration: '1-2 hours'
     }    
   ];
+
+
+  switchQR(i:number){
+    this.isQRVisibleMap[i]=!this.isQRVisibleMap[i]
+  }
+
 }

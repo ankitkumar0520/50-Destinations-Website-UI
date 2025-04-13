@@ -29,7 +29,7 @@
       <div
         class="flex flex-wrap gap-6 text-sm text-gray-600 dark:text-gray-300"
       >
-        <div class="flex items-center gap-2" *ngFor="let feature of features">
+        <div class="flex items-center gap-2" *ngFor="let feature of features; let i=index">
           <svg
             class="w-5 h-5 text-primary-500 dark:text-primary-400"
             fill="none"
@@ -49,19 +49,37 @@
     </div>
 
     <div class="max-w-[1400px] mx-auto">
+
       <div class="owl-carousel owl-theme district-carousel">
-        <div class="item p-2" *ngFor="let district of districts">
+        <div class="item p-2 relative" *ngFor="let district of districts; let i=index; trackBy: trackByIndex">
           <div
             class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 cursor-pointer transform hover:-translate-y-1 w-full h-[420px] flex flex-col"
-            (click)="selectDistrict(district)"
           >
+
+
             <div class="relative h-44 overflow-hidden group">
-              <img
-                [src]="district.image"
-                [alt]="district.name"
-                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-              />
-             
+              <!-- QR Code Toggle Button -->
+              <div (click)="switchQR(i)" class="w-8 h-8 border-1 border-blue-300 bg-white absolute top-4 right-4 z-20 p-1 rounded cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#000" viewBox="0 0 24 24">
+                  <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm10-2h2v2h-2v-2zm0 4h2v2h-2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2z"/>
+                </svg>
+              </div>
+
+              <!-- Image or QR Code -->
+              <div *ngIf="!isQRVisibleMap[i]" class="w-full h-full">
+                <img
+                  [src]="district.image"
+                  [alt]="district.name"
+                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              
+              <div *ngIf="isQRVisibleMap[i]" class="w-full h-full flex items-center justify-center bg-white p-4">
+                <qr-code [value]="siteUrl+'/' + district.name.toLowerCase()" 
+                         [size]="200" 
+                         [errorCorrectionLevel]="'M'">
+                </qr-code>
+              </div>
             </div>
 
             <div class="p-4 flex-1 flex flex-col">
@@ -127,9 +145,10 @@
                 </div>
               </div>
 
-              <div class="pt-3 border-t border-gray-100 dark:border-gray-700">
-                <button
-                  class="w-full px-3 py-1.5 bg-primary-600 dark:bg-primary-500 text-white rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors duration-300 flex items-center justify-center gap-1.5 text-sm"
+              <div class="pt-3 border-t border-gray-100 dark:border-gray-700" *ngIf="!isQRVisibleMap[i]">
+                <button  (click)="selectDistrict(district)"
+                  class="w-full px-3 py-1.5 bg-primary-600 
+                  dark:bg-primary-500 text-white rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors duration-300 flex items-center justify-center gap-1.5 text-sm"
                 >
                   <span>Explore {{ district.name }}</span>
                   <svg

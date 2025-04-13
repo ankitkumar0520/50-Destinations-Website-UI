@@ -1,5 +1,7 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, AfterViewInit, OnDestroy, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { QrCodeComponent } from 'ng-qrcode';
+
 import {
   destroyOwlInstance,
   initializeOwlCarousel,
@@ -23,13 +25,19 @@ interface Feature {
 @Component({
   selector: 'app-home-district-carousel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,QrCodeComponent],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
 })
 export class HomeDistrictCarouselComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
+
+  
+  siteUrl:string=window.location.origin;
+  isQRVisibleMap: { [key: number]: boolean } = {};
+
+
   features: Feature[] = [
     {
       icon: 'M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9',
@@ -138,7 +146,7 @@ export class HomeDistrictCarouselComponent
     setTimeout(() => {
       initializeOwlCarousel(
         '.district-carousel',
-        true,
+        false,
         true,
         0,
         false,
@@ -146,6 +154,10 @@ export class HomeDistrictCarouselComponent
       );
     }, 300);
   }
+  trackByIndex(index: number, item: any): any {
+    return index;
+  }
+  
 
   ngOnDestroy(): void {
     destroyOwlInstance('.district-carousel');
@@ -153,5 +165,9 @@ export class HomeDistrictCarouselComponent
 
   selectDistrict(district: District): void {
     this.selectedDistrict = district;
+  }
+
+  switchQR(i:number){
+    this.isQRVisibleMap[i]=!this.isQRVisibleMap[i]
   }
 }
