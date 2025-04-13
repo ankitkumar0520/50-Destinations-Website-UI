@@ -7,7 +7,7 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { QrCodeComponent } from 'ng-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 import {
   destroyOwlInstance,
@@ -32,7 +32,7 @@ interface Feature {
 @Component({
   selector: 'app-home-district-carousel',
   standalone: true,
-  imports: [CommonModule, QrCodeComponent],
+  imports: [CommonModule, QRCodeComponent],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
 })

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { QrCodeComponent } from 'ng-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @Component({
   selector: 'app-home-gallery-section',
   standalone: true,
-  imports: [CommonModule, QrCodeComponent],
+  imports: [CommonModule, QRCodeComponent],
   templateUrl: './home-gallery-section.component.html',
   styleUrl: './home-gallery-section.component.css',
 })
@@ -88,7 +88,7 @@ export class HomeGallerySectionComponent {
       type: 'Spiritual Site',
       image: 'assets/Images/destinations/baba-harbhajan-mandir.jpg',
       description:
-        'A memorial dedicated to Indian soldier Harbhajan Singh, believed to be a guardian spirit of the area. Set amidst the mountains, it’s both spiritually uplifting and scenic.',
+        "A memorial dedicated to Indian soldier Harbhajan Singh, believed to be a guardian spirit of the area. Set amidst the mountains, it's both spiritually uplifting and scenic.",
       highlights: [
         'Spiritual Significance',
         'Mountain Views',
@@ -124,7 +124,46 @@ export class HomeGallerySectionComponent {
     }
   }
 
-  switchQR(i: number) {
-    this.isQRVisibleMap[i] = !this.isQRVisibleMap[i];
+  switchQR(index: number): void {
+    this.isQRVisibleMap[index] = !this.isQRVisibleMap[index];
+  }
+
+  shareQR(index: number): void {
+    const destination = this.destinations[index];
+    const url = this.siteUrl + '/' + destination.name.toLowerCase();
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: `Explore ${destination.name}`,
+          text: `Check out ${destination.name} in Sikkim!`,
+          url: url,
+        })
+        .catch(console.error);
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      const tempInput = document.createElement('input');
+      tempInput.value = url;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      alert('Link copied to clipboard!');
+    }
+  }
+
+  downloadQR(index: number): void {
+    const qrCodeElement = document.querySelector(
+      `.qr-container:nth-child(${index + 1}) qr-code`
+    );
+    if (qrCodeElement) {
+      const canvas = qrCodeElement.querySelector('canvas');
+      if (canvas) {
+        const link = document.createElement('a');
+        link.download = `${this.destinations[index].name}-qr.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }
+    }
   }
 }

@@ -72,7 +72,7 @@
                     <!-- QR Toggle Button -->
                     <div
                       (click)="switchQR(i)"
-                      class="w-8 h-8 border-1 border-blue-300 bg-white absolute top-4 right-4 z-20 p-1 rounded cursor-pointer"
+                      class="w-8 h-8 border-1 border-blue-300 bg-white absolute top-4 left-4 z-20 p-1 rounded cursor-pointer"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -182,37 +182,44 @@
                 </div>
 
                 <!-- Back of the card -->
-                <div class="flip-card-back">
-                  <div class="back-button" (click)="switchQR(i)">
+                <div
+                  class="flip-card-back bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg shadow-md"
+                >
+                  <div
+                    class="back-button text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer mb-4"
+                    (click)="switchQR(i)"
+                  >
                     <i class="fas fa-arrow-left"></i>
                   </div>
-                  <div class="qr-container">
-                    <qr-code
-                      [value]="siteUrl + '/' + district.name.toLowerCase()"
-                      [size]="200"
+                  <div class="qr-container flex justify-center mb-4">
+                    <qrcode
+                      [qrdata]="siteUrl + '/' + district.name.toLowerCase()"
+                      [width]="200"
                       [errorCorrectionLevel]="'M'"
                     >
-                    </qr-code>
+                    </qrcode>
                   </div>
-                  <h3 class="text-xl font-bold text-gray-800 mb-2">
+                  <h3
+                    class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2"
+                  >
                     {{ district.name }}
                   </h3>
-                  <p class="text-gray-600 text-sm mb-4">
+                  <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
                     Scan to explore {{ district.name }}
                   </p>
-                  <div class="text-xs text-gray-500 mb-4">
+                  <div class="text-xs text-gray-500 dark:text-gray-400 mb-4">
                     <p>{{ district.population }} • {{ district.elevation }}</p>
                   </div>
-                  <div class="action-buttons">
+                  <div class="action-buttons flex gap-2">
                     <button
-                      class="action-button share-button"
+                      class="action-button share-button px-3 py-1.5 bg-primary-600 dark:bg-primary-500 text-white rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors duration-300 flex items-center gap-1.5 text-sm"
                       (click)="shareQR(i)"
                     >
                       <i class="fas fa-share-alt"></i>
                       <span>Share</span>
                     </button>
                     <button
-                      class="action-button download-button"
+                      class="action-button download-button px-3 py-1.5 bg-secondary-600 dark:bg-secondary-500 text-white rounded-lg hover:bg-secondary-700 dark:hover:bg-secondary-600 transition-colors duration-300 flex items-center gap-1.5 text-sm"
                       (click)="downloadQR(i)"
                     >
                       <i class="fas fa-download"></i>

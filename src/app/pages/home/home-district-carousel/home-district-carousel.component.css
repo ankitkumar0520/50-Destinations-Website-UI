@@ -27,7 +27,6 @@
 
 .flip-card-back {
   transform: rotateY(180deg);
-  background: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,23 +44,8 @@
   position: absolute;
   top: 1rem;
   left: 1rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid #93c5fd;
-  background: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  z-index: 20;
-  transition: all 0.3s ease;
-  color: #3b82f6;
-}
-
-.back-button:hover {
-  background: #f3f4f6;
-  transform: scale(1.05);
+  font-size: 20px;
 }
 
 .back-button i {
