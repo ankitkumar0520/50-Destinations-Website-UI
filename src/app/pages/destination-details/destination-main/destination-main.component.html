@@ -6,24 +6,4 @@
 <app-police-hospital></app-police-hospital>
 <app-shops></app-shops>
 <app-accomodation-eatery></app-accomodation-eatery>
-
-
-<!-- Scroll to Top Button -->
-<button
-  (click)="scrollToTop()"
-  [class.opacity-0]="!showScrollTop"
-  class="fixed bottom-8 right-8 p-3 bg-gradient-to-br from-blue-200 to-blue-300 border cursor-pointer border-blue-300 rounded-xl hover:from-blue-400 hover:to-blue-500 hover:!text-black hover:border-blue-300 transition-all duration-300 z-50 shadow-lg hover:shadow-xl group"
-  [class.animate-fade-in]="showScrollTop"
-  [class.animate-fade-out]="!showScrollTop"
->
-  <div class="flex flex-col items-center">
-    <fa-icon
-      [icon]="arrowUp"
-      class="h-5 w-5 transform group-hover:-translate-y-1 transition-transform"
-    ></fa-icon>
-    <span class="text-xs mt-1 font-medium">Top</span>
-  </div>
-</button>
-
-
 <app-map></app-map>

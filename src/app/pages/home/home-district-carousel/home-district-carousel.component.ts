@@ -13,6 +13,7 @@ import {
   destroyOwlInstance,
   initializeOwlCarousel,
 } from '../../../utils/utils';
+import { SectionHeaderComponent } from "../../../common/section-header/section-header.component";
 
 interface District {
   id: number;
@@ -32,7 +33,7 @@ interface Feature {
 @Component({
   selector: 'app-home-district-carousel',
   standalone: true,
-  imports: [CommonModule, QRCodeComponent],
+  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
 })
@@ -47,15 +48,15 @@ export class HomeDistrictCarouselComponent
 
   features: Feature[] = [
     {
-      icon: 'M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9',
+      icon: 'fas fa-landmark',
       text: 'Rich Cultural Heritage',
     },
     {
-      icon: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z',
+      icon: 'fas fa-map-marker-alt',
       text: 'Top Tourist Attractions',
     },
     {
-      icon: 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1',
+      icon: 'fas fa-route',
       text: 'Seamlessly Connected Destinations',
     },
   ];

@@ -1,29 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ShareQRModelComponent } from '../share-qr-model/share-qr-model.component';
 import { AiAudioModelComponent } from '../ai-audio-model/ai-audio-model.component';
-import {
-  FontAwesomeModule,
-  FaIconLibrary,
-} from '@fortawesome/angular-fontawesome';
-
-import {
-  faBars,
-  faTimes,
-  faLandmark,
-  faMountain,
-  faPray,
-  faOm,
-  faCamera,
-  faFileAlt,
-  faVolumeUp,
-  faMapMarkerAlt,
-  faParking,
-  faUtensils,
-  faCalculator,
-  faShieldAlt,
-  faMedkit,
-} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-hero-section',
@@ -44,62 +23,64 @@ export class HeroSectionComponent implements OnInit {
   shareUrl = 'https://your-link.com'; // Provide actual link
   showAudioModal = false;
 
-  bars = faBars;
-  times = faTimes;
-  landmark = faLandmark;
-  mountain = faMountain;
-  pray = faPray;
-  om = faOm;
-  camera = faCamera;
-  fileAlt = faFileAlt;
-  volumeUp = faVolumeUp;
-  mapMarker = faMapMarkerAlt;
-  parking = faParking;
-  utensils = faUtensils;
-  calculator = faCalculator;
-  shield = faShieldAlt;
-  medkit = faMedkit;
+  menuItems = [
+    { id: 'points-of-interest', name: 'Points of Interest', icon: 'map-marker-alt' },
+    { id: 'parking', name: 'Parking', icon: 'parking' },
+    { id: 'eateries', name: 'Eateries', icon: 'utensils' },
+    { id: 'atm', name: 'ATM', icon: 'money-bill-wave' },
+    { id: 'police-services', name: 'Police Services', icon: 'shield-alt' },
+    { id: 'hospital-services', name: 'Hospital Services', icon: 'hospital' }
+  ];
 
-  constructor(library: FaIconLibrary) {
-    library.addIcons(
-      this.bars,
-      this.times,
-      this.landmark,
-      this.mountain,
-      this.pray,
-      this.om,
-      this.camera,
-      this.fileAlt,
-      this.volumeUp,
-      this.mapMarker,
-      this.parking,
-      this.utensils,
-      this.calculator,
-      this.shield,
-      this.medkit
-    );
-  }
-  ngOnInit() {}
+  activeSection: string = 'points-of-interest';
+  isBrowser: boolean;
+  navbarHeight = 70 + 64; // Fixed navbar height
+showAside = true;
 
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
-  scrollToSection(id: string) {
-    this.isMenuOpen = false;
-    if (typeof window !== 'undefined') {
-      // Ensure SSR compatibility
-      const element = document.getElementById(id);
+  ngOnInit() {
+    if (this.isBrowser) {
+      this.checkActiveSection();
+    }
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    if (this.isBrowser) {
+      this.checkActiveSection();
+    }
+  }
+
+  checkActiveSection() {
+    if (!this.isBrowser) return;
+
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+    for (const item of this.menuItems) {
+      const element = document.getElementById(item.id);
       if (element) {
-        const offset = 80; // Adjust this value based on your header height
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        const offsetTop = element.offsetTop;
+        const offsetHeight = element.offsetHeight;
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth',
-        });
+        if (scrollPosition >= offsetTop - this.navbarHeight && scrollPosition < offsetTop + offsetHeight - this.navbarHeight) {
+          this.activeSection = item.id;
+          break;
+        }
       }
+    }
+  }
+
+  scrollTo(id: string) {
+    if (!this.isBrowser) return;
+
+    const element = document.getElementById(id);
+    if (element) {
+      const offsetTop = element.offsetTop - this.navbarHeight;
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      this.activeSection = id;
     }
   }
 }
