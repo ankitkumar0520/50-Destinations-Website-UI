@@ -1,4 +1,11 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { QrCodeComponent } from 'ng-qrcode';
 
@@ -25,18 +32,18 @@ interface Feature {
 @Component({
   selector: 'app-home-district-carousel',
   standalone: true,
-  imports: [CommonModule,QrCodeComponent],
+  imports: [CommonModule, QrCodeComponent],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
 })
 export class HomeDistrictCarouselComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-
-  
-  siteUrl:string=window.location.origin;
+  private platformId = inject(PLATFORM_ID);
+  siteUrl: string = isPlatformBrowser(this.platformId)
+    ? window.location.origin
+    : '';
   isQRVisibleMap: { [key: number]: boolean } = {};
-
 
   features: Feature[] = [
     {
@@ -143,31 +150,35 @@ export class HomeDistrictCarouselComponent
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      initializeOwlCarousel(
-        '.district-carousel',
-        false,
-        true,
-        0,
-        false,
-        [1, 3, 4]
-      );
-    }, 300);
+    if (isPlatformBrowser(this.platformId)) {
+      setTimeout(() => {
+        initializeOwlCarousel(
+          '.district-carousel',
+          false,
+          true,
+          0,
+          false,
+          [1, 3, 4]
+        );
+      }, 300);
+    }
   }
+
   trackByIndex(index: number, item: any): any {
     return index;
   }
-  
 
   ngOnDestroy(): void {
-    destroyOwlInstance('.district-carousel');
+    if (isPlatformBrowser(this.platformId)) {
+      destroyOwlInstance('.district-carousel');
+    }
   }
 
   selectDistrict(district: District): void {
     this.selectedDistrict = district;
   }
 
-  switchQR(i:number){
-    this.isQRVisibleMap[i]=!this.isQRVisibleMap[i]
+  switchQR(i: number): void {
+    this.isQRVisibleMap[i] = !this.isQRVisibleMap[i];
   }
 }

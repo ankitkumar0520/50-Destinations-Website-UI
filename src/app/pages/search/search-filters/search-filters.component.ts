@@ -59,14 +59,18 @@ export class SearchFiltersComponent implements OnInit {
   selectedDurations: Set<string> = new Set();
 
   constructor(private searchService: SearchService) {
-    // Check for dark mode preference
-    this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    // Listen for dark mode changes
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', (e) => {
-        this.isDarkMode = e.matches;
-      });
+    if (typeof window !== 'undefined') {
+      // Check for dark mode preference
+      this.isDarkMode = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      ).matches;
+      // Listen for dark mode changes
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', (e) => {
+          this.isDarkMode = e.matches;
+        });
+    }
   }
 
   ngOnInit() {

@@ -26,7 +26,7 @@ import { MapComponent } from '../map/map.component';
     ShopsComponent,
     AccomodationEateryComponent,
     FontAwesomeModule,
-    MapComponent
+    MapComponent,
   ],
 })
 export class DestinationMainComponent implements OnInit {
@@ -44,13 +44,17 @@ export class DestinationMainComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    this.showScrollTop = window.scrollY > this.scrollThreshold;
+    if (typeof window !== 'undefined') {
+      this.showScrollTop = window.scrollY > this.scrollThreshold;
+    }
   }
 
   scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
   }
 }
