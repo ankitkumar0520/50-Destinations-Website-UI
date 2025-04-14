@@ -35,7 +35,7 @@ export class HeroSectionComponent implements OnInit {
   activeSection: string = 'points-of-interest';
   isBrowser: boolean;
   navbarHeight = 70 + 64; // Fixed navbar height
-showAside = true;
+showAside = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
