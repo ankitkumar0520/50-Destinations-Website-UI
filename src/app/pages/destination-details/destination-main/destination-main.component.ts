@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeroSectionComponent } from '../../destination-details/hero-section/hero-section.component';
 import { GalleryDescriptionComponent } from '../gallery-description/gallery-description.component';
 import { PointsOfInterestComponent } from '../points-of-interest/points-of-interest.component';
@@ -7,8 +7,6 @@ import { PoliceHospitalComponent } from '../police-hospital/police-hospital.comp
 import { ShopsComponent } from '../shops/shops.component';
 import { AccomodationEateryComponent } from '../accomodation-eatery/accomodation-eatery.component';
 import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { MapComponent } from '../map/map.component';
 
 @Component({
@@ -25,32 +23,16 @@ import { MapComponent } from '../map/map.component';
     PoliceHospitalComponent,
     ShopsComponent,
     AccomodationEateryComponent,
-    FontAwesomeModule,
-    MapComponent
+    MapComponent,
   ],
 })
 export class DestinationMainComponent implements OnInit {
   showModal = false;
   shareUrl = 'https://your-link.com';
-  showScrollTop = false;
-  private scrollThreshold = 300;
-
-  // Define icon property
-  arrowUp = faArrowUp;
 
   constructor() {}
 
   ngOnInit() {}
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    this.showScrollTop = window.scrollY > this.scrollThreshold;
-  }
 
-  scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }
 }

@@ -1,11 +1,19 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { QrCodeComponent } from 'ng-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 import {
   destroyOwlInstance,
   initializeOwlCarousel,
 } from '../../../utils/utils';
+import { SectionHeaderComponent } from "../../../common/section-header/section-header.component";
 
 interface District {
   id: number;
@@ -25,30 +33,30 @@ interface Feature {
 @Component({
   selector: 'app-home-district-carousel',
   standalone: true,
-  imports: [CommonModule,QrCodeComponent],
+  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
 })
 export class HomeDistrictCarouselComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-
-  
-  siteUrl:string=window.location.origin;
+  private platformId = inject(PLATFORM_ID);
+  siteUrl: string = isPlatformBrowser(this.platformId)
+    ? window.location.origin
+    : '';
   isQRVisibleMap: { [key: number]: boolean } = {};
-
 
   features: Feature[] = [
     {
-      icon: 'M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9',
+      icon: 'fas fa-landmark',
       text: 'Rich Cultural Heritage',
     },
     {
-      icon: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z',
+      icon: 'fas fa-map-marker-alt',
       text: 'Top Tourist Attractions',
     },
     {
-      icon: 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1',
+      icon: 'fas fa-route',
       text: 'Seamlessly Connected Destinations',
     },
   ];
@@ -143,31 +151,74 @@ export class HomeDistrictCarouselComponent
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      initializeOwlCarousel(
-        '.district-carousel',
-        false,
-        true,
-        0,
-        false,
-        [1, 3, 4]
-      );
-    }, 300);
+    if (isPlatformBrowser(this.platformId)) {
+      setTimeout(() => {
+        initializeOwlCarousel(
+          '.district-carousel',
+          false,
+          true,
+          0,
+          false,
+          [1, 3, 4]
+        );
+      }, 300);
+    }
   }
+
   trackByIndex(index: number, item: any): any {
     return index;
   }
-  
 
   ngOnDestroy(): void {
-    destroyOwlInstance('.district-carousel');
+    if (isPlatformBrowser(this.platformId)) {
+      destroyOwlInstance('.district-carousel');
+    }
   }
 
   selectDistrict(district: District): void {
     this.selectedDistrict = district;
   }
 
-  switchQR(i:number){
-    this.isQRVisibleMap[i]=!this.isQRVisibleMap[i]
+  switchQR(i: number): void {
+    this.isQRVisibleMap[i] = !this.isQRVisibleMap[i];
+  }
+
+  shareQR(i: number): void {
+    const district = this.districts[i];
+    const url = `${this.siteUrl}/${district.name.toLowerCase()}`;
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: `Explore ${district.name}`,
+          text: `Check out ${district.name} in Sikkim!`,
+          url: url,
+        })
+        .catch(console.error);
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      const tempInput = document.createElement('input');
+      tempInput.value = url;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      alert('Link copied to clipboard!');
+    }
+  }
+
+  downloadQR(i: number): void {
+    const district = this.districts[i];
+    const qrElement = document.querySelector(
+      `.qr-container:nth-child(${i + 1}) canvas`
+    );
+
+    if (qrElement) {
+      const canvas = qrElement as HTMLCanvasElement;
+      const link = document.createElement('a');
+      link.download = `${district.name.toLowerCase()}-qr.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
   }
 }

@@ -48,3 +48,34 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
+.brand-gradient-bg {
+  background: #36a4ff;
+  background: -webkit-linear-gradient(
+    89deg,
+    rgba(54, 164, 255, 1) 0%,
+    rgba(145, 230, 85, 1) 100%
+  );
+  background: -moz-linear-gradient(
+    89deg,
+    rgba(54, 164, 255, 1) 0%,
+    rgba(145, 230, 85, 1) 100%
+  );
+  background: linear-gradient(
+    89deg,
+    rgba(54, 164, 255, 1) 0%,
+    rgba(145, 230, 85, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#36A4FF", endColorstr="#91E655", GradientType=0);
+}
+
+.brand-gradient-text {
+  background: linear-gradient(
+    24deg,
+    rgba(33, 150, 243, 1) 0%,
+    rgba(221, 232, 63, 1) 52%,
+    rgba(245, 173, 78, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

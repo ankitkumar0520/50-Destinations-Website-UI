@@ -1,120 +1,155 @@
-<div class="w-full px-4 md:px-6 py-4" id="gallery-description">
+<section class="w-full py-8 bg-white dark:bg-gray-800  shadow-md" id="gallery-description">
   <!-- Description Section - Full Width -->
-  <div class="w-full p-4 md:p-6 mb-8 shadow-lg rounded-xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm">
-    <div class="description-container max-w-[1200px] mx-auto">
-      <div class="description-header mb-6">
-        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{destination.title}}</h1>
-        <div class="flex items-center gap-4 text-gray-600 dark:text-gray-400 text-base md:text-lg flex-wrap">
-          <div class="flex items-center gap-2 bg-primary-50 dark:bg-primary-900/20 px-3 py-1.5 rounded-lg">
-            <svg class="w-5 h-5 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
-            <span class="text-primary-700 dark:text-primary-300">{{destination.location}}</span>
+  <div class="w-full py-8 max-w-7xl mx-auto px-6 2xl:px-0">
+    <div class="">
+      <!-- Header Section -->
+      <div class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">{{destination.title}}</h1>
+        <div class="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 text-sm md:text-base">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-map-marker-alt text-primary-600 dark:text-primary-400"></i>
+            <span class="text-gray-400">{{destination.location}}</span>
           </div>
-          <div class="flex items-center gap-2 bg-secondary-50 dark:bg-secondary-900/20 px-3 py-1.5 rounded-lg" *ngIf="destination.distance">
-            <svg class="w-5 h-5 text-secondary-600 dark:text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7l4-4m0 0l4 4m-4-4v18"/>
-            </svg>
-            <span class="text-secondary-700 dark:text-secondary-300">{{destination.distance}}</span>
+          <div *ngIf="destination.distance" class="flex items-center gap-2">
+            <i class="fas fa-route text-secondary-700 dark:text-secondary-400"></i>
+            <span class="text-gray-400">{{destination.distance}}</span>
           </div>
         </div>
       </div>
 
-      <div class="description-content">
-        <div class="description-section bg-gradient-to-br from-accent-50/50 to-accent-100/30 dark:from-accent-900/20 dark:to-accent-800/30 p-6 rounded-xl border border-accent-100 dark:border-accent-800">
-          <h2 class="text-xl font-semibold mb-4 flex items-center text-accent-700 dark:text-accent-300">
-            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            About this destination
-          </h2>
-          <div [innerHTML]="destination.description" 
-               class="text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg break-words"></div>
-        </div>
+      <!-- Description Section -->
+      <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+        <!-- <h2 class="text-xl font-semibold text-accent-700 dark:text-accent-300 mb-4 flex items-center">
+          <i class="fas fa-info-circle mr-2"></i> About this destination
+        </h2> -->
+        <p [innerHTML]="destination.description"
+          class="text-gray-700 dark:text-gray-300 leading-relaxed text-sm md:text-base"></p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Gallery Carousel Section -->
-  <div class="w-full mt-6 max-w-[1200px] mx-auto">
-    <!-- Gallery Header -->
-    <div class="mb-8 text-center">
-      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{galleryInfo.title}}</h2>
-      <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{{galleryInfo.description}}</p>
-      <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
-        <span class="flex items-center justify-center gap-2">
-          <i class="pi pi-images"></i>
-          {{galleryInfo.totalImages}} Images
-        </span>
+
+
+
+<section class="min-h-screen flex items-center bg-gradient-to-br from-gray-50 to-gray-100" id="destination-galleries">
+
+  <div class="w-full max-w-7xl mx-auto px-6 2xl:px-0 py-16">
+    <!-- Header Section -->
+    <div class="relative overflow-hidden">
+      <!-- Background Elements -->
+      <div class="absolute top-0 left-0 w-full h-full">
+        <div
+          class="absolute top-10 right-20 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000">
+        </div>
+      </div>
+
+      <!-- Content Container -->
+      <div class="relative">
+        <div class="max-w-3xl">
+          <!-- Subtitle -->
+          <div class="flex items-center space-x-4 mb-6">
+            <div class="flex items-center">
+              <span
+                class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" />
+                </svg>
+                {{galleryInfo.totalImages}} Images
+              </span>
+              <div class="h-px w-12 bg-indigo-600/30 ml-4"></div>
+            </div>
+          </div>
+
+          <!-- Main Title -->
+          <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-4">
+            {{galleryInfo.title}}
+            <span class="block text-lg sm:text-xl font-normal text-indigo-600 mt-2">
+              Discover the stunning image gallery showcasing this destination's beauty
+            </span>
+          </h1>
+
+          <!-- Description -->
+          <div class="mt-8 space-y-6">
+            <p class="text-lg text-gray-600 leading-relaxed">
+              {{galleryInfo.description}}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
+
 
     <!-- Gallery Carousel -->
-    <div class="destination-gallery-carousel owl-carousel owl-theme">
-      <div *ngFor="let image of GalleryImages; let i = index" 
-           class="item p-2">
-        <div class="relative group cursor-pointer rounded-lg overflow-hidden shadow-md h-full"
-             (click)="showGalleria(i)">
-          <img [src]="image.thumbnailImageSrc" 
-               [alt]="image.alt"
-               class="w-full h-full aspect-[4/3] object-cover rounded-lg transition-transform duration-300 group-hover:scale-105" />
-          <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-300"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-            <p class="text-white text-sm font-medium truncate">{{image.alt}}</p>
-          </div>
+    <div class="destination-gallery-grid py-8">
+      <div *ngFor="let image of GalleryImages; let i = index"
+        class="gallery-item relative group cursor-pointer rounded-lg overflow-hidden shadow-md"
+        (click)="showGalleria(i)">
+        <img [src]="image.thumbnailImageSrc" [alt]="image.alt"
+          class="w-full h-full aspect-[4/3] object-cover rounded-lg transition-all duration-300 group-hover:scale-105" />
+
+        <!-- Hover overlay with title -->
+        <div
+          class="absolute inset-0 flex flex-col justify-end p-4 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="text-white text-lg font-medium">{{image.alt}}</div>
+          <div class="text-white/80 text-sm mt-1">Click to view</div>
+        </div>
+
+        <!-- Always visible minimal title -->
+        <div class="absolute bottom-0 left-0 right-0 p-2 bg-black/30 backdrop-blur-sm">
+          <p class="text-white text-sm font-medium truncate text-center">{{image.alt}}</p>
         </div>
       </div>
     </div>
-  </div>
 
- <!-- Galleria Modal -->
- <div *ngIf="displayGalleria" 
-       class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
-       (click)="displayGalleria = false">
-    <div class="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-xl shadow-2xl" 
-         (click)="$event.stopPropagation()">
-      <!-- Close Button -->
-      <button class="absolute top-4 right-4 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center" 
-              (click)="displayGalleria = false">×</button>
-      
-      <!-- Navigation Buttons -->
-      <button class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
-              (click)="activeIndex = (activeIndex - 1 + imageCount) % imageCount">
-        ‹
-      </button>
-      <button class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
-              (click)="activeIndex = (activeIndex + 1) % imageCount">
-        ›
-      </button>
+    <!-- Galleria Modal -->
+    <div *ngIf="displayGalleria" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
+      (click)="displayGalleria = false">
+      <div class="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-xl shadow-2xl"
+        (click)="$event.stopPropagation()">
+        <!-- Close Button -->
+        <button
+          class="absolute top-4 right-4 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+          (click)="displayGalleria = false">×</button>
 
-      <!-- Main Image Container -->
-      <div class="flex flex-col h-full bg-gray-900">
-        <!-- Main Image -->
-        <div class="flex-1 flex items-center justify-center p-4 md:p-6 min-h-[50vh] md:min-h-[60vh]">
-          <img [src]="GalleryImages[activeIndex].itemImageSrc" 
-               [alt]="GalleryImages[activeIndex].alt"
-               class="max-w-full h-[50vh] md:h-[65vh] object-contain rounded-lg shadow-lg" />
-        </div>
+        <!-- Navigation Buttons -->
+        <button
+          class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+          (click)="activeIndex = (activeIndex - 1 + imageCount) % imageCount">
+          ‹
+        </button>
+        <button
+          class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+          (click)="activeIndex = (activeIndex + 1) % imageCount">
+          ›
+        </button>
 
-        <!-- Image Info -->
-        <div class="text-center p-2 text-white border-t border-gray-700">
-          <h3 class="text-lg md:text-xl font-semibold mb-1">{{GalleryImages[activeIndex].alt}}</h3>
-          <p class="text-gray-300 text-xs md:text-sm">Image {{activeIndex + 1}} of {{imageCount}}</p>
-        </div>
+        <!-- Main Image Container -->
+        <div class="flex flex-col h-full bg-gray-900">
+          <!-- Main Image -->
+          <div class="flex-1 flex items-center justify-center p-4 md:p-6 min-h-[50vh] md:min-h-[60vh]">
+            <img [src]="GalleryImages[activeIndex].itemImageSrc" [alt]="GalleryImages[activeIndex].alt"
+              class="max-w-full h-[50vh] md:h-[65vh] object-contain rounded-lg shadow-lg" />
+          </div>
 
-        <!-- Thumbnail Navigation -->
-        <div class="bg-black/50 backdrop-blur-sm py-2 border-t border-gray-700">
-          <div class="container mx-auto px-2 md:px-4">
-            <div class="flex justify-center gap-1 md:gap-2 overflow-x-auto scrollbar-hide">
-              <div *ngFor="let image of GalleryImages; let i = index"
-                   class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-300"
-                   [class.border-primary-500]="i === activeIndex"
-                   [class.border-transparent]="i !== activeIndex"
-                   (click)="activeIndex = i">
-                <img [src]="image.thumbnailImageSrc"
-                     [alt]="image.alt"
-                     class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+          <!-- Image Info -->
+          <div class="text-center p-2 text-white border-t border-gray-700">
+            <h3 class="text-lg md:text-xl font-semibold mb-1">{{GalleryImages[activeIndex].alt}}</h3>
+            <p class="text-gray-300 text-xs md:text-sm">Image {{activeIndex + 1}} of {{imageCount}}</p>
+          </div>
+
+          <!-- Thumbnail Navigation -->
+          <div class="bg-black/50 backdrop-blur-sm py-2 border-t border-gray-700">
+            <div class="container mx-auto px-2 md:px-4">
+              <div class="flex justify-center gap-1 md:gap-2 overflow-x-auto scrollbar-hide">
+                <div *ngFor="let image of GalleryImages; let i = index"
+                  class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-300"
+                  [class.border-primary-500]="i === activeIndex" [class.border-transparent]="i !== activeIndex"
+                  (click)="activeIndex = i">
+                  <img [src]="image.thumbnailImageSrc" [alt]="image.alt"
+                    class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+                </div>
               </div>
             </div>
           </div>
@@ -122,4 +157,7 @@
       </div>
     </div>
   </div>
-</div>
+
+
+
+</section>

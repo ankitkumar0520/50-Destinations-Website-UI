@@ -2,4 +2,23 @@
 <main class="min-h-[calc(100vh-4rem)] bg-transparent">
   <router-outlet />
 </main>
+<app-footer></app-footer>
 
+
+
+<!-- Scroll to Top Button -->
+<button
+  (click)="scrollToTop()"
+  [class.opacity-0]="!showScrollTop"
+  class="fixed bg-black/60 text-white bottom-8 right-8 aspect-square h-12 w-12 cursor-pointer rounded-full transition-all duration-300 z-50 shadow-lg hover:shadow-xl group"
+  [class.animate-fade-in]="showScrollTop"
+  [class.animate-fade-out]="!showScrollTop"
+>
+  <div class="flex flex-col items-center">
+    <fa-icon
+      [icon]="arrowUp"
+      class="h-5 w-5 transform group-hover:-translate-y-1 transition-transform"
+    ></fa-icon>
+    <span class="text-xs font-medium">Top</span>
+  </div>
+</button>
