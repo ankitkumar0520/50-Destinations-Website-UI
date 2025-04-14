@@ -33,14 +33,14 @@ export class SearchFiltersComponent implements OnInit {
   ];
 
   destinationTags = [
-    { id: 'monasteries', name: 'Monasteries', icon: 'fa-solid fa-place-of-worship' },
-    { id: 'lakes', name: 'Lakes', icon: 'fa-solid fa-water' },
-    { id: 'viewpoints', name: 'Viewpoints', icon: 'fa-solid fa-binoculars' },
+    { id: 'monastery', name: 'Monasteries', icon: 'fa-solid fa-place-of-worship' },
+    { id: 'lake', name: 'Lakes', icon: 'fa-solid fa-water' },
+    { id: 'viewpoint', name: 'Viewpoints', icon: 'fa-solid fa-binoculars' },
     { id: 'trekking', name: 'Trekking', icon: 'fa-solid fa-person-hiking' },
     { id: 'wildlife', name: 'Wildlife', icon: 'fa-solid fa-paw' },
-    { id: 'waterfalls', name: 'Waterfalls', icon: 'fa-solid fa-water' },
-    { id: 'hotsprings', name: 'Hot Springs', icon: 'fa-solid fa-fire' },
-    { id: 'temples', name: 'Temples', icon: 'fa-solid fa-gopuram' },
+    { id: 'waterfall', name: 'Waterfalls', icon: 'fa-solid fa-water' },
+    { id: 'hotspring', name: 'Hot Springs', icon: 'fa-solid fa-fire' },
+    { id: 'temple', name: 'Temples', icon: 'fa-solid fa-gopuram' },
   ];
 
   seasons = [

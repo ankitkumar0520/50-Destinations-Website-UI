@@ -30,7 +30,7 @@ export class SearchResultComponent implements OnInit {
   itemsPerPage = 4;
 
   private searchService = inject(SearchService);
-  searchResults: ResultItem[] = this.searchService.dummyResults;
+  searchResults: ResultItem[] = this.searchService.getDestinations();
 
   constructor(private router: Router) {}
 

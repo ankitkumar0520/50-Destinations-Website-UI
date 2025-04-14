@@ -74,84 +74,76 @@ export class SearchService {
 
 
 
-//sample data for testing
-public  dummyResults = [
-  {
-    id: 1,
-    title: "Sunset Beach Resort",
-    description: "A luxurious beachfront property with stunning ocean views and world-class amenities for the perfect vacation getaway.",
-    image: "https://example.com/images/resort1.jpg",
-    duration: "3 days",
-    location: "North District",
-    tags: ["Beach", "Luxury", "Family"],
-  },
-  {
-    id: 2,
-    title: "Mountain Adventure Camp",
-    description: "Experience thrilling outdoor activities in this scenic mountain retreat with hiking trails and camping facilities.",
-    image: "https://example.com/images/camp1.jpg",
-    duration: "5 days",
-    location: "West District",
-    tags: ["Adventure", "Hiking", "Nature"],
-  },
-  {
-    id: 3,
-    title: "Urban Business Hotel",
-    description: "Modern accommodations in the city center with excellent conference facilities and quick access to business districts.",
-    image: "https://example.com/images/hotel1.jpg",
-    duration: "2 days",
-    location: "Central District",
-    tags: ["Business", "Downtown", "WiFi"],
-  },
-  {
-    id: 4,
-    title: "Historic Village Tour",
-    description: "Immerse yourself in local culture with guided tours of traditional architecture and artisan workshops.",
-    image: "https://example.com/images/village1.jpg",
-    duration: "1 day",
-    location: "East District",
-    tags: ["Cultural", "Tour", "History"],
-  },
-  {
-    id: 5,
-    title: "Lakeside Cabin Retreat",
-    description: "Cozy wooden cabins with private docks and fishing equipment included for a peaceful nature escape.",
-    image: "https://example.com/images/cabin1.jpg",
-    duration: "4 days",
-    location: "South District",
-    tags: ["Quiet", "Fishing", "Romantic"],
-  },
-  {
-    id: 6,
-    title: "Wine Country Villa",
-    description: "Vineyard estate with wine tasting sessions and gourmet dining featuring local produce.",
-    image: "https://example.com/images/villa1.jpg",
-    duration: "3 days",
-    location: "North District",
-    tags: ["Wine", "Gourmet", "Luxury"],
-  },
-  {
-    id: 7,
-    title: "Ski Lodge & Spa",
-    description: "Winter sports paradise with direct slope access and après-ski relaxation in our heated pools and spa.",
-    image: "https://example.com/images/ski1.jpg",
-    duration: "7 days",
-    location: "Mountain District",
-    tags: ["Skiing", "Winter", "Spa"],
-  },
-  {
-    id: 8,
-    title: "Desert Oasis Glamping",
-    description: "Luxury tent accommodations with stargazing decks and guided desert exploration tours.",
-    image: "https://example.com/images/glamping1.jpg",
-    duration: "2 days",
-    location: "Arid District",
-    tags: ["Unique", "Stargazing", "Adventure"],
+
+  getDestinations() {
+    return [
+      // 1. Gangtok District (Capital)
+      {
+        id: 1,
+        title: "Tsomgo Lake & Baba Mandir",
+        description: "Sacred glacial lake at 12,400ft with Baba Harbhajan Singh's shrine. Protected area permit required.",
+        image: "https://example.com/sikkim/tsomgo-baba.jpg",
+        duration: "Full day",
+        location: "Gangtok",
+        tags: ["Permit Required", "High Altitude", "Buddhist"],
+      },
+
+      // 2. Mangan District (North)
+      {
+        id: 2,
+        title: "Gurudongmar Lake",
+        description: "One of the world's highest lakes at 17,800ft, sacred to Buddhists and Sikhs.",
+        image: "https://example.com/sikkim/gurudongmar.jpg",
+        duration: "2 days",
+        location: "Mangan",
+        tags: ["Permit Required", "Extreme Altitude", "Pilgrimage"],
+      },
+
+      // 3. Namchi District (South)
+      {
+        id: 3,
+        title: "Char Dham Complex",
+        description: "Replica of India's four holy shrines with 108ft Shiva statue and panoramic views.",
+        image: "https://example.com/sikkim/char-dham.jpg",
+        duration: "Half day",
+        location: "Namchi",
+        tags: ["Hindu Pilgrimage", "Viewpoint", "Architecture"],
+      },
+
+      // 4. Gyalshing District (West)
+      {
+        id: 4,
+        title: "Khecheopalri Lake",
+        description: "Wish-fulfilling lake where leaves never float on the surface, surrounded by forests.",
+        image: "https://example.com/sikkim/khecheopalri.jpg",
+        duration: "3 hours",
+        location: "Gyalshing",
+        tags: ["Sacred Lake", "Nature", "Trekking"],
+      },
+
+      // 5. Pakyong District (East)
+      {
+        id: 5,
+        title: "Pakyong Airport Viewpoint",
+        description: "Himalaya's first greenfield airport with stunning runway valley views.",
+        image: "https://example.com/sikkim/pakyong-airport.jpg",
+        duration: "1 hour",
+        location: "Pakyong",
+        tags: ["Engineering Marvel", "Aviation", "Photography"],
+      },
+
+      // 6. Soreng District (Newest District)
+      {
+        id: 6,
+        title: "Soreng Cherry Blossoms",
+        description: "Annual spring bloom of wild Himalayan cherry trees in Sikkim's newest district.",
+        image: "https://example.com/sikkim/soreng-cherry.jpg",
+        duration: "Seasonal (March-April)",
+        location: "Soreng",
+        tags: ["Flowers", "Seasonal", "Nature"],
+      }
+    ];
   }
-];
-
-
-
 
 
 
