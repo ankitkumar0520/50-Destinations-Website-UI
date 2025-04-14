@@ -9,16 +9,13 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./section-header.component.css']
 })
 export class SectionHeaderComponent {
-  @Input() badgeText: string = 'badgeText';
+  @Input() badgeText?: String;
 
-  @Input() titleLeft: string = 'titleLeft';
-  @Input() titleMiddleHighlighted: string = 'titleMiddleHighlighted';
-  @Input() titleRight: string = 'titleRight';
+  @Input() titleLeft?: string;
+  @Input() titleMiddleHighlighted? : string;
+  @Input() titleRight?: string;
 
 
-  @Input() description: string = 'description';
-  @Input() features: { icon: string; text: string }[] = [
-    { icon: 'fas fa-arrow-up', text: 'fas fa-arrow-up' },
-    { icon: 'fas fa-arrow-up', text: 'fas fa-arrow-up' }
-  ];
+  @Input() description?: string;
+  @Input() features: { icon: string; text: string }[] = [];
 }

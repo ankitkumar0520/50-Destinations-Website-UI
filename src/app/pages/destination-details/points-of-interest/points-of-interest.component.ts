@@ -2,11 +2,12 @@ import { Component, OnInit, AfterViewInit, ChangeDetectorRef, PLATFORM_ID, Injec
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 
 @Component({
   selector: 'app-points-of-interest',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './points-of-interest.component.html',
   styleUrls: ['./points-of-interest.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -1,10 +1,10 @@
 <!-- Hero Section -->
-<section class="relative min-h-screen">
+<section class="relative min-h-screen" id="hero-section">
     <img src="assets/Images/rumtek-monastry/hero-img.jpg" alt="Rumtek Monastery"
         class="w-full h-full object-cover absolute inset-0">
     <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-black/0">
     </div>
-    <div class=" flex flex-row flex-wrap justify-around items-center min-h-screen relative max-w-7xl mx-auto px-6 pt-[84px] pb-8 md:px-16 2xl:px-0">
+    <div class=" flex flex-row flex-wrap justify-center sm:justify-between items-center min-h-screen relative max-w-7xl mx-auto px-6 pt-[84px] pb-8 md:px-16 2xl:px-0">
         <div class="text-white max-w-4xl flex flex-row">
 
             <div>                    
@@ -43,7 +43,7 @@
                     </span>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    <button (click)="scrollTo('gallery-description')"
+                    <button (click)="scrollTo('about-section')"
                         class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-primary to-primary/80 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-primary/90 hover:to-primary transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
                         <i class="fas fa-file-alt mr-2 sm:mr-3"></i> <span>Explore More</span>
                     </button>
@@ -51,7 +51,7 @@
                         class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-secondary to-secondary/80 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-secondary/90 hover:to-secondary transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
                         <i class="fas fa-volume-up mr-2 sm:mr-3"></i> <span>Audio Guide</span>
                     </button>
-                    <button (click)="scrollTo('map-section')"
+                    <button (click)="scrollTo('guide-map-section')"
                         class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-accent to-accent/80 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-accent/90 hover:to-accent transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
                         <i class="fas fa-map-marker-alt mr-2 sm:mr-3"></i> <span>Navigate Now</span>
                     </button>
@@ -85,50 +85,7 @@
         </div>
 
 
-<!-- Quick Ball Toggle -->
-<button 
-(click)="showAside = !showAside" 
-class="hidden sm:block fixed top-1/2 transform -translate-y-1/2 z-50 bg-black/60 text-white bottom-8 right-8 aspect-square h-12 w-12 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl"
-[class.mr-44]="showAside">
-<i 
-    [class]="showAside ? 'fas fa-arrow-right' : 'fas fa-ellipsis'" 
-    class="text-lg transition-transform duration-300 ease-in-out"
-    ></i>
-</button>
 
-<!-- Side Menu -->
-<aside 
-[class]="showAside ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'"
-class="hidden sm:block fixed right-0 top-1/2 transform -translate-y-1/2 z-40 mr-4 transition-all duration-300 ease-in-out">
-<nav class="flex flex-col space-y-2 p-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-lg shadow-xl border border-gray-200/50 dark:border-gray-600/50">
-<a 
-  *ngFor="let item of menuItems"
-  (click)="scrollTo(item.id)"
-  class="flex items-center p-3 rounded-md transition-all duration-200 hover:bg-emerald-50/70 dark:hover:bg-emerald-900/30 group cursor-pointer"
-  [ngClass]="{
-    'bg-emerald-100/50 dark:bg-emerald-900/20': activeSection === item.id
-  }"
-  [attr.aria-label]="item.name"
->
-  <div class="w-5 h-5 flex items-center justify-center">
-    <i 
-      [class]="'fas fa-' + item.icon + ' text-sm transition-colors duration-200'"
-      [ngClass]="{
-        'text-emerald-600 dark:text-emerald-400': activeSection === item.id,
-        'text-gray-600 dark:text-gray-300 group-hover:text-emerald-600 dark:group-hover:text-emerald-400': activeSection !== item.id
-      }"></i>
-  </div>
-  <span 
-    class="ml-3 text-sm font-medium transition-colors duration-200"
-    [ngClass]="{
-      'text-emerald-600 dark:text-emerald-400': activeSection === item.id,
-      'text-gray-600 dark:text-gray-300 group-hover:text-emerald-600 dark:group-hover:text-emerald-400': activeSection !== item.id
-    }">
-    {{ item.name }}
-  </span>
-</a>
-</nav>
-</aside>
 
 
     </div>

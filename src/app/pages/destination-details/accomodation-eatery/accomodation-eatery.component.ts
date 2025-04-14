@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 
 interface Accommodation {
   name: string;
@@ -20,7 +21,7 @@ interface Eatery {
 @Component({
   selector: 'app-accomodation-eatery',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './accomodation-eatery.component.html',
   styleUrl: './accomodation-eatery.component.css'
 })

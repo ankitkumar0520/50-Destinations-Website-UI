@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 
 interface PoliceLocation {
   id: string;
@@ -16,7 +17,7 @@ interface PoliceLocation {
 @Component({
   selector: 'app-police-hospital',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './police-hospital.component.html',
   styleUrl: './police-hospital.component.css'
 })

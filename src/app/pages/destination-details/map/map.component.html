@@ -1,208 +1,68 @@
-<div class="relative w-full" id="map-section">
-  <div class="flex flex-col md:flex-row gap-4">
-    <!-- How to Reach Section -->
-    <div
-      class="w-full md:w-1/2 h-[400px] bg-white rounded-2xl p-6 shadow-lg overflow-y-auto"
-    >
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">
-        How to Reach Rumtek Monastery
-      </h2>
-
+<section class="max-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="guide-map-section">
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16 flex flex-col md:flex-row gap-4">
+    <div class="w-full md:w-1/2 h-[400px] bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg overflow-y-auto">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">How to Reach Rumtek Monastery</h2>
       <div class="space-y-6">
-        <!-- By Air -->
         <div class="flex items-start gap-3">
-          <div
-            class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 text-blue-600"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"
-              />
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
-                clip-rule="evenodd"
-              />
-            </svg>
+          <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-plane text-blue-600 dark:text-blue-300"></i>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-900">By Air</h3>
-            <p class="text-sm text-gray-600">
-              The nearest airport to Rumtek Monastery is Pakyong Airport (PYG),
-              located about 35 km away. Another option is Bagdogra Airport
-              (IXB), about 125 km away.
-            </p>
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100">By Air</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">The nearest airport to Rumtek Monastery is Pakyong Airport (PYG), located about 35 km away. Another option is Bagdogra Airport (IXB), about 125 km away.</p>
           </div>
         </div>
-
-        <!-- By Train -->
         <div class="flex items-start gap-3">
-          <div
-            class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 text-green-600"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-              <path
-                fill-rule="evenodd"
-                d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
-                clip-rule="evenodd"
-              />
-            </svg>
+          <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-train text-green-600 dark:text-green-300"></i>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-900">By Train</h3>
-            <p class="text-sm text-gray-600">
-              The nearest major railway station is New Jalpaiguri (NJP), about
-              120 km from Gangtok. From there, you can hire a taxi to reach
-              Rumtek.
-            </p>
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100">By Train</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">The nearest major railway station is New Jalpaiguri (NJP), about 120 km from Gangtok. From there, you can hire a taxi to reach Rumtek.</p>
           </div>
         </div>
-
-        <!-- By Road -->
         <div class="flex items-start gap-3">
-          <div
-            class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 text-purple-600"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M8 16.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-              <path
-                fill-rule="evenodd"
-                d="M8 0C4.134 0 1 3.134 1 7c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zM4 7a4 4 0 118 0 4 4 0 01-8 0z"
-                clip-rule="evenodd"
-              />
-            </svg>
+          <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-car text-purple-600 dark:text-purple-300"></i>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-900">By Road</h3>
-            <p class="text-sm text-gray-600">
-              Rumtek is located around 23 km from Gangtok. You can hire taxis or
-              take shared cabs from Gangtok. The roads are hilly and scenic,
-              offering a beautiful journey.
-            </p>
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100">By Road</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Rumtek is located around 23 km from Gangtok. You can hire taxis or take shared cabs from Gangtok. The roads are hilly and scenic, offering a beautiful journey.</p>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Map Section -->
-    <div
-      class="w-full md:w-1/2 h-[400px] bg-gray-100 rounded-2xl overflow-hidden shadow-lg relative"
-    >
+    <div class="w-full md:w-1/2 h-[400px] bg-gray-100 dark:bg-gray-700 rounded-2xl overflow-hidden shadow-lg relative">
       <div class="relative w-full h-full">
-        <div
-          class="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 z-10 pointer-events-none"
-        ></div>
-
-        <iframe
-          src="https://www.google.com/maps/d/u/0/embed?mid=1ni2GWlg6j4qIciheqi1b26hnkGdYu3I&ehbc=2E312F&noprof=1"
-          class="w-full h-full"
-        ></iframe>
-
-        <!-- Eye Button -->
-        <button
-          (click)="toggleMapSize()"
-          class="absolute top-4 right-4 p-3 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg hover:bg-white transition-colors cursor-pointer z-20"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 text-gray-600"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-            <path
-              fill-rule="evenodd"
-              d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 z-10 pointer-events-none"></div>
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1ni2GWlg6j4qIciheqi1b26hnkGdYu3I&ehbc=2E312F&noprof=1" class="w-full h-full"></iframe>
+        <button (click)="toggleMapSize()" class="absolute top-4 right-4 p-3 bg-white/90 dark:bg-gray-800 backdrop-blur-sm rounded-xl shadow-lg hover:bg-white dark:hover:bg-gray-700 transition-colors cursor-pointer z-20">
+          <i class="fas fa-search-plus text-gray-600 dark:text-gray-300"></i>
         </button>
-
-        <!-- Location List -->
         <div class="absolute bottom-4 left-4 right-4 z-20">
-          <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-4">
+          <div class="bg-white/90 dark:bg-gray-800 backdrop-blur-sm rounded-xl shadow-lg p-4">
             <div class="flex items-center justify-between mb-3">
-              <h3 class="text-lg font-semibold text-gray-900">
-                Featured Locations
-              </h3>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Featured Locations</h3>
             </div>
             <div class="space-y-2">
-              <div
-                class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200"
-              >
-                <div
-                  class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-blue-600"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+              <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-all duration-200">
+                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-map-marker-alt text-blue-600 dark:text-blue-300"></i>
                 </div>
                 <div class="flex-1">
-                  <h4 class="font-medium text-gray-900">Rumtek Monastery</h4>
-                  <p class="text-sm text-gray-500">
-                    A significant Tibetan Buddhist monastery and the seat of the
-                    Karmapa in India.
-                  </p>
+                  <h4 class="font-medium text-gray-900 dark:text-gray-100">Rumtek Monastery</h4>
+                  <p class="text-sm text-gray-500 dark:text-gray-300">A significant Tibetan Buddhist monastery and the seat of the Karmapa in India.</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Full Screen Map Modal -->
-        <div
-          *ngIf="isMapExpanded"
-          class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm"
-        >
-          <div class="absolute inset-4 bg-white rounded-2xl overflow-hidden">
+        <div *ngIf="isMapExpanded" class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm">
+          <div class="absolute inset-4 bg-white dark:bg-gray-800 rounded-2xl overflow-hidden">
             <div class="relative w-full h-full">
-              <iframe
-                src="https://www.google.com/maps/d/u/0/embed?mid=1ni2GWlg6j4qIciheqi1b26hnkGdYu3I&ehbc=2E312F&noprof=1"
-                class="w-full h-full"
-              ></iframe>
-
-              <!-- Close Button -->
-              <button
-                (click)="toggleMapSize()"
-                class="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg hover:bg-white transition-colors cursor-pointer z-[110]"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6 text-gray-600"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
+              <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1ni2GWlg6j4qIciheqi1b26hnkGdYu3I&ehbc=2E312F&noprof=1" class="w-full h-full"></iframe>
+              <button (click)="toggleMapSize()" class="absolute top-4 right-4 p-2 bg-white/90 dark:bg-gray-800 backdrop-blur-sm rounded-lg shadow-lg hover:bg-white dark:hover:bg-gray-700 transition-colors cursor-pointer z-[110]">
+                <i class="fas fa-times text-gray-600 dark:text-gray-300"></i>
               </button>
             </div>
           </div>
@@ -210,4 +70,4 @@
       </div>
     </div>
   </div>
-</div>
+</section>

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QRCodeComponent } from 'angularx-qrcode';
+import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 
 @Component({
   selector: 'app-home-gallery-section',
   standalone: true,
-  imports: [CommonModule, QRCodeComponent],
+  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent],
   templateUrl: './home-gallery-section.component.html',
   styleUrl: './home-gallery-section.component.css',
 })

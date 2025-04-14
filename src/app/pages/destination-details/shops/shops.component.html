@@ -1,146 +1,113 @@
-<div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6">
-  <!-- Header Section -->
-  <div class="relative overflow-hidden">
-    <!-- Content Container -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 relative">
-      <div class="max-w-3xl mx-auto text-center">
-        <!-- Subtitle -->
-        <div class="flex items-center justify-center space-x-4 mb-4">
-          <div class="flex items-center">
-            <div class="h-px w-12 bg-indigo-600/30"></div>
-            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-              <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
-              </svg>
-              Local Shopping
-            </span>
-            <div class="h-px w-12 bg-indigo-600/30"></div>
+<section class="min-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="shops-section">
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">
+    <app-section-header 
+      [badgeText]="'Local Shopping'"
+      [titleLeft]="'Explore'"
+      [titleMiddleHighlighted]="'Artisan Shops'"
+      [description]="'Discover unique handcrafted treasures from your local community, reflecting the rich cultural heritage of the region.'"
+      [features]="[
+        { icon: 'fas fa-store', text: 'Local Stores' },
+        { icon: 'fas fa-gift', text: 'Handcrafted Items' },
+        { icon: 'fas fa-map-marker-alt', text: 'Nearby Locations' }
+      ]">
+    </app-section-header>
+
+    <!-- Grid for Shops -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        *ngFor="let shop of shops"
+        class="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden"
+      >
+        <!-- Shop Image -->
+        <div class="relative h-48 overflow-hidden">
+          <img
+            [src]="shop.image"
+            [alt]="shop.name"
+            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4">
+            <h2 class="text-xl font-semibold text-white">{{ shop.name }}</h2>
           </div>
         </div>
 
-        <!-- Main Title -->
-        <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-3">
-          Explore Local Artisan Shops
-          <span class="block text-lg sm:text-xl font-normal text-indigo-600 mt-2">
-            Discover unique handcrafted treasures from your local community
-          </span>
-        </h1>
+        <!-- Shop Details -->
+        <div class="p-4">
+          <div class="flex items-start gap-2 mb-3">
+            <i class="fas fa-map-marker-alt text-blue-500 mt-0.5"></i>
+            <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-1">{{ shop.address }}</p>
+          </div>
 
-        <!-- Description -->
-        <div class="mt-6 space-y-4">
-          <p class="text-lg text-gray-600 leading-relaxed">
-            Explore our carefully curated selection of local artisan shops, each offering unique handcrafted treasures that reflect the rich cultural heritage of our community. From traditional crafts to contemporary designs, find something special to take home.
-          </p>
+          <!-- Action Buttons -->
+          <div class="flex gap-2">
+            <button
+              class="flex-1 bg-blue-500 text-white hover:bg-blue-600 font-medium py-2 px-3 rounded-lg transition flex items-center justify-center gap-1 cursor-pointer"
+            >
+              <i class="fas fa-map"></i>
+              View Map
+            </button>
+            <button
+              (click)="openModal(shop)"
+              class="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 font-medium py-2 px-3 rounded-lg transition flex items-center justify-center gap-1 cursor-pointer"
+            >
+              <i class="fas fa-box-open"></i>
+              View Products
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Grid for Shops -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+    <!-- Products Modal -->
     <div
-      *ngFor="let shop of shops"
-      class="bg-white rounded-xl shadow-sm hover:shadow-md transition duration-300 border border-gray-100 overflow-hidden"
-    >
-      <!-- Shop Image -->
-      <div class="relative h-48 overflow-hidden">
-        <img
-          [src]="shop.image"
-          [alt]="shop.name"
-          class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-4">
-          <h2 class="text-xl font-semibold text-white">{{ shop.name }}</h2>
-        </div>
-      </div>
+      *ngIf="isModalOpen"
+      class="fixed inset-0 z-50 flex items-center justify-center"
+      [@modalAnimation]>
+      <!-- Background overlay -->
+      <div class="fixed inset-0 bg-gray-500/75 cursor-pointer" (click)="closeModal()"></div>
 
-      <!-- Shop Details -->
-      <div class="p-4">
-        <div class="flex items-start gap-2 mb-3">
-          <span class="text-blue-500 mt-0.5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-            </svg>
-          </span>
-          <p class="text-gray-600 text-sm">{{ shop.address }}</p>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="flex gap-2">
-          <button
-            class="flex-1 bg-blue-500 text-white hover:bg-blue-600 font-medium py-2 px-3 rounded-lg transition flex items-center justify-center gap-1 cursor-pointer"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-            </svg>
-            View Map
-          </button>
-          <button
-            (click)="openModal(shop)"
-            class="flex-1 bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium py-2 px-3 rounded-lg transition flex items-center justify-center gap-1 cursor-pointer"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd" />
-            </svg>
-            View Products
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Products Modal -->
-  <div
-    *ngIf="isModalOpen"
-    class="fixed inset-0 z-50 flex items-center justify-center"
-    [@modalAnimation]
-  >
-    <!-- Background overlay -->
-    <div class="fixed inset-0 bg-gray-500/75 cursor-pointer" (click)="closeModal()"></div>
-
-    <!-- Modal panel -->
-    <div class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4">
-      <!-- Modal header with shop info -->
-      <div class="bg-gradient-to-r from-blue-50 to-purple-50 px-6 py-4 border-b border-gray-200">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-xl font-semibold text-gray-900">{{ selectedShop?.name }}</h3>
-            <p class="text-sm text-gray-600 mt-1">{{ selectedShop?.address }}</p>
-          </div>
-          <button
-            (click)="closeModal()"
-            class="text-gray-400 hover:text-gray-500 focus:outline-none cursor-pointer"
-          >
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Products grid -->
-      <div class="bg-white px-6 py-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div
-            *ngFor="let product of selectedShop?.products"
-            class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
-          >
-            <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-              <img
-                [src]="product.image"
-                [alt]="product.name"
-                class="w-full h-full object-cover"
-              />
+      <!-- Modal panel -->
+      <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4">
+        <!-- Modal header with shop info -->
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">{{ selectedShop?.name }}</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{{ selectedShop?.address }}</p>
             </div>
-            <div class="flex-1 min-w-0">
-              <h4 class="text-sm font-medium text-gray-900 truncate">{{ product.name }}</h4>
-              <span class="text-xs text-gray-500">{{ product.category }}</span>
+            <button
+              (click)="closeModal()"
+              class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none cursor-pointer"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Products grid -->
+        <div class="bg-white dark:bg-gray-800 px-6 py-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div
+              *ngFor="let product of selectedShop?.products"
+              class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+            >
+              <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                <img
+                  [src]="product.image"
+                  [alt]="product.name"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{{ product.name }}</h4>
+                <span class="text-xs text-gray-500 dark:text-gray-400">{{ product.category }}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-  
+</section>
+
+

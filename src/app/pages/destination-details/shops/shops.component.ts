@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 
 interface Product {
   name: string;
@@ -20,7 +21,7 @@ interface Shop {
 @Component({
   selector: 'app-shops',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './shops.component.html',
   styleUrl: './shops.component.css',
   animations: [

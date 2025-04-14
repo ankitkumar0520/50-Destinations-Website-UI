@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { destroyOwlInstance, initializeOwlCarousel } from '../../../utils/utils';
+import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 
 interface GalleryImage {
   itemImageSrc: string;
@@ -18,7 +19,7 @@ interface Destination {
 @Component({
   selector: 'app-gallery-description',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './gallery-description.component.html',
   styleUrls: ['./gallery-description.component.css']
 })

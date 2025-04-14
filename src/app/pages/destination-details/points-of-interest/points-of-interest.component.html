@@ -1,130 +1,99 @@
-<section class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" id="points-of-interest">
-  <!-- Header Section -->
-  <div class="relative overflow-hidden">
-    <!-- Background Elements -->
-    <div class="absolute top-0 left-0 w-full h-full">
-      <div class="absolute top-10 right-20 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-    </div>
-
-    <!-- Content Container -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 relative">
-      <div class="max-w-3xl">
-        <!-- Subtitle -->
-        <div class="flex items-center space-x-4 mb-6">
-          <div class="flex items-center">
-            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-              <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
-              </svg>
-              Must-Visit Spots
-            </span>
-            <div class="h-px w-12 bg-indigo-600/30 ml-4"></div>
-          </div>
-        </div>
-
-        <!-- Main Title -->
-        <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-4">
-          Points of Interest
-          <span class="block text-lg sm:text-xl font-normal text-indigo-600 mt-2">
-            Discover extraordinary places
-          </span>
-        </h1>
-
-        <!-- Description -->
-        <div class="mt-8 space-y-6">
-          <p class="text-lg text-gray-600 leading-relaxed">
-            Immerse yourself in carefully curated destinations that showcase the world's most captivating locations. Each point of interest has been thoughtfully selected to provide you with an authentic and unforgettable experience.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Cards Carousel -->
-  <div class="max-w-7xl mx-auto shadow-lg px-4 sm:px-6 lg:px-8 pb-16">
-    <swiper-container 
-      class="w-full"
-      init="false"
-      slides-per-view="1"
-      space-between="24"
-      breakpoints='{
-        "640": {
-          "slidesPerView": 1,
-          "spaceBetween": 24
-        },
-        "768": {
-          "slidesPerView": 2,
-          "spaceBetween": 24
-        },
-        "1024": {
-          "slidesPerView": 3,
-          "spaceBetween": 24
-        },
-        "1280": {
-          "slidesPerView": 4,
-          "spaceBetween": 24
-        }
-      }'
-      pagination="true"
-      pagination-dynamic-bullets="true"
-      pagination-clickable="true"
-      grab-cursor="true"
-      style="--swiper-pagination-color: #4f46e5; 
-             --swiper-pagination-bullet-inactive-color: #c7d2fe;
-             --swiper-pagination-bullet-size: 10px;
-             --swiper-pagination-bullet-horizontal-gap: 6px;
-             --swiper-pagination-bottom: 0;">
+<section class="min-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="points-of-interest-section">
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">  
+    <app-section-header 
+      [badgeText]="'Must-Visit Spots'"
+      [titleLeft]="'Explore'"
+      [titleMiddleHighlighted]="'Points of Interest'"
+      [description]="'Immerse yourself in carefully curated destinations that showcase the world\'s most captivating locations. Each point of interest has been thoughtfully selected to provide you with an authentic and unforgettable experience.'"
+      [features]="[]"
+    ></app-section-header>
+  
+    <!-- Cards Carousel -->
+    <div>
+      <swiper-container 
+        class="w-full"
+        init="false"
+        slides-per-view="1"
+        space-between="24"
+        breakpoints='{
+          "640": {
+            "slidesPerView": 1,
+            "spaceBetween": 24
+          },
+          "768": {
+            "slidesPerView": 2,
+            "spaceBetween": 24
+          },
+          "1024": {
+            "slidesPerView": 3,
+            "spaceBetween": 24
+          },
+          "1280": {
+            "slidesPerView": 4,
+            "spaceBetween": 24
+          }
+        }'
+        pagination="true"
+        pagination-dynamic-bullets="true"
+        pagination-clickable="true"
+        grab-cursor="true"
+        style="--swiper-pagination-color: var(--color-primary-600); 
+               --swiper-pagination-bullet-inactive-color: var(--color-primary-300);
+               --swiper-pagination-bullet-size: 10px;
+               --swiper-pagination-bullet-horizontal-gap: 6px;
+               --swiper-pagination-bottom: 0;">
       
-      <swiper-slide *ngFor="let point of points" class="h-auto pb-8">
-        <!-- Card -->
-        <div class="shadow-lg flex flex-col bg-white rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[430px] w-full">
-          <!-- Image Slider Container -->
-          <div class="h-[230px] relative w-full overflow-hidden">
-            <swiper-container 
-              class="h-full w-full" 
-              pagination="true"
-              pagination-dynamic-bullets="true"
-              pagination-clickable="true"
-              loop="true" 
-              autoplay-delay="3000"
-              grab-cursor="true"
-              slides-per-view="1"
-              init="false"
-              style="--swiper-pagination-color: #fff; 
-                     --swiper-pagination-bullet-inactive-color: rgba(255,255,255,0.5);
-                     --swiper-pagination-bullet-size: 8px;
-                     --swiper-pagination-bullet-horizontal-gap: 4px;">
-              <swiper-slide *ngFor="let image of point.images" class="w-full h-full">
-                <img [src]="image" 
-                     [alt]="point.imageAlt" 
-                     class="w-full h-full object-cover"
-                     loading="eager">
-              </swiper-slide>
-            </swiper-container>
+        <swiper-slide *ngFor="let point of points">
+          <!-- Card -->
+          <div class="flex flex-col bg-white dark:bg-gray-800 rounded-lg overflow-hidden transition-shadow max-h-[430px] w-full">
+            <!-- Image Slider Container -->
+            <div class="h-[230px] relative w-full overflow-hidden">
+              <swiper-container 
+                class="h-full w-full" 
+                pagination="true"
+                pagination-dynamic-bullets="true"
+                pagination-clickable="true"
+                loop="true" 
+                autoplay-delay="3000"
+                grab-cursor="true"
+                slides-per-view="1"
+                init="false"
+                style="--swiper-pagination-color: var(--color-accent-500); 
+                       --swiper-pagination-bullet-inactive-color: rgba(255,255,255,0.5);
+                       --swiper-pagination-bullet-size: 8px;
+                       --swiper-pagination-bullet-horizontal-gap: 4px;">
+                <swiper-slide *ngFor="let image of point.images" class="w-full h-full">
+                  <img [src]="image" 
+                       [alt]="point.imageAlt" 
+                       class="w-full h-full object-cover"
+                       loading="eager">
+                </swiper-slide>
+              </swiper-container>
+            </div>
+    
+            <!-- Content Box -->
+            <div class="flex-1 bg-gray-50 dark:bg-gray-900 p-5 rounded-t-lg h-[230px] overflow-hidden">
+              <!-- Location -->
+              <div class="text-sm font-medium text-secondary-600 dark:text-secondary-400 mb-2">{{point.location}}</div>
+              
+              <!-- Title -->
+              <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1">
+                {{point.title}}
+              </h3>
+    
+              <!-- Description -->
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                {{point.description}}
+              </p>
+    
+              <!-- Button -->
+              <button class="w-full bg-primary-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-500 transition-colors text-sm">
+                Explore Location
+              </button>
+            </div>
           </div>
-
-          <!-- Content Box -->
-          <div class="flex-1 bg-[#FDF6ED] p-5 rounded-t-[1.5rem]">
-            <!-- Location -->
-            <div class="text-sm font-medium text-indigo-600 mb-2">{{point.location}}</div>
-            
-            <!-- Title -->
-            <h3 class="text-lg font-bold text-gray-900 mb-2">
-              {{point.title}}
-            </h3>
-
-            <!-- Description -->
-            <p class="text-sm text-gray-600 mb-3 line-clamp-2">
-              {{point.description}}
-            </p>
-
-            <!-- Button -->
-            <button class="w-full bg-indigo-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-indigo-700 transition-colors text-sm">
-              Explore Location
-            </button>
-          </div>
-        </div>
-      </swiper-slide>
-    </swiper-container>
+        </swiper-slide>
+      </swiper-container>
+    </div>
   </div>
 </section>

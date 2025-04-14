@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ChangeDetectorRef, PLATFORM_ID, Injec
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
+import { SectionHeaderComponent } from "../../../common/section-header/section-header.component";
 
 interface Facility {
   id: string;
@@ -24,7 +25,7 @@ interface Facility {
 @Component({
   selector: 'app-facilities',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './facilities.component.html',
   styleUrls: ['./facilities.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

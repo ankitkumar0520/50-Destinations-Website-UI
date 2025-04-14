@@ -1,10 +1,8 @@
-<div class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-  <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative transform transition-all duration-300 hover:scale-[1.02]">
+<div class="fixed inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 w-full max-w-md shadow-2xl relative transform transition-all duration-300 hover:scale-[1.02]">
     <!-- Close Button -->
-    <button (click)="closeModal()" class="cursor-pointer absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
+    <button (click)="closeModal()" aria-label="Close" class="cursor-pointer absolute top-4 right-4 text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 transition-colors">
+      <i class="fas fa-times h-6 w-6"></i>
     </button>
 
     <!-- Cover Art -->
@@ -15,33 +13,30 @@
 
     <!-- Track Info -->
     <div class="text-center mb-6">
-      <h3 class="text-xl font-bold text-gray-900 mb-1">{{ selectedLanguage.title }}</h3>
+      <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ selectedLanguage.title }}</h3>
     </div>
 
-   <!-- Language Selector -->
-<div class="flex items-center justify-center gap-2 mb-6">
-  <!-- Globe Icon -->
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
-    <path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389 21.034 21.034 0 01-.554-.6 19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.724 1.447a1 1 0 11-1.788-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z" clip-rule="evenodd" />
-  </svg>
+    <!-- Language Selector -->
+    <div class="flex items-center justify-center gap-2 mb-6">
+      <!-- Globe Icon -->
+      <i class="fas fa-globe text-primary"></i>
 
-  <!-- Dropdown -->
-  <select
-    [value]="selectedLang"
-    (change)="changeLanguage($any($event.target).value)"
-    class="text-base bg-blue-50 text-blue-700 border-0 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium cursor-pointer hover:bg-blue-100 transition-colors"
-  >
-    <option class="cursor-pointer" *ngFor="let lang of languages | keyvalue" [value]="lang.value.languageCode">
-      {{ lang.value.language }}
-    </option>
-  </select>
-</div>
-
+      <!-- Dropdown -->
+      <select
+        [value]="selectedLang"
+        (change)="changeLanguage($any($event.target).value)"
+        class="text-base bg-primary/10 text-primary border-0 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:outline-none font-medium cursor-pointer hover:bg-primary/20 transition-colors"
+      >
+        <option class="cursor-pointer" *ngFor="let lang of languages | keyvalue" [value]="lang.value.languageCode">
+          {{ lang.value.language }}
+        </option>
+      </select>
+    </div>
 
     <!-- Audio Visualization -->
     <div class="flex items-center justify-center gap-1.5 h-12 mb-6">
       <div *ngFor="let bar of [1,2,3,4,5,6,7,8,9,10]" 
-           class="w-1.5 bg-gradient-to-t from-blue-600 to-blue-400 rounded-full transition-all duration-300"
+           class="w-1.5 bg-gradient-to-t from-accent to-secondary rounded-full transition-all duration-300"
            [style.height]="isPlaying ? (getBarHeight() + 'px') : '4px'"
            [style.opacity]="isPlaying ? '1' : '0.5'">
       </div>
@@ -49,7 +44,7 @@
 
     <!-- Progress Bar -->
     <div class="mb-6">
-      <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+      <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
         <span>{{ formatTime(currentTime) }}</span>
         <span>{{ formatTime(duration) }}</span>
       </div>
@@ -59,7 +54,7 @@
         [max]="duration || 1"
         [value]="currentTime"
         (input)="onSeek($event)"
-        class="w-full h-1.5 bg-gray-200 rounded-full appearance-none cursor-pointer accent-blue-600"
+        class="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full appearance-none cursor-pointer accent-primary"
       />
     </div>
 
@@ -67,9 +62,7 @@
     <div class="flex items-center justify-between mb-6">
       <!-- Volume Control -->
       <div class="flex items-center gap-2 w-32">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" />
-        </svg>
+        <i class="fas fa-volume-up text-gray-500 dark:text-gray-400"></i>
         <input 
           type="range" 
           min="0" 
@@ -77,35 +70,28 @@
           step="0.01" 
           [value]="volume" 
           (input)="adjustVolume($event)" 
-          class="w-full h-1.5 bg-gray-200 rounded-full appearance-none cursor-pointer accent-blue-600"
+          class="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full appearance-none cursor-pointer accent-primary"
         />
       </div>
 
       <!-- Playback Controls -->
       <div class="flex items-center gap-4">
-        <button (click)="skip(-10)" class="p-2 text-gray-600 hover:text-gray-900 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z" />
-          </svg>
+        <button (click)="skip(-10)" aria-label="Rewind 10 seconds" class="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
+          <i class="fas fa-backward"></i>
         </button>
 
         <button
           (click)="togglePlay()"
-          class="bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors transform hover:scale-105"
+          aria-label="Play or Pause"
+          class="bg-primary text-white p-4 rounded-full shadow-lg hover:bg-primary-dark transition-colors transform hover:scale-105"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path *ngIf="!isPlaying" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-            <path *ngIf="isPlaying" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
+          <i [class]="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
         </button>
 
-        <button (click)="skip(10)" class="p-2 text-gray-600 hover:text-gray-900 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.334-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.334-4z" />
-          </svg>
+        <button (click)="skip(10)" aria-label="Forward 10 seconds" class="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
+          <i class="fas fa-forward"></i>
         </button>
       </div>
     </div>
   </div>
 </div>
-  

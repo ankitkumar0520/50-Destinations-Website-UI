@@ -16,62 +16,21 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FontAwesomeModule,
   ],
 })
-export class HeroSectionComponent implements OnInit {
+export class HeroSectionComponent {
   isMenuOpen = false;
 
   showModal = false;
-  shareUrl = 'https://your-link.com'; // Provide actual link
+  shareUrl = 'https://your-link.com';
   showAudioModal = false;
-
-  menuItems = [
-    { id: 'points-of-interest', name: 'Points of Interest', icon: 'map-marker-alt' },
-    { id: 'parking', name: 'Parking', icon: 'parking' },
-    { id: 'eateries', name: 'Eateries', icon: 'utensils' },
-    { id: 'atm', name: 'ATM', icon: 'money-bill-wave' },
-    { id: 'police-services', name: 'Police Services', icon: 'shield-alt' },
-    { id: 'hospital-services', name: 'Hospital Services', icon: 'hospital' }
-  ];
 
   activeSection: string = 'points-of-interest';
   isBrowser: boolean;
-  navbarHeight = 70 + 64; // Fixed navbar height
-showAside = false;
+  navbarHeight = 70;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
-  ngOnInit() {
-    if (this.isBrowser) {
-      this.checkActiveSection();
-    }
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    if (this.isBrowser) {
-      this.checkActiveSection();
-    }
-  }
-
-  checkActiveSection() {
-    if (!this.isBrowser) return;
-
-    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-
-    for (const item of this.menuItems) {
-      const element = document.getElementById(item.id);
-      if (element) {
-        const offsetTop = element.offsetTop;
-        const offsetHeight = element.offsetHeight;
-
-        if (scrollPosition >= offsetTop - this.navbarHeight && scrollPosition < offsetTop + offsetHeight - this.navbarHeight) {
-          this.activeSection = item.id;
-          break;
-        }
-      }
-    }
-  }
 
   scrollTo(id: string) {
     if (!this.isBrowser) return;

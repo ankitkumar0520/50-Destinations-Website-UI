@@ -1,57 +1,26 @@
-<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-  <!-- Header Section -->
-  <div class="relative overflow-hidden">
-    <!-- Background Elements -->
-    <div class="absolute top-0 left-0 w-full h-full">
-      <div class="absolute top-10 right-20 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-    </div>
+<section class="min-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="accommodation-eatery-section">
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">  
 
-    <!-- Content Container -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 relative">
-      <div class="max-w-3xl">
-        <!-- Subtitle -->
-        <div class="flex items-center space-x-4 mb-6">
-          <div class="flex items-center">
-            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-              <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
-              </svg>
-              Stay & Dine in Rumtek
-            </span>
-            <div class="h-px w-12 bg-indigo-600/30 ml-4"></div>
-          </div>
-        </div>
+  <app-section-header 
+  [badgeText]="'Stay & Dine in Rumtek'"
+  [titleLeft]="'Accommodation & Eatery'"
+  [titleMiddleHighlighted]="''"
+  [titleRight]="''"
+  [description]="'Discover the best places to stay and dine in Rumtek. Experience the perfect blend of comfort and culinary delight in Rumtek. From cozy guest houses to authentic Tibetan restaurants, we\'ve curated the best options for your stay and dining experience.'"
+  [features]="[]">
+  </app-section-header>
 
-        <!-- Main Title -->
-        <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-4">
-          Accommodation & Eatery
-          <span class="block text-lg sm:text-xl font-normal text-indigo-600 mt-2">
-            Discover the best places to stay and dine in Rumtek
-          </span>
-        </h1>
-
-        <!-- Description -->
-        <div class="mt-8 space-y-6">
-          <p class="text-lg text-gray-600 leading-relaxed">
-            Experience the perfect blend of comfort and culinary delight in Rumtek. From cozy guest houses to authentic Tibetan restaurants, we've curated the best options for your stay and dining experience.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Accommodations Section -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-    <h2 class="text-2xl font-semibold text-gray-900 mb-8">Featured Accommodations</h2>
+  <div class="py-6">
+    <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-8">Featured Accommodations</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let hotel of accommodations" class="flex flex-col bg-white rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full">
+      <div *ngFor="let hotel of accommodations" class="flex flex-col bg-white dark:bg-gray-900 rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full">
         <div class="h-[230px] relative">
           <img [src]="hotel.image" [alt]="hotel.name" class="w-full h-full object-cover">
         </div>
-        <div class="bg-[#FDF6ED] p-5">
-          <div class="text-sm font-medium text-indigo-600 mb-2">{{ hotel.address }}</div>
-          <h3 class="text-lg font-bold text-gray-900 mb-2">{{ hotel.name }}</h3>
-          <button (click)="openHotelModal(hotel)" class="w-full bg-indigo-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-indigo-700 transition-colors text-sm cursor-pointer">
+        <div class="bg-white dark:bg-gray-800 p-5">
+          <div class="text-sm font-medium text-primary-600 dark:text-primary-400 mb-2 line-clamp-1">{{ hotel.address }}</div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1">{{ hotel.name }}</h3>
+          <button (click)="openHotelModal(hotel)" class="w-full bg-primary-600 dark:bg-primary-500 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors text-sm cursor-pointer">
             View Details
           </button>
         </div>
@@ -59,18 +28,17 @@
     </div>
   </div>
 
-  <!-- Eateries Section -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" id="eateries">
-    <h2 class="text-2xl font-semibold text-gray-900 mb-8">Featured Eateries</h2>
+  <div class="py-6" id="eateries">
+    <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-8">Featured Eateries</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let eatery of eateries" class="flex flex-col bg-white rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full">
+      <div *ngFor="let eatery of eateries" class="flex flex-col bg-white dark:bg-gray-900 rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full">
         <div class="h-[230px] relative">
           <img [src]="eatery.image" [alt]="eatery.name" class="w-full h-full object-cover">
         </div>
-        <div class="bg-[#FDF6ED] p-5">
-          <div class="text-sm font-medium text-indigo-600 mb-2">{{ eatery.address }}</div>
-          <h3 class="text-lg font-bold text-gray-900 mb-2">{{ eatery.name }}</h3>
-          <button (click)="openEateryModal(eatery)" class="w-full bg-indigo-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-indigo-700 transition-colors text-sm cursor-pointer">
+        <div class="bg-white dark:bg-gray-800 p-5">
+          <div class="text-sm font-medium text-primary-600 dark:text-primary-400 mb-2 line-clamp-1">{{ eatery.address }}</div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1">{{ eatery.name }}</h3>
+          <button (click)="openEateryModal(eatery)" class="w-full bg-primary-600 dark:bg-primary-500 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors text-sm cursor-pointer">
             View Details
           </button>
         </div>
@@ -78,67 +46,5 @@
     </div>
   </div>
 
-  <!-- Hotel Details Modal -->
-  <div *ngIf="selectedHotel" class="fixed inset-0 z-50 flex items-center justify-center">
-    <div class="fixed inset-0 bg-gray-500/75" (click)="closeHotelModal()"></div>
-    <div class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4">
-      <div class="bg-gradient-to-r from-blue-50 to-purple-50 px-6 py-4 border-b border-gray-200">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-xl font-semibold text-gray-900">{{ selectedHotel.name }}</h3>
-            <p class="text-sm text-gray-600 mt-1">{{ selectedHotel.address }}</p>
-            <p class="text-sm text-gray-600 mt-1">{{ selectedHotel.contact }}</p>
-          </div>
-          <button (click)="closeHotelModal()" class="text-gray-400 hover:text-gray-500 focus:outline-none cursor-pointer">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div class="bg-white px-6 py-4">
-        <h4 class="text-lg font-medium text-gray-900 mb-4">Facilities</h4>
-        <div class="grid grid-cols-2 gap-4">
-          <div *ngFor="let facility of selectedHotel.facilities" class="flex items-center gap-2">
-            <svg class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span class="text-sm text-gray-600">{{ facility }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Eatery Details Modal -->
-  <div *ngIf="selectedEatery" class="fixed inset-0 z-50 flex items-center justify-center">
-    <div class="fixed inset-0 bg-gray-500/75" (click)="closeEateryModal()"></div>
-    <div class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4">
-      <div class="bg-gradient-to-r from-blue-50 to-purple-50 px-6 py-4 border-b border-gray-200">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-xl font-semibold text-gray-900">{{ selectedEatery.name }}</h3>
-            <p class="text-sm text-gray-600 mt-1">{{ selectedEatery.address }}</p>
-            <p class="text-sm text-gray-600 mt-1">{{ selectedEatery.contact }}</p>
-          </div>
-          <button (click)="closeEateryModal()" class="text-gray-400 hover:text-gray-500 focus:outline-none cursor-pointer">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div class="bg-white px-6 py-4">
-        <h4 class="text-lg font-medium text-gray-900 mb-4">Facilities</h4>
-        <div class="grid grid-cols-2 gap-4">
-          <div *ngFor="let facility of selectedEatery.facilities" class="flex items-center gap-2">
-            <svg class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span class="text-sm text-gray-600">{{ facility }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+</section>
