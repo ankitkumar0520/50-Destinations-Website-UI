@@ -1,47 +1,75 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+export interface DurationRange {
+  minHours: number;
+  maxHours: number;
+}
+
 export interface SearchFilters {
   district: string;
-  experience: string;
+  experienceType: string;
   searchQuery: string;
-  tags: Set<string>;
+  tags: string[];
   sort: string;
-  seasons: Set<string>;
-  durations: Set<string>;
+  seasons: string[];
+  durations: DurationRange;
 }
+
+const DEFAULT_FILTERS: SearchFilters = {
+  district: '',
+  experienceType: '',
+  searchQuery: '',
+  tags: [],
+  sort: '',
+  seasons: [],
+  durations: {
+    minHours: 0,
+    maxHours: 0
+  }
+};
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-  private filtersSubject = new BehaviorSubject<SearchFilters>({
-    district: '',
-    experience: '',
-    searchQuery: '',
-    tags: new Set(),
-    sort: '',
-    seasons: new Set(),
-    durations: new Set()
-  });
-
+  private filtersSubject = new BehaviorSubject<SearchFilters>({ ...DEFAULT_FILTERS });
+  // Observable for subscribing to filter changes
   filters$ = this.filtersSubject.asObservable();
 
-  updateFilters(filters: Partial<SearchFilters>) {
-    console.log('Updating filters with:', filters); // Debug log
-    const currentFilters = this.filtersSubject.value;
-    const newFilters = {
-      ...currentFilters,
-      ...filters,
-      tags: filters.tags || currentFilters.tags,
-      seasons: filters.seasons || currentFilters.seasons,
-      durations: filters.durations || currentFilters.durations
-    };
-    console.log('New filter state:', newFilters); // Debug log
-    this.filtersSubject.next(newFilters);
-  }
-
+  // Get current filters
   getFilters(): SearchFilters {
     return this.filtersSubject.value;
   }
-} 
+
+  // Update filters - merges with current filters
+  updateFilters(updated: Partial<SearchFilters>) {
+    const current = this.getFilters();
+    const merged: SearchFilters = {
+      ...current,
+      ...updated,
+      tags: updated.tags ?? current.tags,
+      seasons: updated.seasons ?? current.seasons,
+      durations: {
+        ...current.durations,
+        ...updated.durations
+      }
+    };
+
+    this.filtersSubject.next(merged);
+  }
+
+  // Replace filters completely (optional)
+  setFilters(newFilters: SearchFilters) {
+    this.filtersSubject.next({ ...newFilters });
+  }
+
+  // Reset to default
+  resetFilters() {
+    this.filtersSubject.next({ ...DEFAULT_FILTERS });
+  }
+
+
+}

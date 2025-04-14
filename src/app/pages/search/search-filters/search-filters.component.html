@@ -156,12 +156,12 @@
     </div>
 
     <!-- Body -->
-    <div class="p-6 space-y-6">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <div class="p-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Sort By -->
-        <div>
+        <div class="space-y-2">
           <label
-            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
             Sort By
           </label>
@@ -176,18 +176,18 @@
         </div>
 
         <!-- Best Season -->
-        <div>
+        <div class="space-y-2">
           <label
-            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
             Best Season
           </label>
-          <div class="space-y-2">
+          <div class="grid grid-cols-1 gap-1.5">
             <button
               *ngFor="let season of seasons"
               (click)="toggleSeason(season.id)"
               [class]="
-                'flex items-center justify-between w-full px-4 py-2 text-sm rounded-lg transition-all duration-200 ' +
+                'flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-all duration-200 ' +
                 (selectedSeasons.has(season.id)
                   ? 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white ring-1 ring-gray-300 dark:ring-gray-600'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700')
@@ -195,7 +195,7 @@
             >
               <div class="flex items-center gap-2">
                 <i [class]="'fas ' + season.icon"></i>
-                {{ season.name }}
+                <span class="whitespace-nowrap">{{ season.name }}</span>
               </div>
               <i
                 *ngIf="selectedSeasons.has(season.id)"
@@ -206,29 +206,27 @@
         </div>
 
         <!-- Duration -->
-        <div>
-          <label
-            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-          >
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Duration
           </label>
-          <div class="space-y-2">
+          <div class="grid grid-cols-1 gap-1.5">
             <button
               *ngFor="let duration of durations"
-              (click)="toggleDuration(duration.id)"
+              (click)="selectDuration(duration.id)"
               [class]="
-                'flex items-center justify-between w-full px-4 py-2 text-sm rounded-lg transition-all duration-200 ' +
-                (selectedDurations.has(duration.id)
+                'flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-all duration-200 ' +
+                (selectedDurationId === duration.id
                   ? 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white ring-1 ring-gray-300 dark:ring-gray-600'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700')
               "
             >
               <div class="flex items-center gap-2">
                 <i class="fas fa-clock"></i>
-                {{ duration.name }}
+                <span class="whitespace-nowrap">{{ duration.name }}</span>
               </div>
               <i
-                *ngIf="selectedDurations.has(duration.id)"
+                *ngIf="selectedDurationId === duration.id"
                 class="fas fa-check text-gray-600 dark:text-gray-300"
               ></i>
             </button>
