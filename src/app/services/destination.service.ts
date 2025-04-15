@@ -10,6 +10,7 @@ export class DestinationService {
 
   getDestionation():any{
    return this.destination = {
+
       name: 'Rumtek Monastery',
       bgimage: 'assets/Images/rumtek-monastry/hero-img.jpg',
       shortdescription: `Rumtek Monastery, also called the Dharma Chakra Centre, is a gompa located in the Indian state of
@@ -24,7 +25,29 @@ export class DestinationService {
       title: 'Rumtek Monastery: The Majestic Seat of the Karmapa',
       location: 'Rumtek, Gangtok,Sikkim 737135, India',
       distance: 'Approx. 24 km from Gangtok, on a hilltop overlooking the Ranipool River',
+     
       fulldescription: 'RumtekMonastery also known as the Dharma Chakra Centre is a prominent Buddhist monastery located near Gangtok in Sikkim India Founded in the 16th century by the 9th Karmapa Wangchuk Dorje it serves as the main seat in exile of the Karmapa Lama and is renowned for its stunning architecture and serene surroundings Perched at an elevation of 5 500 feet the monastery is a vital center for Tibetan Buddhism housing sacred relics and offering a glimpse into the rich cultural heritage of the region Visitors are often captivated by its tranquil atmosphere and the breathtaking views of the Himalayas The monastery has a rich history having been originally established in the mid 18th century under the guidance of the 12th Karmapa Changchub Dorje After the 16th Karmapa Rangjung Rigpe Dorje fled Tibet in 1959 he chose to rebuild Rumtek which had fallen into disrepair The reconstruction was completed in 1966 and the monastery became a significant site for the Karma Kagyu lineage symbolizing resilience and continuity of Tibetan Buddhism in exile Today Rumtek Monastery is not only a spiritual hub but also a center of learning with the Karma Shri Nalanda Institute for Higher Buddhist Studies.',
+     voiceoverContent: `Welcome to Rumtek Monastery — a spiritual sanctuary nestled amidst the misty hills of Gangtok, Sikkim.
+
+                Located just 23 kilometers from Gangtok, Rumtek Monastery is one of the most significant and largest Tibetan Buddhist monasteries in India. Perched at an altitude of about 
+                5,800 feet, the monastery offers a peaceful escape from the bustling town, with panoramic views of the surrounding mountains and valleys.
+
+                Originally built in the 16th century by the 9th Karmapa, Wangchuk Dorje, 
+                Rumtek Monastery was rebuilt in the 20th century under the guidance of the 16th Karmapa after he fled Tibet. Today, it serves as the main seat of the Karma Kagyu lineage outside of Tibet and is also known as the Dharmachakra Centre.
+
+                As you walk through its ornate gates, you'll be greeted by vibrant murals,
+                 colorful prayer flags fluttering in the breeze, and the calming sound of monks chanting ancient mantras. The monastery houses many sacred relics, ancient scriptures, and a golden stupa containing the remains of the 16th Karmapa.
+
+                One of the most striking aspects of Rumtek is its architecture — a perfect blend of traditional Tibetan design and modern craftsmanship. The main prayer hall is adorned with majestic thangkas, statues, and intricate woodwork that tell stories of Buddhist teachings.
+
+                Rumtek is not just a place of worship — it's a center of learning, meditation, and cultural preservation. Visitors often witness prayer ceremonies, rituals, and sometimes even traditional Tibetan festivals celebrated by the monks.
+
+                To reach Rumtek, you can travel by road from Gangtok — either by private taxi or shared cab. The journey, though winding, is scenic and serene, taking you through lush forests and picturesque villages.
+
+                Whether you're a spiritual seeker, a cultural explorer, or a curious traveler, Rumtek Monastery promises a soulful experience — one that lingers in your heart long after you've left its tranquil grounds.
+
+                Thank you for visiting Rumtek Monastery — a beacon of peace, devotion, and timeless wisdom.`,
+
       galleryImages: [
         {
           itemImageSrc: 'assets/Images/rumtek-monastry/rumtek1.jpeg',
@@ -344,6 +367,29 @@ export class DestinationService {
       ]
     }
   ],
+  travelInfo :{
+    transportModes: [
+      {
+        icon: "fas fa-plane",
+        title: "By Air",
+        description: "The nearest airport to Rumtek Monastery is Pakyong Airport (PYG), located about 35 km away. Another option is Bagdogra Airport (IXB), about 125 km away."
+      },
+      {
+        icon: "fas fa-train",
+        title: "By Train",
+        description: "The nearest major railway station is New Jalpaiguri (NJP), about 120 km from Gangtok. From there, you can hire a taxi to reach Rumtek."
+      },
+      {
+        icon: "fas fa-car",
+        title: "By Road",
+        description: "Rumtek is located around 23 km from Gangtok. You can hire taxis or take shared cabs from Gangtok. The roads are hilly and scenic, offering a beautiful journey."
+      }
+
+    ],
+    latitude:'27.305827',
+    longitude:'88.53637'
+  }
+  
 
 
 

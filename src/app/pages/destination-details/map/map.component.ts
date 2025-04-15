@@ -1,5 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, Inject, PLATFORM_ID, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, PLATFORM_ID, ElementRef, ViewChild, inject } from '@angular/core';
+import { DestinationService } from '../../../services/destination.service';
 
 let L: any;
 
@@ -19,6 +20,12 @@ export class MapComponent implements AfterViewInit {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
+  private destinationService = inject(DestinationService);
+  destination = this.destinationService.getDestionation();
+  
+  travelInfo = this.destination.travelInfo;
+
+
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       import('leaflet').then((leaflet) => {
@@ -30,16 +37,16 @@ export class MapComponent implements AfterViewInit {
   }
 
   private initMap(): void {
-    this.map = L.map('map', { zIndex: 0 }).setView([27.3389, 88.6065], 13);
+    this.map = L.map('map', { zIndex: 0 }).setView([this.travelInfo.latitude,this.travelInfo.longitude], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '© OpenStreetMap contributors',
     }).addTo(this.map);
 
-    L.marker([27.3389, 88.6065])
+    L.marker([this.travelInfo.latitude,this.travelInfo.longitude])
       .addTo(this.map)
-      .bindPopup('Rumtek Monastery')
+      .bindPopup(this.destination.name)
       .openPopup();
 
     // Store original container reference
