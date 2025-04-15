@@ -10,18 +10,18 @@
 
     <div class="space-y-6 mt-2">
       <div>
-        <div class="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-primary-100 dark:border-gray-700 p-4 mb-4">
-          <div class="absolute inset-0 bg-gradient-to-r from-primary-50/30 via-secondary-50/30 to-transparent dark:from-gray-700/30 dark:via-gray-600/30 dark:to-transparent"></div>
+        <div class="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-amber-100 dark:border-amber-900/50 p-4 mb-4">
+          <div class="absolute inset-0 bg-gradient-to-r from-amber-50/30 via-amber-50/30 to-transparent dark:from-amber-900/30 dark:via-amber-600/10 dark:to-transparent"></div>
           <div class="relative flex items-center gap-2">
-            <span class="flex items-center justify-center bg-primary-100 dark:bg-gray-700 rounded-full p-2">
-              <i class="fa fa-shield text-primary-600/90 dark:text-primary-400/90 text-lg"></i>
+            <span class="flex items-center justify-center bg-amber-100 dark:bg-gray-700 rounded-full p-2">
+              <i class="fa fa-shield text-amber-600/90 dark:text-amber-400/90 text-lg"></i>
             </span>
             <h3 class="text-lg font-bold text-slate-800 dark:text-white">Police Service</h3>
           </div>
         </div>
         <div class="space-y-4" id="police-services">
           <div *ngFor="let location of policeLocations" 
-               class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-primary-100 dark:border-gray-700">
+               class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-amber-100 dark:border-gray-700">
             <div class="grid md:grid-cols-[35%_65%]">
               <div class="relative h-48 md:h-auto">
                 <img [src]="location.image" [alt]="location.name" class="absolute inset-0 w-full h-full object-cover">
@@ -47,7 +47,7 @@
                   </div>
                 </div>
                 <div class="mt-3">
-                  <a [href]="'#' + location.id" class="inline-flex items-center gap-1.5 bg-gradient-to-r from-primary-500/90 to-secondary-500/90 hover:from-primary-600/90 hover:to-secondary-600/90 text-white dark:text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-colors">
+                  <a [href]="'#' + location.id" class="inline-flex items-center gap-1.5 bg-gradient-to-r from-primary-500/90 to-secondary-700/90 hover:from-primary-600/90 hover:to-secondary-700/90 text-white dark:text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-colors">
                     <i class="fa fa-map-marker"></i>
                     Locate {{location.type === 'police' ? 'Station' : 'Facility'}}
                   </a>
@@ -59,18 +59,18 @@
       </div>
 
       <div id="hospital-services">
-        <div class="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-primary-100 dark:border-gray-700 p-4 mb-4">
-          <div class="absolute inset-0 bg-gradient-to-r from-secondary-50/30 via-primary-50/30 to-transparent dark:from-gray-700/30 dark:via-gray-600/30 dark:to-transparent"></div>
+        <div class="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-red-100 dark:border-red-900/70 p-4 mb-4">
+          <div class="absolute inset-0 bg-gradient-to-r from-red-50/30 via-red-50/30 to-transparent dark:from-red-900/30 dark:via-red-600/10 dark:to-transparent"></div>
           <div class="relative flex items-center gap-2">
-            <span class="flex items-center justify-center bg-secondary-100 dark:bg-gray-700 rounded-full p-2">
-              <i class="fas fa-hospital text-secondary-600/90 dark:text-secondary-400/90 text-lg"></i>
+            <span class="flex items-center justify-center bg-red-500 dark:bg-red-600 rounded-full aspect-square p-2 h-8 w-8">
+              <i class="fas fa-heart text-white text-lg"></i>
             </span>
             <h3 class="text-lg font-bold text-slate-800 dark:text-white">Healthcare Service</h3>
           </div>
         </div>
         <div class="space-y-4">
           <div *ngFor="let location of healthcareLocations" 
-               class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-primary-100 dark:border-gray-700">
+               class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-red-100 dark:border-gray-700">
             <div class="grid md:grid-cols-[35%_65%]">
               <div class="relative h-48 md:h-auto">
                 <img [src]="location.image" [alt]="location.name" class="absolute inset-0 w-full h-full object-cover">
@@ -78,7 +78,7 @@
               <div class="p-4">
                 <div class="flex items-center justify-between mb-2">
                   <h3 class="text-base font-semibold text-slate-800 dark:text-white">{{location.name}}</h3>
-                  <span *ngIf="location.badge" class="px-2 py-0.5 bg-secondary-50 dark:bg-secondary-900/50 text-secondary-700 dark:text-secondary-300 rounded-full text-xs font-medium">{{location.badge}}</span>
+                  <span *ngIf="location.badge" class="px-2 py-0.5 bg-primary-50 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded-full text-xs font-medium">{{location.badge}}</span>
                 </div>
                 <p class="text-sm text-slate-600/90 dark:text-gray-300/90 mb-3">{{location.description}}</p>
                 <div class="space-y-1.5 text-slate-600/90 dark:text-gray-400/90">
@@ -96,7 +96,7 @@
                   </div>
                 </div>
                 <div class="mt-3">
-                  <a [href]="'#' + location.id" class="inline-flex items-center gap-1.5 bg-gradient-to-r from-primary-500/90 to-secondary-500/90 hover:from-primary-600/90 hover:to-secondary-600/90 text-white dark:text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-colors">
+                  <a [href]="'#' + location.id" class="inline-flex items-center gap-1.5 bg-gradient-to-r from-primary-500/90 to-secondary-700/90 hover:from-primary-600/90 hover:to-secondary-700/90 text-white dark:text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-colors">
                     <i class="fa fa-map-marker"></i>
                     Locate {{location.type === 'healthcare' ? 'Facility' : 'Station'}}
                   </a>
