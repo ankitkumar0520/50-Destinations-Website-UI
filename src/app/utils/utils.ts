@@ -57,3 +57,36 @@ export function destroyOwlInstance(carouselClass: string): boolean {
   $(carouselClass).trigger('destroy.owl.carousel');
   return true;
 }
+
+// QR Code Utilities
+export function shareQRCode(url: string, title: string, description: string): void {
+  if (navigator.share) {
+    navigator
+      .share({
+        title: title,
+        text: description,
+        url: url,
+      })
+      .catch(console.error);
+  } else {
+    // Fallback for browsers that don't support Web Share API
+    const tempInput = document.createElement('input');
+    tempInput.value = url;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+  }
+}
+
+export function downloadQRCode(name: string, selector: string = 'qrcode canvas'): void {
+  const qrCanvas = document.querySelector(selector) as HTMLCanvasElement;
+  if (qrCanvas) {
+    const link = document.createElement('a');
+    link.download = `${name.toLowerCase()}-qr.png`;
+    link.href = qrCanvas.toDataURL('image/png');
+    link.click();
+  } else {
+    console.error('QR Canvas not found');
+  }
+}

@@ -5,6 +5,7 @@ import { AiAudioModelComponent } from '../ai-audio-model/ai-audio-model.componen
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DestinationService } from '../../../services/destination.service';
 import { QRCodeComponent } from 'angularx-qrcode';
+import { shareQRCode, downloadQRCode } from '../../../utils/utils';
 
 @Component({
   selector: 'app-hero-section',
@@ -56,36 +57,14 @@ export class HeroSectionComponent {
 
   shareQR(): void {
     const url = `${this.shareUrl}/destination/${this.destination.name.toLowerCase()}`;
-
-    if (navigator.share) {
-      navigator
-        .share({
-          title: `Explore ${this.destination.name}`,
-          text: `Check out ${this.destination.name} in Sikkim!`,
-          url: url,
-        })
-        .catch(console.error);
-    } else {
-      // Fallback for browsers that don't support Web Share API
-      const tempInput = document.createElement('input');
-      tempInput.value = url;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
-    }
+    shareQRCode(
+      url,
+      `Explore ${this.destination.name}`,
+      `Check out ${this.destination.name} in Sikkim!`
+    );
   }
 
   downloadQR(): void {
-    // First try with ViewChild reference
-    const qrCanvas = document.querySelector('qrcode canvas') as HTMLCanvasElement;
-    if (qrCanvas) {
-      const link = document.createElement('a');
-      link.download = `${this.destination.name.toLowerCase()}-qr.png`;
-      link.href = qrCanvas.toDataURL('image/png');
-      link.click();
-    } else {
-      console.error('QR Canvas not found');
-    }
+    downloadQRCode(this.destination.name);
   }
 }

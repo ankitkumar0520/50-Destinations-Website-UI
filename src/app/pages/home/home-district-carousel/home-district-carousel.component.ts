@@ -13,6 +13,8 @@ import { RouterLink } from '@angular/router';
 import {
   destroyOwlInstance,
   initializeOwlCarousel,
+  shareQRCode,
+  downloadQRCode
 } from '../../../utils/utils';
 import { SectionHeaderComponent } from "../../../common/section-header/section-header.component";
 import { SearchService } from '../../../services/search.service';
@@ -201,40 +203,17 @@ export class HomeDistrictCarouselComponent
 
   shareQR(i: number): void {
     const district = this.districts[i];
-    const url = `${this.siteUrl}/${district.name.toLowerCase()}`;
-
-    if (navigator.share) {
-      navigator
-        .share({
-          title: `Explore ${district.name}`,
-          text: `Check out ${district.name} in Sikkim!`,
-          url: url,
-        })
-        .catch(console.error);
-    } else {
-      // Fallback for browsers that don't support Web Share API
-      const tempInput = document.createElement('input');
-      tempInput.value = url;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
-    }
+    const url = `${this.siteUrl}/${district.value}`;
+    shareQRCode(
+      url,
+      `Explore ${district.name}`,
+      `Check out ${district.name} in Sikkim!`
+    );
   }
 
   downloadQR(i: number): void {
     const district = this.districts[i];
-    const qrElement = document.querySelector(
-      `.qr-container:nth-child(${i + 1}) canvas`
-    );
-
-    if (qrElement) {
-      const canvas = qrElement as HTMLCanvasElement;
-      const link = document.createElement('a');
-      link.download = `${district.name.toLowerCase()}-qr.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    }
+    downloadQRCode(district.name, `qrcode:nth-of-type(${i + 1}) canvas`);
   }
 
 
