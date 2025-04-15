@@ -56,6 +56,49 @@ export class DestinationService {
         title: 'Rumtek Monastery Gallery',
         description: 'Explore the stunning architecture and serene beauty of Rumtek Monastery through our curated collection of images. From the majestic main shrine hall to the peaceful monastery gardens, each photograph captures the essence of this spiritual sanctuary.',
       },
+      touristAttractions: [
+        {
+          images: [
+           'assets/Images/rumtek-monastry/Main-Shrine-Hall-image1.jpg',
+           'assets/Images/rumtek-monastry/Main-Shrine-Hall-image2.jpg'
+          ],
+          imageAlt: 'Main Shrine Hall',
+          location: 'Central Courtyard',
+          title: 'Main Shrine Hall',
+          description: 'Sacred prayer hall adorned with vibrant murals and golden Buddha statues.'
+        },
+        {
+          images: [
+             'assets/Images/rumtek-monastry/stupa1.jpg',
+             'assets/Images/rumtek-monastry/stupa2.jpg'
+          ],
+          imageAlt: 'Golden Stupa',
+          location: 'Inside the Monastery',
+          title: 'Golden Stupa of the 16th Karmapa',
+          description: 'A golden relic chamber housing the remains of the 16th Karmapa.'
+        },
+        {
+          images: [
+            'assets/Images/rumtek-monastry/wheels1.jpg',
+            'assets/Images/rumtek-monastry/wheels2.jpg'
+          ],
+          imageAlt: 'Prayer Wheels',
+          location: 'Monastery Perimeter',
+          title: 'Rows of Prayer Wheels',
+          description: 'Spin the wheels while walking the kora path for good karma.'
+        },
+        {
+          images: [
+            'assets/Images/rumtek-monastry/garden1.jpg',
+            'assets/Images/rumtek-monastry/garden2.jpg',
+          ],
+          imageAlt: 'Meditation Spot',
+          location: 'Monastery Garden',
+          title: 'Peaceful Courtyard',
+          description: 'Open space for silent meditation and reflection.'
+        }
+      ]
+    
   
 
 

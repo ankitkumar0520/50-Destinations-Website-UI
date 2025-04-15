@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, PLATFORM_ID, Inject, inject } from '@angular/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
+import { DestinationService } from '../../../services/destination.service';
 
 @Component({
   selector: 'app-points-of-interest',
@@ -13,6 +14,9 @@ import { SectionHeaderComponent } from '../../../common/section-header/section-h
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PointsOfInterestComponent implements OnInit, AfterViewInit {
+
+  private destinationService =inject( DestinationService)
+
   constructor(
     private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -20,52 +24,13 @@ export class PointsOfInterestComponent implements OnInit, AfterViewInit {
     register();
   }
 
+  destination = this.destinationService.getDestionation();
+
   ngOnInit(): void {
+    
   }
 
-  points: any[] = [
-    {
-      images: [
-       'assets/Images/rumtek-monastry/Main-Shrine-Hall-image1.jpg',
-       'assets/Images/rumtek-monastry/Main-Shrine-Hall-image2.jpg'
-      ],
-      imageAlt: 'Main Shrine Hall',
-      location: 'Central Courtyard',
-      title: 'Main Shrine Hall',
-      description: 'Sacred prayer hall adorned with vibrant murals and golden Buddha statues.'
-    },
-    {
-      images: [
-         'assets/Images/rumtek-monastry/stupa1.jpg',
-         'assets/Images/rumtek-monastry/stupa2.jpg'
-      ],
-      imageAlt: 'Golden Stupa',
-      location: 'Inside the Monastery',
-      title: 'Golden Stupa of the 16th Karmapa',
-      description: 'A golden relic chamber housing the remains of the 16th Karmapa.'
-    },
-    {
-      images: [
-        'assets/Images/rumtek-monastry/wheels1.jpg',
-        'assets/Images/rumtek-monastry/wheels2.jpg'
-      ],
-      imageAlt: 'Prayer Wheels',
-      location: 'Monastery Perimeter',
-      title: 'Rows of Prayer Wheels',
-      description: 'Spin the wheels while walking the kora path for good karma.'
-    },
-    {
-      images: [
-        'assets/Images/rumtek-monastry/garden1.jpg',
-        'assets/Images/rumtek-monastry/garden2.jpg',
-      ],
-      imageAlt: 'Meditation Spot',
-      location: 'Monastery Garden',
-      title: 'Peaceful Courtyard',
-      description: 'Open space for silent meditation and reflection.'
-    }
-  ];
-
+  
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       // Force change detection
