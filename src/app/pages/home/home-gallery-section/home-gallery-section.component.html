@@ -22,31 +22,31 @@
         <!-- Destination Cards -->
         <div
           *ngFor="let dest of destinations; let i = index"
-          class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 group"
+          class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 group h-[420px] md:h-[320px]"
         >
-          <div class="flex flex-col md:flex-row h-[320px]">
-            <div class="flip-card" [class.flipped]="isQRVisibleMap[i]">
-              <div class="flip-card-inner">
-                <!-- Front of the card -->
-                <div class="flip-card-front">
-                  <!-- QR Toggle Button -->
-                  <div
-                    (click)="switchQR(i)"
-                    class="w-8 h-8 border-1 border-blue-300 bg-white absolute top-4 left-4 z-20 p-1 rounded cursor-pointer"
+          <div class="flip-card" [class.flipped]="isQRVisibleMap[i]">
+            <div class="flip-card-inner">
+              <!-- Front of the card -->
+              <div class="flip-card-front bg-white dark:bg-gray-800">
+                <!-- QR Toggle Button -->
+                <div
+                  (click)="switchQR(i)"
+                  class="w-8 h-8 border border-blue-300 bg-white absolute top-4 left-4 z-20 p-1 rounded cursor-pointer hover:bg-blue-50 transition-colors duration-200"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#000"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="#000"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm10-2h2v2h-2v-2zm0 4h2v2h-2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2z"
-                      />
-                    </svg>
-                  </div>
+                    <path
+                      d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm10-2h2v2h-2v-2zm0 4h2v2h-2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2z"
+                    />
+                  </svg>
+                </div>
 
+                <div class="flex flex-col md:flex-row h-full">
                   <!-- Image Section -->
-                  <div class="md:w-2/5 relative overflow-hidden h-full">
+                  <div class="h-48 md:h-full md:w-2/5 relative overflow-hidden">
                     <img
                       [src]="dest.image"
                       [alt]="dest.name"
@@ -67,7 +67,7 @@
                   </div>
 
                   <!-- Content Section -->
-                  <div class="md:w-3/5 p-4 flex flex-col h-full">
+                  <div class="flex-1 md:w-3/5 p-4 flex flex-col">
                     <div class="flex-1">
                       <h3
                         class="text-lg font-bold text-gray-800 dark:text-white mb-1.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
@@ -94,32 +94,22 @@
                     </div>
 
                     <!-- Footer Info -->
-                    <div
-                      class="border-t border-gray-100 dark:border-gray-700 pt-3"
-                    >
-                      <div
-                        class="grid grid-cols-3 gap-2 text-xs text-gray-500 dark:text-gray-400 mb-3"
-                      >
+                    <div class="border-t border-gray-100 dark:border-gray-700 pt-3">
+                      <div class="grid grid-cols-3 gap-2 text-xs text-gray-500 dark:text-gray-400 mb-3">
                         <div>
-                          <p
-                            class="font-medium text-gray-700 dark:text-gray-200"
-                          >
+                          <p class="font-medium text-gray-700 dark:text-gray-200">
                             Location
                           </p>
                           <p>{{ dest.location }}</p>
                         </div>
                         <div>
-                          <p
-                            class="font-medium text-gray-700 dark:text-gray-200"
-                          >
+                          <p class="font-medium text-gray-700 dark:text-gray-200">
                             Best Time
                           </p>
                           <p>{{ dest.bestTime }}</p>
                         </div>
                         <div>
-                          <p
-                            class="font-medium text-gray-700 dark:text-gray-200"
-                          >
+                          <p class="font-medium text-gray-700 dark:text-gray-200">
                             Duration
                           </p>
                           <p>{{ dest.duration }}</p>
@@ -148,55 +138,46 @@
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <!-- Back of the card -->
+              <!-- Back of the card -->
+              <div class="flip-card-back">
                 <div
-                  class="flip-card-back flex flex-row flex-wrap bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg"
+                  class="back-button text-gray-600 dark:text-gray-400 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                  (click)="switchQR(i)"
                 >
-                  <div
-                    class="back-button text-gray-600 dark:text-gray-400 cursor-pointer mb-4"
-                    (click)="switchQR(i)"
-                  >
-                    <i class="fas fa-arrow-left"></i>
-                  </div>
-                  <div
-                    class="qr-container flex justify-center items-center mb-4"
-                  >
+                  <i class="fas fa-arrow-left"></i>
+                </div>
+                
+                <div class="qr-content">
+                  <h3 class="text-base font-medium text-gray-800 dark:text-gray-200">
+                    {{ dest.name }}
+                  </h3>
+                  
+                  <div class="qr-container">
                     <qrcode
                       [qrdata]="siteUrl + '/' + dest.name.toLowerCase()"
-                      [width]="200"
+                      [width]="180"
                       [errorCorrectionLevel]="'M'"
-                    >
-                    </qrcode>
+                      [margin]="0"
+                    ></qrcode>
                   </div>
-                  <div class="flex flex-col">
-                    <h3
-                      class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2"
+                  
+                  <div class="action-buttons">
+                    <button
+                      class="action-button share-button"
+                      (click)="shareQR(i)"
                     >
-                      {{ dest.name }}
-                    </h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                      Scan to explore {{ dest.name }}
-                    </p>
-                    <div class="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                      <p>{{ dest.location }} • {{ dest.bestTime }}</p>
-                    </div>
-                    <div class="action-buttons flex gap-2">
-                      <button
-                        class="action-button share-button bg-primary-600 dark:bg-primary-500 text-white py-1 px-3 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors duration-300 flex items-center gap-2"
-                        (click)="shareQR(i)"
-                      >
-                        <i class="fas fa-share-alt"></i>
-                        <span>Share</span>
-                      </button>
-                      <button
-                        class="action-button download-button bg-secondary-600 dark:bg-secondary-500 text-white py-1 px-3 rounded-lg hover:bg-secondary-700 dark:hover:bg-secondary-600 transition-colors duration-300 flex items-center gap-2"
-                        (click)="downloadQR(i)"
-                      >
-                        <i class="fas fa-download"></i>
-                        <span>Download</span>
-                      </button>
-                    </div>
+                      <i class="fas fa-share-alt text-xs"></i>
+                      Share
+                    </button>
+                    <button
+                      class="action-button download-button"
+                      (click)="downloadQR(i)"
+                    >
+                      <i class="fas fa-download text-xs"></i>
+                      Save
+                    </button>
                   </div>
                 </div>
               </div>
