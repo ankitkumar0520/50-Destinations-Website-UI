@@ -40,20 +40,22 @@
             Explore Categories
           </h3>
           <div class="flex flex-wrap gap-2">
+
             <div
-              *ngFor="let category of aboutData.categories"
-              class="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:bg-primary-50 dark:hover:bg-primary-900/20 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-700"
+            *ngFor="let category of aboutData.categories | slice:0:8"
+            (click)="setFilter(category.id)"
+            class="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:bg-primary-50 dark:hover:bg-primary-900/20 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-700"
+             >
+            <i
+              class="fa-solid {{ category.icon }} text-primary-600 dark:text-primary-300"
+            ></i>
+            <span
+              class="text-sm font-medium text-gray-700 dark:text-gray-300"
+              >{{ category.value }}</span
             >
-              <i
-                class="fa-solid {{
-                  category.icon
-                }} text-primary-600 dark:text-primary-300"
-              ></i>
-              <span
-                class="text-sm font-medium text-gray-700 dark:text-gray-300"
-                >{{ category.name }}</span
-              >
-            </div>
+          </div>
+          
+
           </div>
         </div>
       </div>
@@ -104,7 +106,7 @@
               Discover the best of Sikkim
             </p>
           </div>
-          <button
+          <button (click)="navigateToSearch()"
             class="bg-white text-primary-600 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 px-4 py-2 rounded-md text-sm font-medium transition duration-200 w-full"
           >
             Explore Now

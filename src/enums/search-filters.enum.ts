@@ -9,18 +9,18 @@ export const DISTRICT_OPTIONS = [
   
 
   export const EXPERIENCE_OPTIONS = [
-    { id: 'adventure', value: 'Adventure' },
-    { id: 'trekking', value: 'Trekking' },
-    { id: 'spiritual_retreats', value: 'Spiritual Retreats' },
-    { id: 'wildlife_nature', value: 'Wildlife & Nature' },
-    { id: 'cultural_tours', value: 'Cultural Tours' },
-    { id: 'scenic_drives', value: 'Scenic Drives' },
-    { id: 'camping', value: 'Camping' },
-    { id: 'pilgrimage_journeys', value: 'Pilgrimage Journeys' },
-    { id: 'photography_spots', value: 'Photography Spots' },
-    { id: 'festivals_celebrations', value: 'Festivals & Celebrations' },
-    { id: 'snow_activities', value: 'Snow Activities' },
-    { id: 'bird_watching', value: 'Bird Watching' }
+    { id: 'adventure', value: 'Adventure', icon: 'fa-mountain' },
+    { id: 'trekking', value: 'Trekking', icon: 'fa-hiking' },
+    { id: 'spiritual_retreats', value: 'Spiritual Retreats', icon: 'fa-om' },
+    { id: 'wildlife_nature', value: 'Wildlife & Nature', icon: 'fa-paw' },
+    { id: 'cultural_tours', value: 'Cultural Tours', icon: 'fa-landmark' },
+    { id: 'scenic_drives', value: 'Scenic Drives', icon: 'fa-route' },
+    { id: 'camping', value: 'Camping', icon: 'fa-campground' },
+    { id: 'pilgrimage_journeys', value: 'Pilgrimage Journeys', icon: 'fa-place-of-worship' },
+    { id: 'photography_spots', value: 'Photography Spots', icon: 'fa-camera-retro' },
+    { id: 'festivals_celebrations', value: 'Festivals & Celebrations', icon: 'fa-mask' },
+    { id: 'snow_activities', value: 'Snow Activities', icon: 'fa-snowflake' },
+    { id: 'bird_watching', value: 'Bird Watching', icon: 'fa-dove' }
   ];
   
 
