@@ -10,7 +10,13 @@
     );
 }
 
-.qr-code{
-    width: 50px !important;
-    height: 50px !important;
+.qr-code {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 8px;
+}
+
+.qr-code canvas {
+    width: 100% !important;
+    height: 100% !important;
 }
