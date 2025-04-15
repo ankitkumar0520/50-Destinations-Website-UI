@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { QRCodeComponent } from 'angularx-qrcode';
+import { RouterLink } from '@angular/router';
 
 import {
   destroyOwlInstance,
@@ -36,7 +37,7 @@ interface Feature {
 @Component({
   selector: 'app-home-district-carousel',
   standalone: true,
-  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent],
+  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent, RouterLink],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
 })
@@ -44,8 +45,7 @@ export class HomeDistrictCarouselComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   private platformId = inject(PLATFORM_ID);
-  private searchService = inject(SearchService);
-  private router = inject(Router);
+
 
 
   siteUrl: string = isPlatformBrowser(this.platformId)
@@ -238,16 +238,6 @@ export class HomeDistrictCarouselComponent
   }
 
 
-  searchDistrict(districtValue:any){
-    this.searchService.updateFilters({
-      district:districtValue
-    });
 
-    this.rediectToSearch();
-  }
-
-  rediectToSearch(){
-    this.router.navigate(['/destinations']);
-  }
 
 }

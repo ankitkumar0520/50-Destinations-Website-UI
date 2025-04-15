@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, merge } from 'rxjs';
 
 export interface DurationRange {
   minHours: number;
@@ -77,6 +77,8 @@ export class SearchService {
     };
 
     this.filtersSubject.next(merged);
+
+    console.log('added filter namchi,'+merged.district)
 
   }
 

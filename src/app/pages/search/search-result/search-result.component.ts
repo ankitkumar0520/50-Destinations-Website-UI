@@ -1,10 +1,11 @@
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { ResultItem, SearchFilters, SearchService } from '../../../services/search.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { ViewChildren, QueryList, ElementRef } from '@angular/core';
+
 
 
 @Component({
@@ -16,10 +17,10 @@ import { ViewChildren, QueryList, ElementRef } from '@angular/core';
   templateUrl: './search-result.component.html',
   styleUrl: './search-result.component.css',
 })
-export class SearchResultComponent implements OnInit {
+export class SearchResultComponent implements OnInit , OnDestroy {
   @ViewChildren('qrCanvas') qrCanvases!: QueryList<ElementRef>;
 
-
+  districtParam: string | null = null;
   private platformId = inject(PLATFORM_ID);
   siteUrl: string = isPlatformBrowser(this.platformId)
     ? window.location.origin
@@ -36,9 +37,13 @@ export class SearchResultComponent implements OnInit {
   private searchService = inject(SearchService);
   searchResults = this.searchService.getDestinations();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router
+  ) {}
 
   ngOnInit(): void {
+
+
+
     this.searchService.filters$.subscribe({
       next: (filters) => {
         this.filters = filters;
@@ -48,6 +53,7 @@ export class SearchResultComponent implements OnInit {
       complete: () => console.log('Filters stream completed'),
     });
   }
+
 
 
 
@@ -123,5 +129,9 @@ downloadQR(index: number): void {
   }
   
 
+
+  ngOnDestroy(): void {
+    this.searchService.resetFilters();
+  }
   
 }

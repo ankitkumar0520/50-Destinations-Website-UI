@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SearchService } from '../../../services/search.service';
 import { DESTINATIONS_TAGS, DISTRICT_OPTIONS, DURATIONS, EXPERIENCE_OPTIONS, SEASONS, SORT_OPTIONS } from '../../../../enums/search-filters.enum';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search-filters',
@@ -38,6 +39,7 @@ export class SearchFiltersComponent implements OnInit {
 
 
   private searchService = inject(SearchService);
+  private route = inject(ActivatedRoute);
 
   constructor() {
     this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -47,7 +49,19 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Get district from URL parameter
+    this.route.paramMap.subscribe(params => {
+      const districtParam = params.get('district');
+      if (districtParam) {
+        this.selectedDistrict = districtParam;
+        this.searchService.updateFilters({
+          district: districtParam
+        });
+      }
+    });
+
     const currentFilters = this.searchService.getFilters();
+    console.log('current filter', currentFilters.district);
 
     this.selectedDistrict = currentFilters.district;
     this.selectedExperience = currentFilters.experienceType;
@@ -62,8 +76,6 @@ export class SearchFiltersComponent implements OnInit {
     this.selectedDurationId = match?.id ?? '';
 
     this.selectedSort = currentFilters.sort;
-
-    
   }
 
   toggleFilters() {
