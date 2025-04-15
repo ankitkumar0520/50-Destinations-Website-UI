@@ -60,9 +60,9 @@
               [(ngModel)]="selectedDistrict"
               class="w-full h-9 text-sm text-gray-900 dark:text-gray-100 bg-transparent focus:outline-none focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400 rounded-md"
             >
-              <option value="">Select district</option>
-              <option *ngFor="let district of districts" [value]="district">
-                {{ district }}
+              <option value="" selected="true" disabled="true" >Select district</option>
+              <option *ngFor="let district of districts" [value]="district.id">
+                {{ district.value }}
               </option>
             </select>
           </div>
@@ -83,13 +83,13 @@
               class="w-full h-9 text-sm text-gray-900 dark:text-gray-100 bg-transparent focus:outline-none focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400 rounded-md cursor-pointer"
               style="max-height: 200px; overflow-y: auto"
             >
-              <option value="" class="py-1">Select experience</option>
+              <option value="" disabled="true" selected="true" class="py-1">Select experience</option>
               <option
                 *ngFor="let experience of experiences"
-                [value]="experience"
+                [value]="experience.id"
                 class="py-1 hover:bg-gray-50 dark:hover:bg-gray-900/20"
               >
-                {{ experience }}
+                {{ experience.value }}
               </option>
             </select>
           </div>
@@ -169,6 +169,7 @@
             [(ngModel)]="selectedSort"
             class="w-full h-10 px-3 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
           >
+          <option value="" selected="true" disabled="">Select</option>
             <option *ngFor="let option of sortOptions" [value]="option.id">
               {{ option.name }}
             </option>

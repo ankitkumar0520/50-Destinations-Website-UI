@@ -121,7 +121,10 @@
     </div>
   </div>
 
-  <div *ngIf="filteredResults.length > 0" class="w-screen -mx-[calc((100vw-100%)/2)] flex justify-center mt-6 bg-white rounded-xl">
+
+  <!------------for no data found----------------->
+
+  <div *ngIf="filteredResults.length > 0" class="dark:bg-gray-800 dark:border-gray-700 w-screen -mx-[calc((100vw-100%)/2)] flex justify-center mt-6 bg-white rounded-xl">
     <pagination-controls class="mb-2 mt-4" (pageChange)="currentPage = $event"></pagination-controls>
   </div>
 

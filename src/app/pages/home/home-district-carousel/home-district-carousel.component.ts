@@ -203,7 +203,6 @@ export class HomeDistrictCarouselComponent
       tempInput.select();
       document.execCommand('copy');
       document.body.removeChild(tempInput);
-      alert('Link copied to clipboard!');
     }
   }
 

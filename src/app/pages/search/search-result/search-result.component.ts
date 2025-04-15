@@ -1,21 +1,11 @@
 import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-import { SearchFilters, SearchService } from '../../../services/search.service';
+import { ResultItem, SearchFilters, SearchService } from '../../../services/search.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { ViewChildren, QueryList, ElementRef } from '@angular/core';
 
-
-export interface ResultItem {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  duration: string;
-  location: string;
-  tags: string[];
-}
 
 @Component({
   selector: 'app-search-result',
@@ -44,7 +34,7 @@ export class SearchResultComponent implements OnInit {
   isQRVisibleMap: { [key: number]: boolean } = {};
 
   private searchService = inject(SearchService);
-  searchResults: ResultItem[] = this.searchService.getDestinations();
+  searchResults = this.searchService.getDestinations();
 
   constructor(private router: Router) {}
 
@@ -52,60 +42,15 @@ export class SearchResultComponent implements OnInit {
     this.searchService.filters$.subscribe({
       next: (filters) => {
         this.filters = filters;
-        this.applyFilters(filters); // Apply filters once received
+        this.filteredResults = this.searchService.applyFilters(filters,this.searchResults); // Apply filters once received
       },
       error: (err) => console.error('Error loading filters:', err),
       complete: () => console.log('Filters stream completed'),
     });
   }
 
-  applyFilters(filters: SearchFilters): void {
-    this.filteredResults = this.searchResults.filter((result: ResultItem) => {
-      const matchesDistrict =
-        !filters.district || result.location?.toLowerCase() === filters.district.toLowerCase();
 
-      const matchesSearch =
-        !filters.searchQuery ||
-        result.title?.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
-        result.description?.toLowerCase().includes(filters.searchQuery.toLowerCase());
 
-      const matchesTags =
-        !filters.tags || filters.tags.length === 0 ||
-        filters.tags.some(tag =>
-          result.tags?.map(t => t.toLowerCase()).includes(tag.toLowerCase())
-        );
-
-      const matchesExperience =
-        !filters.experienceType ||
-        result.tags?.map(t => t.toLowerCase()).includes(filters.experienceType.toLowerCase());
-
-      const matchesSeasons =
-        !filters.seasons || filters.seasons.length === 0 ||
-        filters.seasons.some(season =>
-          result.tags?.map(t => t.toLowerCase()).includes(season.toLowerCase())
-        );
-
-      const resultDurationHours = this.getHoursFromDuration(result.duration);
-      const matchesDuration =
-        (!filters.durations?.minHours || resultDurationHours >= filters.durations.minHours) &&
-        (!filters.durations?.maxHours || resultDurationHours <= filters.durations.maxHours);
-
-      return (
-        matchesDistrict &&
-        matchesSearch &&
-        matchesTags &&
-        matchesExperience &&
-        matchesSeasons &&
-        matchesDuration
-      );
-    });
-  }
-
-  getHoursFromDuration(duration: string): number {
-    const daysMatch = duration.match(/(\d+)\s*day/);
-    const days = daysMatch ? parseInt(daysMatch[1]) : 0;
-    return days * 24;
-  }
 
   navigateToDetail(id: number): void {
     // redirect to main destination page (implement routing as needed)
@@ -134,7 +79,6 @@ export class SearchResultComponent implements OnInit {
       tempInput.select();
       document.execCommand('copy');
       document.body.removeChild(tempInput);
-      alert('Link copied to clipboard!');
     }
   }
 
@@ -147,8 +91,6 @@ downloadQR(index: number): void {
     link.click();
   }
 }
-
-  
 
   //for card to flip all
   flipAll(): void {

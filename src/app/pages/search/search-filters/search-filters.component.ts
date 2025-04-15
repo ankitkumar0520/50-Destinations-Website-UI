@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SearchService } from '../../../services/search.service';
+import { DESTINATIONS_TAGS, DISTRICT_OPTIONS, DURATIONS, EXPERIENCE_OPTIONS, SEASONS, SORT_OPTIONS } from '../../../../enums/search-filters.enum';
 
 @Component({
   selector: 'app-search-filters',
@@ -14,56 +15,17 @@ export class SearchFiltersComponent implements OnInit {
   showFilters = false;
   isDarkMode = false;
 
-  // Dropdown values
-  districts = ['Gangtok', 'Namchi', 'Soreng', 'Mangan', 'Gyalshing', 'Pakyong'];
+  districts = DISTRICT_OPTIONS;
 
-  experiences = [
-    'Adventure',
-    'Trekking',
-    'Spiritual Retreats',
-    'Wildlife & Nature',
-    'Cultural Tours',
-    'Scenic Drives',
-    'Camping',
-    'Pilgrimage Journeys',
-    'Photography Spots',
-    'Festivals & Celebrations',
-    'Snow Activities',
-    'Bird Watching',
-  ];
+  experiences = EXPERIENCE_OPTIONS;
 
-  destinationTags = [
-    { id: 'monastery', name: 'Monasteries', icon: 'fa-solid fa-place-of-worship' },
-    { id: 'lake', name: 'Lakes', icon: 'fa-solid fa-water' },
-    { id: 'viewpoint', name: 'Viewpoints', icon: 'fa-solid fa-binoculars' },
-    { id: 'trekking', name: 'Trekking', icon: 'fa-solid fa-person-hiking' },
-    { id: 'wildlife', name: 'Wildlife', icon: 'fa-solid fa-paw' },
-    { id: 'waterfall', name: 'Waterfalls', icon: 'fa-solid fa-water' },
-    { id: 'hotspring', name: 'Hot Springs', icon: 'fa-solid fa-fire' },
-    { id: 'temple', name: 'Temples', icon: 'fa-solid fa-gopuram' },
-  ];
+  destinationTags = DESTINATIONS_TAGS;
 
-  seasons = [
-    { id: 'spring', name: 'Spring (March - May)', icon: 'fa-seedling' },
-    { id: 'summer', name: 'Summer (June - August)', icon: 'fa-sun' },
-    { id: 'monsoon', name: 'Monsoon (July - September)', icon: 'fa-cloud-rain' },
-    { id: 'autumn', name: 'Autumn (September - November)', icon: 'fa-leaf' },
-    { id: 'winter', name: 'Winter (December - February)', icon: 'fa-snowflake' },
-  ];
+  seasons =SEASONS;
 
-  durations = [
-    { id: '0-3', name: '0-3 hours', min: 0, max: 3 },
-    { id: '3-6', name: '3-6 hours', min: 3, max: 6 },
-    { id: '1-day', name: 'Full day', min: 6, max: 12 },
-    { id: '2-3-days', name: '2-3 days', min: 24, max: 72 },
-    { id: '4-plus', name: '4+ days', min: 96, max: 1000 },
-  ];
+  durations = DURATIONS;
 
-  sortOptions = [
-    { id: 'popularity', name: 'Most Popular' },
-    { id: 'rating', name: 'Highest Rated' },
-    { id: 'newest', name: 'Newest First' },
-  ];
+  sortOptions = SORT_OPTIONS;
 
   // Selected filters
   selectedDistrict: string = '';
@@ -128,6 +90,7 @@ export class SearchFiltersComponent implements OnInit {
     this.selectedSeasons.clear();
     this.selectedDurationId = '';
     this.applyFilters();
+    this.showFilters=false;
   }
 
   clearSearchSection() {
@@ -136,6 +99,7 @@ export class SearchFiltersComponent implements OnInit {
     this.searchQuery = '';
     this.selectedTags.clear();
     this.applyFilters();
+    this.clearFilters();
   }
 
 
@@ -145,7 +109,6 @@ export class SearchFiltersComponent implements OnInit {
 
   applyFilters() {
     const duration = this.durations.find(d => d.id === this.selectedDurationId);
-
     this.searchService.updateFilters({
       district: this.selectedDistrict,
       experienceType: this.selectedExperience,
@@ -158,4 +121,6 @@ export class SearchFiltersComponent implements OnInit {
         : { minHours: 0, maxHours: 0 },
     });
   }
+
+
 }
