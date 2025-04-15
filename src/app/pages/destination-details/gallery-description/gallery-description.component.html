@@ -19,7 +19,7 @@
 
       <!-- Description Section -->
       <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-        <p [innerHTML]="destination.description"
+        <p [innerHTML]="destination.fulldescription"
           class="text-gray-700 dark:text-gray-300 leading-relaxed text-sm md:text-base"></p>
       </div>
     </div>
@@ -31,10 +31,10 @@
     <app-section-header 
       [badgeText]="'Gallery'"
       [titleLeft]="'Explore'"
-      [titleMiddleHighlighted]="galleryInfo.title"
-      [description]="galleryInfo.description"
+      [titleMiddleHighlighted]="destination.galleryInfo.title"
+      [description]="destination.galleryInfo.description"
       [features]="[
-        { icon: 'fas fa-images', text: galleryInfo.totalImages + ' Images' },
+        { icon: 'fas fa-images', text: destination.galleryImages.length+ ' Images' },
         { icon: 'fas fa-map-marker-alt', text: 'Location Highlights' },
         { icon: 'fas fa-camera', text: 'Photographic Excellence' }
       ]"
@@ -42,7 +42,7 @@
 
     <!-- Gallery Carousel -->
     <div class="destination-gallery-grid py-8">
-      <div *ngFor="let image of GalleryImages; let i = index"
+      <div *ngFor="let image of destination.galleryImages; let i = index"
         class="gallery-item relative group cursor-pointer rounded-lg overflow-hidden shadow-md"
         (click)="showGalleria(i)">
         <img [src]="image.thumbnailImageSrc" [alt]="image.alt"
@@ -88,13 +88,13 @@
         <div class="flex flex-col h-full bg-gray-900">
           <!-- Main Image -->
           <div class="flex-1 flex items-center justify-center p-4 md:p-6 min-h-[50vh] md:min-h-[60vh]">
-            <img [src]="GalleryImages[activeIndex].itemImageSrc" [alt]="GalleryImages[activeIndex].alt"
+            <img [src]="destination.galleryImages[activeIndex].itemImageSrc" [alt]="destination.galleryImages[activeIndex].alt"
               class="max-w-full h-[50vh] md:h-[65vh] object-contain rounded-lg shadow-lg" />
           </div>
 
           <!-- Image Info -->
           <div class="text-center p-2 text-white border-t border-gray-700">
-            <h3 class="text-lg md:text-xl font-semibold mb-1">{{GalleryImages[activeIndex].alt}}</h3>
+            <h3 class="text-lg md:text-xl font-semibold mb-1">{{destination.galleryImages[activeIndex].alt}}</h3>
             <p class="text-gray-300 text-xs md:text-sm">Image {{activeIndex + 1}} of {{imageCount}}</p>
           </div>
 
@@ -102,7 +102,7 @@
           <div class="bg-black/50 backdrop-blur-sm py-2 border-t border-gray-700">
             <div class="container mx-auto px-2 md:px-4">
               <div class="flex justify-center gap-1 md:gap-2 overflow-x-auto scrollbar-hide">
-                <div *ngFor="let image of GalleryImages; let i = index"
+                <div *ngFor="let image of destination.galleryImages; let i = index"
                   class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-300"
                   [class.border-primary-500]="i === activeIndex" [class.border-transparent]="i !== activeIndex"
                   (click)="activeIndex = i">
