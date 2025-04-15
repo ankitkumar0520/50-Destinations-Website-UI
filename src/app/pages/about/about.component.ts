@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 interface FeatureItem {
   title: string;
@@ -10,7 +11,7 @@ interface FeatureItem {
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css'
 })
