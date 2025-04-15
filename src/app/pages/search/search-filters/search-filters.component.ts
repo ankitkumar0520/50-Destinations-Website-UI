@@ -48,6 +48,7 @@ export class SearchFiltersComponent implements OnInit {
 
   ngOnInit() {
     const currentFilters = this.searchService.getFilters();
+
     this.selectedDistrict = currentFilters.district;
     this.selectedExperience = currentFilters.experienceType;
     this.searchQuery = currentFilters.searchQuery;
@@ -61,6 +62,8 @@ export class SearchFiltersComponent implements OnInit {
     this.selectedDurationId = match?.id ?? '';
 
     this.selectedSort = currentFilters.sort;
+
+    
   }
 
   toggleFilters() {
@@ -120,6 +123,7 @@ export class SearchFiltersComponent implements OnInit {
         ? { minHours: duration.min, maxHours: duration.max }
         : { minHours: 0, maxHours: 0 },
     });
+
   }
 
 

@@ -1,4 +1,5 @@
 <!-- Hero Section -->
+
 <section
   class="relative min-h-screen pt-[70px] w-full overflow-hidden flex flex-wrap items-stretch justify-center"
 >
@@ -20,7 +21,7 @@
   >
     <!-- Main Heading -->
     <h1
-      class="text-4xl sm:text-5xl md:text-6xl font-bold text-white dark:text-gray-100 leading-tight max-w-4xl"
+      class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mt-4 dark:text-gray-100 leading-tight max-w-4xl"
     >
       {{ heroData.title }}
     </h1>
@@ -39,7 +40,6 @@
         placeholder="Enter destination name"
         class="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-full text-gray-900 dark:text-gray-100 text-base sm:text-lg bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50 dark:focus:ring-primary-400/50 placeholder-gray-500 dark:placeholder-gray-400 shadow-lg dark:shadow-gray-900/50 transition-all duration-300 ease-in-out"
         [(ngModel)]="searchQuery"
-        (keyup.enter)="searchDestinations()"
       />
       <button
         class="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 bg-primary-600 dark:bg-primary-500 text-white p-2 rounded-full hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors duration-300"
@@ -68,14 +68,14 @@
     >
       <button
         class="flex items-center px-4 sm:px-5 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-full text-xs sm:text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
-        (click)="(null)"
+        (click)="redirectToSearch()"
       >
         <i class="fas fa-compass mr-2 text-sm"></i>
         Explore Destinations
       </button>
       <button
         class="flex items-center px-4 sm:px-5 py-2 border border-white dark:border-gray-300 text-white dark:text-gray-100 rounded-full text-xs sm:text-sm font-medium hover:bg-white/10 dark:hover:bg-gray-700/50 transition-colors duration-300"
-        (click)="(null)"
+        (click)="searchPopular()"
       >
         <i class="fas fa-map-marker-alt mr-2 text-sm"></i>
         View Popular
