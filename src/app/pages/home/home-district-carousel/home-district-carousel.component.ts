@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
 interface District {
   id: number;
   name: string;
-  value:string;
+  value: string;
   description: string;
   image: string;
   keyPlaces: string[];
@@ -39,13 +39,16 @@ interface Feature {
 @Component({
   selector: 'app-home-district-carousel',
   standalone: true,
-  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent, RouterLink],
+  imports: [
+    CommonModule, 
+    QRCodeComponent, 
+    SectionHeaderComponent, 
+    RouterLink],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
 })
 export class HomeDistrictCarouselComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+  implements OnInit, AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
 
 
@@ -76,7 +79,7 @@ export class HomeDistrictCarouselComponent
     {
       id: 1,
       name: 'Gangtok',
-      value:'gangtok',
+      value: 'gangtok',
       description:
         'The capital city district of Sikkim, known for its monasteries, viewpoints, and vibrant culture. Home to many popular tourist destinations including Nathula Pass and Tsomgo Lake.',
       image: 'assets/Images/districts/gangtok.jpg',
@@ -87,7 +90,7 @@ export class HomeDistrictCarouselComponent
     {
       id: 2,
       name: 'Namchi',
-      value:'namchi',
+      value: 'namchi',
       description:
         "South Sikkim's district headquarters, famous for its religious sites and organic farming. Features the world's largest statue of Guru Padmasambhava.",
       image: 'assets/Images/districts/namchi.jpg',
@@ -98,7 +101,7 @@ export class HomeDistrictCarouselComponent
     {
       id: 3,
       name: 'Soreng',
-      value:'soreng',
+      value: 'soreng',
       description:
         'A scenic district in West Sikkim region offering stunning views of Kanchenjunga. Known for its ancient monasteries and trekking routes.',
       image: 'assets/Images/districts/pelling.jpg',
@@ -111,11 +114,11 @@ export class HomeDistrictCarouselComponent
       population: '30,000+',
       elevation: '6,800 ft',
     }
-,    
+    ,
     {
       id: 4,
       name: 'Mangan',
-      value:'mangan',
+      value: 'mangan',
       description:
         'The gateway to North Sikkim, featuring pristine landscapes, hot springs, and high-altitude lakes. Perfect for adventure tourism.',
       image: 'assets/Images/districts/mangan.jpg',
@@ -131,7 +134,7 @@ export class HomeDistrictCarouselComponent
     {
       id: 5,
       name: 'Gyalshing',
-      value:'gyalshing',
+      value: 'gyalshing',
       description:
         'An emerging tourist destination known for its rich biodiversity and cultural heritage. Home to several important monasteries.',
       image: 'assets/Images/districts/gyalshing.jpg',
@@ -147,7 +150,7 @@ export class HomeDistrictCarouselComponent
     {
       id: 6,
       name: 'Pakyong',
-      value:'pakyong',
+      value: 'pakyong',
       description:
         "Home to Sikkim's only airport, this district offers beautiful landscapes and is known for its educational institutions and scenic beauty.",
       image: 'assets/Images/districts/pakyong.jpeg',
@@ -216,6 +219,10 @@ export class HomeDistrictCarouselComponent
     downloadQRCode(district.name, `qrcode:nth-of-type(${i + 1}) canvas`);
   }
 
+
+  isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
 
 
 

@@ -155,7 +155,7 @@
                   </h3>
                   
                   <div class="qr-container">
-                    <qrcode
+                    <qrcode *ngIf="isBrowser()"
                       [qrdata]="siteUrl + '/' + dest.name.toLowerCase()"
                       [width]="180"
                       [errorCorrectionLevel]="'M'"
