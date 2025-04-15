@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 
@@ -119,8 +119,8 @@ export class HomeGallerySectionComponent {
     },
   ];
 
-  constructor() {
-    if (typeof window !== 'undefined') {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
       this.siteUrl = window.location.origin;
     }
   }
@@ -133,7 +133,7 @@ export class HomeGallerySectionComponent {
     const destination = this.destinations[index];
     const url = this.siteUrl + '/' + destination.name.toLowerCase();
 
-    if (navigator.share) {
+    if (isPlatformBrowser(this.platformId) && navigator.share) {
       navigator
         .share({
           title: `Explore ${destination.name}`,
@@ -153,17 +153,23 @@ export class HomeGallerySectionComponent {
   }
 
   downloadQR(index: number): void {
-    const qrCodeElement = document.querySelector(
-      `.qr-container:nth-child(${index + 1}) qr-code`
-    );
-    if (qrCodeElement) {
-      const canvas = qrCodeElement.querySelector('canvas');
-      if (canvas) {
-        const link = document.createElement('a');
-        link.download = `${this.destinations[index].name}-qr.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+    if (isPlatformBrowser(this.platformId)) {
+      const qrCodeElement = document.querySelector(
+        `.qr-container:nth-child(${index + 1}) qr-code`
+      );
+      if (qrCodeElement) {
+        const canvas = qrCodeElement.querySelector('canvas');
+        if (canvas) {
+          const link = document.createElement('a');
+          link.download = `${this.destinations[index].name}-qr.png`;
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+        }
       }
     }
+  }
+
+  isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
   }
 }
