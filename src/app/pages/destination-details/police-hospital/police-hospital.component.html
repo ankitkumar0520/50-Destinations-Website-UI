@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="space-y-4" id="police-services">
-          <div *ngFor="let location of policeLocations" 
+          <div *ngFor="let location of destination.safty" 
                class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-amber-100 dark:border-gray-700">
             <div class="grid md:grid-cols-[35%_65%]">
               <div class="relative h-48 md:h-auto">
@@ -69,7 +69,7 @@
           </div>
         </div>
         <div class="space-y-4">
-          <div *ngFor="let location of healthcareLocations" 
+          <div *ngFor="let location of destination.healthcare" 
                class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-red-100 dark:border-gray-700">
             <div class="grid md:grid-cols-[35%_65%]">
               <div class="relative h-48 md:h-auto">
