@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../../services/search.service';
 import { DESTINATIONS_TAGS, DISTRICT_OPTIONS, DURATIONS, EXPERIENCE_OPTIONS, SEASONS, SORT_OPTIONS } from '../../../../enums/search-filters.enum';
 import { ActivatedRoute } from '@angular/router';
@@ -22,7 +23,7 @@ export class SearchFiltersComponent implements OnInit {
 
   destinationTags = DESTINATIONS_TAGS;
 
-  seasons =SEASONS;
+  seasons = SEASONS;
 
   durations = DURATIONS;
 
@@ -37,15 +38,17 @@ export class SearchFiltersComponent implements OnInit {
   selectedDurationId: string = ''; // id from durations array
   selectedSort: string = '';
 
-
   private searchService = inject(SearchService);
   private route = inject(ActivatedRoute);
+  private platformId = inject(PLATFORM_ID);
 
   constructor() {
-    this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      this.isDarkMode = e.matches;
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        this.isDarkMode = e.matches;
+      });
+    }
   }
 
   ngOnInit() {
@@ -98,14 +101,12 @@ export class SearchFiltersComponent implements OnInit {
     this.selectedDurationId = this.selectedDurationId === durationId ? '' : durationId;
   }
 
-
-
   clearFilters() {
     this.selectedSort = '';
     this.selectedSeasons.clear();
     this.selectedDurationId = '';
     this.applyFilters();
-    this.showFilters=false;
+    this.showFilters = false;
   }
 
   clearSearchSection() {
@@ -116,7 +117,6 @@ export class SearchFiltersComponent implements OnInit {
     this.applyFilters();
     this.clearFilters();
   }
-
 
   onSearch() {
     this.applyFilters();
@@ -135,8 +135,5 @@ export class SearchFiltersComponent implements OnInit {
         ? { minHours: duration.min, maxHours: duration.max }
         : { minHours: 0, maxHours: 0 },
     });
-
   }
-
-
 }

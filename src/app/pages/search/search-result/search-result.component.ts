@@ -30,7 +30,7 @@ export class SearchResultComponent implements OnInit , OnDestroy {
   filteredResults: ResultItem[] = [];
   paginatedResults: ResultItem[] = [];
   currentPage = 1;
-  itemsPerPage = 2;
+  itemsPerPage = 12;
 
   isQRVisibleMap: { [key: number]: boolean } = {};
 
