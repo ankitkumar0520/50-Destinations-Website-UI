@@ -136,7 +136,7 @@ export class SearchService {
     if (filters.sort) {
      this. filteredResults = this.sortResults(this.filteredResults, filters.sort);
     }
-
+     
     return this.filteredResults;
   }
 
