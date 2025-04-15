@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
+import { DestinationService } from '../../../services/destination.service';
 
 interface Product {
   name: string;
@@ -35,42 +36,10 @@ interface Shop {
   ]
 })
 export class ShopsComponent {
-  shops: Shop[] = [
-    {
-      name: "Rumtek Monastery Souvenir Shop",
-      address: "Inside Rumtek Monastery Complex, Rumtek, Sikkim 737135, India",
-      image: "assets/Images/rumtek-monastry/shop1.jpg",
-      category: "Souvenirs & Religious Items",
-      products: [
-        { name: "Buddhist Texts", image: "assets/Images/rumtek-monastry/shop1-product1.jpg", price: "₹500 - ₹2,000", category: "Books" },
-        { name: "Prayer Flags", image: "assets/Images/rumtek-monastry/shop1-product2.jpg", price: "₹200 - ₹800", category: "Religious Items" },
-        { name: "Thangka Paintings",image: "assets/Images/rumtek-monastry/shop1-product3.jpg", price: "₹2,000 - ₹15,000", category: "Art" }
-      ]
-    },
-    {
-      name: "Local Handicrafts Stall",
-      address: "Near Rumtek Monastery Entrance, Rumtek, Sikkim 737135, India",
-      image: "assets/Images/rumtek-monastry/shop2.jpg",
-      category: "Traditional Handicrafts",
-      products: [
-        { name: "Handwoven Woolen Shawls", image: "assets/Images/rumtek-monastry/shop2-product2.jpg", price: "₹1,000 - ₹5,000", category: "Textiles" },
-        { name: "Wooden Masks", image: "assets/Images/rumtek-monastry/shop2-product2-1.jpg", price: "₹800 - ₹3,500", category: "Decor" },
-        { name: "Bamboo Crafts", image: "assets/Images/rumtek-monastry/shop2-product3.jpg", price: "₹300 - ₹1,500", category: "Crafts" }
-      ]
-    },
-    {
-      name: "Sikkimese Handicraft",
-      address: "Rumtek, Sikkim 737135, India",
-      image: "assets/Images/rumtek-monastry/shop3.jpg",
-      category: "Handicrafts & Home Decor",
-      products: [
-        { name: "Silver Jewelry", image: "assets/Images/rumtek-monastry/shop3-product1.jpg", price: "₹1,000 - ₹7,000", category: "Jewelry" },
-        { name: "Puja Statues", image: "assets/Images/rumtek-monastry/shop3-product2.jpg", price: "₹500 - ₹5,000", category: "Religious Items" },
-        { name: "Home Decorations", image: "assets/Images/rumtek-monastry/shop3-product3.jpg", price: "₹1,000 - ₹10,000", category: "Decor" }
-      ]
-    }
-  ];
   
+  private destinationService = inject(DestinationService);
+
+  destination = this.destinationService.getDestionation();
 
   selectedShop: Shop | null = null;
   isModalOpen = false;
