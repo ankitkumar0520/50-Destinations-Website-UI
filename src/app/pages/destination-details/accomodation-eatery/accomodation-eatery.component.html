@@ -13,7 +13,7 @@
   <div class="py-6">
     <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-8">Featured Accommodations</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let hotel of accommodations" class="flex flex-col bg-white dark:bg-gray-900 rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full">
+      <div *ngFor="let hotel of destination.accommodations" class="flex flex-col bg-white dark:bg-gray-900 rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full">
         <div class="h-[230px] relative">
           <img [src]="hotel.image" [alt]="hotel.name" class="w-full h-full object-cover">
         </div>
@@ -31,7 +31,7 @@
   <div class="py-6" id="eateries">
     <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-8">Featured Eateries</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let eatery of eateries" class="flex flex-col bg-white dark:bg-gray-900 rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full">
+      <div *ngFor="let eatery of destination.eateries" class="flex flex-col bg-white dark:bg-gray-900 rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full">
         <div class="h-[230px] relative">
           <img [src]="eatery.image" [alt]="eatery.name" class="w-full h-full object-cover">
         </div>
