@@ -92,6 +92,14 @@ body {
   font-size: small;
 }
 
+.dark .ngx-pagination a, .dark .ngx-pagination button{
+  color: gainsboro;
+}
+
+.dark .ngx-pagination a:hover, .dark .ngx-pagination button:hover{
+  color: black;
+}
+
 
 .ngx-pagination a:not(.pagination-previous a):not(.pagination-next a) {
   border-radius: 50%;

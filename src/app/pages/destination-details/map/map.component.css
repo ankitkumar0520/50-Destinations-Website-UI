@@ -1,0 +1,30 @@
+/* Leaflet control styling */
+.leaflet-control-fullscreen {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: white;
+    color: #333;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  }
+  
+  .leaflet-control-fullscreen:hover {
+    background: #f4f4f4;
+  }
+  
+  /* Dark mode support */
+  .dark .leaflet-control-fullscreen {
+    background: #374151;
+    color: #f3f4f6;
+  }
+  
+  .dark .leaflet-control-fullscreen:hover {
+    background: #4b5563;
+  }
+  
+  /* Transition for map container */
+  #map {
+    transition: all 0.3s ease-out;
+  }
