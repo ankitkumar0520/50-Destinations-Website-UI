@@ -97,8 +97,56 @@ export class DestinationService {
           title: 'Peaceful Courtyard',
           description: 'Open space for silent meditation and reflection.'
         }
-      ]
-    
+      ],
+      facilities: [
+        {
+          id: 'parking',
+          title: 'Secure Parking',
+          subtitle: 'Convenient Parking',
+          description: 'Safe and convenient parking options with 24/7 security and easy access to the main area.',
+          image: 'assets/Images/rumtek-monastry/parking.png',
+          imageAlt: 'Parking',
+          location: 'Main Parking Area',
+          distance: '200m from main entrance',
+          tags: [
+            { text: '24/7 Access', icon: '🕒', color: 'green' },
+            { text: 'Secure', icon: '🔒', color: 'yellow' }
+          ],
+          buttonIcon: '🅿️'
+        },
+        {
+          id: 'taxi',
+          title: 'Taxi Services',
+          subtitle: 'Easy Transportation',
+          description: 'Convenient taxi services available round the clock for all your travel needs.',
+          image: 'assets/Images/rumtek-monastry/taxi-stand.png',
+          imageAlt: 'Taxi Stand',
+          location: 'Main Taxi Stand',
+          distance: '100m from main entrance',
+          tags: [
+            { text: '10am-5pm Service', icon: '🕒', color: 'indigo' },
+            { text: 'Multiple Options', icon: '🚗', color: 'green' },
+            { text: 'UPI Accepted', icon: '💳', color: 'yellow' }
+          ],
+          buttonIcon: '🚕'
+        },
+        {
+          id: 'atm',
+          title: 'ATM Services',
+          subtitle: 'Financial Services',
+          description: 'Easy access to cash withdrawal and banking services with multiple ATM options.',
+          image: 'assets/Images/rumtek-monastry/ATM.png',
+          imageAlt: 'ATM',
+          location: 'Main ATM Center',
+          distance: '150m from main entrance',
+          tags: [
+            { text: '24/7 Available', icon: '🕒', color: 'indigo' },
+            { text: 'Multiple Banks', icon: '🏦', color: 'green' },
+            { text: 'Cash Available', icon: '💵', color: 'yellow' }
+          ],
+          buttonIcon: '💳'
+        }
+      ],
   
 
 

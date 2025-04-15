@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, PLATFORM_ID, Inject, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { SectionHeaderComponent } from "../../../common/section-header/section-header.component";
+import { DestinationService } from '../../../services/destination.service';
 
 interface Facility {
   id: string;
@@ -31,58 +32,8 @@ interface Facility {
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FacilitiesComponent implements OnInit, AfterViewInit {
-  facilities: Facility[] = [
-    {
-      id: 'parking',
-      title: 'Secure Parking',
-      subtitle: 'Convenient Parking',
-      description: 'Safe and convenient parking options with 24/7 security and easy access to the main area.',
-      image: 'assets/Images/rumtek-monastry/parking.png',
-      imageAlt: 'Parking',
-      location: 'Main Parking Area',
-      distance: '200m from main entrance',
-      tags: [
-        { text: '24/7 Access', icon: '🕒', color: 'green' },
-        { text: 'Secure', icon: '🔒', color: 'yellow' }
-      ],
-      buttonText: 'Explore Location',
-      buttonIcon: '🅿️'
-    },
-    {
-      id: 'taxi',
-      title: 'Taxi Services',
-      subtitle: 'Easy Transportation',
-      description: 'Convenient taxi services available round the clock for all your travel needs.',
-      image: 'assets/Images/rumtek-monastry/taxi-stand.png',
-      imageAlt: 'Taxi Stand',
-      location: 'Main Taxi Stand',
-      distance: '100m from main entrance',
-      tags: [
-        { text: '10am-5pm Service', icon: '🕒', color: 'indigo' },
-        { text: 'Multiple Options', icon: '🚗', color: 'green' },
-        { text: 'UPI Accepted', icon: '💳', color: 'yellow' }
-      ],
-      buttonText: 'Explore Location',
-      buttonIcon: '🚕'
-    },
-    {
-      id: 'atm',
-      title: 'ATM Services',
-      subtitle: 'Financial Services',
-      description: 'Easy access to cash withdrawal and banking services with multiple ATM options.',
-      image: 'assets/Images/rumtek-monastry/ATM.png',
-      imageAlt: 'ATM',
-      location: 'Main ATM Center',
-      distance: '150m from main entrance',
-      tags: [
-        { text: '24/7 Available', icon: '🕒', color: 'indigo' },
-        { text: 'Multiple Banks', icon: '🏦', color: 'green' },
-        { text: 'Cash Available', icon: '💵', color: 'yellow' }
-      ],
-      buttonText: 'Explore Location',
-      buttonIcon: '💳'
-    }
-  ];
+  
+  private destinationService = inject(DestinationService);
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -91,8 +42,12 @@ export class FacilitiesComponent implements OnInit, AfterViewInit {
     register();
   }
 
+  destination:any;
+
   ngOnInit() {
+    this.destination = this.destinationService.getDestionation();
   }
+
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
