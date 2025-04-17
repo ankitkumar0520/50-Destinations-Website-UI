@@ -27,7 +27,6 @@ export class HeroSectionComponent {
   shareUrl: string;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
     this.shareUrl = isPlatformBrowser(this.platformId)
       ? window.location.origin
       : '';
@@ -40,12 +39,11 @@ export class HeroSectionComponent {
   showAudioModal = false;
 
   activeSection: string = 'points-of-interest';
-  isBrowser: boolean;
   navbarHeight = 70;
 
 
   scrollTo(id: string) {
-    if (!this.isBrowser) return;
+    if (!this.isBrowser()) return;
 
     const element = document.getElementById(id);
     if (element) {
@@ -67,4 +65,9 @@ export class HeroSectionComponent {
   downloadQR(): void {
     downloadQRCode(this.destination.name);
   }
+
+  isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
+
 }

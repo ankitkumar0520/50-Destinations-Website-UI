@@ -39,16 +39,16 @@
   --color-accent: var(--color-accent-500);
 }
 
+
+* {
+  font-family:"Nunito", serif;
+  font-optical-sizing: auto;
+}
+
 body {
   background-color: transparent;
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-.lobster-regular {
-  font-family: "Lobster", sans-serif;
-  font-weight: 400;
-  font-style: normal;
 }
 
 .brand-gradient-bg {
