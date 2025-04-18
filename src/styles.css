@@ -37,11 +37,120 @@
   --color-accent-800: #ef6c00;
   --color-accent-900: #e65100;
   --color-accent: var(--color-accent-500);
+
+  /* District Colors - Gangtok (Yellow/Gold) */
+  --color-gangtok-50: #fdf8e6;
+  --color-gangtok-100: #fbf1ce;
+  --color-gangtok-200: #f7e39d;
+  --color-gangtok-300: #f3d56b;
+  --color-gangtok-400: #efc73a;
+  --color-gangtok-500: #e6be20;
+  --color-gangtok-600: #b89819;
+  --color-gangtok-700: #8a7213;
+  --color-gangtok-800: #5c4c0c;
+  --color-gangtok-900: #2e2606;
+  --color-gangtok: var(--color-gangtok-500);
+
+  /* Mangan (Blue) */
+  --color-mangan-50: #e6f2fe;
+  --color-mangan-100: #cde5fd;
+  --color-mangan-200: #9bcbfb;
+  --color-mangan-300: #69b1f9;
+  --color-mangan-400: #3797f7;
+  --color-mangan-500: #278ff8;
+  --color-mangan-600: #1f72c6;
+  --color-mangan-700: #175695;
+  --color-mangan-800: #103963;
+  --color-mangan-900: #081d32;
+  --color-mangan: var(--color-mangan-500);
+
+  /* Namchi (Green) */
+  --color-namchi-50: #e6f9e9;
+  --color-namchi-100: #cdf3d3;
+  --color-namchi-200: #9be7a7;
+  --color-namchi-300: #69db7b;
+  --color-namchi-400: #37cf4f;
+  --color-namchi-500: #25df41;
+  --color-namchi-600: #1eb234;
+  --color-namchi-700: #168627;
+  --color-namchi-800: #0f591a;
+  --color-namchi-900: #072d0d;
+  --color-namchi: var(--color-namchi-500);
+
+  /* Geyzing (Orange) */
+  --color-geyzing-50: #fdf1e6;
+  --color-geyzing-100: #fbe3cd;
+  --color-geyzing-200: #f7c79b;
+  --color-geyzing-300: #f3ab69;
+  --color-geyzing-400: #ef8f37;
+  --color-geyzing-500: #e77625;
+  --color-geyzing-600: #b85e1e;
+  --color-geyzing-700: #8a4716;
+  --color-geyzing-800: #5c2f0f;
+  --color-geyzing-900: #2e1807;
+  --color-geyzing: var(--color-geyzing-500);
+
+  /* Pakyong (Indigo) */
+  --color-pakyong-50: #ebebfa;
+  --color-pakyong-100: #d7d7f5;
+  --color-pakyong-200: #afafeb;
+  --color-pakyong-300: #8787e1;
+  --color-pakyong-400: #5f5fd7;
+  --color-pakyong-500: #464de1;
+  --color-pakyong-600: #383dc4;
+  --color-pakyong-700: #2a2e97;
+  --color-pakyong-800: #1c1e6a;
+  --color-pakyong-900: #0e0f3d;
+  --color-pakyong: var(--color-pakyong-500);
+
+  /* Soreng (Pink) */
+  --color-soreng-50: #fae6f2;
+  --color-soreng-100: #f5cde5;
+  --color-soreng-200: #eb9bcb;
+  --color-soreng-300: #e169b1;
+  --color-soreng-400: #d73797;
+  --color-soreng-500: #d14ba5;
+  --color-soreng-600: #a73c84;
+  --color-soreng-700: #7d2d63;
+  --color-soreng-800: #541e42;
+  --color-soreng-900: #2a0f21;
+  --color-soreng: var(--color-soreng-500);
+
+  /* District Gradients */
+  --gradient-gangtok: linear-gradient(
+    to right,
+    var(--color-gangtok-500),
+    var(--color-gangtok-300)
+  );
+  --gradient-mangan: linear-gradient(
+    to right,
+    var(--color-mangan-500),
+    var(--color-mangan-300)
+  );
+  --gradient-namchi: linear-gradient(
+    to right,
+    var(--color-namchi-500),
+    var(--color-namchi-300)
+  );
+  --gradient-geyzing: linear-gradient(
+    to right,
+    var(--color-geyzing-500),
+    var(--color-geyzing-300)
+  );
+  --gradient-pakyong: linear-gradient(
+    to right,
+    var(--color-pakyong-500),
+    var(--color-pakyong-300)
+  );
+  --gradient-soreng: linear-gradient(
+    to right,
+    var(--color-soreng-500),
+    var(--color-soreng-300)
+  );
 }
 
-
 * {
-  font-family:"Nunito", serif;
+  font-family: "Nunito", serif;
   font-optical-sizing: auto;
 }
 
@@ -92,14 +201,15 @@ body {
   font-size: small;
 }
 
-.dark .ngx-pagination a, .dark .ngx-pagination button{
+.dark .ngx-pagination a,
+.dark .ngx-pagination button {
   color: gainsboro;
 }
 
-.dark .ngx-pagination a:hover, .dark .ngx-pagination button:hover{
+.dark .ngx-pagination a:hover,
+.dark .ngx-pagination button:hover {
   color: black;
 }
-
 
 .ngx-pagination a:not(.pagination-previous a):not(.pagination-next a) {
   border-radius: 50%;

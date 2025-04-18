@@ -14,9 +14,10 @@ import {
   destroyOwlInstance,
   initializeOwlCarousel,
   shareQRCode,
-  downloadQRCode
+  downloadQRCode,
+  getGradientClasses,
 } from '../../../utils/utils';
-import { SectionHeaderComponent } from "../../../common/section-header/section-header.component";
+import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { SearchService } from '../../../services/search.service';
 import { Router } from '@angular/router';
 
@@ -39,19 +40,14 @@ interface Feature {
 @Component({
   selector: 'app-home-district-carousel',
   standalone: true,
-  imports: [
-    CommonModule, 
-    QRCodeComponent, 
-    SectionHeaderComponent, 
-    RouterLink],
+  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent, RouterLink],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
 })
 export class HomeDistrictCarouselComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   private platformId = inject(PLATFORM_ID);
-
-
 
   siteUrl: string = isPlatformBrowser(this.platformId)
     ? window.location.origin
@@ -72,8 +68,6 @@ export class HomeDistrictCarouselComponent
       text: 'Seamlessly Connected Destinations',
     },
   ];
-
-
 
   districts: District[] = [
     {
@@ -98,23 +92,7 @@ export class HomeDistrictCarouselComponent
       population: '50,000+',
       elevation: '4,500 ft',
     },
-    {
-      id: 3,
-      name: 'Soreng',
-      value: 'soreng',
-      description:
-        'A scenic district in West Sikkim region offering stunning views of Kanchenjunga. Known for its ancient monasteries and trekking routes.',
-      image: 'assets/Images/districts/pelling.jpg',
-      keyPlaces: [
-        'Pemayangtse Monastery',
-        'Khecheopalri Lake',
-        'Rabdentse Ruins',
-        'Singshore Bridge',
-      ],
-      population: '30,000+',
-      elevation: '6,800 ft',
-    }
-    ,
+
     {
       id: 4,
       name: 'Mangan',
@@ -133,8 +111,8 @@ export class HomeDistrictCarouselComponent
     },
     {
       id: 5,
-      name: 'Gyalshing',
-      value: 'gyalshing',
+      name: 'Geyzing',
+      value: 'geyzing',
       description:
         'An emerging tourist destination known for its rich biodiversity and cultural heritage. Home to several important monasteries.',
       image: 'assets/Images/districts/gyalshing.jpg',
@@ -162,6 +140,22 @@ export class HomeDistrictCarouselComponent
       ],
       population: '45,000+',
       elevation: '4,600 ft',
+    },
+    {
+      id: 3,
+      name: 'Soreng',
+      value: 'soreng',
+      description:
+        'A scenic district in West Sikkim region offering stunning views of Kanchenjunga. Known for its ancient monasteries and trekking routes.',
+      image: 'assets/Images/districts/pelling.jpg',
+      keyPlaces: [
+        'Pemayangtse Monastery',
+        'Khecheopalri Lake',
+        'Rabdentse Ruins',
+        'Singshore Bridge',
+      ],
+      population: '30,000+',
+      elevation: '6,800 ft',
     },
   ];
 
@@ -219,11 +213,11 @@ export class HomeDistrictCarouselComponent
     downloadQRCode(district.name, `qrcode:nth-of-type(${i + 1}) canvas`);
   }
 
-
   isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
 
-
-
+  getGradientClasses(district: string): string[] {
+    return getGradientClasses(district);
+  }
 }

@@ -59,7 +59,11 @@ export function destroyOwlInstance(carouselClass: string): boolean {
 }
 
 // QR Code Utilities
-export function shareQRCode(url: string, title: string, description: string): void {
+export function shareQRCode(
+  url: string,
+  title: string,
+  description: string
+): void {
   if (navigator.share) {
     navigator
       .share({
@@ -79,7 +83,10 @@ export function shareQRCode(url: string, title: string, description: string): vo
   }
 }
 
-export function downloadQRCode(name: string, selector: string = 'qrcode canvas'): void {
+export function downloadQRCode(
+  name: string,
+  selector: string = 'qrcode canvas'
+): void {
   const qrCanvas = document.querySelector(selector) as HTMLCanvasElement;
   if (qrCanvas) {
     const link = document.createElement('a');
@@ -89,4 +96,19 @@ export function downloadQRCode(name: string, selector: string = 'qrcode canvas')
   } else {
     console.error('QR Canvas not found');
   }
+}
+
+export function getGradientClasses(district: string): string[] {
+  const lowerDistrict = district.toLowerCase();
+  const classes: { [key: string]: string[] } = {
+    gangtok: ['from-gangtok-500', 'to-gangtok-300'],
+    mangan: ['from-mangan-500', 'to-mangan-300'],
+    geyzing: ['from-geyzing-500', 'to-geyzing-300'],
+    gyalshing: ['from-geyzing-500', 'to-geyzing-300'],
+    gayzing: ['from-geyzing-500', 'to-geyzing-300'],
+    pakyong: ['from-pakyong-500', 'to-pakyong-300'],
+    soreng: ['from-soreng-500', 'to-soreng-300'],
+    namchi: ['from-namchi-500', 'to-namchi-300'],
+  };
+  return classes[lowerDistrict] || [];
 }

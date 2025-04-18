@@ -2,6 +2,7 @@ import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
+import { getGradientClasses } from '../../../utils/utils';
 
 @Component({
   selector: 'app-home-gallery-section',
@@ -31,6 +32,7 @@ export class HomeGallerySectionComponent {
       location: '40 km from Gangtok',
       bestTime: 'May to September',
       duration: '2-3 hours',
+      district: 'Gangtok',
     },
     {
       id: 2,
@@ -46,8 +48,9 @@ export class HomeGallerySectionComponent {
         'Mountain Views',
       ],
       location: '56 km from Gangtok',
-      bestTime: 'April to May',
+      bestTime: 'Apr to May',
       duration: 'Full Day',
+      district: 'Mangan',
     },
     {
       id: 3,
@@ -65,6 +68,7 @@ export class HomeGallerySectionComponent {
       location: 'Central Gangtok',
       bestTime: 'Throughout Year',
       duration: '2-4 hours',
+      district: 'Namchi',
     },
     {
       id: 4,
@@ -80,8 +84,9 @@ export class HomeGallerySectionComponent {
         'Scenic Beauty',
       ],
       location: 'North Sikkim',
-      bestTime: 'March to June',
+      bestTime: 'Mar to Jun',
       duration: 'Full Day',
+      district: 'Geyzing',
     },
     {
       id: 5,
@@ -97,8 +102,9 @@ export class HomeGallerySectionComponent {
         'Peaceful Vibe',
       ],
       location: 'Between Nathula & Jelep La Pass',
-      bestTime: 'April to June, October to November',
+      bestTime: 'Apr to Jun, Oct to Nov',
       duration: '2-3 hours',
+      district: 'Pakyong',
     },
     {
       id: 6,
@@ -112,10 +118,19 @@ export class HomeGallerySectionComponent {
         'Scenic Gardens',
         'Photography Spot',
         'Spiritual Calm',
+        'Giant Buddha Statue',
+        'Scenic Gardens',
+        'Photography Spot',
+        'Spiritual Calm',
+        'Giant Buddha Statue',
+        'Scenic Gardens',
+        'Photography Spot',
+        'Spiritual Calm',
       ],
       location: 'Ravangla, South Sikkim',
-      bestTime: 'March to May, September to November',
+      bestTime: 'Mar to May, Sep to Nov',
       duration: '1-2 hours',
+      district: 'Soreng',
     },
   ];
 
@@ -171,5 +186,9 @@ export class HomeGallerySectionComponent {
 
   isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
+  }
+
+  getGradientClasses(district: string): string[] {
+    return getGradientClasses(district);
   }
 }
