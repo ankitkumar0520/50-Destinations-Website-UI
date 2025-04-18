@@ -30,7 +30,6 @@ export function initializeOwlCarousel(
     autoplay: Iautoplay, // Enable auto-move
     autoplayTimeout: 3000, // Time between auto-moves (in milliseconds)
     autoplayHoverPause: true, // Pause on hover
-
     responsive: {
       0: {
         items: Iresponsive[0],

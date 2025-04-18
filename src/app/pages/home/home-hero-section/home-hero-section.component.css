@@ -14,3 +14,14 @@
   transform: translateY(20px);
   animation: fade-in 1s 0.1s ease-out forwards;
 }
+
+.dropdown {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.dropdown.show {
+  overflow-y: auto;
+  max-height: 15rem;
+}
