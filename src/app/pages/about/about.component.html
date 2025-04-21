@@ -1,174 +1,146 @@
 <div
-  class="bg-gradient-to-b from-primary-50 via-white to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-800 min-h-screen pt-24 pb-8"
+  class="bg-gradient-to-b from-primary-50 via-white to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-800 min-h-screen pt-16 pb-12"
 >
+  <!-- Hero Section -->
+  <div class="relative mb-12 bg-gradient-to-r from-primary-600 to-secondary-600 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="py-12 md:py-16 flex flex-col items-center text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Discover Sikkim's Hidden Gems</h1>
+        <p class="text-xl text-white/90 max-w-3xl">Your comprehensive guide to exploring the 50 most beautiful destinations across Sikkim</p>
+      </div>
+    </div>
+    <div class="absolute -bottom-6 left-0 right-0 flex justify-center">
+      <div class="bg-white dark:bg-gray-800 shadow-lg rounded-full px-6 py-3 flex items-center space-x-4">
+        <div class="flex items-center text-primary-600 dark:text-primary-400">
+          <i class="fas fa-map-marker-alt mr-2"></i>
+          <span class="font-medium">6 Districts</span>
+        </div>
+        <div class="h-4 border-r border-gray-300 dark:border-gray-600"></div>
+        <div class="flex items-center text-secondary-600 dark:text-secondary-400">
+          <i class="fas fa-mountain mr-2"></i>
+          <span class="font-medium">50+ Destinations</span>
+        </div>
+        <div class="h-4 border-r border-gray-300 dark:border-gray-600 hidden md:block"></div>
+        <div class="hidden md:flex items-center text-accent-600 dark:text-accent-400">
+          <i class="fas fa-hands-helping mr-2"></i>
+          <span class="font-medium">100+ Experiences</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Content -->
-  <div class="max-w-7xl mx-auto px-6 md:px-16 2xl:px-0">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- Main Content Area -->
-      <div class="lg:col-span-2 space-y-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+    <!-- Top Section: 2/3 + 1/3 Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+      <!-- Main Content Area (2/3) -->
+      <div class="lg:col-span-2 space-y-8">
         <!-- Welcome Section -->
         <div
-          class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-sm overflow-hidden"
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300"
         >
-          <div class="relative h-72">
-            <img
-              src="assets/images/sikkim-landscape.jpg"
-              alt="Sikkim Landscape"
-              class="w-full h-full object-cover"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
-            ></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6">
-              <h2 class="text-2xl font-bold text-white mb-1">
-                Discover Sikkim's Hidden Gems
-              </h2>
-              <p class="text-gray-200 text-sm">
-                Your Gateway to 50 Must-Visit Destinations
-              </p>
+          <div class="md:flex">
+            <div class="md:flex-shrink-0 md:w-1/3">
+              <img
+                src="assets/images/sikkim-landscape.jpg"
+                alt="Sikkim Landscape"
+                class="h-full w-full object-cover"
+              />
             </div>
-          </div>
-          <div class="p-6">
-            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-              Welcome to <strong>50 Destinations</strong>, your comprehensive
-              guide to exploring the wonders of Sikkim. Our platform is designed
-              to help you discover, plan, and experience the best that Sikkim
-              has to offer, from its majestic mountains to its vibrant cultural
-              heritage.
-            </p>
-
-            <!-- Quick Facts -->
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-              <div
-                class="text-center p-4 bg-secondary-50/50 dark:bg-secondary-900/20 rounded-lg hover:bg-secondary-100/50 dark:hover:bg-secondary-900/30 transition-all duration-300"
+            <div class="p-6 md:p-8 md:w-2/3">
+              <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+                <i class="fas fa-info-circle text-primary-500 mr-2"></i>
+                About Our Platform
+              </h2>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                Welcome to <strong>50 Destinations</strong>, your comprehensive
+                guide to exploring the wonders of Sikkim. Our platform is designed
+                to help you discover, plan, and experience the best that Sikkim
+                has to offer, from its majestic mountains to its vibrant cultural
+                heritage.
+              </p>
+              <button 
+                [routerLink]="['/destinations']"
+                class="brand-gradient-bg text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-[1.02] focus:outline-none shadow-md cursor-pointer flex items-center"
               >
-                <div
-                  class="text-xl font-bold text-secondary-600 dark:text-secondary-400"
-                >
-                  50+
-                </div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">
-                  Curated Destinations
-                </div>
-              </div>
-              <div
-                class="text-center p-4 bg-primary-50/50 dark:bg-primary-900/20 rounded-lg hover:bg-primary-100/50 dark:hover:bg-primary-900/30 transition-all duration-300"
-              >
-                <div
-                  class="text-xl font-bold text-primary-600 dark:text-primary-400"
-                >
-                  6
-                </div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">
-                  Districts
-                </div>
-              </div>
-              <div
-                class="text-center p-4 bg-accent-50/50 dark:bg-accent-900/20 rounded-lg hover:bg-accent-100/50 dark:hover:bg-accent-900/30 transition-all duration-300"
-              >
-                <div
-                  class="text-xl font-bold text-accent-600 dark:text-accent-400"
-                >
-                  100+
-                </div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">
-                  Local Experiences
-                </div>
-              </div>
+                <i class="fas fa-compass mr-2"></i> Start Exploring
+              </button>
             </div>
           </div>
         </div>
 
-        <!-- District Map Section -->
-        <div
-          class="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700"
-        >
+        <!-- Platform Features -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
           <div class="p-6">
-            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">
-              Explore Our Districts
+            <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+              <i class="fas fa-clipboard-list text-primary-500 mr-2"></i>
+              Platform Features
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div
+                *ngFor="let highlight of projectHighlights"
+                class="flex items-start p-3 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-all duration-300 cursor-pointer rounded-lg"
+              >
+                <i class="fas fa-check-circle text-green-500 dark:text-green-400 mt-0.5 mr-3 flex-shrink-0"></i>
+                <span class="text-gray-700 dark:text-gray-300">{{ highlight }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar (1/3) -->
+      <div class="lg:col-span-1">
+        <!-- District Map Section with full height -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all duration-300 h-full">
+          <div class="p-6 h-full flex flex-col">
+            <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+              <i class="fas fa-map-marker-alt text-secondary-500 mr-2"></i>
+              Explore Districts
+            </h2>
+            <div class="space-y-3 flex-grow">
               <div
                 *ngFor="let district of districts"
-                class="p-4 border border-secondary-100 dark:border-secondary-900/50 rounded-lg hover:bg-secondary-50/70 dark:hover:bg-secondary-900/20 transition-all duration-300 group"
+                class="p-2 border border-gray-100 dark:border-gray-700 rounded-lg hover:bg-secondary-50 dark:hover:bg-secondary-900/20 transition-all duration-300 group cursor-pointer"
               >
-                <h3
-                  class="font-semibold text-gray-800 dark:text-gray-100 group-hover:text-secondary-700 dark:group-hover:text-secondary-300"
-                >
+                <h3 class="font-medium text-gray-800 dark:text-gray-100 group-hover:text-secondary-700 dark:group-hover:text-secondary-300 flex items-center">
+                  <i class="fas fa-map-pin text-secondary-500 mr-2 text-sm"></i>
                   {{ district.name }}
                 </h3>
-                <p class="text-sm text-gray-600 dark:text-gray-200/80">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mt-1 ml-6">
                   {{ district.description }}
                 </p>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Experience Highlights -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div
-            *ngFor="let feature of features"
-            class="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-xl shadow-sm p-6 hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-700 group"
-          >
-            <i
-              class="fas fa-star w-8 h-8 text-secondary-600 dark:text-secondary-400 mb-4 group-hover:text-secondary-700 dark:group-hover:text-secondary-300"
-            ></i>
-            <h3
-              class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2 group-hover:text-secondary-700 dark:group-hover:text-secondary-300"
-            >
-              {{ feature.title }}
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-200/80">
-              {{ feature.description }}
-            </p>
-          </div>
-        </div>
       </div>
-
-      <!-- Sidebar -->
-      <div class="lg:col-span-1 space-y-6">
-        <!-- About Platform -->
+    </div>
+    
+    <!-- Bottom Section: Full Width What We Offer -->
+    <div class="w-full">
+      <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
+        <i class="fas fa-star text-secondary-500 mr-2"></i>
+        What We Offer
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <div
-          class="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700"
+          *ngFor="let feature of features"
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-100 dark:border-gray-700 group cursor-pointer"
         >
-          <div class="p-6">
-            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">
-              Platform Features
-            </h2>
-            <p class="text-gray-600 dark:text-gray-200/80 mb-6">
-              Our platform is designed to make your Sikkim journey seamless and
-              memorable. Here's what we offer:
-            </p>
-
-            <!-- Platform Features -->
-            <div class="space-y-4">
-              <div class="grid grid-cols-1 gap-3">
-                <div
-                  *ngFor="let highlight of projectHighlights"
-                  class="flex items-center p-4 bg-secondary-50/70 dark:bg-secondary-900/20 rounded-lg hover:bg-secondary-100/70 dark:hover:bg-secondary-900/30 transition-all duration-300 group"
-                >
-                  <i
-                    class="fas fa-check w-5 h-5 text-secondary-600 dark:text-secondary-400 mr-3 flex-shrink-0 group-hover:text-secondary-700 dark:group-hover:text-secondary-300"
-                  ></i>
-                  <span
-                    class="text-sm text-gray-700 dark:text-gray-200/80 group-hover:text-secondary-800 dark:group-hover:text-secondary-100"
-                    >{{ highlight }}</span
-                  >
-                </div>
-              </div>
-            </div>
-
-            <!-- Call to Action -->
-            <div class="mt-6">
-              <button
-                [routerLink]="['/destinations']"
-                class="w-full brand-gradient-bg text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 shadow-md hover:shadow-secondary-200/50 dark:hover:shadow-secondary-700/30"
-              >
-                Start Exploring
-              </button>
-            </div>
+          <div class="rounded-full bg-secondary-100 dark:bg-secondary-900/30 w-12 h-12 flex items-center justify-center mb-4">
+            <i
+              class="fas {{ feature.iconClass }} text-xl text-secondary-600 dark:text-secondary-400 group-hover:text-secondary-700 dark:group-hover:text-secondary-300"
+            ></i>
           </div>
+          <h3
+            class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2 group-hover:text-secondary-700 dark:group-hover:text-secondary-300"
+          >
+            {{ feature.title }}
+          </h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300">
+            {{ feature.description }}
+          </p>
         </div>
       </div>
     </div>
