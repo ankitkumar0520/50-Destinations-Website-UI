@@ -1,0 +1,152 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ">
+
+  <!-- Main Content -->
+  <div class="max-w-5xl mx-auto px-4 py-8 sm:py-12 ">
+    <!-- Page Title -->
+    <div class="text-center mb-6 sm:mb-8 mt-20">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">How Can We Help You?</h1>
+      <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">Everything you need to know about all the things</p>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="max-w-3xl mx-auto mb-8 sm:mb-12">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm flex flex-col sm:flex-row items-start sm:items-center p-1">
+        <div class="flex-1 flex items-center px-4 w-full">
+          <i class="fas fa-search text-gray-400 mr-3 flex-shrink-0"></i>
+          <input 
+            type="text" 
+            placeholder="Have a question? Ask or enter a search term." 
+            class="w-full py-3 outline-none bg-transparent text-gray-700 dark:text-gray-200"
+            [(ngModel)]="searchTerm"
+            (input)="searchFaqs()"
+          >
+          <button 
+            *ngIf="searchTerm"
+            (click)="clearSearch()"
+            class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 flex-shrink-0 cursor-pointer"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="flex items-center w-full sm:w-auto mt-2 sm:mt-0">
+          <div class="border-l-0 sm:border-l border-gray-200 dark:border-gray-700 px-4 w-1/2 sm:w-auto">
+            <select class="bg-transparent text-gray-500 dark:text-gray-300 py-1 outline-none w-full cursor-pointer">
+              <option>All Site</option>
+              <option>General</option>
+              <option>Travel</option>
+              <option>Facilities</option>
+            </select>
+          </div>
+          <button 
+            class="bg-primary-500 hover:bg-primary-600 text-white px-4 sm:px-5 py-2 sm:py-3 rounded-lg ml-2 font-medium transition-colors duration-200 w-1/2 sm:w-auto cursor-pointer"
+            (click)="searchFaqs()"
+          >
+            SEARCH
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Results -->
+    <div *ngIf="isSearching && searchResults.length > 0" class="mb-8 sm:mb-12 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+      <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">Search Results</h2>
+      <div class="divide-y divide-gray-200 dark:divide-gray-700">
+        <div *ngFor="let item of searchResults" class="py-4">
+          <button 
+            class="flex justify-between items-center w-full text-left focus:outline-none cursor-pointer"
+            (click)="toggleQuestion(item.id)"
+          >
+            <h3 class="text-base sm:text-lg font-medium text-gray-900 dark:text-white pr-2">
+              {{ item.question }}
+            </h3>
+            <i 
+              class="fas fa-chevron-down text-gray-500 dark:text-gray-400 transform transition-transform duration-200 flex-shrink-0"
+              [class.rotate-180]="activeQuestion === item.id"
+            ></i>
+          </button>
+          <div 
+            class="mt-2 text-gray-600 dark:text-gray-300 text-sm sm:text-base"
+            [class.hidden]="activeQuestion !== item.id"
+          >
+            <p>{{ item.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No results message -->
+    <div *ngIf="isSearching && searchResults.length === 0" class="mb-8 sm:mb-12 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6 text-center">
+      <i class="far fa-frown text-gray-400 text-5xl sm:text-6xl mb-3 sm:mb-4"></i>
+      <h3 class="text-lg sm:text-xl font-medium text-gray-900 dark:text-white mb-2">No results found</h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm sm:text-base">We couldn't find any results matching your search. Please try with different keywords.</p>
+      <button 
+        class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium cursor-pointer"
+        (click)="clearSearch()"
+      >
+        Clear search
+      </button>
+    </div>
+
+    <!-- Category Cards (shown when not searching) -->
+    <div *ngIf="!isSearching" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+      <!-- Dynamic Card for each category -->
+      <div 
+        *ngFor="let category of faqCategories"
+        class="rounded-lg p-4 sm:p-6 cursor-pointer hover:shadow-md transition-shadow duration-200"
+        [ngClass]="category.background || 'bg-gray-100 dark:bg-gray-800'"
+        (click)="toggleAccordion(category.id)"
+      >
+        <div class="flex flex-col items-center">
+          <div [ngClass]="category.iconColor" class="mb-3 sm:mb-4 text-3xl sm:text-4xl">
+            <i class="fas" [ngClass]="getFaIconClass(category.id)"></i>
+          </div>
+          <div class="text-center">
+            <div *ngIf="category.badge" class="text-red-600 font-semibold text-xs sm:text-sm mb-1">{{ category.badge }}</div>
+            <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2">{{ category.title }}</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-xs sm:text-sm mb-3 line-clamp-2">
+              {{ category.description }}
+            </p>
+            <div class="text-green-600 font-medium text-xs sm:text-sm">
+              {{ category.items.length }} articles in this collection
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Questions Section (Shows when a card is clicked and not searching) -->
+    <div *ngIf="activeAccordion && !isSearching" class="mt-8 sm:mt-12 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6">
+      <ng-container *ngFor="let category of faqCategories">
+        <div *ngIf="activeAccordion === category.id">
+          <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center">
+            <i class="fas mr-2" [ngClass]="[category.iconColor, getFaIconClass(category.id)]"></i>
+            {{ category.title }}
+          </h2>
+          
+          <div class="divide-y divide-gray-200 dark:divide-gray-700">
+            <div *ngFor="let item of category.items" class="py-4">
+              <button 
+                class="flex justify-between items-center w-full text-left focus:outline-none cursor-pointer"
+                (click)="toggleQuestion(item.id)"
+              >
+                <h3 class="text-base sm:text-lg font-medium text-gray-900 dark:text-white pr-2">
+                  {{ item.question }}
+                </h3>
+                <i 
+                  class="fas fa-chevron-down text-gray-500 dark:text-gray-400 transform transition-transform duration-200 flex-shrink-0"
+                  [class.rotate-180]="activeQuestion === item.id"
+                ></i>
+              </button>
+              <div 
+                class="mt-2 text-gray-600 dark:text-gray-300 text-sm sm:text-base"
+                [class.hidden]="activeQuestion !== item.id"
+              >
+                <p>{{ item.answer }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
