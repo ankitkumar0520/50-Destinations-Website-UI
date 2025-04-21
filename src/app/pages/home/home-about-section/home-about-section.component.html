@@ -40,22 +40,21 @@
             Explore Categories
           </h3>
           <div class="flex flex-wrap gap-2">
-
             <div
-            *ngFor="let category of aboutData.categories | slice:0:8"
-            (click)="setFilter(category.id)"
-            class="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:bg-primary-50 dark:hover:bg-primary-900/20 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-700"
-             >
-            <i
-              class="fa-solid {{ category.icon }} text-primary-600 dark:text-primary-300"
-            ></i>
-            <span
-              class="text-sm font-medium text-gray-700 dark:text-gray-300"
-              >{{ category.value }}</span
+              *ngFor="let category of destinationCategories"
+              (click)="setFilter(category.id)"
+              class="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:bg-primary-50 dark:hover:bg-primary-900/20 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-700"
             >
-          </div>
-          
-
+              <i
+                class="fa-solid {{
+                  category.icon
+                }} text-primary-600 dark:text-primary-300"
+              ></i>
+              <span
+                class="text-sm font-medium text-gray-700 dark:text-gray-300"
+                >{{ category.name }}</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -71,13 +70,12 @@
           </h3>
           <div class="grid grid-cols-2 gap-3">
             <div
-              *ngFor="let stat of aboutData.stats; let i = index"
+              *ngFor="let stat of glanceCounts; let i = index"
               class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-100 dark:border-gray-700 hover:shadow-md transition duration-200"
             >
               <div
-                class="text-4xl font-bold mb-2 
-                        bg-gradient-to-r bg-clip-text text-transparent
-                        {{
+                class="text-4xl font-bold mb-2 bg-gradient-to-r bg-clip-text text-transparent
+                {{
                   i === 0
                     ? 'from-primary-500 to-primary-400'
                     : i === 1
@@ -87,7 +85,7 @@
                     : 'from-primary-500 to-secondary-400'
                 }}"
               >
-                {{ stat.number }}
+                {{ displayedCounts[i] }}
               </div>
               <div class="text-sm font-medium text-gray-600 dark:text-gray-300">
                 {{ stat.label }}
@@ -106,7 +104,8 @@
               Discover the best of Sikkim
             </p>
           </div>
-          <button (click)="navigateToSearch()"
+          <button
+            (click)="navigateToSearch()"
             class="bg-white text-primary-600 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 px-4 py-2 rounded-md text-sm font-medium transition duration-200 w-full"
           >
             Explore Now

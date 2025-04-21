@@ -3,7 +3,14 @@ import { Component, inject, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../../services/search.service';
-import { DESTINATIONS_TAGS, DISTRICT_OPTIONS, DURATIONS, EXPERIENCE_OPTIONS, SEASONS, SORT_OPTIONS } from '../../../../enums/search-filters.enum';
+import {
+  DESTINATIONS_TAGS,
+  DISTRICT_OPTIONS,
+  DURATIONS,
+  EXPERIENCE_OPTIONS,
+  SEASONS,
+  SORT_OPTIONS,
+} from '../../../../enums/search-filters.enum';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -44,27 +51,30 @@ export class SearchFiltersComponent implements OnInit {
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
-      this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        this.isDarkMode = e.matches;
-      });
+      this.isDarkMode = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      ).matches;
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', (e) => {
+          this.isDarkMode = e.matches;
+        });
     }
   }
 
   ngOnInit() {
     // Get district from URL parameter
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const districtParam = params.get('district');
       if (districtParam) {
         this.selectedDistrict = districtParam;
         this.searchService.updateFilters({
-          district: districtParam
+          district: districtParam,
         });
       }
     });
 
     const currentFilters = this.searchService.getFilters();
-    console.log('current filter', currentFilters.district);
 
     this.selectedDistrict = currentFilters.district;
     this.selectedExperience = currentFilters.experienceType;
@@ -74,7 +84,9 @@ export class SearchFiltersComponent implements OnInit {
 
     // Determine duration id based on current filter values
     const match = this.durations.find(
-      d => d.min === currentFilters.durations.minHours && d.max === currentFilters.durations.maxHours
+      (d) =>
+        d.min === currentFilters.durations.minHours &&
+        d.max === currentFilters.durations.maxHours
     );
     this.selectedDurationId = match?.id ?? '';
 
@@ -98,7 +110,8 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   selectDuration(durationId: string) {
-    this.selectedDurationId = this.selectedDurationId === durationId ? '' : durationId;
+    this.selectedDurationId =
+      this.selectedDurationId === durationId ? '' : durationId;
   }
 
   clearFilters() {
@@ -123,7 +136,9 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   applyFilters() {
-    const duration = this.durations.find(d => d.id === this.selectedDurationId);
+    const duration = this.durations.find(
+      (d) => d.id === this.selectedDurationId
+    );
     this.searchService.updateFilters({
       district: this.selectedDistrict,
       experienceType: this.selectedExperience,
