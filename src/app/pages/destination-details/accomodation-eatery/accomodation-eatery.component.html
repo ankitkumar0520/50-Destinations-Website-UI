@@ -1,50 +1,94 @@
-<section class="min-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="accommodation-eatery-section">
-  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">  
+<section
+  class="min-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
+  id="accommodation-eatery-section"
+>
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">
+    <app-section-header
+      [badgeText]="'Stay & Dine in Rumtek'"
+      [titleLeft]="'Accommodation & Eatery'"
+      [titleMiddleHighlighted]="''"
+      [titleRight]="''"
+      [description]="
+        'Discover the best places to stay and dine in Rumtek. Experience the perfect blend of comfort and culinary delight in Rumtek. From cozy guest houses to authentic Tibetan restaurants, we\'ve curated the best options for your stay and dining experience.'
+      "
+      [features]="[]"
+    >
+    </app-section-header>
 
-  <app-section-header 
-  [badgeText]="'Stay & Dine in Rumtek'"
-  [titleLeft]="'Accommodation & Eatery'"
-  [titleMiddleHighlighted]="''"
-  [titleRight]="''"
-  [description]="'Discover the best places to stay and dine in Rumtek. Experience the perfect blend of comfort and culinary delight in Rumtek. From cozy guest houses to authentic Tibetan restaurants, we\'ve curated the best options for your stay and dining experience.'"
-  [features]="[]">
-  </app-section-header>
-
-  <div class="py-6">
-    <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-8">Featured Accommodations</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let hotel of destination.accommodations" class="flex flex-col bg-white dark:bg-gray-900 rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full">
-        <div class="h-[230px] relative">
-          <img [src]="hotel.image" [alt]="hotel.name" class="w-full h-full object-cover">
+    <div class="py-6">
+      <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-8">
+        Featured Accommodations
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          *ngFor="let hotel of destination.accommodations"
+          class="flex flex-col bg-white dark:bg-gray-900 rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full"
+        >
+          <div class="h-[230px] relative">
+            <img
+              [src]="hotel.image"
+              [alt]="hotel.name"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-5">
+            <div
+              class="text-sm font-medium text-primary-600 dark:text-primary-400 mb-2 line-clamp-1"
+            >
+              {{ hotel.address }}
+            </div>
+            <h3
+              class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1"
+            >
+              {{ hotel.name }}
+            </h3>
+            <button
+              (click)="openHotelModal(hotel)"
+              class="w-full bg-primary-600 dark:bg-primary-500 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors text-sm cursor-pointer"
+            >
+              View Details
+            </button>
+          </div>
         </div>
-        <div class="bg-white dark:bg-gray-800 p-5">
-          <div class="text-sm font-medium text-primary-600 dark:text-primary-400 mb-2 line-clamp-1">{{ hotel.address }}</div>
-          <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1">{{ hotel.name }}</h3>
-          <button (click)="openHotelModal(hotel)" class="w-full bg-primary-600 dark:bg-primary-500 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors text-sm cursor-pointer">
-            View Details
-          </button>
+      </div>
+    </div>
+
+    <div class="py-6" id="eateries">
+      <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-8">
+        Featured Eateries
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          *ngFor="let eatery of destination.eateries"
+          class="flex flex-col bg-white dark:bg-gray-900 rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full"
+        >
+          <div class="h-[230px] relative">
+            <img
+              [src]="eatery.image"
+              [alt]="eatery.name"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-5">
+            <div
+              class="text-sm font-medium text-primary-600 dark:text-primary-400 mb-2 line-clamp-1"
+            >
+              {{ eatery.address }}
+            </div>
+            <h3
+              class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1"
+            >
+              {{ eatery.name }}
+            </h3>
+            <button
+              (click)="openEateryModal(eatery)"
+              class="w-full bg-primary-600 dark:bg-primary-500 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors text-sm cursor-pointer"
+            >
+              View Details
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="py-6" id="eateries">
-    <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-8">Featured Eateries</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let eatery of destination.eateries" class="flex flex-col bg-white dark:bg-gray-900 rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow h-[380px] w-full">
-        <div class="h-[230px] relative">
-          <img [src]="eatery.image" [alt]="eatery.name" class="w-full h-full object-cover">
-        </div>
-        <div class="bg-white dark:bg-gray-800 p-5">
-          <div class="text-sm font-medium text-primary-600 dark:text-primary-400 mb-2 line-clamp-1">{{ eatery.address }}</div>
-          <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1">{{ eatery.name }}</h3>
-          <button (click)="openEateryModal(eatery)" class="w-full bg-primary-600 dark:bg-primary-500 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors text-sm cursor-pointer">
-            View Details
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
 </section>

@@ -1,16 +1,21 @@
-<section class="min-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="points-of-interest-section">
-  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">  
-    <app-section-header 
+<section
+  class="min-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
+  id="points-of-interest-section"
+>
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">
+    <app-section-header
       [badgeText]="'Must-Visit Spots'"
       [titleLeft]="'Explore'"
       [titleMiddleHighlighted]="'Points of Interest'"
-      [description]="'Immerse yourself in carefully curated destinations that showcase the world\'s most captivating locations. Each point of interest has been thoughtfully selected to provide you with an authentic and unforgettable experience.'"
+      [description]="
+        'Immerse yourself in carefully curated destinations that showcase the world\'s most captivating locations. Each point of interest has been thoughtfully selected to provide you with an authentic and unforgettable experience.'
+      "
       [features]="[]"
     ></app-section-header>
-  
+
     <!-- Cards Carousel -->
     <div>
-      <swiper-container 
+      <swiper-container
         class="w-full"
         init="false"
         slides-per-view="1"
@@ -37,59 +42,86 @@
         pagination-dynamic-bullets="true"
         pagination-clickable="true"
         grab-cursor="true"
-        style="--swiper-pagination-color: var(--color-primary-600); 
-               --swiper-pagination-bullet-inactive-color: var(--color-primary-300);
-               --swiper-pagination-bullet-size: 10px;
-               --swiper-pagination-bullet-horizontal-gap: 6px;
-               --swiper-pagination-bottom: 0;">
-      
+        style="
+          --swiper-pagination-color: var(--color-primary-600);
+          --swiper-pagination-bullet-inactive-color: var(--color-primary-300);
+          --swiper-pagination-bullet-size: 10px;
+          --swiper-pagination-bullet-horizontal-gap: 6px;
+          --swiper-pagination-bottom: 0;
+        "
+      >
         <swiper-slide *ngFor="let point of destination.touristAttractions">
           <!-- Card -->
-          <div class="flex flex-col bg-white dark:bg-gray-800 rounded-lg overflow-hidden transition-shadow max-h-[430px] w-full">
+          <div
+            class="flex flex-col bg-white dark:bg-gray-800 rounded-lg overflow-hidden transition-shadow max-h-[430px] w-full"
+          >
             <!-- Image Slider Container -->
             <div class="h-[230px] relative w-full overflow-hidden">
-              <swiper-container 
-                class="h-full w-full" 
+              <swiper-container
+                class="h-full w-full"
                 pagination="true"
                 pagination-dynamic-bullets="true"
                 pagination-clickable="true"
-                loop="true" 
+                loop="true"
                 autoplay-delay="3000"
                 grab-cursor="true"
                 slides-per-view="1"
                 init="false"
-                style="--swiper-pagination-color: var(--color-accent-500); 
-                       --swiper-pagination-bullet-inactive-color: rgba(255,255,255,0.5);
-                       --swiper-pagination-bullet-size: 8px;
-                       --swiper-pagination-bullet-horizontal-gap: 4px;">
-                <swiper-slide *ngFor="let image of point.images" class="w-full h-full">
-                  <img [src]="image" 
-                       [alt]="point.imageAlt" 
-                       class="w-full h-full object-cover"
-                       loading="eager">
+                style="
+                  --swiper-pagination-color: var(--color-accent-500);
+                  --swiper-pagination-bullet-inactive-color: rgba(
+                    255,
+                    255,
+                    255,
+                    0.5
+                  );
+                  --swiper-pagination-bullet-size: 8px;
+                  --swiper-pagination-bullet-horizontal-gap: 4px;
+                "
+              >
+                <swiper-slide
+                  *ngFor="let image of point.images"
+                  class="w-full h-full"
+                >
+                  <img
+                    [src]="image"
+                    [alt]="point.imageAlt"
+                    class="w-full h-full object-cover"
+                    loading="eager"
+                  />
                 </swiper-slide>
               </swiper-container>
             </div>
-    
+
             <!-- Content Box -->
-            <div class="flex-1 bg-gray-50 dark:bg-gray-900 p-5 rounded-t-lg h-[230px] overflow-hidden">
+            <div
+              class="flex-1 bg-gray-50 dark:bg-gray-900 p-5 rounded-t-lg h-[230px] overflow-hidden"
+            >
               <!-- Location -->
-              <div class="text-sm font-medium text-secondary-600 dark:text-secondary-400 mb-2">{{point.location}}</div>
-              
+              <div
+                class="text-sm font-medium text-secondary-600 dark:text-secondary-400 mb-2"
+              >
+                {{ point.location }}
+              </div>
+
               <!-- Title -->
-              <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1">
-                {{point.title}}
+              <h3
+                class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1"
+              >
+                {{ point.title }}
               </h3>
-    
+
               <!-- Description -->
-              <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
-                {{point.description}}
+              <p
+                class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2"
+              >
+                {{ point.description }}
               </p>
-    
+
               <!-- Button -->
-              <button class="w-full bg-primary-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-500 transition-colors text-sm">
+              <!-- <button class="w-full bg-primary-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-500 transition-colors text-sm">
                 Explore Location
-              </button>
+              </button> -->
             </div>
           </div>
         </swiper-slide>
