@@ -69,18 +69,18 @@
               ></span>
             </a>
             <a
-            routerLink="/faqs"
-            routerLinkActive="text-gray-900 dark:text-gray-100 pointer-events-none"
-            class="relative text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 py-5 text-sm font-medium group"
-          >
-            <span>Faqs</span>
-            <span
-              class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
-              [class.w-full]="router.isActive('/faqs', true)"
-              [class.left-0]="router.isActive('/faqs', true)"
-              [class.-translate-x-0]="router.isActive('/faqs', true)"
-            ></span>
-          </a>
+              routerLink="/faqs"
+              routerLinkActive="text-gray-900 dark:text-gray-100 pointer-events-none"
+              class="relative text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 py-5 text-sm font-medium group"
+            >
+              <span>Faqs</span>
+              <span
+                class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
+                [class.w-full]="router.isActive('/faqs', true)"
+                [class.left-0]="router.isActive('/faqs', true)"
+                [class.-translate-x-0]="router.isActive('/faqs', true)"
+              ></span>
+            </a>
           </div>
 
           <!-- Right section with search and logo -->
@@ -104,6 +104,16 @@
               ></i>
             </button>
 
+            <!-- Right Logo -->
+            <div class="hidden md:block lg:ml-4">
+              <a routerLink="/" class="flex items-center">
+                <img
+                  class="h-12 w-auto drop-shadow-lg"
+                  src="assets/Images/logo/gos.png"
+                  alt="Sikkim Tourism Logo"
+                />
+              </a>
+            </div>
             <!-- Right Logo -->
             <div class="hidden md:block lg:ml-4">
               <a routerLink="/" class="flex items-center">
@@ -166,7 +176,7 @@
               class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 text-center w-full"
             >
               Faqs
-            </a>  
+            </a>
           </div>
         </div>
       </div>
