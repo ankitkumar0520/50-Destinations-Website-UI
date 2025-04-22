@@ -18,7 +18,7 @@
               />
               <span
                 class="bg-gradient-to-r from-primary-600 via-secondary-700 to-accent-500 dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400 bg-clip-text text-transparent font-bold text-xl"
-                >QR Sikkim</span
+                >Sikkim Darsan</span
               >
             </a>
           </div>
@@ -117,16 +117,7 @@
               ></i>
             </button>
 
-            <!-- Right Logo -->
-            <div class="hidden md:block lg:ml-4">
-              <a routerLink="/" class="flex items-center">
-                <img
-                  class="h-12 w-auto drop-shadow-lg"
-                  src="assets/Images/logo/gos.png"
-                  alt="Sikkim Tourism Logo"
-                />
-              </a>
-            </div>
+          
             <!-- Right Logo -->
             <div class="hidden md:block lg:ml-4">
               <a routerLink="/" class="flex items-center">
@@ -141,12 +132,13 @@
             <!-- Mobile menu button -->
             <div class="md:hidden flex items-center lg:ml-4 z-[11]">
               <button
+                #hamburgerButton
                 (click)="toggleMobileMenu()"
                 class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none"
                 aria-label="Toggle menu"
               >
                 <i
-                  class="fas"
+                  class="fas text-lg"
                   [class.fa-bars]="!isMobileMenuOpen"
                   [class.fa-times]="isMobileMenuOpen"
                 ></i>
@@ -157,8 +149,10 @@
 
         <!-- Mobile menu -->
         <div
+          #mobileMenuContainer
+          [@mobileMenuAnimation]="isMobileMenuOpen ? 'open' : 'closed'"
           [class]="isMobileMenuOpen ? 'block md:hidden' : 'hidden'"
-          class="border-t border-gray-200 dark:border-gray-700 overflow-y-auto max-h-[calc(100vh-70px)]"
+          class="border-t border-gray-200 dark:border-gray-700 overflow-hidden max-h-[calc(100vh-70px)]"
         >
           <div class="px-8 pt-4 pb-3 space-y-1 flex flex-col items-center">
             <!-- Mobile Logos -->

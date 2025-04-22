@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -7,8 +7,8 @@ import {
   PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +16,27 @@ import { RouterModule, Router } from '@angular/router';
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
+  animations: [
+    trigger('mobileMenuAnimation', [
+      state('closed', style({
+        height: '0',
+        opacity: 0,
+        overflow: 'hidden',
+        'padding-top': '0',
+        'padding-bottom': '0',
+        'margin-bottom': '0'
+      })),
+      state('open', style({
+        height: '*',
+        opacity: 1,
+        'padding-top': '*',
+        'padding-bottom': '*'
+      })),
+      transition('closed <=> open', [
+        animate('300ms ease-in-out')
+      ])
+    ])
+  ]
 })
 export class NavbarComponent {
   isMobileMenuOpen = false;
@@ -30,6 +51,8 @@ export class NavbarComponent {
 
   @ViewChild('searchContainer') searchContainer!: ElementRef;
   @ViewChild('searchButton') searchButton!: ElementRef;
+  @ViewChild('mobileMenuContainer') mobileMenuContainer!: ElementRef;
+  @ViewChild('hamburgerButton') hamburgerButton!: ElementRef;
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
@@ -47,17 +70,23 @@ export class NavbarComponent {
 
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent): void {
-    if (!this.isSearchOpen) return;
+    if (this.isSearchOpen) {
+      const clickedInsideSearch = this.searchContainer?.nativeElement.contains(event.target);
+      const clickedOnSearchButton = this.searchButton?.nativeElement && this.searchButton.nativeElement.contains(event.target);
+      if (!clickedInsideSearch && !clickedOnSearchButton) {
+        this.isSearchOpen = false;
+      }
+    }
 
-    const clickedInsideSearch = this.searchContainer?.nativeElement.contains(
-      event.target
-    );
-    const clickedOnButton = this.searchButton?.nativeElement.contains(
-      event.target
-    );
+    if (this.isMobileMenuOpen) {
+      const clickedInsideMenu = this.mobileMenuContainer?.nativeElement && this.mobileMenuContainer.nativeElement.contains(event.target);
+      const clickedOnHamburger = this.hamburgerButton?.nativeElement && this.hamburgerButton.nativeElement.contains(event.target);
 
-    if (!clickedInsideSearch && !clickedOnButton) {
-      this.isSearchOpen = false;
+      if (!clickedInsideMenu && !clickedOnHamburger) {
+        if (this.mobileMenuContainer && this.hamburgerButton) {
+           this.isMobileMenuOpen = false;
+        }
+      }
     }
   }
 
@@ -70,18 +99,11 @@ export class NavbarComponent {
 
   get navClasses() {
     return {
-      // Light mode classes
       'bg-gray-50 dark:bg-gray-900': !this.isScrolled,
       'backdrop-blur-md bg-white/80 dark:bg-gray-900/80 shadow-lg dark:shadow-gray-800/20':
         this.isScrolled,
-
-      // Transition effects
       'transition-all duration-300 ease-in-out': true,
-
-      // Dark mode text colors
       'text-gray-900 dark:text-gray-100': true,
-
-      // Additional dark mode considerations
       'border-b border-gray-200 dark:border-gray-700': this.isScrolled,
     };
   }
@@ -103,6 +125,8 @@ export class NavbarComponent {
 
       this.isDarkMode = savedMode ? savedMode === 'true' : isSystemDark;
       document.documentElement.classList.toggle('dark', this.isDarkMode);
+
+      this.isScrolled = window.scrollY > 10;
     }
   }
 }
