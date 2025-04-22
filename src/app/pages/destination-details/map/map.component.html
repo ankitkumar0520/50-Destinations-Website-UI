@@ -1,31 +1,49 @@
-<section class="max-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="guide-map-section">
-  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16 flex flex-col md:flex-row gap-4">
-    <div class="w-full md:w-1/2 h-[400px] bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg overflow-y-auto">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">How to Reach {{destination.name}}</h2>
+<section
+  class="max-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
+  id="guide-map-section"
+>
+  <div
+    class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16 flex flex-col md:flex-row gap-4"
+  >
+    <div
+      class="w-full md:w-1/2 h-[400px] bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg overflow-y-auto"
+    >
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+        How to Reach {{ destination.name }}
+      </h2>
       <div class="space-y-6">
-
-
-        <div class="flex items-start gap-3" *ngFor="let travelMode of travelInfo.transportModes">
-          <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0">
-            <i class="{{ travelMode.icon }} text-blue-600 dark:text-blue-300"></i>
+        <div
+          class="flex items-start gap-3"
+          *ngFor="let travelMode of travelInfo.transportModes"
+        >
+          <div
+            class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0"
+          >
+            <i
+              class="{{ travelMode.icon }} text-blue-600 dark:text-blue-300"
+            ></i>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-900 dark:text-gray-100">{{ travelMode.title }}</h3>
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100">
+              {{ travelMode.title }}
+            </h3>
             <p class="text-sm text-gray-600 dark:text-gray-300">
               {{ travelMode.description }}
             </p>
           </div>
         </div>
-        
-
-
       </div>
     </div>
-    <div class="w-full md:w-1/2 h-[400px] bg-gray-100 dark:bg-gray-700 rounded-2xl overflow-hidden shadow-lg relative">
+    <div
+      class="w-full md:w-1/2 h-[400px] bg-gray-100 dark:bg-gray-700 rounded-2xl overflow-hidden shadow-lg relative"
+    >
       <div class="relative w-full h-full">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 z-10 pointer-events-none"></div>
-        <div id="map" #mapContainer class="w-full h-full transition-all duration-300"></div>        
-
+        <div class="absolute z-10 pointer-events-none"></div>
+        <div
+          id="map"
+          #mapContainer
+          class="w-full h-full transition-all duration-300"
+        ></div>
       </div>
     </div>
   </div>
