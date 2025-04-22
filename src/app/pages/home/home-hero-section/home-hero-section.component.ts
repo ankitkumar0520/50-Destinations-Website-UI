@@ -6,6 +6,7 @@ import { SearchService } from '../../../services/search.service';
 import { Router } from '@angular/router';
 import { SORT_OPTIONS } from '../../../../enums/search-filters.enum';
 import { ImageService } from '../../../services/image.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-home-hero-section',
@@ -16,37 +17,11 @@ import { ImageService } from '../../../services/image.service';
 })
 export class HomeHeroSectionComponent {
   searchQuery: string = '';
-  destinations = [
-    {
-      name: 'Rumtek Monastery',
-      image: 'assets/Images/rumtek-monastry/image1.jpg',
-    },
-    {
-      name: 'Tsomgo Lake',
-      image: 'assets/Images/destinations/tsomgo-lake.jpg',
-    },
-    {
-      name: 'Nathula Pass',
-      image: 'assets/Images/destinations/nathula-pass.jpg',
-    },
-    { name: 'MG Marg', image: 'assets/Images/destinations/mg-marg.jpg' },
-    {
-      name: 'Buddha Park',
-      image: 'assets/Images/destinations/buddha-park.jpg',
-    },
-    {
-      name: 'Yumthang Valley',
-      image: 'assets/Images/destinations/yumthang-valley.jpg',
-    },
-    { name: 'Gangtok', image: 'assets/Images/districts/gangtok.jpg' },
-    { name: 'Namchi', image: 'assets/Images/districts/namchi.jpg' },
-    { name: 'Pelling', image: 'assets/Images/districts/pelling.jpg' },
-    { name: 'Mangan', image: 'assets/Images/districts/mangan.jpg' },
-  ];
-  filteredDestinations = this.destinations;
+  filteredDestinations: any[] = [];
   showDropdown = false;
   private searchService = inject(SearchService);
   private router = inject(Router);
+  private apiService = inject(ApiService);
 
   heroData = {
     title: 'Discover Your Next Adventure',
@@ -54,34 +29,44 @@ export class HomeHeroSectionComponent {
     image: 'assets/Images/Placeholder/bg-new.jpg',
   };
 
+  private searchTimeout: any;
+
   onSearchQueryChange() {
-    this.filteredDestinations = this.destinations.filter((destination) =>
-      destination.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-    );
-    this.showDropdown = this.filteredDestinations.length > 0;
-  }
+    // Clear previous timeout
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
+    }
 
-  hideDropdown() {
-    this.showDropdown = false;
-  }
-
-  searchDestinations() {
-    this.searchService.updateFilters({
-      searchQuery: this.searchQuery,
-    });
-
-    this.redirectToSearch();
-  }
-
-  searchPopular() {
-    this.searchService.updateFilters({
-      sort: SORT_OPTIONS[0].id,
-    });
-    this.redirectToSearch();
-  }
-
-  redirectToSearch() {
-    this.router.navigate(['/destinations']);
+    // Set new timeout to debounce API calls
+    this.searchTimeout = setTimeout(() => {
+      if (this.searchQuery.trim()) {
+        const encodedKeyword = encodeURIComponent(this.searchQuery);
+        this.apiService
+          .get(
+            `LandingPage/GetAllDestinationsWithBasicDetailsByNameKeyword?keyword=${encodedKeyword}`
+          )
+          .subscribe({
+            next: (response: any) => {
+              this.filteredDestinations = response.map((dest: any) => ({
+                name: dest.destinationname,
+                image:
+                  dest.media?.find((m: any) => m.iscover)?.mediaurl ||
+                  'assets/placeholders/landscape.webp',
+                id: dest.destinationid,
+              }));
+              this.showDropdown = this.filteredDestinations.length > 0;
+            },
+            error: (error) => {
+              console.error('Error fetching destinations:', error);
+              this.filteredDestinations = [];
+              this.showDropdown = false;
+            },
+          });
+      } else {
+        this.filteredDestinations = [];
+        this.showDropdown = false;
+      }
+    }, 300); // 300ms debounce time
   }
 
   @HostListener('document:click', ['$event'])
@@ -95,7 +80,7 @@ export class HomeHeroSectionComponent {
     }
   }
 
-  onDestinationClick(destinationId: number) {
+  onDestinationClick(destinationId: string) {
     this.router.navigate([`/destination/${destinationId}`]);
   }
 
@@ -103,5 +88,27 @@ export class HomeHeroSectionComponent {
     if (this.searchQuery) {
       this.showDropdown = true;
     }
+  }
+
+  hideDropdown() {
+    this.showDropdown = false;
+  }
+
+  searchDestinations() {
+    this.searchService.updateFilters({
+      searchQuery: this.searchQuery,
+    });
+    this.redirectToSearch();
+  }
+
+  searchPopular() {
+    this.searchService.updateFilters({
+      sort: SORT_OPTIONS[0].id,
+    });
+    this.redirectToSearch();
+  }
+
+  redirectToSearch() {
+    this.router.navigate(['/destinations']);
   }
 }

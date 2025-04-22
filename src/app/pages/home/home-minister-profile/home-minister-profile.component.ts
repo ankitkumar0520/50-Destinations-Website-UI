@@ -52,7 +52,7 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
             false,
             [1, 1, 3]
           );
-        }, 100);
+        }, 200);
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error fetching testimonials:', error);

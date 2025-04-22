@@ -7,7 +7,6 @@ export class ImageService {
   constructor() {}
 
   handleImageError(event: Event): void {
-    debugger;
     const target = event.target as HTMLImageElement;
     if (!target) return;
 
