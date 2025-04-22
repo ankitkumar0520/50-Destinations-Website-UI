@@ -4,6 +4,8 @@ import { SearchMainComponent } from './pages/search/search-main/search-main.comp
 import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FaqsComponent } from './pages/faqs/faqs.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+import { TermServicesComponent } from './pages/term-services/term-services.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch:'full' },
   {
@@ -18,4 +20,6 @@ export const routes: Routes = [
   { path: 'destination/:id', component: DestinationMainComponent },
   { path: 'about', component: AboutComponent },
   { path: 'faqs', component: FaqsComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'terms-of-service', component: TermServicesComponent },
 ];
