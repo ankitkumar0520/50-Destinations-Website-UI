@@ -46,6 +46,7 @@
                         [src]="district.image"
                         [alt]="district.name"
                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                        (error)="imageService.handleImageError($event)"
                       />
                     </div>
                   </div>

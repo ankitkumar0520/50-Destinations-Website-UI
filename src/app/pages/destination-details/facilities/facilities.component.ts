@@ -1,9 +1,18 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, PLATFORM_ID, Inject, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ChangeDetectorRef,
+  PLATFORM_ID,
+  Inject,
+  inject,
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
-import { SectionHeaderComponent } from "../../../common/section-header/section-header.component";
+import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
+import { ImageService } from '../../../services/image.service';
 
 interface Facility {
   id: string;
@@ -29,11 +38,11 @@ interface Facility {
   imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './facilities.component.html',
   styleUrls: ['./facilities.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FacilitiesComponent implements OnInit, AfterViewInit {
-  
   private destinationService = inject(DestinationService);
+  imageService = inject(ImageService);
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -42,18 +51,17 @@ export class FacilitiesComponent implements OnInit, AfterViewInit {
     register();
   }
 
-  destination:any;
+  destination: any;
 
   ngOnInit() {
     this.destination = this.destinationService.getDestionation();
   }
 
-
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       // Force change detection
       this.cdr.detectChanges();
-      
+
       // Initialize Swiper after view is initialized
       const initializeSwiper = () => {
         const swiperElements = document.querySelectorAll('swiper-container');
@@ -65,32 +73,32 @@ export class FacilitiesComponent implements OnInit, AfterViewInit {
               breakpoints: {
                 640: {
                   slidesPerView: 1,
-                  spaceBetween: 24
+                  spaceBetween: 24,
                 },
                 768: {
                   slidesPerView: 2,
-                  spaceBetween: 24
+                  spaceBetween: 24,
                 },
                 1024: {
                   slidesPerView: 3,
-                  spaceBetween: 24
-                }
+                  spaceBetween: 24,
+                },
               },
               pagination: {
                 clickable: true,
                 el: '.swiper-pagination',
                 type: 'bullets',
-                dynamicBullets: true
+                dynamicBullets: true,
               },
               autoplay: {
                 delay: 3000,
                 disableOnInteraction: false,
-                pauseOnMouseEnter: true
+                pauseOnMouseEnter: true,
               },
               loop: true,
               grabCursor: true,
               observer: true,
-              observeParents: true
+              observeParents: true,
             };
 
             Object.assign(element, params);

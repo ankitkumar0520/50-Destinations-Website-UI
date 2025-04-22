@@ -5,6 +5,7 @@ import { HomeMinisterProfileComponent } from '../home-minister-profile/home-mini
 import { SearchService } from '../../../services/search.service';
 import { Router } from '@angular/router';
 import { SORT_OPTIONS } from '../../../../enums/search-filters.enum';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-home-hero-section',

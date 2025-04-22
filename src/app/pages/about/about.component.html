@@ -94,16 +94,22 @@
                 *ngFor="let highlight of projectHighlights"
                 class="flex items-start p-3 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-all duration-300 cursor-pointer rounded-lg"
               >
-                <i class="fas fa-check-circle text-green-500 dark:text-green-400 mt-0.5 mr-3 flex-shrink-0"></i>
-                <span class="text-gray-700 dark:text-gray-300">{{ highlight }}</span>
+                <i
+                  class="fas fa-check-circle text-green-500 dark:text-green-400 mt-0.5 mr-3 flex-shrink-0"
+                ></i>
+                <span class="text-gray-700 dark:text-gray-300">{{
+                  highlight
+                }}</span>
               </div>
             </div>
           </div>
         </div>
-        
+
         <!-- Experience Highlights -->
         <div>
-          <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
+          <h2
+            class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center"
+          >
             <i class="fas fa-star text-secondary-500 mr-2"></i>
             What We Offer
           </h2>
@@ -112,9 +118,13 @@
               *ngFor="let feature of features"
               class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-100 dark:border-gray-700 group cursor-pointer"
             >
-              <div class="rounded-full bg-secondary-100 dark:bg-secondary-900/30 w-12 h-12 flex items-center justify-center mb-4">
+              <div
+                class="rounded-full bg-secondary-100 dark:bg-secondary-900/30 w-12 h-12 flex items-center justify-center mb-4"
+              >
                 <i
-                  class="fas {{ feature.iconClass }} text-xl text-secondary-600 dark:text-secondary-400 group-hover:text-secondary-700 dark:group-hover:text-secondary-300"
+                  class="fas {{
+                    feature.iconClass
+                  }} text-xl text-secondary-600 dark:text-secondary-400 group-hover:text-secondary-700 dark:group-hover:text-secondary-300"
                 ></i>
               </div>
               <h3
@@ -133,9 +143,13 @@
       <!-- Sidebar -->
       <div class="lg:col-span-1">
         <!-- District Map Section -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
+        >
           <div class="p-6">
-            <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+            <h2
+              class="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center"
+            >
               <i class="fas fa-map-marker-alt text-secondary-500 mr-2"></i>
               Explore Districts
             </h2>
@@ -144,7 +158,9 @@
                 *ngFor="let district of districts"
                 class="p-4 border border-gray-100 dark:border-gray-700 rounded-lg hover:bg-secondary-50 dark:hover:bg-secondary-900/20 transition-all duration-300 group cursor-pointer"
               >
-                <h3 class="font-medium text-gray-800 dark:text-gray-100 group-hover:text-secondary-700 dark:group-hover:text-secondary-300 flex items-center">
+                <h3
+                  class="font-medium text-gray-800 dark:text-gray-100 group-hover:text-secondary-700 dark:group-hover:text-secondary-300 flex items-center"
+                >
                   <i class="fas fa-map-pin text-secondary-500 mr-2 text-sm"></i>
                   {{ district.name }}
                 </h3>

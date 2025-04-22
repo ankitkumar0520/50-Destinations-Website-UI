@@ -53,6 +53,7 @@
                 [src]="result.image"
                 [alt]="result.title"
                 class="w-full h-full object-cover"
+                (error)="imageService.handleImageError($event)"
               />
               <div
                 class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"

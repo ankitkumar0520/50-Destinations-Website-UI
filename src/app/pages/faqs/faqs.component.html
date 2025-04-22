@@ -130,7 +130,7 @@
         class="rounded-lg p-4 sm:p-6 cursor-pointer hover:shadow-md transition-shadow duration-200"
         [ngClass]="
           activeAccordion == category.id
-            ? 'pointer-events-none bg-blue-50 dark:bg-blue-800/20'
+            ? 'pointer-events-none bg-blue-50 dark:bg-blue-800/20 shadow-md'
             : 'bg-gray-100 dark:bg-gray-800'
         "
         (click)="toggleAccordion(category.id)"

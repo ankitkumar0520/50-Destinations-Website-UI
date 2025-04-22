@@ -19,6 +19,7 @@
               [src]="minister.image"
               [alt]="minister.name"
               class="w-full h-full object-cover"
+              (error)="imageService.handleImageError($event)"
             />
           </div>
 

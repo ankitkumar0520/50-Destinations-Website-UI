@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
+import { ImageService } from '../../../services/image.service';
 
 interface Accommodation {
   name: string;
@@ -24,7 +25,7 @@ interface Eatery {
   standalone: true,
   imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './accomodation-eatery.component.html',
-  styleUrl: './accomodation-eatery.component.css'
+  styleUrl: './accomodation-eatery.component.css',
 })
 export class AccomodationEateryComponent {
   selectedHotel: Accommodation | null = null;
@@ -32,7 +33,8 @@ export class AccomodationEateryComponent {
 
   private destinationService = inject(DestinationService);
 
-  destination = this.destinationService.getDestionation();  
+  destination = this.destinationService.getDestionation();
+  imageService = inject(ImageService);
 
   openHotelModal(hotel: Accommodation) {
     this.selectedHotel = hotel;
