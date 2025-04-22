@@ -18,8 +18,6 @@ import {
   getGradientClasses,
 } from '../../../utils/utils';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
-import { SearchService } from '../../../services/search.service';
-import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 
 interface District {
@@ -41,7 +39,7 @@ interface Feature {
 @Component({
   selector: 'app-home-district-carousel',
   standalone: true,
-  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent, RouterLink],
+  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
 })

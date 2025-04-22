@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface FooterLink {
   name: string;
@@ -20,7 +21,7 @@ interface FooterData {
 
 @Component({
   selector: 'app-footer',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   standalone: true,
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css',
@@ -39,23 +40,32 @@ export class FooterComponent {
       {
         title: 'Quick Links',
         items: [
-          { name: 'Home', link: '/' },
-          { name: 'About', link: '/about' },
-          { name: 'Destinations', link: '/destinations' },
-          { name: 'Monastery', link: '/none' },
-          { name: 'Best Destinations', link: '/best' }
-        ]
+          { name: 'Discover', link: '/' },
+          { name: 'Our Story', link: '/about' },
+          { name: 'Places to Visit', link: '/destinations' },
+          { name: 'Help Center', link: '/faqs' }
+        ]        
       },
       {
-        title: 'Permits & Services',
+        title: 'Travel Essentials',
         items: [
-          { name: 'Sikkim Tourism', link: 'https://sikkimtourism.gov.in/Public/Index' },
-          { name: 'Permit', link: 'https://sikkimtourism.gov.in/Public/TravellerEssentials/pap' },
+          { name: 'Protected Area Permit (PAP)', link: 'https://sikkimtourism.gov.in/Public/TravellerEssentials/pap' },
+          { name: 'Restricted Area Permit (RAP)', link: 'https://sikkimtourism.gov.in/Public/TravellerEssentials/rap' },
           { name: 'Travel Agents', link: 'https://sikkimtourism.gov.in/Public/TravellerEssentials/travelagents' },
-          { name: 'Travel Essentials', link: 'https://sikkimtourism.gov.in/Public/TravellerEssentials' },
-          { name: 'TIC', link: 'https://sikkimtourism.gov.in/Public/ExploreByMap/Map/TIC' }
+          { name: 'TICs', link: 'https://sikkimtourism.gov.in/Public/ExploreByMap/Map/TIC' },
         ]
       }
     ]
   };
+
+  contactInfo: {
+    address: string;
+    phone: string;
+    email: string;
+     } = {
+    address: 'Paryatan Bhawan, Tadong, Gangtok, Sikkim 737101',
+    phone: '03592-232218 , 03592-209090',
+    email: 'secy_tourism@yahoo.com'
+  };
+
 }
