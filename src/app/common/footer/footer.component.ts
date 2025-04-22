@@ -13,9 +13,11 @@ interface FooterSection {
 }
 
 interface FooterData {
+  year:number;
   websiteName: string;
+  tagline: string;
   description: string;
-  socialMedia: { url: string }[];
+  socialMedia: { url: string,icon:string,color:string }[];
   links: FooterSection[];
 }
 
@@ -27,14 +29,17 @@ interface FooterData {
   styleUrl: './footer.component.css',
 })
 export class FooterComponent {
+
   footerData: FooterData = {
-    websiteName: 'Sikkim Tourism',
+    year:new Date().getFullYear(),
+    websiteName: 'Sikkim Darshan',
+    tagline:'Sikkim Where Nature Smiles',
     description: 'Discover the beauty of Sikkim through our curated destinations and experiences.',
     socialMedia: [
-      { url: 'https://twitter.com/sikkimtourism' },
-      { url: 'https://youtube.com/sikkimtourism' },
-      { url: 'https://facebook.com/sikkimtourism' },
-      { url: 'https://instagram.com/sikkimtourism' }
+      { url: 'https://twitter.com/sikkimtourism' ,icon:'fa-twitter',color:'text-blue-500'},
+      { url: 'https://youtube.com/sikkimtourism' ,icon:'fa-youtube',color:'text-red-500'},
+      { url: 'https://facebook.com/sikkimtourism' ,icon:'fa-facebook',color:'text-blue-700'},
+      { url: 'https://instagram.com/sikkimtourism' ,icon:'fa-instagram',color:'text-pink-500'}
     ],
     links: [
       {
@@ -67,5 +72,7 @@ export class FooterComponent {
     phone: '03592-232218 , 03592-209090',
     email: 'secy_tourism@yahoo.com'
   };
+
+  
 
 }
