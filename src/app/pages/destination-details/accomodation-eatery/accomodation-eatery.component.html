@@ -29,6 +29,7 @@
               [src]="hotel.image"
               [alt]="hotel.name"
               class="w-full h-full object-cover"
+              (error)="imageService.handleImageError($event)"
             />
           </div>
           <div class="bg-white dark:bg-gray-800 p-5">
@@ -67,6 +68,7 @@
               [src]="eatery.image"
               [alt]="eatery.name"
               class="w-full h-full object-cover"
+              (error)="imageService.handleImageError($event)"
             />
           </div>
           <div class="bg-white dark:bg-gray-800 p-5">
