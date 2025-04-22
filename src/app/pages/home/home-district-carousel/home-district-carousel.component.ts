@@ -19,6 +19,7 @@ import {
 } from '../../../utils/utils';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { ApiService } from '../../../services/api.service';
+import { ImageService } from '../../../services/image.service';
 
 interface District {
   id: number;
@@ -47,6 +48,7 @@ export class HomeDistrictCarouselComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   private platformId = inject(PLATFORM_ID);
+  imageService = inject(ImageService);
 
   siteUrl: string = isPlatformBrowser(this.platformId)
     ? window.location.origin

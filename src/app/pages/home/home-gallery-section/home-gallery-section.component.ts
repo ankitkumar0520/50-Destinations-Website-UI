@@ -4,6 +4,7 @@ import { QRCodeComponent } from 'angularx-qrcode';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { getGradientClasses } from '../../../utils/utils';
 import { ApiService } from '../../../services/api.service';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-home-gallery-section',
@@ -15,6 +16,7 @@ import { ApiService } from '../../../services/api.service';
 export class HomeGallerySectionComponent implements OnInit {
   isQRVisibleMap: { [key: number]: boolean } = {};
   siteUrl: string = '';
+  imageService = inject(ImageService);
 
   destinations: any = [
     // {

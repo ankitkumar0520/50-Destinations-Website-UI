@@ -1,4 +1,10 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   destroyOwlInstance,
@@ -6,6 +12,7 @@ import {
 } from '../../../utils/utils';
 import { ApiService } from '../../../services/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-home-minister-profile',
@@ -15,6 +22,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './home-minister-profile.component.css',
 })
 export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
+  imageService = inject(ImageService);
+
   ministers: any = [];
 
   constructor(private apiService: ApiService) {}
@@ -43,7 +52,7 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
             false,
             [1, 1, 3]
           );
-        }, 0);
+        }, 200);
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error fetching testimonials:', error);
