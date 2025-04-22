@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { FooterComponent } from './common/footer/footer.component';
@@ -22,6 +22,9 @@ export class AppComponent {
   // Define icon property
   arrowUp = faArrowUp;
 
+  // Add ViewChild for the button
+  @ViewChild('scrollToTopButton') scrollToTopButton!: ElementRef<HTMLButtonElement>;
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     if (typeof window !== 'undefined') {
@@ -35,6 +38,9 @@ export class AppComponent {
         top: 0,
         behavior: 'smooth',
       });
+
+      // Blur the button after initiating scroll to remove focus ring
+      this.scrollToTopButton?.nativeElement.blur();
     }
   }
 

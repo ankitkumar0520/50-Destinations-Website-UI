@@ -8,17 +8,18 @@
 
 <!-- Scroll to Top Button -->
 <button
+  #scrollToTopButton
   (click)="scrollToTop()"
+  [class.opacity-100]="showScrollTop"
   [class.opacity-0]="!showScrollTop"
-  class="fixed bg-black/60 text-white bottom-8 right-8 aspect-square h-12 w-12 cursor-pointer rounded-full transition-all duration-300 z-50 shadow-lg hover:shadow-xl group"
-  [class.animate-fade-in]="showScrollTop"
-  [class.animate-fade-out]="!showScrollTop"
+  [class.pointer-events-auto]="showScrollTop"
+  [class.pointer-events-none]="!showScrollTop"
+  class="cursor-pointer fixed bottom-6 right-6 z-50 flex flex-col items-center justify-center px-3 py-2 rounded-xl brand-gradient-bg text-white shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-offset-gray-900 transform transition-all duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 active:scale-95"
+  aria-label="Scroll to top"
 >
-  <div class="flex flex-col items-center">
-    <fa-icon
-      [icon]="arrowUp"
-      class="h-5 w-5 transform group-hover:-translate-y-1 transition-transform"
-    ></fa-icon>
-    <span class="text-xs font-medium">Top</span>
-  </div>
+  <fa-icon
+    [icon]="arrowUp"
+    class="h-4 w-4 mb-0.5"
+  ></fa-icon>
+  <span class="text-xs font-medium">Top</span>
 </button>
