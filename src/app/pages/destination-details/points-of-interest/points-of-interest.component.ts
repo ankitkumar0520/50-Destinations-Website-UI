@@ -1,8 +1,7 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, PLATFORM_ID, Inject, inject } from '@angular/core';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { register } from 'swiper/element/bundle';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, PLATFORM_ID, Inject, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
+import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils';
 import { DestinationService } from '../../../services/destination.service';
 
 @Component({
@@ -10,63 +9,67 @@ import { DestinationService } from '../../../services/destination.service';
   standalone: true,
   imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './points-of-interest.component.html',
-  styleUrls: ['./points-of-interest.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  styleUrls: ['./points-of-interest.component.css']
 })
-export class PointsOfInterestComponent implements OnInit, AfterViewInit {
-
-  private destinationService =inject( DestinationService)
+export class PointsOfInterestComponent implements OnInit, OnDestroy {
+  private destinationService = inject(DestinationService);
+  destination = this.destinationService.getDestionation();
 
   constructor(
     private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    register();
-  }
-
-  destination = this.destinationService.getDestionation();
+  ) {}
 
   ngOnInit(): void {
-    
+    if (isPlatformBrowser(this.platformId)) {
+      const attractionCount = this.destination.touristAttractions.length;
+
+      if (attractionCount > 2) {
+        // Initialize MAIN carousel
+        setTimeout(() => {
+          initializeOwlCarousel('.points-of-interest-carousel', false, true, 20, false, [1, 2, 4], true);
+        }, 300);
+
+        // Initialize NESTED image carousels for MAIN carousel items
+        setTimeout(() => {
+          const imageCarousels = document.querySelectorAll('#points-of-interest-section .owl-carousel .point-image-carousel'); // More specific selector
+          imageCarousels.forEach((carousel, index) => {
+            initializeOwlCarousel(`#point-image-carousel-main-${index}`, true, true, 0, false, [1,1,1], true);
+          });
+        }, 500);
+
+      } else {
+        // Initialize ONLY NESTED image carousels for FLEX layout items
+        setTimeout(() => {
+          const imageCarousels = document.querySelectorAll('#points-of-interest-section .flex .point-image-carousel'); // More specific selector
+          imageCarousels.forEach((carousel, index) => {
+            initializeOwlCarousel(`#point-image-carousel-flex-${index}`, false, true, 0, false, [1,1,1], false);
+          });
+        }, 500);
+      }
+    }
   }
 
-  
-  ngAfterViewInit(): void {
+  ngOnDestroy(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Force change detection
-      this.cdr.detectChanges();
-      
-      // Initialize Swiper after view is initialized
-      const initializeSwiper = () => {
-        const swiperElements = document.querySelectorAll('swiper-container');
-        swiperElements.forEach((element: any) => {
-          if (!element.swiper) {
-            Object.assign(element, {
-              slidesPerView: 1,
-              spaceBetween: 0,
-              pagination: {
-                clickable: true,
-                el: '.swiper-pagination'
-              },
-              autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-              },
-              loop: true,
-              grabCursor: true,
-              observer: true,
-              observeParents: true
-            });
-            element.initialize();
-          }
+      const attractionCount = this.destination.touristAttractions.length;
+
+      if (attractionCount > 2) {
+        // Destroy MAIN carousel
+        destroyOwlInstance('.points-of-interest-carousel');
+        
+        // Destroy NESTED image carousels from MAIN carousel
+        const imageCarousels = document.querySelectorAll('#points-of-interest-section .owl-carousel .point-image-carousel');
+        imageCarousels.forEach((carousel, index) => {
+          destroyOwlInstance(`#point-image-carousel-main-${index}`);
         });
-      };
-
-      // Try to initialize immediately
-      initializeSwiper();
-
-      // Also try after a short delay to ensure DOM is ready
-      setTimeout(initializeSwiper, 100);
+      } else {
+         // Destroy ONLY NESTED image carousels from FLEX layout
+        const imageCarousels = document.querySelectorAll('#points-of-interest-section .flex .point-image-carousel');
+        imageCarousels.forEach((carousel, index) => {
+          destroyOwlInstance(`#point-image-carousel-flex-${index}`);
+        });
+      }
     }
   }
 }

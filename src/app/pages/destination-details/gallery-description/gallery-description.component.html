@@ -1,4 +1,4 @@
-<section class="w-full py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="about-section">
+<section class="w-full py-6 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="about-section">
   <!-- Description Section - Full Width -->
   <div class="w-full py-8 max-w-7xl mx-auto px-6 md:px-16 2xl:px-0">
     <div class="">
@@ -26,8 +26,8 @@
   </div>
 </section>
 
-<section class="min-h-screen flex items-center py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="galleries-section">
-  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">
+<section class="min-h-screen flex items-center py-4 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="galleries-section">
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-6">
     <app-section-header 
       [badgeText]="'Gallery'"
       [titleLeft]="'Explore'"
@@ -41,7 +41,7 @@
     ></app-section-header>
 
     <!-- Gallery Carousel -->
-    <div class="destination-gallery-grid py-8">
+    <div class="destination-gallery-grid py-4">
       <div *ngFor="let image of destination.galleryImages; let i = index"
         class="gallery-item relative group cursor-pointer rounded-lg overflow-hidden shadow-md"
         (click)="showGalleria(i)">
