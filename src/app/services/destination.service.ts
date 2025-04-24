@@ -382,17 +382,17 @@ export class DestinationService {
   travelInfo :{
     transportModes: [
       {
-        icon: "fas fa-plane",
+       
         title: "By Air",
         description: "The nearest airport to Rumtek Monastery is Pakyong Airport (PYG), located about 35 km away. Another option is Bagdogra Airport (IXB), about 125 km away."
       },
       {
-        icon: "fas fa-train",
+
         title: "By Train",
         description: "The nearest major railway station is New Jalpaiguri (NJP), about 120 km from Gangtok. From there, you can hire a taxi to reach Rumtek."
       },
       {
-        icon: "fas fa-car",
+
         title: "By Road",
         description: "Rumtek is located around 23 km from Gangtok. You can hire taxis or take shared cabs from Gangtok. The roads are hilly and scenic, offering a beautiful journey."
       }

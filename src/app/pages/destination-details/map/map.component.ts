@@ -9,6 +9,7 @@ import {
   inject,
 } from '@angular/core';
 import { DestinationService } from '../../../services/destination.service';
+import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 
 let L: any;
 
@@ -16,7 +17,8 @@ let L: any;
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, SectionHeaderComponent],
 })
 export class MapComponent implements AfterViewInit {
   @ViewChild('mapContainer') mapContainer!: ElementRef;
@@ -47,37 +49,32 @@ export class MapComponent implements AfterViewInit {
   }
 
   private initMap(): void {
-    this.map = L.map('map', { zIndex: 0 }).setView(
+    this.map = L.map('map', { 
+      zoomControl: true,
+      zoomSnap: 0.5,
+      attributionControl: true
+    }).setView(
       [this.travelInfo.latitude, this.travelInfo.longitude],
       13
     );
 
-    // Add Esri World Gray Canvas as base layer
-    const esriWorldGrayCanvas = L.tileLayer(
-      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
-      {
-        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-        maxZoom: 16,
-      }
-    ).addTo(this.map);
+    // Add OpenStreetMap tiles (more colorful and detailed like the example)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
 
-    // Add Stadia Terrain Labels overlay
-    const stadiaStamenTerrainLabels = L.tileLayer(
-      'https://tiles.stadiamaps.com/tiles/stamen_terrain_labels/{z}/{x}/{y}{r}.{ext}',
-      {
-        minZoom: 0,
-        maxZoom: 16,
-        attribution:
-          '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        ext: 'png',
-      }
-    ).addTo(this.map);
-
-    // Add marker
-    L.marker([this.travelInfo.latitude, this.travelInfo.longitude])
-      .addTo(this.map)
-      .bindPopup(this.destination.name)
-      .openPopup();
+    // Simple marker with a clean popup
+    const marker = L.marker([this.travelInfo.latitude, this.travelInfo.longitude]).addTo(this.map);
+    
+    // Simple popup like in the example
+    const popupContent = `
+      <div>
+        <p style="margin: 0; font-size: 14px;">${this.destination.name}</p>
+      </div>
+    `;
+    
+    marker.bindPopup(popupContent).openPopup();
 
     // Store original container reference
     this.originalContainer = document.getElementById('map');

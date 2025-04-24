@@ -1,48 +1,59 @@
 <section
-  class="max-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
+  class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
   id="guide-map-section"
 >
-  <div
-    class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16 flex flex-col md:flex-row gap-4"
-  >
-    <div
-      class="w-full md:w-1/2 h-[400px] bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg overflow-y-auto"
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-4">
+    <app-section-header
+      [badgeText]="'Location Map'"
+      [titleLeft]="'How to'"
+      [titleMiddleHighlighted]="'Reach'"
+      [description]="'Find the exact location of ' + destination.name + ' on the interactive map below.'"
+      [features]="[
+        { icon: 'fas fa-map-marker-alt', text: 'Interactive Map' }
+      ]"
     >
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-        How to Reach {{ destination.name }}
-      </h2>
-      <div class="space-y-6">
-        <div
-          class="flex items-start gap-3"
-          *ngFor="let travelMode of travelInfo.transportModes"
-        >
-          <div
-            class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0"
-          >
-            <i
-              class="{{ travelMode.icon }} text-blue-600 dark:text-blue-300"
-            ></i>
-          </div>
-          <div>
-            <h3 class="font-semibold text-gray-900 dark:text-gray-100">
-              {{ travelMode.title }}
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300">
-              {{ travelMode.description }}
-            </p>
-          </div>
+    </app-section-header>
+
+    <!-- Simple Travel Info -->
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md">
+        <div class="flex items-center mb-2">
+          <i class="fas fa-plane text-primary-600 dark:text-primary-400 mr-3"></i>
+          <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">By Air</h3>
         </div>
+        <p class="text-gray-600 dark:text-gray-300 text-sm">
+          {{ travelInfo.transportModes[0].description }}
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md">
+        <div class="flex items-center mb-2">
+          <i class="fas fa-train text-primary-600 dark:text-primary-400 mr-3"></i>
+          <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">By Train</h3>
+        </div>
+        <p class="text-gray-600 dark:text-gray-300 text-sm">
+          {{ travelInfo.transportModes[1].description }}
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md">
+        <div class="flex items-center mb-2">
+          <i class="fas fa-car text-primary-600 dark:text-primary-400 mr-3"></i>
+          <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">By Road</h3>
+        </div>
+        <p class="text-gray-600 dark:text-gray-300 text-sm">
+          {{ travelInfo.transportModes[2].description }}
+        </p>
       </div>
     </div>
-    <div
-      class="w-full md:w-1/2 h-[400px] bg-gray-100 dark:bg-gray-700 rounded-2xl overflow-hidden shadow-lg relative"
-    >
-      <div class="relative w-full h-full">
-        <div class="absolute z-10 pointer-events-none"></div>
+
+    <!-- Full-size Map Section -->
+    <div class="mt-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+      <div class="w-full h-[500px] max-h-[500px] relative">
         <div
           id="map"
           #mapContainer
-          class="w-full h-full transition-all duration-300"
+          class="w-full h-full"
         ></div>
       </div>
     </div>
