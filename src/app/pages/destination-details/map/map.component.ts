@@ -1,5 +1,13 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, Inject, PLATFORM_ID, ElementRef, ViewChild, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Inject,
+  PLATFORM_ID,
+  ElementRef,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { DestinationService } from '../../../services/destination.service';
 
 let L: any;
@@ -8,7 +16,7 @@ let L: any;
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class MapComponent implements AfterViewInit {
   @ViewChild('mapContainer') mapContainer!: ElementRef;
@@ -16,15 +24,17 @@ export class MapComponent implements AfterViewInit {
   private fullscreenControl: L.Control | undefined;
   private originalContainer: HTMLElement | null = null;
   private originalStyles: { [key: string]: string } = {};
-  private originalPosition: { top: string, left: string } = { top: '', left: '' };
+  private originalPosition: { top: string; left: string } = {
+    top: '',
+    left: '',
+  };
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   private destinationService = inject(DestinationService);
   destination = this.destinationService.getDestionation();
-  
-  travelInfo = this.destination.travelInfo;
 
+  travelInfo = this.destination.travelInfo;
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -37,14 +47,34 @@ export class MapComponent implements AfterViewInit {
   }
 
   private initMap(): void {
-    this.map = L.map('map', { zIndex: 0 }).setView([this.travelInfo.latitude,this.travelInfo.longitude], 13);
+    this.map = L.map('map', { zIndex: 0 }).setView(
+      [this.travelInfo.latitude, this.travelInfo.longitude],
+      13
+    );
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap contributors',
-    }).addTo(this.map);
+    // Add Esri World Gray Canvas as base layer
+    const esriWorldGrayCanvas = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+      {
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+        maxZoom: 16,
+      }
+    ).addTo(this.map);
 
-    L.marker([this.travelInfo.latitude,this.travelInfo.longitude])
+    // Add Stadia Terrain Labels overlay
+    const stadiaStamenTerrainLabels = L.tileLayer(
+      'https://tiles.stadiamaps.com/tiles/stamen_terrain_labels/{z}/{x}/{y}{r}.{ext}',
+      {
+        minZoom: 0,
+        maxZoom: 16,
+        attribution:
+          '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        ext: 'png',
+      }
+    ).addTo(this.map);
+
+    // Add marker
+    L.marker([this.travelInfo.latitude, this.travelInfo.longitude])
       .addTo(this.map)
       .bindPopup(this.destination.name)
       .openPopup();
@@ -64,21 +94,28 @@ export class MapComponent implements AfterViewInit {
     // Create custom control
     const FullscreenControl = L.Control.extend({
       options: {
-        position: 'topright'
+        position: 'topright',
       },
 
       onAdd: () => {
-        const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
-        
-        const button = L.DomUtil.create('a', 'leaflet-control-fullscreen', container);
+        const container = L.DomUtil.create(
+          'div',
+          'leaflet-bar leaflet-control'
+        );
+
+        const button = L.DomUtil.create(
+          'a',
+          'leaflet-control-fullscreen',
+          container
+        );
         button.innerHTML = '<i class="fas fa-expand"></i>';
         button.title = 'Fullscreen';
         button.href = '#';
-        
+
         L.DomEvent.on(button, 'click', this.toggleFullscreen.bind(this));
-        
+
         return container;
-      }
+      },
     });
 
     this.fullscreenControl = new FullscreenControl();
@@ -88,7 +125,7 @@ export class MapComponent implements AfterViewInit {
   private toggleFullscreen(e: Event): void {
     e.preventDefault();
     e.stopPropagation();
-    
+
     const mapElement = this.originalContainer;
     if (!mapElement || !this.map) return;
 
@@ -113,7 +150,7 @@ export class MapComponent implements AfterViewInit {
       width: mapElement.style.width,
       height: mapElement.style.height,
       zIndex: mapElement.style.zIndex,
-      borderRadius: mapElement.style.borderRadius
+      borderRadius: mapElement.style.borderRadius,
     };
 
     // Prepare for fullscreen
@@ -157,9 +194,11 @@ export class MapComponent implements AfterViewInit {
   }
 
   private updateControlIcon(isFullscreen: boolean): void {
-    const control:any = document.querySelector('.leaflet-control-fullscreen');
+    const control: any = document.querySelector('.leaflet-control-fullscreen');
     if (control) {
-      control.innerHTML = isFullscreen ? '<i class="fas fa-compress"></i>' : '<i class="fas fa-expand"></i>';
+      control.innerHTML = isFullscreen
+        ? '<i class="fas fa-compress"></i>'
+        : '<i class="fas fa-expand"></i>';
       control.title = isFullscreen ? 'Minimize' : 'Fullscreen';
     }
   }
