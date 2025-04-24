@@ -35,7 +35,7 @@ export class ShopsComponent implements AfterViewInit, OnDestroy {
     // Initialize carousel
     setTimeout(() => {   
       // Configure the carousel with responsive breakpoints
-      initializeOwlCarousel('.shops-carousel', false, true, 16, false, 
+      initializeOwlCarousel('.shops-carousel', true, true, 16, false, 
         [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
         true); 
     }, 300);
