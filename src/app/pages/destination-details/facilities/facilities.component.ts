@@ -2,17 +2,15 @@ import {
   Component,
   OnInit,
   AfterViewInit,
-  ChangeDetectorRef,
-  PLATFORM_ID,
-  Inject,
+  OnDestroy,
   inject,
+  PLATFORM_ID,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { register } from 'swiper/element/bundle';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
+import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils';
 
 interface Facility {
   id: string;
@@ -37,81 +35,57 @@ interface Facility {
   standalone: true,
   imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './facilities.component.html',
-  styleUrls: ['./facilities.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  styleUrls: ['./facilities.component.css']
 })
-export class FacilitiesComponent implements OnInit, AfterViewInit {
+export class FacilitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   private destinationService = inject(DestinationService);
+  private platformId = inject(PLATFORM_ID);
   imageService = inject(ImageService);
-
-  constructor(
-    private cdr: ChangeDetectorRef,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    register();
-  }
-
+  
   destination: any;
+  isMobile = false;
+
+  constructor() {}
 
   ngOnInit() {
     this.destination = this.destinationService.getDestionation();
+    if (isPlatformBrowser(this.platformId)) {
+      // Initialize screen size detection
+      this.checkScreenSize();
+      window.addEventListener('resize', this.checkScreenSize.bind(this));
+    }
   }
 
   ngAfterViewInit(): void {
+    // Initialize Owl Carousel for mobile view
+    if (isPlatformBrowser(this.platformId) && this.isMobile) {
+      setTimeout(() => {
+        // Configure owl carousel to show only 1 item per view
+        initializeOwlCarousel('.facilities-carousel', true, true, 16, false, [1, 1, 1], true);
+      }, 300);
+    }
+  }
+
+  checkScreenSize(): void {
+    const wasMobile = this.isMobile;
+    this.isMobile = window.innerWidth < 1024; // lg breakpoint in Tailwind
+
+    // If transitioning between mobile and desktop, need to reinitialize carousel or destroy it
+    if (wasMobile !== this.isMobile) {
+      if (this.isMobile) {
+        setTimeout(() => {
+          initializeOwlCarousel('.facilities-carousel', true, true, 16, false, [1, 1, 1], true);
+        }, 300);
+      } else {
+        destroyOwlInstance('.facilities-carousel');
+      }
+    }
+  }
+
+  ngOnDestroy(): void {  
     if (isPlatformBrowser(this.platformId)) {
-      // Force change detection
-      this.cdr.detectChanges();
-
-      // Initialize Swiper after view is initialized
-      const initializeSwiper = () => {
-        const swiperElements = document.querySelectorAll('swiper-container');
-        swiperElements.forEach((element: any) => {
-          if (!element.swiper) {
-            const params = {
-              slidesPerView: 1,
-              spaceBetween: 24,
-              breakpoints: {
-                640: {
-                  slidesPerView: 1,
-                  spaceBetween: 24,
-                },
-                768: {
-                  slidesPerView: 2,
-                  spaceBetween: 24,
-                },
-                1024: {
-                  slidesPerView: 3,
-                  spaceBetween: 24,
-                },
-              },
-              pagination: {
-                clickable: true,
-                el: '.swiper-pagination',
-                type: 'bullets',
-                dynamicBullets: true,
-              },
-              autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              },
-              loop: true,
-              grabCursor: true,
-              observer: true,
-              observeParents: true,
-            };
-
-            Object.assign(element, params);
-            element.initialize();
-          }
-        });
-      };
-
-      // Try to initialize immediately
-      initializeSwiper();
-
-      // Also try after a short delay to ensure DOM is ready
-      setTimeout(initializeSwiper, 100);
+      window.removeEventListener('resize', this.checkScreenSize.bind(this));
+      destroyOwlInstance('.facilities-carousel');
     }
   }
 }

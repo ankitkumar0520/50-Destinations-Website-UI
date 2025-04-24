@@ -1,8 +1,8 @@
 <div
-  class="min-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
+  class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
   id="facilities-services-section"
 >
-  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-8">
     <app-section-header
       [badgeText]="'Essential Services'"
       [titleLeft]="'Explore'"
@@ -15,169 +15,143 @@
     </app-section-header>
 
     <div>
-      <div class="block md:hidden">
-        <swiper-container
-          class="w-full"
-          init="false"
-          slides-per-view="1"
-          space-between="24"
-          pagination="true"
-          pagination-dynamic-bullets="true"
-          pagination-clickable="true"
-          style="
-            --swiper-pagination-color: var(--color-primary-600);
-            --swiper-pagination-bullet-inactive-color: var(--color-primary-300);
-            --swiper-pagination-bullet-size: 10px;
-            --swiper-pagination-bullet-horizontal-gap: 6px;
-          "
-        >
-          <swiper-slide
-            *ngFor="let facility of destination.facilities"
-            class="pb-8"
-          >
-            <div
-              class="relative p-8 rounded-2xl shadow-xs bg-white dark:bg-gray-900 font-sans"
-            >
-              <div
-                class="absolute top-0 left-0 w-80 h-80 bg-gradient-to-tr from-primary-100 via-primary-50 to-transparent rounded-full filter blur-3xl opacity-30 -z-10"
-              ></div>
-              <div class="flex flex-col gap-8">
-                <div>
-                  <p
-                    class="uppercase tracking-widest text-xs text-accent-500 dark:text-accent-400 font-semibold mb-2"
-                  >
-                    <i class="fas fa-star"></i> {{ facility.subtitle }}
-                  </p>
-                  <h1
-                    class="text-2xl md:text-3xl font-extrabold text-primary-700 dark:text-primary-400 leading-tight mb-3"
-                  >
-                    {{ facility.title }}<br />
-                    <span class="text-gray-500 dark:text-gray-400"
-                      >For Your Needs</span
-                    >
-                  </h1>
-                  <p class="text-base text-gray-600 dark:text-gray-300 mb-4">
-                    {{ facility.description }}
-                  </p>
-                  <a
-                    [href]="'#' + facility.id"
-                    class="inline-block border border-primary-600 dark:border-primary-400 text-primary-600 dark:text-primary-400 hover:bg-primary-600 hover:dark:bg-primary-400 hover:text-white px-5 py-2 rounded-full font-semibold text-sm transition"
-                  >
-                    <i class="fas fa-arrow-right"></i> {{ facility.buttonText }}
-                  </a>
-                </div>
-                <div class="relative">
-                  <img
-                    [src]="facility.image"
-                    [alt]="facility.imageAlt"
-                    class="w-full h-64 object-cover rounded-3xl shadow-xl"
-                    (error)="imageService.handleImageError($event)"
-                  />
-                  <div
-                    class="absolute -bottom-4 left-8 bg-white dark:bg-gray-800 p-3 rounded-2xl shadow-2xl w-60 border border-gray-100 dark:border-gray-700"
-                  >
-                    <h3
-                      class="font-bold text-base text-secondary-700 dark:text-secondary-400"
-                    >
-                      {{ facility.location }}
-                    </h3>
+      <div class="w-full h-full flex flex-col gap-5 mt-8">
+        <!-- Mobile/Tablet View with Owl Carousel -->
+        <div *ngIf="isMobile">
+          <div id="facilities-carousel" class="owl-carousel owl-theme facilities-carousel">
+            <div class="item" *ngFor="let facility of destination.facilities; let i = index">
+              <div class="relative p-5 sm:p-6 my-2 rounded-2xl shadow-md bg-white dark:bg-gray-900 font-sans border border-gray-100 dark:border-gray-700">
+                <div
+                  class="absolute top-0 left-0 w-60 h-60 bg-gradient-to-tr from-primary-100 via-primary-50 to-transparent dark:from-gray-800 dark:via-gray-700 dark:to-transparent rounded-full filter blur-3xl opacity-30 -z-10"
+                ></div>
+                <div class="grid md:grid-cols-2 gap-6 items-center">
+                  <div>
                     <p
-                      class="text-xs text-secondary-500 dark:text-secondary-300"
+                      class="uppercase tracking-widest text-xs text-accent-500 dark:text-accent-400 font-semibold mb-2"
                     >
-                      📍 {{ facility.distance }}
+                      <i class="fas fa-star"></i> {{ facility.subtitle }}
                     </p>
-                    <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                      <span
-                        *ngFor="let tag of facility.tags"
-                        [class]="
-                          'bg-' +
-                          tag.color +
-                          '-100 dark:bg-' +
-                          tag.color +
-                          '-800 text-' +
-                          tag.color +
-                          '-700 dark:text-' +
-                          tag.color +
-                          '-300 text-xs px-2 py-0.5 rounded-full'
-                        "
+                    <h1
+                      class="text-xl sm:text-2xl font-extrabold text-primary-700 dark:text-primary-400 leading-tight mb-3"
+                    >
+                      {{ facility.title }}<br />
+                      <span class="text-gray-500 dark:text-gray-400"
+                        >For Your Needs</span
                       >
-                        <i class="fas fa-tag"></i> {{ tag.text }}
-                      </span>
+                    </h1>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                      {{ facility.description }}
+                    </p>
+                  </div>
+                  <div class="relative">
+                    <img
+                      [src]="facility.image"
+                      [alt]="facility.imageAlt"
+                      class="w-full h-48 sm:h-56 object-cover rounded-3xl shadow-xl"
+                      (error)="imageService.handleImageError($event)"
+                    />
+                    <div
+                      class="absolute -bottom-4 left-4 sm:left-6 bg-white dark:bg-gray-900 p-2.5 rounded-2xl shadow-lg w-48 sm:w-56 border border-gray-100 dark:border-gray-700"
+                    >
+                      <h3
+                        class="font-bold text-sm text-gray-700 dark:text-gray-400"
+                      >
+                        {{ facility.location }}
+                      </h3>
+                      <p class="text-xs text-secondary-500 dark:text-secondary-300">
+                        <i class="fas fa-map-marker-alt text-secondary-500 dark:text-secondary-300 mr-1"></i> {{ facility.distance }}
+                      </p>
+                      <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                        <span
+                          *ngFor="let tag of facility.tags"
+                          [class]="
+                            'bg-' +
+                            tag.color +
+                            '-100 dark:bg-' +
+                            tag.color +
+                            '-800 text-' +
+                            tag.color +
+                            '-700 dark:text-' +
+                            tag.color +
+                            '-300 text-xs px-2 py-0.5 rounded-full'
+                          "
+                        >
+                          <i class="fas" [ngClass]="tag.icon || 'fa-tag'"></i> {{ tag.text }}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </swiper-slide>
-        </swiper-container>
-      </div>
+          </div>
+        </div>
 
-      <div class="hidden md:block">
-        <div
-          *ngFor="let facility of destination.facilities"
-          [id]="facility.id"
-          class="relative p-8 my-4 rounded-2xl shadow-xs bg-white dark:bg-gray-900 py-8 font-sans border-t border-gray-100 dark:border-gray-700"
-        >
+        <!-- Desktop View with Grid Layout -->
+        <div *ngIf="!isMobile" class="grid grid-cols-1 gap-5">
           <div
-            class="absolute top-0 left-0 w-80 h-80 bg-gradient-to-tr from-primary-100 via-primary-50 to-transparent dark:from-gray-800 dark:via-gray-700 dark:to-transparent rounded-full filter blur-3xl opacity-30 -z-10"
-          ></div>
-          <div class="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <p
-                class="uppercase tracking-widest text-xs text-accent-500 dark:text-accent-400 font-semibold mb-2"
-              >
-                <i class="fas fa-star"></i> {{ facility.subtitle }}
-              </p>
-              <h1
-                class="text-2xl md:text-3xl font-extrabold text-primary-700 dark:text-primary-400 leading-tight mb-3"
-              >
-                {{ facility.title }}<br />
-                <span class="text-gray-500 dark:text-gray-400"
-                  >For Your Needs</span
+            *ngFor="let facility of destination.facilities"
+            [id]="facility.id"
+            class="relative p-8 my-4 rounded-2xl shadow-md bg-white dark:bg-gray-900 py-8 font-sans border border-gray-100 dark:border-gray-700"
+          >
+            <div
+              class="absolute top-0 left-0 w-80 h-80 bg-gradient-to-tr from-primary-100 via-primary-50 to-transparent dark:from-gray-800 dark:via-gray-700 dark:to-transparent rounded-full filter blur-3xl opacity-30 -z-10"
+            ></div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <p
+                  class="uppercase tracking-widest text-xs text-accent-500 dark:text-accent-400 font-semibold mb-2"
                 >
-              </h1>
-              <p class="text-base text-gray-600 dark:text-gray-300 mb-4">
-                {{ facility.description }}
-              </p>
-              <!-- <a [href]="'#' + facility.id" class="inline-block border border-primary-600 dark:border-primary-400 text-primary-600 dark:text-primary-400 hover:bg-primary-600 hover:dark:bg-primary-400 hover:text-white px-5 py-2 rounded-full font-semibold text-sm transition">
-            <i class="fas fa-arrow-right"></i> Explore Now
-          </a> -->
-            </div>
-            <div class="relative">
-              <img
-                [src]="facility.image"
-                [alt]="facility.imageAlt"
-                class="w-full h-64 object-cover rounded-3xl shadow-xl"
-                (error)="imageService.handleImageError($event)"
-              />
-              <div
-                class="absolute -bottom-4 left-8 bg-white dark:bg-gray-900 p-3 rounded-2xl shadow-2xl w-60 border border-gray-100 dark:border-gray-700"
-              >
-                <h3
-                  class="font-bold text-base text-gray-700 dark:text-gray-400"
-                >
-                  {{ facility.location }}
-                </h3>
-                <p class="text-xs text-secondary-500 dark:text-secondary-300">
-                  📍 {{ facility.distance }}
+                  <i class="fas fa-star"></i> {{ facility.subtitle }}
                 </p>
-                <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                  <span
-                    *ngFor="let tag of facility.tags"
-                    [class]="
-                      'bg-' +
-                      tag.color +
-                      '-100 dark:bg-' +
-                      tag.color +
-                      '-800 text-' +
-                      tag.color +
-                      '-700 dark:text-' +
-                      tag.color +
-                      '-300 text-xs px-2 py-0.5 rounded-full'
-                    "
+                <h1
+                  class="text-2xl md:text-3xl font-extrabold text-primary-700 dark:text-primary-400 leading-tight mb-3"
+                >
+                  {{ facility.title }}<br />
+                  <span class="text-gray-500 dark:text-gray-400"
+                    >For Your Needs</span
                   >
-                    <i class="fas fa-tag"></i> {{ tag.text }}
-                  </span>
+                </h1>
+                <p class="text-base text-gray-600 dark:text-gray-300 mb-4">
+                  {{ facility.description }}
+                </p>
+              </div>
+              <div class="relative">
+                <img
+                  [src]="facility.image"
+                  [alt]="facility.imageAlt"
+                  class="w-full h-64 object-cover rounded-3xl shadow-xl"
+                  (error)="imageService.handleImageError($event)"
+                />
+                <div
+                  class="absolute -bottom-4 left-8 bg-white dark:bg-gray-900 p-3 rounded-2xl shadow-lg w-60 border border-gray-100 dark:border-gray-700"
+                >
+                  <h3
+                    class="font-bold text-base text-gray-700 dark:text-gray-400"
+                  >
+                    {{ facility.location }}
+                  </h3>
+                  <p class="text-xs text-secondary-500 dark:text-secondary-300">
+                    <i class="fas fa-map-marker-alt text-secondary-500 dark:text-secondary-300 mr-1"></i> {{ facility.distance }}
+                  </p>
+                  <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                    <span
+                      *ngFor="let tag of facility.tags"
+                      [class]="
+                        'bg-' +
+                        tag.color +
+                        '-100 dark:bg-' +
+                        tag.color +
+                        '-800 text-' +
+                        tag.color +
+                        '-700 dark:text-' +
+                        tag.color +
+                        '-300 text-xs px-2 py-0.5 rounded-full'
+                      "
+                    >
+                      <i class="fas" [ngClass]="tag.icon || 'fa-tag'"></i> {{ tag.text }}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

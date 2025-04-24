@@ -27,7 +27,7 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
       if (attractionCount > 2) {
         // Initialize MAIN carousel
         setTimeout(() => {
-          initializeOwlCarousel('.points-of-interest-carousel', false, true, 20, false, [1, 2, 4], true);
+          initializeOwlCarousel('.points-of-interest-carousel', false, true, 20, false, [1, 2, 3], true);
         }, 300);
 
         // Initialize NESTED image carousels for MAIN carousel items
