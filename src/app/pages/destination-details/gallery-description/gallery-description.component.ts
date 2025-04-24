@@ -14,31 +14,47 @@ import { DestinationService } from '../../../services/destination.service';
 export class GalleryDescriptionComponent implements OnInit, AfterViewInit, OnDestroy {
   displayGalleria: boolean = false;
   activeIndex: number = 0;
-  imageCount: number = 0;
   
   private destinationService = inject(DestinationService);
 
   // Sample destination data
-  destination= this.destinationService.getDestionation();
+  destination = this.destinationService.getDestionation();
 
+  // Calculate image count from destination data
+  get imageCount(): number {
+    return this.destination?.galleryImages?.length || 0;
+  }
 
   constructor() {
-
   }
 
   ngOnInit(): void {
-    // Initialization logic can be added here
+    // Ensure image count is initialized correctly
+    console.log(`Gallery initialized with ${this.imageCount} images`);
   }
 
   ngAfterViewInit(): void {
-
   }
 
   ngOnDestroy(): void {
   }
 
   showGalleria(index: number): void {
-    this.activeIndex = index;
-    this.displayGalleria = true;
+    if (index >= 0 && index < this.imageCount) {
+      this.activeIndex = index;
+      this.displayGalleria = true;
+    }
+  }
+
+  navigatePrevious(): void {
+    if (this.imageCount > 0) {
+      this.activeIndex = (this.activeIndex - 1 + this.imageCount) % this.imageCount;
+    }
+  }
+
+  navigateNext(): void {
+    if (this.imageCount > 0) {
+      this.activeIndex = (this.activeIndex + 1) % this.imageCount;
+    }
   }
 }
