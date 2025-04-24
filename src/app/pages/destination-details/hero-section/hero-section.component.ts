@@ -1,6 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, HostListener, inject, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { ShareQRModelComponent } from '../share-qr-model/share-qr-model.component';
+import { Component, inject, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { AiAudioModelComponent } from '../ai-audio-model/ai-audio-model.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DestinationService } from '../../../services/destination.service';
@@ -14,13 +13,12 @@ import { shareQRCode, downloadQRCode } from '../../../utils/utils';
   styleUrls: ['./hero-section.component.css'],
   imports: [
     CommonModule,
-    ShareQRModelComponent,
     AiAudioModelComponent,
     FontAwesomeModule,
     QRCodeComponent
   ],
 })
-export class HeroSectionComponent {
+export class HeroSectionComponent implements OnInit {
 
   private destinationService = inject(DestinationService);
   destination = this.destinationService.getDestionation();
@@ -33,14 +31,30 @@ export class HeroSectionComponent {
   }
 
   isMenuOpen = false;
-
   showModal = false;
-
   showAudioModal = false;
+  showFloatingAudio = true;
 
   activeSection: string = 'points-of-interest';
   navbarHeight = 70;
 
+  ngOnInit(): void {
+    // Initialize with floating audio button visible
+    this.showFloatingAudio = true;
+  }
+
+  toggleAudio(): void {
+    if (this.showAudioModal) {
+      this.showAudioModal = false;
+      // Keep the floating button visible after modal is closed
+      setTimeout(() => {
+        this.showFloatingAudio = true;
+      }, 300);
+    } else {
+      this.showAudioModal = true;
+      this.showFloatingAudio = true;
+    }
+  }
 
   scrollTo(id: string) {
     if (!this.isBrowser()) return;

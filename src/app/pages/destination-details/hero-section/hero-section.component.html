@@ -18,56 +18,68 @@
                          {{destination.shortdescription}}
                     </p>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 mb-6 sm:mb-8 max-w-3xl">
+
+                
+                <div class="grid grid-cols-2 !text-center  align-center md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 mb-6 sm:mb-8 max-w-3xl px-2">
                     <span *ngFor="let tag of destination.tags"
-                        class="px-3 sm:px-4 py-1 sm:py-1.5 bg-secondary/5 hover:bg-secondary/10 backdrop-blur-sm rounded-full text-white font-medium text-xs sm:text-sm flex items-center transition-all duration-300 group">
-                        <i [ngClass]="`${tag.icon} mr-2 text-accent group-hover:text-accent/80`"></i> {{tag.label}}
+                        class="px-3 sm:px-4 py-1 sm:py-1.5 bg-primary-200/30  hover:bg-secondary/20 backdrop-blur-sm rounded-full text-white font-medium 
+                        text-xs sm:text-sm items-center transition-all duration-300 group"> {{tag.label}}
                     </span>
                 </div>
+
+
                 <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <button (click)="scrollTo('about-section')"
-                        class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-primary to-primary/80 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-primary/90 hover:to-primary transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
+                        class="cursor-pointer w-full sm:w-auto bg-white/20 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-purple-700 hover:to-blue-600 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
                         <i class="fas fa-file-alt mr-2 sm:mr-3"></i> <span>Explore More</span>
                     </button>
                     <button (click)="showAudioModal = true"
-                        class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-secondary to-secondary/80 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-secondary/90 hover:to-secondary transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
+                        class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-amber-600 hover:to-orange-600 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
                         <i class="fas fa-volume-up mr-2 sm:mr-3"></i> <span>Audio Guide</span>
                     </button>
                     <button (click)="scrollTo('guide-map-section')"
-                        class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-accent to-accent/80 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-accent/90 hover:to-accent transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
+                        class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
                         <i class="fas fa-map-marker-alt mr-2 sm:mr-3"></i> <span>Navigate Now</span>
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="mt-6 sm:mt-8 bg-white/10 p-4 sm:p-6 rounded-lg shadow-lg backdrop-blur-md max-w-sm">
-            <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-4">
-                <div class="h-24 w-24 sm:h-32 sm:w-32 shrink-0 rounded-lg">
-                        <qrcode *ngIf="isBrowser()"
-                            class="aspect-square bg-white rounded-lg" 
-                            [qrdata]="shareUrl + '/destination/' + destination.name" 
-                            [width]="120" 
-                            [margin]="1"
-                            [cssClass]="'qr-code'"
-                            [errorCorrectionLevel]="'M'">
-                        </qrcode>
+
+        <div class="mt-6 sm:mt-8 lg:mt-10 bg-white/15 p-3 sm:p-4 lg:p-5 rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl hover:shadow-2xl backdrop-blur-lg border border-white/20 w-full max-w-[280px] sm:max-w-sm md:max-w-md hover:bg-white/20 transition-all duration-300 ease-in-out">
+            <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-5">
+                <!-- QR Code Container -->
+                <div class=" shrink-0 bg-white p-1.5 sm:p-2 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]">
+                    <qrcode *ngIf="isBrowser()"
+                        class="aspect-square w-full h-full" 
+                        [qrdata]="shareUrl + '/destination/' + destination.name" 
+                        [width]="100" 
+                        [margin]="1"
+                        [cssClass]="'qr-code'"
+                        [errorCorrectionLevel]="'M'">
+                    </qrcode>
                 </div>
-                <div class="text-white text-center sm:text-left">
-                    <h2 class="text-lg sm:text-xl font-semibold mb-2">Scan the QR Code</h2>
-                    <p class="text-sm sm:text-base text-gray-200 opacity-90">
-                        Use this QR code to quickly access the details of {{destination.name}} on another device.
+                
+                <!-- Text Content -->
+                <div class="text-white text-center sm:text-left flex-1 space-y-1.5 sm:space-y-2">
+                    <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-white leading-tight">Scan & Explore</h2>
+                    <p class="text-xs sm:text-sm md:text-base text-gray-100 opacity-90 leading-snug sm:leading-normal">
+                        Share <span class="text-accent font-semibold">{{destination.name}}</span> with friends!
                     </p>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-3 sm:gap-4 mt-4">
+            
+            <!-- Buttons -->
+            <div class="grid grid-cols-2 gap-2 sm:gap-3 mt-3 sm:mt-4">
                 <button (click)="downloadQR()"
-                    class="cursor-pointer w-full text-gray-100  px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-normal hover:text-green-500 transition-all duration-300 flex items-center justify-center">
-                    <i class="fas fa-download mr-2 sm:mr-3"></i> <span>Download</span>
+                    class="cursor-pointer w-full bg-white/10 hover:bg-white/20 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow hover:shadow-md border border-white/10 hover:border-white/20 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95">
+                    <i class="fas fa-download mr-1.5 sm:mr-2 text-accent text-xs sm:text-sm"></i>
+                    <span class="text-xs sm:text-sm">Download</span>
                 </button>
                 <button (click)="shareQR()"
-                    class="cursor-pointer w-full text-gray-100 px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-normal hover:text-blue-400 transition-all duration-300 flex items-center justify-center">
-                    <i class="fas fa-share-alt mr-2 sm:mr-3"></i> <span>Share</span>
+                    class="cursor-pointer w-full bg-accent/20 hover:bg-accent/30 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow hover:shadow-md border border-accent/20 hover:border-accent/30 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95">
+                    <i class="fas fa-share-alt mr-1.5 sm:mr-2 text-accent text-xs sm:text-sm"></i>
+                    <span class="text-xs sm:text-sm">Share</span>
                 </button>
             </div>
         </div>
@@ -78,13 +90,28 @@
     </div>
 </section>
 
+<!-- Floating Audio Button -->
+<div *ngIf="showFloatingAudio" class="fixed left-8 bottom-8 z-50 flex items-center group">
+    <!-- Audio Button with integrated X -->
+    <div class="relative">
+        <button 
+            (click)="toggleAudio()" 
+            class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-white/20 backdrop-blur-sm">
+            <i [class]="showAudioModal ? 'fas fa-volume-mute' : 'fas fa-volume-up'" class="text-xl"></i>
+        </button>
+        
+        <!-- Permanent X Button -->
+        <button 
+            (click)="showFloatingAudio = false" 
+            class="cursor-pointer absolute -top-2 -right-2 bg-gradient-to-r from-rose-400 to-pink-500 text-white w-6 h-6 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transform hover:scale-110 transition-all duration-300 border border-white/30">
+            <i class="fas fa-times text-xs"></i>
+        </button>
+    </div>
 
-
-
-<!-- Share Modal -->
-<div class="p-6" *ngIf="showModal">
-    <app-share-qr-model [shareLink]="shareUrl" (close)="showModal = false"></app-share-qr-model>
+    <!-- Label that appears on hover -->
+    <div class="absolute -top-10 bg-black/70 text-white text-sm py-1 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+        Audio Guide
+    </div>
 </div>
-
 
 <app-ai-audio-model *ngIf="showAudioModal" (close)="showAudioModal = false"></app-ai-audio-model>

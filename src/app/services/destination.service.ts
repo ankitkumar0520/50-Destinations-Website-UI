@@ -16,11 +16,11 @@ export class DestinationService {
       shortdescription: `Rumtek Monastery, also called the Dharma Chakra Centre, is a gompa located in the Indian state of
       Sikkim near the capital Gangtok. It is the seat in exile of the Gyalwang Karmapa, inaugurated in 1966 by the 16th Karmapa.`,
       tags: [
-        { icon: 'fas fa-landmark', label: 'Monastery' },
-        { icon: 'fas fa-mountain', label: 'Sikkim' },
-        { icon: 'fas fa-pray', label: 'Buddhist Temple' },
-        { icon: 'fas fa-om', label: 'Religious Site' },
-        { icon: 'fas fa-camera', label: 'Tourist Spot' }
+        { label: 'Monastery' },
+        { label: 'Sikkim' },
+        {  label: 'Buddhist Temple' },
+        { label: 'Religious Site' },
+        { label: 'Tourist Spot' }
       ],
       title: 'Rumtek Monastery: The Majestic Seat of the Karmapa',
       location: 'Rumtek, Gangtok,Sikkim 737135, India',
