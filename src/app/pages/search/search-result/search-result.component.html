@@ -12,7 +12,7 @@
       <!-- Right: Flip All Button -->
       <div>
         <button
-          class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg border border-transparent bg-blue-100/40 dark:bg-white/10 text-blue-700 dark:text-green-300 hover:bg-blue-100/80 dark:hover:bg-green-600/20 transition"
+          class="cursor-pointer flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg border border-transparent bg-blue-100/40 dark:bg-white/10 text-blue-700 dark:text-green-300 hover:bg-blue-100/80 dark:hover:bg-green-600/20 transition"
           (click)="flipAll()"
         >
           <i class="fas fa-sync-alt text-blue-600 dark:text-green-300"></i>
@@ -102,10 +102,10 @@
               <!-- Action Button -->
               <button
                 (click)="navigateToDetail(result.id)"
-                class="mt-auto bg-primary-600 dark:bg-primary-500 hover:bg-primary-700 dark:hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-sm hover:shadow-md text-sm flex items-center justify-center group"
+                class="cursor-pointer mt-auto bg-primary-600 dark:bg-primary-500 hover:bg-primary-700 dark:hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-sm hover:shadow-md text-sm flex items-center justify-center group"
               >
                 <span>View Details</span>
-                <i class="fas fa-arrow-right"></i>
+                <i class="ml-2 fas fa-arrow-right"></i>
               </button>
             </div>
           </div>

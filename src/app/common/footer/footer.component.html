@@ -68,8 +68,10 @@
             </h3>
             <ul class="space-y-1.5">
               <li *ngFor="let item of section.items">
+                @if(isExternalLink(item.link)){
                 <a
-                  [routerLink]="item.link"
+                  [href]="item.link"  
+                  [target]="item.openat"
                   class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center"
                 >
                   <i
@@ -77,6 +79,21 @@
                   ></i>
                   {{ item.name }}
                 </a>
+              }
+              @else{
+                <a
+                  [href]="item.link"  
+                  [target]="item.openat"
+                  class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center"
+                >
+                  <i
+                    class="fas fa-chevron-right text-xs mr-1 text-primary-500 dark:text-primary-400"
+                  ></i>
+                  {{ item.name }}
+                </a>
+              }
+
+
               </li>
             </ul>
           </div>

@@ -1,9 +1,10 @@
 import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'QR Sikkim';
 
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe(() => {
+        // 👇 Smooth scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+  }
 
   showScrollTop = false;
   private scrollThreshold = 300;
