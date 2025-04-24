@@ -1,0 +1,46 @@
+::ng-deep .shops-carousel .owl-stage-outer,
+::ng-deep .shops-carousel .owl-stage,
+::ng-deep .shops-carousel .owl-item {
+  height: 100%;
+}
+
+::ng-deep .shops-carousel .item {
+  height: 100%;
+  padding: 8px 4px;
+}
+
+::ng-deep .shops-carousel .item > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+::ng-deep .shops-carousel img {
+  transition: transform 0.3s ease-in-out;
+}
+
+::ng-deep .shops-carousel .item:hover img {
+  transform: scale(1.03);
+}
+
+/* Ensure address area has consistent height */
+.flex-col .h-16 {
+  min-height: 4rem;
+  overflow: hidden;
+}
+
+/* Ensure all cards have the same height */
+.item .bg-white {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Subtle hover effects for buttons */
+button {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}

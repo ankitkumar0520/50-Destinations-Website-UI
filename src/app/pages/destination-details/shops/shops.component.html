@@ -1,5 +1,5 @@
-<section class="min-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="shops-section">
-  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">
+<section class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="shops-section">
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-8">
     <app-section-header 
       [badgeText]="'Local Shopping'"
       [titleLeft]="'Explore'"
@@ -12,45 +12,47 @@
       ]">
     </app-section-header>
 
-    <!-- Grid for Shops -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div
-        *ngFor="let shop of destination.shops"
-        class="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden"
+    <!-- Section Title -->
+    <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3 mt-8">
+      <span class="flex items-center justify-center bg-blue-500 rounded-full w-9 h-9 text-white">
+        <i class="fas fa-store text-base"></i>
+      </span>
+      Local Shops & Artisans
+    </h2>
+
+    <!-- Shops Carousel -->
+    <div class="shops-carousel owl-carousel owl-theme">
+      <div 
+        *ngFor="let shop of destination.shops" 
+        class="item"
       >
-        <!-- Shop Image -->
-        <div class="relative h-48 overflow-hidden">
-          <img
-            [src]="shop.image"
-            [alt]="shop.name"
-            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-4">
-            <h2 class="text-xl font-semibold text-white">{{ shop.name }}</h2>
-          </div>
-        </div>
-
-        <!-- Shop Details -->
-        <div class="p-4">
-          <div class="flex items-start gap-2 mb-3">
-            <i class="fas fa-map-marker-alt text-blue-500 mt-0.5"></i>
-            <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-1">{{ shop.address }}</p>
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
+          <!-- Shop Image -->
+          <div class="relative h-40 overflow-hidden">
+            <img
+              [src]="shop.image"
+              [alt]="shop.name"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4">
+              <h3 class="text-lg font-semibold text-white">{{ shop.name }}</h3>
+            </div>
           </div>
 
-          <!-- Action Buttons -->
-          <div class="flex gap-2">
-            <button
-              class="flex-1 bg-blue-500 text-white hover:bg-blue-600 font-medium py-2 px-3 rounded-lg transition flex items-center justify-center gap-1 cursor-pointer"
-            >
-              <i class="fas fa-map"></i>
-              View Map
-            </button>
+          <!-- Shop Details -->
+          <div class="p-4 flex flex-col">
+            <div class="flex items-start gap-2 mb-4 h-16">
+              <i class="fas fa-map-marker-alt text-blue-500 mt-0.5 w-5 text-center flex-shrink-0"></i>
+              <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ shop.address }}</p>
+            </div>
+
+            <!-- Action Button -->
             <button
               (click)="openModal(shop)"
-              class="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 font-medium py-2 px-3 rounded-lg transition flex items-center justify-center gap-1 cursor-pointer"
+              class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md transition flex items-center justify-center gap-2 mt-auto"
             >
-              <i class="fas fa-box-open"></i>
+              <i class="fas fa-box-open text-xs"></i>
               View Products
             </button>
           </div>
@@ -60,38 +62,55 @@
 
     <!-- Products Modal -->
     <div
-      *ngIf="isModalOpen"
-      class="fixed inset-0 z-50 flex items-center justify-center"
+      *ngIf="isModalOpen && selectedShop"
+      class="fixed inset-0 z-100 flex items-center justify-center"
       [@modalAnimation]>
       <!-- Background overlay -->
-      <div class="fixed inset-0 bg-gray-500/75 cursor-pointer" (click)="closeModal()"></div>
+      <div class="fixed inset-0 bg-gray-800/80 backdrop-blur-sm cursor-pointer" (click)="closeModal()"></div>
 
       <!-- Modal panel -->
-      <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4">
+      <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4 overflow-hidden">
         <!-- Modal header with shop info -->
-        <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-          <div class="flex items-center justify-between">
-            <div>
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">{{ selectedShop?.name }}</h3>
-              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{{ selectedShop?.address }}</p>
+        <div class="relative">
+          <!-- Shop image as background -->
+          <div class="absolute inset-0 z-0">
+            <img [src]="selectedShop.image" [alt]="selectedShop.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
+            <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
+          </div>
+          
+          <!-- Shop info -->
+          <div class="relative z-10 p-6 text-white">
+            <div class="flex items-start justify-between">
+              <div>
+                <h3 class="text-2xl font-bold mb-1">{{ selectedShop.name }}</h3>
+                <p class="text-white/80 flex items-center gap-2">
+                  <i class="fas fa-map-marker-alt"></i>
+                  {{ selectedShop.address }}
+                </p>
+              </div>
+              <button
+                (click)="closeModal()"
+                class="text-white/80 hover:text-white focus:outline-none cursor-pointer"
+              >
+                <i class="fas fa-times text-lg"></i>
+              </button>
             </div>
-            <button
-              (click)="closeModal()"
-              class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none cursor-pointer"
-            >
-              <i class="fas fa-times"></i>
-            </button>
           </div>
         </div>
 
         <!-- Products grid -->
-        <div class="bg-white dark:bg-gray-800 px-6 py-4">
+        <div class="bg-white dark:bg-gray-800 p-6">
+          <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+            <i class="fas fa-shopping-bag text-primary-500"></i>
+            Available Products
+          </h4>
+          
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div
-              *ngFor="let product of selectedShop?.products"
-              class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+              *ngFor="let product of selectedShop.products"
+              class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer border border-gray-100 dark:border-gray-700"
             >
-              <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+              <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
                 <img
                   [src]="product.image"
                   [alt]="product.name"
@@ -99,8 +118,12 @@
                 />
               </div>
               <div class="flex-1 min-w-0">
-                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{{ product.name }}</h4>
-                <span class="text-xs text-gray-500 dark:text-gray-400">{{ product.category }}</span>
+                <h4 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-1">{{ product.name }}</h4>
+                <div class="flex items-center gap-2">
+                  <span class="bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs px-2 py-0.5 rounded-full">
+                    {{ product.category }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

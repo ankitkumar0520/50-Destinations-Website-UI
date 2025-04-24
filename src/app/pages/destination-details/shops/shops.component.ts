@@ -1,23 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
-
-interface Product {
-  name: string;
-  image: string;
-  price?: string;
-  category?: string;
-}
-
-interface Shop {
-  name: string;
-  address: string;
-  image: string;
-  products: Product[];
-  category: string;
-}
+import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils';
 
 @Component({
   selector: 'app-shops',
@@ -35,16 +21,27 @@ interface Shop {
     ])
   ]
 })
-export class ShopsComponent {
+export class ShopsComponent implements AfterViewInit, OnDestroy {
   
   private destinationService = inject(DestinationService);
-
+  
   destination = this.destinationService.getDestionation();
-
-  selectedShop: Shop | null = null;
+  selectedShop: any = null;
   isModalOpen = false;
 
-  openModal(shop: Shop) {
+  constructor() {}
+  
+  ngAfterViewInit(): void {
+    // Initialize carousel
+    setTimeout(() => {   
+      // Configure the carousel with responsive breakpoints
+      initializeOwlCarousel('.shops-carousel', false, true, 16, false, 
+        [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
+        true); 
+    }, 300);
+  }
+  
+  openModal(shop: any) {
     this.selectedShop = shop;
     this.isModalOpen = true;
     // Prevent body scroll when modal is open
@@ -56,5 +53,9 @@ export class ShopsComponent {
     this.isModalOpen = false;
     // Restore body scroll
     document.body.style.overflow = 'auto';
+  }
+  
+  ngOnDestroy(): void {
+    destroyOwlInstance('.shops-carousel');
   }
 }
