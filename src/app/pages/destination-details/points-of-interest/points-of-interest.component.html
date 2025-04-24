@@ -1,8 +1,8 @@
 <section
-  class="min-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
+  class="min-h-screen pt-16 pb-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
   id="points-of-interest-section"
 >
-  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">
+  <div class="max-w-7xl mx-auto px-6 md:px-16 2xl:px-0">
     <app-section-header
       [badgeText]="'Must-Visit Spots'"
       [titleLeft]="'Explore'"
@@ -13,119 +13,103 @@
       [features]="[]"
     ></app-section-header>
 
-    <!-- Cards Carousel -->
-    <div>
-      <swiper-container
-        class="w-full"
-        init="false"
-        slides-per-view="1"
-        space-between="24"
-        breakpoints='{
-          "640": {
-            "slidesPerView": 1,
-            "spaceBetween": 24
-          },
-          "768": {
-            "slidesPerView": 2,
-            "spaceBetween": 24
-          },
-          "1024": {
-            "slidesPerView": 3,
-            "spaceBetween": 24
-          },
-          "1280": {
-            "slidesPerView": 4,
-            "spaceBetween": 24
-          }
-        }'
-        pagination="true"
-        pagination-dynamic-bullets="true"
-        pagination-clickable="true"
-        grab-cursor="true"
-        style="
-          --swiper-pagination-color: var(--color-primary-600);
-          --swiper-pagination-bullet-inactive-color: var(--color-primary-300);
-          --swiper-pagination-bullet-size: 10px;
-          --swiper-pagination-bullet-horizontal-gap: 6px;
-          --swiper-pagination-bottom: 0;
-        "
-      >
-        <swiper-slide *ngFor="let point of destination.touristAttractions">
-          <!-- Card -->
-          <div
-            class="flex flex-col bg-white dark:bg-gray-800 rounded-lg overflow-hidden transition-shadow max-h-[430px] w-full"
-          >
-            <!-- Image Slider Container -->
-            <div class="h-[230px] relative w-full overflow-hidden">
-              <swiper-container
-                class="h-full w-full"
-                pagination="true"
-                pagination-dynamic-bullets="true"
-                pagination-clickable="true"
-                loop="true"
-                autoplay-delay="3000"
-                grab-cursor="true"
-                slides-per-view="1"
-                init="false"
-                style="
-                  --swiper-pagination-color: var(--color-accent-500);
-                  --swiper-pagination-bullet-inactive-color: rgba(
-                    255,
-                    255,
-                    255,
-                    0.5
-                  );
-                  --swiper-pagination-bullet-size: 8px;
-                  --swiper-pagination-bullet-horizontal-gap: 4px;
-                "
-              >
-                <swiper-slide
-                  *ngFor="let image of point.images"
-                  class="w-full h-full"
-                >
-                  <img
-                    [src]="image"
-                    [alt]="point.imageAlt"
-                    class="w-full h-full object-cover"
-                    loading="eager"
+    <div class="max-w-[1400px] mx-auto mt-10">
+      <!-- Layout for MORE than 2 items: OWL CAROUSEL -->
+      <div *ngIf="destination.touristAttractions.length > 2" class="owl-carousel owl-theme points-of-interest-carousel">
+        <div class="item p-2" *ngFor="let point of destination.touristAttractions; let i = index">
+          <!-- Carousel Card Structure (Image Top) -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 transform hover:-translate-y-1 w-full min-h-[420px] h-[420px] max-h-[420px]">
+            <!-- Image Container -->
+            <div class="relative h-[200px] overflow-hidden group">
+              <!-- NESTED Image Carousel -->
+              <div [id]="'point-image-carousel-main-' + i" class="owl-carousel owl-theme point-image-carousel h-full">
+                <div *ngFor="let image of point.images" class="item h-full">
+                  <img 
+                    [src]="image" 
+                    [alt]="point.imageAlt" 
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                   />
-                </swiper-slide>
-              </swiper-container>
-            </div>
-
-            <!-- Content Box -->
-            <div
-              class="flex-1 bg-gray-50 dark:bg-gray-900 p-5 rounded-t-lg h-[230px] overflow-hidden"
-            >
-              <!-- Location -->
-              <div
-                class="text-sm font-medium text-secondary-600 dark:text-secondary-400 mb-2"
-              >
-                {{ point.location }}
+                </div>
               </div>
-
+              <!-- Indicator Dots -->
+              <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-10">
+                <span *ngFor="let image of point.images; let imgIndex = index" class="w-2 h-2 rounded-full bg-white" [ngClass]="{'bg-opacity-100': imgIndex === 0, 'bg-opacity-50': imgIndex !== 0}"></span>
+              </div>
+            </div>
+            <!-- Content Box -->
+            <div class="flex flex-col p-5 h-[220px]">
+              <!-- Location -->
+              <div class="text-xs font-medium text-primary-600 dark:text-primary-400 mb-2 flex items-center">
+                <svg class="w-4 h-4 mr-1.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span class="truncate">{{ point.location }}</span>
+              </div>
               <!-- Title -->
-              <h3
-                class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-1"
-              >
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
                 {{ point.title }}
               </h3>
-
               <!-- Description -->
-              <p
-                class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2"
-              >
+              <p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-4 flex-grow">
                 {{ point.description }}
               </p>
-
-              <!-- Button -->
-              <!-- <button class="w-full bg-primary-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-500 transition-colors text-sm">
-                Explore Location
-              </button> -->
             </div>
           </div>
-        </swiper-slide>
-      </swiper-container>
+        </div>
+      </div>
+
+
+      
+
+<!-- Layout for UP TO 2 items: FLEX ROW -->
+<div *ngIf="destination.touristAttractions.length <= 2" class="flex flex-wrap justify-center -mx-3">
+  <div class="w-full sm:w-1/2 px-3 mb-6" *ngFor="let point of destination.touristAttractions; let i = index">
+    <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 group sm:h-[280px] h-auto">
+      
+      <div class="flex flex-col sm:flex-row sm:h-full">
+        <!-- Image Section with Owl Carousel -->
+        <div class="sm:w-2/4 w-full h-56 sm:h-full flex-shrink-0 relative overflow-hidden">
+          <div [id]="'point-image-carousel-flex-' + i" class="owl-carousel owl-theme point-image-carousel h-full">
+            <div *ngFor="let image of point.images" class="item h-full">
+              <img 
+                [src]="image" 
+                [alt]="point.imageAlt" 
+                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Section - Centered Vertically -->
+        <div class="sm:w-3/5 w-full p-6 flex flex-col justify-center sm:justify-center">
+          <!-- Location -->
+          <div class="text-xs font-medium text-primary-600 dark:text-primary-400 mb-2 flex items-center">
+            <svg class="w-4 h-4 mr-1.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" 
+                 viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span class="truncate">{{ point.location }}</span>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-2">
+            {{ point.title }}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+            {{ point.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
     </div>
   </div>
 </section>

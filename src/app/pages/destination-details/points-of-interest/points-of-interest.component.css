@@ -1,0 +1,13 @@
+::ng-deep .point-image-carousel,
+::ng-deep .point-image-carousel .owl-stage-outer,
+::ng-deep .point-image-carousel .owl-stage,
+::ng-deep .point-image-carousel .owl-item,
+::ng-deep .point-image-carousel .item {
+  height: 100% !important;
+}
+
+::ng-deep .point-image-carousel img {
+  height: 100% !important;
+  object-fit: cover;
+  display: block;
+}

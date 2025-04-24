@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { destroyOwlInstance, initializeOwlCarousel } from '../../../utils/utils';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
 
@@ -32,21 +31,10 @@ export class GalleryDescriptionComponent implements OnInit, AfterViewInit, OnDes
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      initializeOwlCarousel(
-        '.destination-gallery-carousel',
-        false,
-        true,
-        5,
-        false,
-        [1,3,4],
-        true
-      );
-    }, 300);
+
   }
 
   ngOnDestroy(): void {
-    destroyOwlInstance('.destination-gallery-carousel');
   }
 
   showGalleria(index: number): void {
