@@ -1,0 +1,24 @@
+::ng-deep #police-services img,
+::ng-deep #hospital-services img {
+  transition: transform 0.3s ease-in-out;
+}
+
+::ng-deep #police-services .relative:hover img,
+::ng-deep #hospital-services .relative:hover img {
+  transform: scale(1.03);
+}
+
+/* Section transition effects */
+#safety-emergency-section {
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle hover effects for interactive elements */
+#safety-emergency-section a {
+  transition: all 0.2s ease;
+}
+
+#safety-emergency-section a:hover {
+  transform: translateY(-2px);
+}

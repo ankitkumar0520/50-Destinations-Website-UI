@@ -4,17 +4,6 @@ import { SectionHeaderComponent } from '../../../common/section-header/section-h
 import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
 
-interface PoliceLocation {
-  id: string;
-  name: string;
-  description: string;
-  distance: string;
-  contact: string;
-  address: string;
-  image: string;
-  type: string;
-  badge?: string;
-}
 
 @Component({
   selector: 'app-police-hospital',

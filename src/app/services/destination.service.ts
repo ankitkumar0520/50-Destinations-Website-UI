@@ -132,10 +132,9 @@ export class DestinationService {
           location: 'Main Parking Area',
           distance: '200m from main entrance',
           tags: [
-            { text: '24/7 Access', icon: '🕒', color: 'green' },
-            { text: 'Secure', icon: '🔒', color: 'yellow' }
+            { text: '24/7 Access' },
+            { text: 'Secure' }
           ],
-          buttonIcon: '🅿️'
         },
         {
           id: 'taxi',
@@ -147,11 +146,10 @@ export class DestinationService {
           location: 'Main Taxi Stand',
           distance: '100m from main entrance',
           tags: [
-            { text: '10am-5pm Service', icon: '🕒', color: 'indigo' },
-            { text: 'Multiple Options', icon: '🚗', color: 'green' },
-            { text: 'UPI Accepted', icon: '💳', color: 'yellow' }
+            { text: '10am-5pm Service'   },
+            { text: 'Multiple Options' },
+            { text: 'UPI Accepted' }
           ],
-          buttonIcon: '🚕'
         },
         {
           id: 'atm',
@@ -163,11 +161,10 @@ export class DestinationService {
           location: 'Main ATM Center',
           distance: '150m from main entrance',
           tags: [
-            { text: '24/7 Available', icon: '🕒', color: 'indigo' },
-            { text: 'Multiple Banks', icon: '🏦', color: 'green' },
-            { text: 'Cash Available', icon: '💵', color: 'yellow' }
+            { text: '24/7 Available' },
+            { text: 'Multiple Banks'},
+            { text: 'Cash Available'}
           ],
-          buttonIcon: '💳'
         }
       ],
       safty:[
@@ -178,9 +175,13 @@ export class DestinationService {
           distance: '12 kilometers away',
           contact: '03592-251712',
           address: 'Gangtok-Rangpo Road, Upper Tadong, Sikkim, 737135',
+          location:{
+            lat:'12.121',
+            long:'232.212'
+           },
           image: 'assets/Images/rumtek-monastry/police-station.jpg',
-          type: 'police',
           badge: '24/7 Service'
+
         },
         {
           id: 'police-booth',
@@ -189,8 +190,11 @@ export class DestinationService {
           distance: 'Approximately 5 kilometers.',
           contact: '011-24368237 or 011-24363940',
           address: '13th Battalion, ITBP Lingdum, East Sikkim, Sikkim',
+          location:{
+            lat:'ttfv',
+            long:''
+           },
           image: 'assets/Images/rumtek-monastry/ITBP.jpg',
-          type: 'police',
           badge: 'Tourist Help'
         }
       ]
@@ -203,6 +207,10 @@ export class DestinationService {
           distance: 'Approximately 1 kilometer',
           contact: '+91 1122334455',
           address: 'Shyagyong Rumtek Sub-Center, Rumtek, East Sikkim, Sikkim, 737135.',
+          location:{
+            lat:'ttfv',
+            long:''
+           },
           image: 'assets/Images/rumtek-monastry/medical-camp.jpg',
           type: 'healthcare',
           badge: 'Temporary Facility'
@@ -214,6 +222,10 @@ export class DestinationService {
           distance: 'Approximately 23 kilometers.',
           contact: '09845562399',
           address: 'NH 31A, Gangtok, East Sikkim, Sikkim, 737101',
+          location:{
+            lat:'ttfv',
+            long:''
+           },
           image: 'assets/Images/rumtek-monastry/STMP.jpg',
           type: 'healthcare',
           badge: '24/7 Emergency'

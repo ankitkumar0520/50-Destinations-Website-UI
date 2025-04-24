@@ -1,8 +1,8 @@
 <section
-  class="min-h-screen py-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
+  class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
   id="safety-emergency-section"
 >
-  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-16">
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-8">
     <app-section-header
       [badgeText]="'Safety & Healthcare Services'"
       [titleMiddleHighlighted]="'Safety & Emergency'"
@@ -14,184 +14,161 @@
     >
     </app-section-header>
 
-    <div class="space-y-6 mt-2">
-      <div>
-        <div
-          class="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-amber-100 dark:border-amber-900/50 p-4 mb-4"
-        >
-          <div
-            class="absolute inset-0 bg-gradient-to-r from-amber-50/30 via-amber-50/30 to-transparent dark:from-amber-900/30 dark:via-amber-600/10 dark:to-transparent"
-          ></div>
-          <div class="relative flex items-center gap-2">
-            <span
-              class="flex items-center justify-center bg-yellow-600 rounded-full p-2"
-            >
-              <i class="fa fa-shield text-white text-lg"></i>
-            </span>
-            <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-              Police Service
-            </h3>
-          </div>
-        </div>
-        <div class="space-y-4" id="police-services">
-          <div
-            *ngFor="let location of destination.safty"
-            class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-amber-100 dark:border-gray-700"
-          >
-            <div class="grid md:grid-cols-[35%_65%]">
-              <div class="relative h-48 md:h-auto">
-                <img
-                  [src]="location.image"
-                  [alt]="location.name"
-                  class="absolute inset-0 w-full h-full object-cover"
-                  (error)="imageService.handleImageError($event)"
-                />
-              </div>
-              <div class="p-4">
-                <div class="flex items-center justify-between mb-2">
-                  <h3
-                    class="text-base font-semibold text-slate-800 dark:text-white"
-                  >
-                    {{ location.name }}
-                  </h3>
-                  <span
-                    *ngIf="location.badge"
-                    class="px-2 py-0.5 bg-primary-50 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded-full text-xs font-medium"
-                    >{{ location.badge }}</span
-                  >
-                </div>
-                <p class="text-sm text-slate-600/90 dark:text-gray-300/90 mb-3">
-                  {{ location.description }}
-                </p>
-                <div
-                  class="space-y-1.5 text-slate-600/90 dark:text-gray-400/90"
-                >
-                  <div class="flex items-center gap-1.5">
-                    <i
-                      class="fa fa-map-marker text-primary-500/90 dark:text-primary-400/90 text-sm"
-                    ></i>
-                    <span class="text-xs"
-                      >{{ location.distance }} from destination</span
-                    >
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <i
-                      class="fa fa-phone text-primary-500/90 dark:text-primary-400/90 text-sm"
-                    ></i>
-                    <span class="text-xs">{{ location.contact }}</span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <i
-                      class="fa fa-location-arrow text-primary-500/90 dark:text-primary-400/90 text-sm"
-                    ></i>
-                    <span class="text-xs">{{ location.address }}</span>
-                  </div>
-                </div>
-                <div class="mt-3">
-                  <a
-                    [href]="'#' + location.id"
-                    class="inline-flex items-center gap-1.5 bg-gradient-to-r from-primary-500/90 to-secondary-700/90 hover:from-primary-600/90 hover:to-secondary-700/90 text-white dark:text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-colors"
-                  >
-                    <i class="fa fa-map-marker"></i>
-                    Locate
-                    {{ location.type === "police" ? "Station" : "Facility" }}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="w-full h-full flex flex-col gap-8 mt-8">
+<!-- Police Services Section -->
+<div>
+  <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3">
+    <span class="flex items-center justify-center bg-amber-500 rounded-full w-9 h-9 text-white">
+      <i class="fas fa-shield-alt text-base"></i>
+    </span>
+    Police & Emergency Services
+  </h2>
 
-      <div id="hospital-services">
-        <div
-          class="relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-red-100 dark:border-red-900/70 p-4 mb-4"
-        >
-          <div
-            class="absolute inset-0 bg-gradient-to-r from-red-50/30 via-red-50/30 to-transparent dark:from-red-900/30 dark:via-red-600/10 dark:to-transparent"
-          ></div>
-          <div class="relative flex items-center gap-2">
-            <span
-              class="flex items-center justify-center bg-red-500 dark:bg-red-600 rounded-full aspect-square p-2 h-8 w-8"
-            >
-              <i class="fas fa-heart text-white text-lg"></i>
-            </span>
-            <h3 class="text-lg font-bold text-slate-800 dark:text-white">
-              Healthcare Service
-            </h3>
-          </div>
-        </div>
-        <div class="space-y-4">
-          <div
-            *ngFor="let location of destination.healthcare"
-            class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden border border-red-100 dark:border-gray-700"
+  <div class="grid grid-cols-1 gap-6 lg:gap-8 xl:gap-10" id="police-services">
+    <div
+      *ngFor="let security of destination.safty"
+      class="relative p-6 lg:p-8 xl:p-10 rounded-2xl bg-white dark:bg-gray-900 
+      shadow-lg border-b-1 border-b-blue-500 border border-gray-200 dark:border-gray-700"
+    >
+      <!-- Soft radial background -->
+      <div class="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-transparent dark:from-amber-900/30 dark:via-amber-800/20 blur-3xl opacity-25 rounded-2xl -z-10"></div>
+
+      <!-- Flex container -->
+      <div class="flex flex-col md:flex-row gap-6 lg:gap-10 xl:gap-12 items-start">
+        
+        <!-- Image with badge -->
+        <div class="relative w-full md:w-48 lg:w-56 xl:w-64 shrink-0">
+          <img
+            [src]="security.image"
+            [alt]="security.name"
+            class="w-full aspect-square object-cover rounded-xl shadow"
+            (error)="imageService.handleImageError($event)"
+          />
+          <span
+            *ngIf="security.badge"
+            class="absolute top-2 right-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full text-xs font-medium shadow"
           >
-            <div class="grid md:grid-cols-[35%_65%]">
-              <div class="relative h-48 md:h-auto">
-                <img
-                  [src]="location.image"
-                  [alt]="location.name"
-                  class="absolute inset-0 w-full h-full object-cover"
-                  (error)="imageService.handleImageError($event)"
-                />
-              </div>
-              <div class="p-4">
-                <div class="flex items-center justify-between mb-2">
-                  <h3
-                    class="text-base font-semibold text-slate-800 dark:text-white"
-                  >
-                    {{ location.name }}
-                  </h3>
-                  <span
-                    *ngIf="location.badge"
-                    class="px-2 py-0.5 bg-primary-50 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded-full text-xs font-medium"
-                    >{{ location.badge }}</span
-                  >
-                </div>
-                <p class="text-sm text-slate-600/90 dark:text-gray-300/90 mb-3">
-                  {{ location.description }}
-                </p>
-                <div
-                  class="space-y-1.5 text-slate-600/90 dark:text-gray-400/90"
-                >
-                  <div class="flex items-center gap-1.5">
-                    <i
-                      class="fa fa-map-marker text-primary-500/90 dark:text-primary-400/90 text-sm"
-                    ></i>
-                    <span class="text-xs"
-                      >{{ location.distance }} from destination</span
-                    >
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <i
-                      class="fa fa-phone text-primary-500/90 dark:text-primary-400/90 text-sm"
-                    ></i>
-                    <span class="text-xs">{{ location.contact }}</span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <i
-                      class="fa fa-location-arrow text-primary-500/90 dark:text-primary-400/90 text-sm"
-                    ></i>
-                    <span class="text-xs">{{ location.address }}</span>
-                  </div>
-                </div>
-                <div class="mt-3">
-                  <a
-                    [href]="'#' + location.id"
-                    class="inline-flex items-center gap-1.5 bg-gradient-to-r from-primary-500/90 to-secondary-700/90 hover:from-primary-600/90 hover:to-secondary-700/90 text-white dark:text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-colors"
-                  >
-                    <i class="fa fa-map-marker"></i>
-                    Locate
-                    {{
-                      location.type === "healthcare" ? "Facility" : "Station"
-                    }}
-                  </a>
-                </div>
-              </div>
+            {{ security.badge }}
+          </span>
+        </div>
+
+        <!-- Details section -->
+        <div class="flex flex-col flex-1">
+          <h3 class="text-lg lg:text-xl font-semibold text-primary-700 dark:text-primary-400 mb-2">
+            {{ security.name }}
+          </h3>
+
+          <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+            {{ security.description }}
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4 text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4">
+            <div class="flex items-center gap-2">
+              <i class="fas fa-map-marker-alt text-amber-500 dark:text-amber-400"></i>
+              <span>{{ security.distance }} from destination</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fas fa-phone text-amber-500 dark:text-amber-400"></i>
+              <span>{{ security.contact }}</span>
+            </div>
+            <div class="flex items-center gap-2 md:col-span-2">
+              <i class="fas fa-location-arrow text-amber-500 dark:text-amber-400"></i>
+              <span>{{ security.address }}</span>
             </div>
           </div>
+
+          <a
+            [href]="'#' + security.id" *ngIf="security.location.lat && security.location.long"
+            class="self-start inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2 rounded-md text-sm font-medium shadow transition"
+          >
+            <i class="fas fa-map-marker-alt text-sm"></i>
+            Locate Emergency Station
+          </a>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Healthcare Services Section -->
+<div class="mt-8" id="hospital-services">
+  <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3">
+    <span class="flex items-center justify-center bg-red-500 rounded-full w-9 h-9 text-white">
+      <i class="fas fa-heartbeat text-base"></i>
+    </span>
+    Healthcare Facilities
+  </h2>
+
+  <div class="grid grid-cols-1 gap-6 lg:gap-8 xl:gap-10">
+    <div
+      *ngFor="let medical of destination.healthcare"
+      class="relative p-6 lg:p-8 xl:p-10 rounded-2xl 
+      shadow-lg bg-white dark:bg-gray-900 font-sans 
+      border border-gray-100 dark:border-gray-700 border-b-1 border-b-blue-400"
+    >
+      <div
+        class="absolute top-0 left-0 w-80 h-80 bg-gradient-to-tr from-red-100 via-red-50 to-transparent dark:from-red-900/20 dark:via-red-800/10 dark:to-transparent rounded-full filter blur-3xl opacity-30 -z-10"
+      ></div>
+
+      <div class="grid md:grid-cols-[25%_75%] gap-6 lg:gap-10 xl:gap-12 items-start">
+        <div class="relative">
+          <img
+            [src]="medical.image"
+            [alt]="medical.name"
+            class="w-full aspect-square max-h-[180px] md:max-h-[200px] lg:max-h-[220px] xl:max-h-[240px] object-cover rounded-xl shadow-md"
+            (error)="imageService.handleImageError($event)"
+          />
+          <div class="absolute top-3 right-3">
+            <span *ngIf="medical.badge" class="px-2 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium shadow-sm">
+              {{ medical.badge }}
+            </span>
+          </div>
+        </div>
+
+        <div class="flex flex-col">
+          <h3 class="text-lg lg:text-xl font-bold text-primary-700 dark:text-primary-400 mb-2">
+            {{ medical.name }}
+          </h3>
+
+          <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+            {{ medical.description }}
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 mb-4 text-sm lg:text-base text-gray-600 dark:text-gray-300">
+            <div class="flex items-center gap-2">
+              <i class="fas fa-map-marker-alt text-red-500 dark:text-red-400 w-5 text-center"></i>
+              <span>{{ medical.distance }} from destination</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fas fa-phone text-red-500 dark:text-red-400 w-5 text-center"></i>
+              <span>{{ medical.contact }}</span>
+            </div>
+            <div class="flex items-center gap-2 md:col-span-2">
+              <i class="fas fa-location-arrow text-red-500 dark:text-red-400 w-5 text-center"></i>
+              <span>{{ medical.address }}</span>
+            </div>
+          </div>
+
+          <a
+          [href]="'#' + medical.id" *ngIf="medical.location.lat && medical.location.long"
+          class="self-start inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-5 py-2 rounded-md text-sm font-medium shadow transition"
+        >
+          <i class="fas fa-map-marker-alt text-sm"></i>
+          Locate Emergency Facility
+        </a>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
     </div>
   </div>
 </section>
