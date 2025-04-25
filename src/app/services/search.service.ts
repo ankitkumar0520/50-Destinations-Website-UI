@@ -213,11 +213,25 @@ export class SearchService {
   getDestinations() {
     return [
       {
+        id: 0,
+        title: 'Rumtek Monastery',
+        description:
+          "One of the most important monasteries in Sikkim, showcasing Tibetan architecture and spiritual heritage. Home to the Karmapa's seat outside Tibet.",
+        image: 'assets/Images/rumtek-monastry/rumtek2.jpeg',
+        duration: '1-3 hours',
+        location: 'Gangtok',
+        tags: ['Buddhist', 'Spiritual', 'Architecture'],
+        experienceType: 'Cultural',
+        season: 'All Seasons',
+        popularityIndex: 85,
+        addedOn: '2025-04-01T10:00:00Z',
+      },
+      {
         id: 1,
         title: 'Tsomgo Lake & Baba Mandir',
         description:
           "Sacred glacial lake at 12,400ft with Baba Harbhajan Singh's shrine. Protected area permit required.",
-        image: 'https://example.com/sikkim/tsomgo-baba.jpg',
+        image: 'assets/Images/destinations/new/bab_mandir.jpg',
         duration: '0-3 hours',
         location: 'Gangtok',
         tags: ['Permit Required', 'High Altitude', 'Buddhist'],
@@ -231,7 +245,7 @@ export class SearchService {
         title: 'Gurudongmar Lake',
         description:
           'One of the world’s highest lakes at 17,800ft, sacred to Buddhists and Sikhs.',
-        image: 'https://example.com/sikkim/gurudongmar.jpg',
+          image: 'assets/Images/destinations/new/char_dhanm.jpg',
         duration: '2-3 days',
         location: 'Mangan',
         tags: ['Permit Required', 'Extreme Altitude', 'Pilgrimage'],
@@ -245,7 +259,7 @@ export class SearchService {
         title: 'Char Dham Complex',
         description:
           'Replica of India’s four holy shrines with 108ft Shiva statue and panoramic views.',
-        image: 'https://example.com/sikkim/char-dham.jpg',
+          image: 'assets/Images/destinations/new/char_dhanm.jpg',
         duration: 'Full day',
         location: 'Namchi',
         tags: ['Hindu Pilgrimage', 'Viewpoint', 'Architecture'],
@@ -259,7 +273,7 @@ export class SearchService {
         title: 'Khecheopalri Lake',
         description:
           'Wish-fulfilling lake where leaves never float on the surface, surrounded by forests.',
-        image: 'https://example.com/sikkim/khecheopalri.jpg',
+          image: 'assets/Images/destinations/new/khecheopalri_lake.jpg',
         duration: '0-3 hours',
         location: 'Gyalshing',
         tags: ['Sacred Lake', 'Nature', 'Trekking'],
@@ -273,7 +287,7 @@ export class SearchService {
         title: 'Pakyong Airport Viewpoint',
         description:
           "Himalaya's first greenfield airport with stunning runway valley views.",
-        image: 'https://example.com/sikkim/pakyong-airport.jpg',
+          image: 'assets/Images/destinations/new/pakyong_airport.jpg',
         duration: '0-3 hours',
         location: 'Pakyong',
         tags: ['Engineering Marvel', 'Aviation', 'Photography'],
@@ -287,7 +301,7 @@ export class SearchService {
         title: 'Soreng Cherry Blossoms',
         description:
           'Annual spring bloom of wild Himalayan cherry trees in Sikkim’s newest district.',
-        image: 'https://example.com/sikkim/soreng-cherry.jpg',
+          image: 'assets/Images/destinations/new/char_dhanm.jpg',
         duration: '0-3 hours',
         location: 'Soreng',
         tags: ['Flowers', 'Seasonal', 'Nature'],
@@ -301,7 +315,7 @@ export class SearchService {
         title: 'Nathula Pass',
         description:
           'High-altitude pass connecting India with China, offering scenic views of the Himalayan range.',
-        image: 'https://example.com/sikkim/nathula-pass.jpg',
+          image: 'assets/Images/destinations/new/nathula_pass.jpg',
         duration: 'Full day',
         location: 'Gangtok',
         tags: ['Historical', 'Adventure', 'Photography'],
@@ -315,7 +329,7 @@ export class SearchService {
         title: 'Mangan Valley',
         description:
           'A peaceful valley known for its lush green landscapes, perfect for trekking and exploration.',
-        image: 'https://example.com/sikkim/mangan-valley.jpg',
+          image: 'assets/Images/destinations/new/char_dhanm.jpg',
         duration: '2-3 days',
         location: 'Mangan',
         tags: ['Nature', 'Trekking', 'Adventure'],
