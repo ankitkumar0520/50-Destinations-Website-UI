@@ -97,7 +97,7 @@ export class HomeDistrictCarouselComponent implements OnInit, OnDestroy {
       value: 'mangan',
       description:
         'The gateway to North Sikkim, featuring pristine landscapes, hot springs, and high-altitude lakes. Perfect for adventure tourism.',
-      image: 'assets/Images/districts/mangan.jpg',
+      image: 'assets/Images/districts/mangan_2.jpg',
       keyPlaces: [
         'Gurudongmar Lake',
         'Yumthang Valley',

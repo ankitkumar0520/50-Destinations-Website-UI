@@ -226,26 +226,13 @@ export class SearchService {
         popularityIndex: 85,
         addedOn: '2025-04-01T10:00:00Z',
       },
-      {
-        id: 1,
-        title: 'Rumtek Monastery',
-        description:
-          'Rumtek Monastery, also known as the Dharma Chakra Centre, is a prominent Buddhist monastery located near Gangtok in Sikkim, India. Founded in the 16th century by the 9th Karmapa, Wangchuk Dorje, it serves as the main seat in exile of the Karmapa Lama and is renowned for its stunning architecture and serene surroundings. Perched at an elevation of 5,500 feet, the monastery is a vital center for Tibetan Buddhism, housing sacred relics and offering a glimpse into the rich cultural heritage of the region. Visitors are often captivated by its tranquil atmosphere and the breathtaking views of the Himalayas.\n\nThe monastery has a rich history, having been originally established in the mid-18th century under the guidance of the 12th Karmapa, Changchub Dorje. After the 16th Karmapa, Rangjung Rigpe Dorje, fled Tibet in 1959, he chose to rebuild Rumtek, which had fallen into disrepair. The reconstruction was completed in 1966, and the monastery became a significant site for the Karma Kagyu lineage, symbolizing resilience and continuity of Tibetan Buddhism in exile.\n\nToday, Rumtek Monastery is not only a spiritual hub, but also a center of learning, with the Karma Shri Nalanda Institute for Higher Buddhist Studies.',
-        image: 'https://example.com/sikkim/rumtek.jpg',
-        duration: 'Half day',
-        location: 'Gangtok',
-        tags: ['Monastery', 'Buddhist', 'Cultural Heritage'],
-        experienceType: 'Spiritual',
-        season: 'All Seasons',
-        popularityIndex: 88,
-        addedOn: '2025-04-24T09:00:00Z',
-      },
+     
       {
         id: 2,
         title: 'MG Marg, Gangtok',
         description:
           "MG Marg, or Mahatma Gandhi Road, is the vibrant heart of Gangtok, the capital of Sikkim, India. This lively, pedestrian-only boulevard is renowned for its clean, well-maintained environment and charming atmosphere, making it a favorite destination for both locals and tourists. Flanked by colorful shops, cozy cafes, and handicraft stores, MG Marg offers a perfect blend of modern comforts and traditional Sikkimese culture. The street is not just a commercial hub, but also a social and cultural gathering place, where people come together to relax, shop, or simply enjoy the scenic surroundings.\n\nStretching through the center of Gangtok, MG Marg offers stunning views of the surrounding hills and is beautifully lit up in the evenings, creating a warm and inviting ambiance. The road also plays host to various festivals and public events, including the annual Gangtok Food and Culture Festival, which showcases local cuisine, music, and folk performances. Statues of Mahatma Gandhi and other figures add historical depth to the area, while benches and open spaces encourage leisurely strolls and casual conversations.\n\nToday, MG Marg stands as a symbol of Gangtok's modern identity — a place where tradition meets urban elegance. Whether you're exploring local shops, savoring Sikkimese delicacies, or simply enjoying a peaceful evening walk, MG Marg promises an unforgettable experience at the heart of the Himalayas.",
-        image: 'https://example.com/sikkim/mg-marg.jpg',
+          image: 'assets/Images/destinations/new/mg-marg.jpg',
         duration: '0-3 hours',
         location: 'Gangtok',
         tags: ['Shopping', 'Culture', 'Festival'],

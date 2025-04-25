@@ -176,8 +176,8 @@ export class DestinationService {
           contact: '03592-251712',
           address: 'Gangtok-Rangpo Road, Upper Tadong, Sikkim, 737135',
           location:{
-            lat:'12.121',
-            long:'232.212'
+            lat:'27.2938408324907',
+            long:'88.59079916640482'
            },
           image: 'assets/Images/rumtek-monastry/police-station.jpg',
           badge: '24/7 Service'
@@ -223,8 +223,8 @@ export class DestinationService {
           contact: '09845562399',
           address: 'NH 31A, Gangtok, East Sikkim, Sikkim, 737101',
           location:{
-            lat:'ttfv',
-            long:''
+            lat:'27.34612900371686',
+            long:'88.60424004920918'
            },
           image: 'assets/Images/rumtek-monastry/STMP.jpg',
           type: 'healthcare',

@@ -78,7 +78,10 @@
           </div>
 
           <a
-            [href]="'#' + security.id" *ngIf="security.location.lat && security.location.long"
+            [href]="security.location.lat && security.location.long ? 'https://www.google.com/maps?q=' + security.location.lat + ',' + security.location.long : '#' + security.id"
+            *ngIf="security.location.lat && security.location.long"
+            target="_blank"
+            rel="noopener noreferrer"
             class="self-start inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2 rounded-md text-sm font-medium shadow transition"
           >
             <i class="fas fa-map-marker-alt text-sm"></i>
@@ -150,12 +153,15 @@
           </div>
 
           <a
-          [href]="'#' + medical.id" *ngIf="medical.location.lat && medical.location.long"
-          class="self-start inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-5 py-2 rounded-md text-sm font-medium shadow transition"
-        >
-          <i class="fas fa-map-marker-alt text-sm"></i>
-          Locate Emergency Facility
-        </a>
+            [href]="medical.location.lat && medical.location.long ? 'https://www.google.com/maps?q=' + medical.location.lat + ',' + medical.location.long : '#' + medical.id"
+            *ngIf="medical.location.lat && medical.location.long"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="self-start inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-5 py-2 rounded-md text-sm font-medium shadow transition"
+          >
+            <i class="fas fa-map-marker-alt text-sm"></i>
+            Locate Emergency Facility
+          </a>
 
 
         </div>
