@@ -40,11 +40,46 @@ export class MapComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      import('leaflet').then((leaflet) => {
-        L = leaflet;
-        this.initMap();
-        this.addFullscreenControl();
-      });
+      // Refined check for destination data validity
+      const lat = this.travelInfo?.latitude;
+      const lng = this.travelInfo?.longitude;
+      const isDataValid = 
+        this.destination && 
+        this.travelInfo &&
+        typeof lat === 'number' && Number.isFinite(lat) && // Ensure it's a finite number
+        typeof lng === 'number' && Number.isFinite(lng);   // Ensure it's a finite number
+
+      if (isDataValid) {
+        console.log('MapComponent: Data valid, attempting to load Leaflet and initialize map.');
+        import('leaflet').then((leaflet) => {
+          L = leaflet;
+          try {
+            this.initMap();
+            this.addFullscreenControl();
+            console.log('MapComponent: Map initialized successfully.');
+          } catch (mapError) {
+            console.error('MapComponent: Error during map initialization:', mapError);
+          }
+        }).catch(err => console.error('MapComponent: Error loading Leaflet:', err));
+      } else {
+        // Log detailed info about why initialization is skipped
+        console.error(
+          'MapComponent: Map initialization skipped due to invalid or missing data.', 
+          { 
+            destinationExists: !!this.destination,
+            travelInfoExists: !!this.travelInfo,
+            latitude: lat,
+            longitude: lng,
+            isLatNumber: typeof lat === 'number',
+            isLatFinite: Number.isFinite(lat),
+            isLngNumber: typeof lng === 'number',
+            isLngFinite: Number.isFinite(lng),
+            destinationData: this.destination // Log the actual data received
+          }
+        );
+      }
+    } else {
+      console.log('MapComponent: Skipping map initialization on server.');
     }
   }
 
