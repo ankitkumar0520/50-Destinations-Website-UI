@@ -106,6 +106,21 @@
               >
                 <span>View Details</span>
                 <i class="ml-2 fas fa-arrow-right"></i>
+              </button> -->
+
+              <button
+                (click)="navigateToDetail(result.id)"
+                [disabled]="result.id !== 1"
+                [ngClass]="{
+                  'bg-primary-600 dark:bg-primary-500 hover:bg-primary-700 dark:hover:bg-primary-600 text-white cursor-pointer':
+                    result.id === 1,
+                  'bg-gray-300 dark:bg-gray-700 text-gray-500 cursor-not-allowed':
+                    result.id !== 1
+                }"
+                class="mt-auto font-medium py-2 px-4 rounded-lg transition-all duration-200 transform shadow-sm text-sm flex items-center justify-center group"
+              >
+                <span>View Details</span>
+                <i class="ml-2 fas fa-arrow-right"></i>
               </button>
             </div>
           </div>
