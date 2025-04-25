@@ -25,7 +25,7 @@ export class HomeHeroSectionComponent {
 
   heroData = {
     title: 'Discover Your Next Adventure',
-    subtitle: 'Explore 50 breathtaking destinations around the world',
+    subtitle: 'Explore 50 breathtaking destinations around the Sikkim',
     image: 'assets/Images/Placeholder/bg-new.jpg',
   };
 

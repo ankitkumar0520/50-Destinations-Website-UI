@@ -20,21 +20,21 @@ export class AiAudioModelComponent {
       languageCode:'en',
       title: 'Rumtek Monastery',
       image: 'assets/Images/rumtek-monastry/image1.jpg',
-      audio: 'assets/Audio/Rumtek-Monastry/rumtek-english.wav'
+      audio: 'assets/Audio/Rumtek-Monastry/ElevenLabs_Sarah_Rumtek_English_Audio.mp3'
     },
     hindi: {
       language:'हिन्दी',
       languageCode:'hi',
       title: 'रुमटेक मठ',
       image: 'assets/Images/rumtek-monastry/image1.jpg',
-      audio: 'assets/Audio/Rumtek-Monastry/rumtek-hindi.wav'
+      audio: 'assets/Audio/Rumtek-Monastry/ElevenLabs_Sarah_Rumtek_Hindi_Audio.mp3'
     },
     nepali: {
       language:'नेपाली',
       languageCode:'ne',
       title: 'रुमटेक गुम्बा',
       image: 'assets/Images/rumtek-monastry/image1.jpg',
-      audio: 'assets/Audio/Rumtek-Monastry/rumtek-nepali.wav'
+      audio: 'assets/Audio/Rumtek-Monastry/ElevenLabs_Sarah_Rumtek_Nepali_Audio.mp3'
     }
   };
 

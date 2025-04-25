@@ -10,17 +10,20 @@ export const DISTRICT_OPTIONS = [
 
   export const EXPERIENCE_OPTIONS = [
     { id: 'adventure', value: 'Adventure', icon: 'fa-mountain' },
-    { id: 'trekking', value: 'Trekking', icon: 'fa-hiking' },
-    { id: 'spiritual_retreats', value: 'Spiritual Retreats', icon: 'fa-om' },
-    { id: 'wildlife_nature', value: 'Wildlife & Nature', icon: 'fa-paw' },
-    { id: 'cultural_tours', value: 'Cultural Tours', icon: 'fa-landmark' },
-    { id: 'scenic_drives', value: 'Scenic Drives', icon: 'fa-route' },
-    { id: 'camping', value: 'Camping', icon: 'fa-campground' },
-    { id: 'pilgrimage_journeys', value: 'Pilgrimage Journeys', icon: 'fa-place-of-worship' },
-    { id: 'photography_spots', value: 'Photography Spots', icon: 'fa-camera-retro' },
-    { id: 'festivals_celebrations', value: 'Festivals & Celebrations', icon: 'fa-mask' },
-    { id: 'snow_activities', value: 'Snow Activities', icon: 'fa-snowflake' },
-    { id: 'bird_watching', value: 'Bird Watching', icon: 'fa-dove' }
+    { id: 'spiritual', value: 'Spiritual Retreat', icon: 'fa-praying-hands' },
+    { id: 'nature', value: 'Nature & Scenery', icon: 'fa-tree' },
+    { id: 'culture', value: 'Cultural Immersion', icon: 'fa-mask' },
+    { id: 'wildlife', value: 'Wildlife Exploration', icon: 'fa-paw' },
+    { id: 'pilgrimage', value: 'Pilgrimage Journey', icon: 'fa-church' },
+    { id: 'relaxation', value: 'Peace & Relaxation', icon: 'fa-spa' },
+    { id: 'photography', value: 'Photography Spot', icon: 'fa-camera-retro' },
+    { id: 'family', value: 'Family Friendly', icon: 'fa-people-roof' },
+    { id: 'romantic', value: 'Romantic Escape', icon: 'fa-heart' },
+    { id: 'eco', value: 'Eco-Tourism', icon: 'fa-leaf' },
+    { id: 'village', value: 'Village Experience', icon: 'fa-home' },
+    { id: 'tea', value: 'Tea Trail', icon: 'fa-mug-hot' },
+    { id: 'hotspring', value: 'Hot Spring Experience', icon: 'fa-water' },
+    { id: 'snow', value: 'Snow Adventure', icon: 'fa-snowflake' }
   ];
   
 

@@ -22,7 +22,6 @@
     <div class="max-w-[1400px] mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Destination Cards -->
-
         <div *ngFor="let dest of destinations; let i = index" class="relative">
           <span
             [ngClass]="getGradientClasses(dest.district)"
@@ -31,7 +30,7 @@
           >
 
           <div
-            class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 group h-[420px] md:h-[320px] md:max-h-[200px]"
+            class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 group h-[280px] md:h-[220px]"
           >
             <div class="flip-card" [class.flipped]="isQRVisibleMap[i]">
               <div class="flip-card-inner">
@@ -48,7 +47,7 @@
                   <div class="flex flex-col md:flex-row h-full">
                     <!-- Image Section -->
                     <div
-                      class="h-48 md:h-full md:w-2/5 relative overflow-hidden"
+                      class="h-40 md:h-full md:w-2/5 relative overflow-hidden"
                     >
                       <img
                         [src]="dest.image"
@@ -77,14 +76,14 @@
                           class="flex flex-row justify-between items-center"
                         >
                           <h3
-                            class="text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300"
+                            class="text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 truncate max-w-[70%]"
                           >
                             {{ dest.name }}
                           </h3>
 
                           <!-- Explore Button - Compact Icon Text Version -->
-                          <button
-                            class="cursor-pointer py-1.5 px-3 rounded-lg text-gray-500 hover:text-primary font-semibold transition-colors duration-300 flex items-center justify-center gap-2 group text-xs"
+                          <button [disabled]="true"
+                            class="bg-blue-100 cursor-pointer py-1.5 px-3 rounded-lg text-gray-500 hover:text-primary font-semibold transition-colors duration-300 flex items-center justify-center gap-2 group text-xs"
                           >
                             <span>Explore</span>
                             <i
@@ -92,22 +91,20 @@
                             ></i>
                           </button>
                         </span>
-                        <!-- 
-                        <p
-                          class="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-1"
-                        >
+
+                        <!-- Description - Added back in compact format -->
+                        <p class="text-gray-600 dark:text-gray-300 text-xs mt-1 line-clamp-2">
                           {{ dest.description }}
-                        </p> -->
+                        </p>
 
                         <!-- Highlights -->
-                        <div class="mb-3">
+                        <div class="mb-2 mt-1">
                           <div
-                            class="flex flex-col flex-wrap gap-1.5 overflow-y-auto h-16"
+                            class="flex flex-wrap gap-1 overflow-hidden max-h-[28px]"
                           >
-                            <!-- Adjust height as needed -->
                             <span
-                              *ngFor="let highlight of dest.highlights"
-                              class="px-2 py-0.5 bg-gray-50 dark:bg-gray-900/50 text-gray-600 dark:text-gray-300 rounded-full text-xs whitespace-nowrap max-w-fit"
+                              *ngFor="let highlight of dest.highlights.slice(0, 4)"
+                              class="px-1.5 py-0.5 bg-gray-50 dark:bg-gray-900/50 text-gray-600 dark:text-gray-300 rounded-full text-[10px] whitespace-nowrap max-w-fit"
                             >
                               {{ highlight }}
                             </span>
@@ -117,10 +114,10 @@
 
                       <!-- Footer Info -->
                       <div
-                        class="border-t border-gray-100 dark:border-gray-700 pt-3"
+                        class="border-t border-gray-100 dark:border-gray-700 pt-2 mt-auto"
                       >
                         <div
-                          class="grid grid-cols-3 gap-2 text-xs text-gray-500 dark:text-gray-400 mb-3"
+                          class="grid grid-cols-3 gap-1 text-[10px] text-gray-500 dark:text-gray-400"
                         >
                           <div>
                             <p
@@ -128,7 +125,7 @@
                             >
                               Location
                             </p>
-                            <p>{{ dest.location }}</p>
+                            <p class="truncate">{{ dest.location }}</p>
                           </div>
                           <div>
                             <p
@@ -136,7 +133,7 @@
                             >
                               Best Time
                             </p>
-                            <p>{{ dest.bestTime }}</p>
+                            <p class="truncate">{{ dest.bestTime }}</p>
                           </div>
                           <div>
                             <p
@@ -144,7 +141,7 @@
                             >
                               Duration
                             </p>
-                            <p>{{ dest.duration }}</p>
+                            <p class="truncate">{{ dest.duration }}</p>
                           </div>
                         </div>
                       </div>
@@ -153,46 +150,60 @@
                 </div>
 
                 <!-- Back of the card -->
-                <div class="flip-card-back">
+                <div class="flip-card-back bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                   <div
-                    class="back-button text-gray-600 dark:text-gray-400 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                    class="back-button text-gray-600 dark:text-gray-400 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 absolute top-2 left-2"
                     (click)="switchQR(i)"
                   >
                     <i class="fas fa-arrow-left"></i>
                   </div>
 
                   <div class="qr-content">
-                    <h3
-                      class="text-base font-medium text-gray-800 dark:text-gray-200"
-                    >
-                      {{ dest.name }}
-                    </h3>
-
-                    <div class="qr-container">
-                      <qrcode
-                        *ngIf="isBrowser()"
-                        [qrdata]="siteUrl + '/' + dest.name.toLowerCase()"
-                        [width]="180"
-                        [errorCorrectionLevel]="'M'"
-                        [margin]="0"
-                      ></qrcode>
+                    <!-- Left section for QR code -->
+                    <div class="qr-left-section">
+                      <div class="qr-container">
+                        <qrcode
+                          *ngIf="isBrowser()"
+                          [qrdata]="shareUrl + '/destinations/' + dest.name.toLowerCase()"
+                          [width]="140"
+                          [errorCorrectionLevel]="'M'"
+                          [margin]="1"
+                        ></qrcode>
+                      </div>
+                      
+                      <!-- Only visible on mobile -->
+                      <p class="text-sm text-gray-600 dark:text-gray-400 mb-2 md:hidden">
+                        Scan to explore
+                      </p>
                     </div>
-
-                    <div class="action-buttons">
-                      <button
-                        class="action-button share-button"
-                        (click)="shareQR(i)"
-                      >
-                        <i class="fas fa-share-alt text-xs"></i>
-                        Share
-                      </button>
-                      <button
-                        class="action-button download-button"
-                        (click)="downloadQR(i)"
-                      >
-                        <i class="fas fa-download text-xs"></i>
-                        Save
-                      </button>
+                    
+                    <!-- Right section for title and buttons -->
+                    <div class="qr-right-section">
+                      <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">
+                        {{ dest.name }}
+                      </h3>
+                      
+                      <!-- Only visible on desktop -->
+                      <p class="hidden md:block text-sm text-gray-600 dark:text-gray-400 mb-2">
+                        Scan to explore {{ dest.name }} and discover its beautiful attractions and unique experiences.
+                      </p>
+                      
+                      <div class="button-group">
+                        <button
+                          class="px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors duration-300 flex items-center gap-1.5 text-sm"
+                          (click)="shareQR(dest)"
+                        >
+                          <i class="fas fa-share-alt"></i>
+                          Share Destination
+                        </button>
+                        <button
+                          class="px-3 py-2 bg-secondary-600 hover:bg-secondary-700 text-white rounded-lg transition-colors duration-300 flex items-center gap-1.5 text-sm"
+                          (click)="downloadQR(dest)"
+                        >
+                          <i class="fas fa-download"></i>
+                          Save QR Code
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
