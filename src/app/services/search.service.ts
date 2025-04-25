@@ -260,7 +260,7 @@ export class SearchService {
         title: 'Gurudongmar Lake',
         description:
           'One of the world’s highest lakes at 17,800ft, sacred to Buddhists and Sikhs.',
-          image: 'assets/Images/destinations/new/char_dhanm.jpg',
+          image: 'assets/Images/destinations/new/gurudongmar_lake.jpg',
         duration: '2-3 days',
         location: 'Mangan',
         tags: ['Permit Required', 'Extreme Altitude', 'Pilgrimage'],
@@ -316,7 +316,7 @@ export class SearchService {
         title: 'Soreng Cherry Blossoms',
         description:
           'Annual spring bloom of wild Himalayan cherry trees in Sikkim’s newest district.',
-          image: 'assets/Images/destinations/new/char_dhanm.jpg',
+          image: 'assets/Images/destinations/new/cherry_blosom.jpg',
         duration: '0-3 hours',
         location: 'Soreng',
         tags: ['Flowers', 'Seasonal', 'Nature'],
@@ -344,7 +344,7 @@ export class SearchService {
         title: 'Mangan Valley',
         description:
           'A peaceful valley known for its lush green landscapes, perfect for trekking and exploration.',
-          image: 'assets/Images/destinations/new/char_dhanm.jpg',
+          image: 'assets/Images/destinations/new/mangan.jpg',
         duration: '2-3 days',
         location: 'Mangan',
         tags: ['Nature', 'Trekking', 'Adventure'],
