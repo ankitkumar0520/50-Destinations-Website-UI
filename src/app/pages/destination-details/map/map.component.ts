@@ -23,58 +23,94 @@ let L: any;
 export class MapComponent implements AfterViewInit {
   @ViewChild('mapContainer') mapContainer!: ElementRef;
   private map: L.Map | undefined;
-  private fullscreenControl: L.Control | undefined;
-  private originalContainer: HTMLElement | null = null;
-  private originalStyles: { [key: string]: string } = {};
-  private originalPosition: { top: string; left: string } = {
-    top: '',
-    left: '',
-  };
+  currentLayer: string = 'OpenStreetMap';
+  private baseLayer: L.TileLayer | undefined;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   private destinationService = inject(DestinationService);
   destination = this.destinationService.getDestionation();
-
+  
   travelInfo = this.destination.travelInfo;
+
+  mapLayers = [
+    {
+      name: 'OpenStreetMap',
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      icon: 'fa-map',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    },
+    {
+      name: 'CartoDB',
+      url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+      icon: 'fa-map-marked-alt',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    },
+    {
+      name: 'EsriSatellite',
+      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      icon: 'fa-satellite',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }
+  ];
+
+  openGoogleMaps(): void {
+    const lat = parseFloat(this.travelInfo?.latitude ?? '');
+    const lng = parseFloat(this.travelInfo?.longitude ?? '');
+    if (!isNaN(lat) && !isNaN(lng)) {
+      window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank');
+    }
+  }
+
+  changeLayer(layerName: string): void {
+    if (!this.map) return;
+    
+    if (this.baseLayer) {
+      this.map.removeLayer(this.baseLayer);
+    }
+
+    const selectedLayer = this.mapLayers.find(layer => layer.name === layerName);
+    if (selectedLayer) {
+      this.baseLayer = L.tileLayer(selectedLayer.url, {
+        maxZoom: 19,
+        attribution: selectedLayer.attribution
+      }).addTo(this.map);
+      this.currentLayer = layerName;
+    }
+  }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Refined check for destination data validity
-      const lat = this.travelInfo?.latitude;
-      const lng = this.travelInfo?.longitude;
+      const lat = parseFloat(this.travelInfo?.latitude ?? '');
+      const lng = parseFloat(this.travelInfo?.longitude ?? '');
       const isDataValid = 
-        this.destination && 
+        this.destination &&
         this.travelInfo &&
-        typeof lat === 'number' && Number.isFinite(lat) && // Ensure it's a finite number
-        typeof lng === 'number' && Number.isFinite(lng);   // Ensure it's a finite number
-
+        !isNaN(lat) && Number.isFinite(lat) &&
+        !isNaN(lng) && Number.isFinite(lng);
+  
       if (isDataValid) {
         console.log('MapComponent: Data valid, attempting to load Leaflet and initialize map.');
         import('leaflet').then((leaflet) => {
           L = leaflet;
           try {
-            this.initMap();
-            this.addFullscreenControl();
+            this.initMap(lat, lng);
             console.log('MapComponent: Map initialized successfully.');
           } catch (mapError) {
             console.error('MapComponent: Error during map initialization:', mapError);
           }
         }).catch(err => console.error('MapComponent: Error loading Leaflet:', err));
       } else {
-        // Log detailed info about why initialization is skipped
         console.error(
-          'MapComponent: Map initialization skipped due to invalid or missing data.', 
+          'MapComponent: Map initialization skipped due to invalid or missing data.',
           { 
             destinationExists: !!this.destination,
             travelInfoExists: !!this.travelInfo,
             latitude: lat,
             longitude: lng,
-            isLatNumber: typeof lat === 'number',
             isLatFinite: Number.isFinite(lat),
-            isLngNumber: typeof lng === 'number',
             isLngFinite: Number.isFinite(lng),
-            destinationData: this.destination // Log the actual data received
+            destinationData: this.destination 
           }
         );
       }
@@ -83,155 +119,41 @@ export class MapComponent implements AfterViewInit {
     }
   }
 
-  private initMap(): void {
+  private initMap(lat: number, lng: number): void {
     this.map = L.map('map', { 
-      zoomControl: true,
-      zoomSnap: 0.5,
+      zoomControl: false,
       attributionControl: true
     }).setView(
-      [this.travelInfo.latitude, this.travelInfo.longitude],
+      [lat, lng],
       13
     );
 
-    // Add OpenStreetMap tiles (more colorful and detailed like the example)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // Initialize with OpenStreetMap layer
+    const defaultLayer = this.mapLayers[0];
+    this.baseLayer = L.tileLayer(defaultLayer.url, {
       maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      attribution: defaultLayer.attribution
     }).addTo(this.map);
 
-    // Simple marker with a clean popup
-    const marker = L.marker([this.travelInfo.latitude, this.travelInfo.longitude]).addTo(this.map);
-    
-    // Simple popup like in the example
+    const marker = L.marker([lat, lng]).addTo(this.map);
+  
     const popupContent = `
       <div>
         <p style="margin: 0; font-size: 14px;">${this.destination.name}</p>
       </div>
     `;
-    
-    marker.bindPopup(popupContent).openPopup();
 
-    // Store original container reference
-    this.originalContainer = document.getElementById('map');
-
-    const mapContainer = document.getElementById('map');
-    if (mapContainer) {
-      mapContainer.style.zIndex = '0';
-    }
-  }
-
-  private addFullscreenControl(): void {
-    if (!this.map) return;
-
-    // Create custom control
-    const FullscreenControl = L.Control.extend({
-      options: {
-        position: 'topright',
-      },
-
-      onAdd: () => {
-        const container = L.DomUtil.create(
-          'div',
-          'leaflet-bar leaflet-control'
-        );
-
-        const button = L.DomUtil.create(
-          'a',
-          'leaflet-control-fullscreen',
-          container
-        );
-        button.innerHTML = '<i class="fas fa-expand"></i>';
-        button.title = 'Fullscreen';
-        button.href = '#';
-
-        L.DomEvent.on(button, 'click', this.toggleFullscreen.bind(this));
-
-        return container;
-      },
+    const owlIcon = L.icon({
+      iconUrl: 'assets/Images/logo/marker-tourism.png',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+      popupAnchor: [0, -40]
     });
-
-    this.fullscreenControl = new FullscreenControl();
-    this.map.addControl(this.fullscreenControl!);
-  }
-
-  private toggleFullscreen(e: Event): void {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const mapElement = this.originalContainer;
-    if (!mapElement || !this.map) return;
-
-    if (document.fullscreenElement) {
-      // Exit fullscreen
-      this.exitFullscreen();
-    } else {
-      // Enter fullscreen
-      this.enterFullscreen();
-    }
-  }
-
-  private async enterFullscreen(): Promise<void> {
-    const mapElement = this.originalContainer;
-    if (!mapElement) return;
-
-    // Store original styles
-    this.originalStyles = {
-      position: mapElement.style.position,
-      top: mapElement.style.top,
-      left: mapElement.style.left,
-      width: mapElement.style.width,
-      height: mapElement.style.height,
-      zIndex: mapElement.style.zIndex,
-      borderRadius: mapElement.style.borderRadius,
-    };
-
-    // Prepare for fullscreen
-    mapElement.style.transition = 'all 0.3s ease-out';
-    mapElement.style.position = 'fixed';
-    mapElement.style.top = '0';
-    mapElement.style.left = '0';
-    mapElement.style.width = '100vw';
-    mapElement.style.height = '100vh';
-    mapElement.style.zIndex = '1000';
-    mapElement.style.borderRadius = '0';
-
-    try {
-      await mapElement.requestFullscreen();
-      this.updateControlIcon(true);
-    } catch (err) {
-      console.error('Fullscreen failed:', err);
-    }
-
-    // Force Leaflet to redraw after transition
-    setTimeout(() => this.map?.invalidateSize(), 300);
-  }
-
-  private async exitFullscreen(): Promise<void> {
-    const mapElement = this.originalContainer;
-    if (!mapElement) return;
-
-    try {
-      await document.exitFullscreen();
-    } catch (err) {
-      console.error('Exit fullscreen failed:', err);
-    }
-
-    // Restore original styles
-    mapElement.style.transition = 'all 0.3s ease-out';
-    Object.assign(mapElement.style, this.originalStyles);
-    this.updateControlIcon(false);
-
-    // Force Leaflet to redraw after transition
-    setTimeout(() => this.map?.invalidateSize(), 300);
-  }
-
-  private updateControlIcon(isFullscreen: boolean): void {
-    const control: any = document.querySelector('.leaflet-control-fullscreen');
-    if (control) {
-      control.innerHTML = isFullscreen
-        ? '<i class="fas fa-compress"></i>'
-        : '<i class="fas fa-expand"></i>';
-      control.title = isFullscreen ? 'Minimize' : 'Fullscreen';
-    }
+  
+    marker.bindPopup(popupContent).openPopup();
+    marker.setIcon(owlIcon);
+    marker.on('add', () => {
+      marker.setBounceOptions({ bounceHeight: 60 }).bounce();
+    });
   }
 }
