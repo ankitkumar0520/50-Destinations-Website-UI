@@ -11,17 +11,19 @@
       <div class="item max-w-fit" *ngFor="let minister of ministers">
         <!-- Compact Minister Profile -->
         <div class="flex flex-col items-center text-white p-4">
-          <!-- Circular Profile Image -->
-          <div
-            class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-white/50 shadow-lg mb-4"
-          >
-            <img
-              [src]="minister.image"
-              [alt]="minister.name"
-              class="w-full h-full object-cover"
-              (error)="imageService.handleImageError($event)"
-            />
-          </div>
+       <!-- Circular Profile Image -->
+<div
+class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-white/70 shadow-xl ring-2 ring-primary-400/40 dark:ring-primary-300/30 transition-transform hover:scale-105 duration-300 mb-4"
+>
+<img
+  [src]="minister.image"
+  [alt]="minister.name"
+  class="w-full h-full object-cover object-top"
+  (error)="imageService.handleImageError($event)"
+/>
+</div>
+
+
 
           <!-- Minister Details -->
           <div class="text-center max-w-md">

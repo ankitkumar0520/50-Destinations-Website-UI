@@ -29,19 +29,19 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
       name: 'Shri Prem Singh Tamang',
       designation: "Hon'ble Chief Minister of Sikkim",
       description: "With the launch of this QR-enabled tourism platform, we are embracing innovation to enhance how visitors discover Sikkim. It represents our commitment to smart, sustainable, and accessible travel for all.",
-      image: 'assets/Images/minister/ps-golay.jpg'
+      image: 'assets/Images/officials/ps-golay.jpg'
     },
     {
       name: 'Shri Tshering Thendup Bhutia',
       designation: 'Hon’ble Minister',
       description: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity.",
-      image: 'assets/Images/minister/tshering-thendup.jpg'
+      image: 'assets/Images/officials/tshering-thendup.jpg'
     },
     {
       name: 'Shri Sudesh Kumar Subba',
       designation: 'Advisor, Tourism Department',
       description: "The QR-based destination platform is a forward-thinking approach to promoting tourism while staying aligned with Sikkim’s core values—sustainability, inclusivity, and accessibility.",
-      image: 'assets/Images/minister/sudesh-kumar-subba.jpeg'
+      image: 'assets/Images/officials/sudeshkumarsubba.jpg'
     }
   ];
   
@@ -57,11 +57,11 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
         false,
         0,
         false,
-        [1, 1, 3]
+        [1, 2, 3]
       );
     }, 200);
     
-    // Commented out API call
+    // Commented out API call , make this uncommented to fetch testimonials from API
     // this.getTestimonials();
   }
 
@@ -70,7 +70,7 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
   }
 
   // Commented out API method
-  /*
+  
   getTestimonials() {
     this.apiService.get('LandingPage/GetAllTestimonials').subscribe({
       next: (response: any) => {
@@ -83,7 +83,7 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
             false,
             0,
             false,
-            [1, 1, 3]
+            [1, 2, 3]
           );
         }, 200);
       },
@@ -92,5 +92,6 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
       },
     });
   }
-  */
+  
+
 }
