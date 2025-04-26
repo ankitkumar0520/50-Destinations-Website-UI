@@ -15,13 +15,17 @@ import {
   styleUrls: ['./home-about-section.component.css'],
 })
 export class HomeAboutSectionComponent implements OnInit {
+
   aboutData: any = {
-    title: "Your Gateway to Sikkim's Wonders",
-    subtitle:
-      'Plan, Explore, and Immerse Yourself in the Land of Serenity and Splendor',
-    description:
-      "Step into the enchanting world of Sikkim — a Himalayan haven where snow-clad peaks kiss the sky, sacred monasteries resonate with ancient chants, and every valley whispers timeless tales of culture and nature. Nestled in the northeast corner of India, Sikkim is a land of breathtaking contrasts — from the towering majesty of Kanchenjunga to the serene stillness of glacial lakes and lush alpine meadows. Our all-in-one tourism guide is your gateway to exploring all 6 distinctive districts, each offering a unique blend of heritage, adventure, spirituality, and local charm. Immerse yourself in spiritual retreats set in tranquil monasteries, embark on thrilling treks through rhododendron forests and high mountain passes, or experience the warmth of village homestays steeped in tradition. Discover vibrant festivals that light up the hills, savor traditional cuisines, and uncover hidden gems that only the locals know. Whether you're an adventure seeker, a cultural explorer, or a peace-loving soul, Sikkim promises an unforgettable journey through one of India's most captivating and pristine destinations.",
+    title: "Unlock the Wonders of Sikkim",
+    subtitle: "Journey Through Serenity, Adventure, and Timeless Beauty",
+    description: `Welcome to Sikkim — a Himalayan paradise where snow-capped peaks touch the heavens, ancient monasteries echo with sacred chants, and every valley weaves a story of timeless beauty. Nestled in the heart of Northeast India, Sikkim is a land of awe-inspiring contrasts — from the towering splendor of Kanchenjunga to the serene reflections of glacial lakes and the vibrant blooms of alpine meadows. 
+  
+  Discover the soul of Sikkim across its six unique districts, each offering a mesmerizing blend of heritage, spirituality, adventure, and local warmth. Embark on thrilling treks through misty rhododendron forests, find peace within centuries-old monasteries, or savor the charm of village life through authentic homestays. Witness colorful festivals that light up the mountains, indulge in traditional flavors, and uncover hidden gems known only to locals.
+  
+  Whether you're an adventurer, a culture seeker, or a soul in search of tranquility, Sikkim invites you on an unforgettable journey into one of India's most pristine and magical destinations. Let your story begin here.`
   };
+  
 
   destinationCategories=DESTINATIONS_TAGS;
 
@@ -56,10 +60,10 @@ export class HomeAboutSectionComponent implements OnInit {
   }
 
   setFilter(categorie: any) {
-    // this.searchService.updateFilters({
-    //   experienceType: categorie,
-    // });
-    //this.navigateToSearch();
+    this.searchService.updateFilters({
+      experienceType: categorie,
+    });
+    this.navigateToSearch();
   }
 
   navigateToSearch() {
@@ -67,7 +71,7 @@ export class HomeAboutSectionComponent implements OnInit {
   }
 
   // Commented out API method
-  /*
+  
   getGlanceCounts() {
     this.apiService.get('LandingPage/GetGlance').subscribe((res: any) => {
       if (res) {
@@ -83,7 +87,6 @@ export class HomeAboutSectionComponent implements OnInit {
       }
     });
   }
-  */
 
   private startCountAnimation() {
     const targetValues = this.glanceCounts.map((count) => count.number);
@@ -112,8 +115,7 @@ export class HomeAboutSectionComponent implements OnInit {
     animate();
   }
 
-  // Commented out API method
-  /*
+
   getDestinationCategories() {
     this.apiService
       .get('Master/GetAllDestinationTypes')
@@ -127,5 +129,6 @@ export class HomeAboutSectionComponent implements OnInit {
         }
       });
   }
-  */
+  
+
 }

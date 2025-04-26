@@ -25,6 +25,7 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
   imageService = inject(ImageService);
 
   ministers: any = [
+  
     {
       name: 'Shri Prem Singh Tamang',
       designation: "Hon'ble Chief Minister of Sikkim",
@@ -42,6 +43,12 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
       designation: 'Advisor, Tourism Department',
       description: "The QR-based destination platform is a forward-thinking approach to promoting tourism while staying aligned with Sikkim’s core values—sustainability, inclusivity, and accessibility.",
       image: 'assets/Images/officials/sudeshkumarsubba.jpg'
+    },
+    {
+      name:'C.Subhakar Rao, IFS',
+      designation: 'Principal Secretary, Tourism Department',
+      description: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity.",
+      image: 'assets/Images/officials/cs-rao-min.png'
     }
   ];
   
@@ -53,8 +60,8 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       initializeOwlCarousel(
         '.minister-carousel',
-        false,
-        false,
+        true,
+        true,
         0,
         false,
         [1, 2, 3]
@@ -79,8 +86,8 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           initializeOwlCarousel(
             '.minister-carousel',
-            false,
-            false,
+            true,
+            true,
             0,
             false,
             [1, 2, 3]

@@ -8,7 +8,7 @@
       >
         {{ aboutData.title }}
       </h2>
-      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+      <p class="text-lg text-primary-500 dark:text-gray-300 max-w-2xl mx-auto">
         {{ aboutData.subtitle }}
       </p>
     </div>
@@ -39,24 +39,27 @@
           >
             Explore Categories
           </h3>
-          <div class="flex flex-wrap gap-2">
+          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-x-4 gap-y-2 md:gap-x-2 md:gap-y-2 ">
+            
             <div
-              *ngFor="let category of destinationCategories"
+            *ngFor="let category of destinationCategories; let i=index">
+
+            <div *ngIf="i<8" 
+             
               (click)="setFilter(category.id)"
-              class="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:bg-primary-50 dark:hover:bg-primary-900/20 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-700"
+              class="flex cursor-pointer items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:bg-primary-50 dark:hover:bg-primary-900/20 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-700"
             >
               <i
-                class="fa-solid {{
-                  category.icon
-                }} text-primary-600 dark:text-primary-300"
+                class="fa-solid fa-map-location-dot text-primary-600 dark:text-primary-300"
               ></i>
-              <span
-                class="text-sm font-medium text-gray-700 dark:text-gray-300"
-                >{{ category.name }}</span
-              >
+              <span class="text-sm font-medium line-clamp-1 text-gray-700 dark:text-gray-300">
+                {{ category.name.split(' ').slice(0, 1).join(' ') }} <!-- One line clamp with one word clamp as well -->
+              </span>
+              
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       <!-- Right Column -->
@@ -71,8 +74,10 @@
           <div class="grid grid-cols-2 gap-3">
             <div
               *ngFor="let stat of glanceCounts; let i = index"
-              class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-100 dark:border-gray-700 hover:shadow-md transition duration-200"
+              class="cursor-default bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200
+               dark:border-gray-700 shadow-md hover:shadow-lg transition duration-200"
             >
+
               <div
                 class="text-4xl font-bold mb-2 bg-gradient-to-r bg-clip-text text-transparent
                 {{
@@ -86,31 +91,40 @@
                 }}"
               >
                 {{ displayedCounts[i] }}
+                <span *ngIf="stat.label.toLowerCase().includes('destination')||stat.label.toLowerCase().includes('types')" class="text-2xl font-bold text-primary-500 dark:text-primary-300">+</span>
               </div>
               <div class="text-sm font-medium text-gray-600 dark:text-gray-300">
                 {{ stat.label }}
               </div>
-            </div>
+
+              </div>
           </div>
         </div>
 
-        <!-- CTA Card -->
-        <div
-          class="brand-gradient-bg rounded-lg p-6 text-white dark:text-gray-200 flex flex-col justify-between h-full max-h-fit"
-        >
-          <div>
-            <h4 class="font-bold text-lg mb-2">Plan Your Trip</h4>
-            <p class="text-sm opacity-90 dark:opacity-75 mb-4">
-              Discover the best of Sikkim
-            </p>
-          </div>
-          <button
-            (click)="navigateToSearch()"
-            class="bg-white text-primary-600 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 px-4 py-2 rounded-md text-sm font-medium transition duration-200 w-full"
-          >
-            Explore Now
-          </button>
+       <!-- Better CTA Card -->
+      <div class="bg-gradient-to-r from-primary-400 to-secondary-300 rounded-2xl p-6 text-white
+      dark:text-gray-300 flex flex-col justify-between 
+      h-full max-h-fit shadow-md transition-all duration-300 dark:from-primary-900 dark:to-secondary-800">
+
+        <div>
+          <h4 class="font-extrabold text-lg mb-3 tracking-tight leading-snug drop-shadow-md">
+            Discover Magical Sikkim Adventures
+          </h4>
+          <p class="text-base opacity-95 dark:opacity-80 mb-6">
+            Uncover hidden gems, majestic mountains, and vibrant culture.
+          </p>
         </div>
+        <button
+          (click)="navigateToSearch()"
+          class="bg-white cursor-pointer text-primary-600 hover:bg-primary-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 px-5 py-3 rounded-lg text-base font-semibold shadow-md hover:shadow-lg transition-all duration-300 ease-in-out w-full"
+        >
+          Start Exploring
+        </button>
+      </div>
+
+
+
+
       </div>
     </div>
   </div>
