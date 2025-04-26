@@ -30,7 +30,6 @@ export class MapComponent implements AfterViewInit {
 
   private destinationService = inject(DestinationService);
   destination = this.destinationService.getDestionation();
-  
   travelInfo = this.destination.travelInfo;
 
   mapLayers = [
@@ -64,7 +63,7 @@ export class MapComponent implements AfterViewInit {
 
   changeLayer(layerName: string): void {
     if (!this.map) return;
-    
+
     if (this.baseLayer) {
       this.map.removeLayer(this.baseLayer);
     }
@@ -88,11 +87,13 @@ export class MapComponent implements AfterViewInit {
         this.travelInfo &&
         !isNaN(lat) && Number.isFinite(lat) &&
         !isNaN(lng) && Number.isFinite(lng);
-  
+
       if (isDataValid) {
         console.log('MapComponent: Data valid, attempting to load Leaflet and initialize map.');
+        
         import('leaflet').then((leaflet) => {
-          L = leaflet;
+          L = leaflet.default; // ✅ Correct way: use default export!
+
           try {
             this.initMap(lat, lng);
             console.log('MapComponent: Map initialized successfully.');
@@ -123,10 +124,7 @@ export class MapComponent implements AfterViewInit {
     this.map = L.map('map', { 
       zoomControl: false,
       attributionControl: true
-    }).setView(
-      [lat, lng],
-      13
-    );
+    }).setView([lat, lng], 13);
 
     // Initialize with OpenStreetMap layer
     const defaultLayer = this.mapLayers[0];
@@ -136,7 +134,7 @@ export class MapComponent implements AfterViewInit {
     }).addTo(this.map);
 
     const marker = L.marker([lat, lng]).addTo(this.map);
-  
+
     const popupContent = `
       <div>
         <p style="margin: 0; font-size: 14px;">${this.destination.name}</p>
@@ -149,11 +147,15 @@ export class MapComponent implements AfterViewInit {
       iconAnchor: [20, 40],
       popupAnchor: [0, -40]
     });
-  
+
     marker.bindPopup(popupContent).openPopup();
     marker.setIcon(owlIcon);
+
     marker.on('add', () => {
-      marker.setBounceOptions({ bounceHeight: 60 }).bounce();
+      // Optional: if you are using leaflet-bounce plugin
+      if (marker.setBounceOptions) {
+        marker.setBounceOptions({ bounceHeight: 60 }).bounce();
+      }
     });
   }
 }
