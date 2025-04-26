@@ -25,7 +25,7 @@ export class HomeHeroSectionComponent implements OnInit {
   snowflakes: Array<{ style: string }> = [];
 
   heroData = {
-    title: 'Sikkim: An Adventurer’s Paradise',
+    title: 'An Adventurer’s Paradise',
     subtitle: 'Eco-friendly tourism that preserves the pristine beauty and cultural heritage of Sikkim, one adventure at a time.',
   };
   
