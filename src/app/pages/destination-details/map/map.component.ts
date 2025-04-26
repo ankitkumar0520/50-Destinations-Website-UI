@@ -25,6 +25,7 @@ export class MapComponent implements AfterViewInit {
   private map: L.Map | undefined;
   currentLayer: string = 'OpenStreetMap';
   private baseLayer: L.TileLayer | undefined;
+  isLoading: boolean = true;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
@@ -64,6 +65,8 @@ export class MapComponent implements AfterViewInit {
   changeLayer(layerName: string): void {
     if (!this.map) return;
 
+    this.isLoading = true;
+    
     if (this.baseLayer) {
       this.map.removeLayer(this.baseLayer);
     }
@@ -76,6 +79,11 @@ export class MapComponent implements AfterViewInit {
       }).addTo(this.map);
       this.currentLayer = layerName;
     }
+
+    // Simulate loading time for layer change
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
   }
 
   ngAfterViewInit(): void {
@@ -87,20 +95,21 @@ export class MapComponent implements AfterViewInit {
         this.travelInfo &&
         !isNaN(lat) && Number.isFinite(lat) &&
         !isNaN(lng) && Number.isFinite(lng);
-
+  
       if (isDataValid) {
         console.log('MapComponent: Data valid, attempting to load Leaflet and initialize map.');
-        
         import('leaflet').then((leaflet) => {
-          L = leaflet.default; // ✅ Correct way: use default export!
-
+          L = leaflet.default;
           try {
             this.initMap(lat, lng);
             console.log('MapComponent: Map initialized successfully.');
           } catch (mapError) {
             console.error('MapComponent: Error during map initialization:', mapError);
           }
-        }).catch(err => console.error('MapComponent: Error loading Leaflet:', err));
+        }).catch(err => {
+          console.error('MapComponent: Error loading Leaflet:', err);
+          this.isLoading = false;
+        });
       } else {
         console.error(
           'MapComponent: Map initialization skipped due to invalid or missing data.',
@@ -114,9 +123,11 @@ export class MapComponent implements AfterViewInit {
             destinationData: this.destination 
           }
         );
+        this.isLoading = false;
       }
     } else {
       console.log('MapComponent: Skipping map initialization on server.');
+      this.isLoading = false;
     }
   }
 
@@ -134,7 +145,7 @@ export class MapComponent implements AfterViewInit {
     }).addTo(this.map);
 
     const marker = L.marker([lat, lng]).addTo(this.map);
-
+  
     const popupContent = `
       <div>
         <p style="margin: 0; font-size: 14px;">${this.destination.name}</p>
@@ -147,15 +158,17 @@ export class MapComponent implements AfterViewInit {
       iconAnchor: [20, 40],
       popupAnchor: [0, -40]
     });
-
+  
     marker.bindPopup(popupContent).openPopup();
     marker.setIcon(owlIcon);
-
     marker.on('add', () => {
       // Optional: if you are using leaflet-bounce plugin
       if (marker.setBounceOptions) {
         marker.setBounceOptions({ bounceHeight: 60 }).bounce();
       }
     });
+
+    // Hide loading indicator after map is fully loaded
+    this.isLoading = false;
   }
 }
