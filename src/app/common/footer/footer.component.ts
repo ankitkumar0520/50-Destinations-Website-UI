@@ -37,10 +37,10 @@ export class FooterComponent {
     tagline: 'Sikkim Where Nature Smiles',
     description: 'Discover the beauty of Sikkim through our curated destinations and experiences.',
     socialMedia: [
-      { url: 'https://twitter.com/sikkimtourism', icon: 'fa-twitter', color: 'text-blue-500' },
-      { url: 'https://youtube.com/sikkimtourism', icon: 'fa-youtube', color: 'text-red-500' },
-      { url: 'https://facebook.com/sikkimtourism', icon: 'fa-facebook', color: 'text-blue-700' },
-      { url: 'https://instagram.com/sikkimtourism', icon: 'fa-instagram', color: 'text-pink-500' }
+      { url: 'https://x.com/gtktourismdeptt', icon: 'fa-twitter', color: 'text-blue-500' },
+      { url: 'https://www.youtube.com/@tourismcavdepartmentgovern1160', icon: 'fa-youtube', color: 'text-red-500' },
+      { url: 'https://www.facebook.com/profile.php?id=100054563433882', icon: 'fa-facebook', color: 'text-blue-700' },
+      { url: 'https://www.instagram.com/sikkim.tourism/?hl=en', icon: 'fa-instagram', color: 'text-pink-500' }
     ],
     links: [
       {
