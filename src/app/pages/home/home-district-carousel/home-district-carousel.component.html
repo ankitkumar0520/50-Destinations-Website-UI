@@ -97,7 +97,8 @@
                                     <ng-container *ngFor="let place of getTopDestinationsForDistrictFiltered(district.districtid)">
                                       <span
                                         (click)="navigateToPlace(place)"
-                                        class="cursor-pointer hover:bg-primary-50 hover:text-primary-600 dark:hover:text-primary-400  
+                                        class="focus:bg-primary-50 focus:text-primary-600 dark:focus:text-primary-400 
+                                        cursor-pointer hover:bg-primary-50 hover:text-primary-600 dark:hover:text-primary-400  
                                         inline-flex items-center px-2 py-1 bg-gray-50 dark:bg-gray-900/50
                                         text-gray-600 dark:text-gray-300 
                                         rounded-lg text-xs font-medium whitespace-nowrap overflow-hidden"

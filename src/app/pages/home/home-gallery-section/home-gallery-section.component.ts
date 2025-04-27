@@ -5,11 +5,13 @@ import { SectionHeaderComponent } from '../../../common/section-header/section-h
 import { getGradientClasses, shareQRCode, downloadQRCode } from '../../../utils/utils';
 import { ApiService } from '../../../services/api.service';
 import { ImageService } from '../../../services/image.service';
+import { SlugifyPipe } from "../../../pipes/slugify.pipe";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home-gallery-section',
   standalone: true,
-  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent],
+  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent, SlugifyPipe, RouterModule],
   templateUrl: './home-gallery-section.component.html',
   styleUrl: './home-gallery-section.component.css',
 })
@@ -17,6 +19,7 @@ export class HomeGallerySectionComponent implements OnInit {
   isQRVisibleMap: { [key: number]: boolean } = {};
   shareUrl: string = '';
   imageService = inject(ImageService);
+  apiService = inject(ApiService);
 
   destinations: any = [
     {
@@ -37,6 +40,7 @@ export class HomeGallerySectionComponent implements OnInit {
       duration: '2-3 hours',
       district: 'Gangtok',
     },
+    
     {
       id: 2,
       name: 'Nathula Pass',
@@ -157,40 +161,44 @@ export class HomeGallerySectionComponent implements OnInit {
     downloadQRCode(destination.name);
   }
 
-  isBrowser(): boolean {
-    return isPlatformBrowser(this.platformId);
-  }
 
   getGradientClasses(district: string): string[] {
     return getGradientClasses(district);
   }
 
-  /* 
+  
   // Commented out API method
   getPopularDestinations() {
     this.apiService
       .get('LandingPage/GetTopMostPopularDistrictWiseDestination')
-      .subscribe((res: any) => {
-        if (res && res.length > 0) {
-          this.destinations = res.map((destination: any) => ({
-            id: destination.destinationid,
-            name: destination.destinationname,
-            type: destination.destinationtypename,
-            image:
-              destination.media.length > 0
-                ? destination.media[0].url
-                : 'assets/Images/default-destination.jpg',
-            description: destination.destinationdescription,
-            highlights: destination.tags.map((tag: any) => tag.tagname),
-            location: destination.distance,
-            bestTime: destination.seasons
-              .map((season: any) => season.seasonmonth)
-              .join(', '),
-            duration: destination.duration || 'N/A',
-            district: destination.districtname,
-          }));
+      .subscribe({
+        next:(res:any)=>{
+          if (res && res.length > 0) {
+            this.destinations = res.map((destination: any) => ({
+              id: destination.destinationid,
+              name: destination.destinationname,
+              type: destination.destinationtypename,
+              image:
+                destination.media.length > 0
+                  ? destination.media[0].url
+                  : 'assets/Images/default-destination.jpg',
+              description: destination.destinationdescription,
+              highlights: destination.tags.map((tag: any) => tag.tagname),
+              location: destination.distance,
+              bestTime: destination.seasons
+                .map((season: any) => season.seasonmonth)
+                .join(', '),
+              duration: destination.duration || 'N/A',
+              district: destination.districtname,
+            }));
+          }
+        },
+        error: (error: any) => {
+          console.error('Error fetching popular destinations:', error);
         }
       });
   }
-  */
+       
+      
+  
 }

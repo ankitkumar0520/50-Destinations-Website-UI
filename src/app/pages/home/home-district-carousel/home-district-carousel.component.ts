@@ -353,11 +353,11 @@ export class HomeDistrictCarouselComponent implements OnInit, OnDestroy {
   }
 
 
-  navigateToPlace(place: string): void {
-    const formattedPlace = place.toLowerCase().replace(/\s+/g, '-');
-      this.router.navigate(['/destination', formattedPlace]);
-  
+  navigateToPlace(place: any): void {
+    const formattedPlace = place.destinationname.toLowerCase().replace(/\s+/g, '-');
+    this.router.navigate(['/destination', formattedPlace]);
   }
+  
 
 
 
