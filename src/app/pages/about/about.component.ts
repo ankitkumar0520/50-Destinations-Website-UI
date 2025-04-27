@@ -26,11 +26,13 @@ export class AboutComponent implements OnInit {
   getAboutPageDetails() {
     this.apiService
       .get('LandingPage/GetAboutPageDetails')
-      .subscribe((res: any) => {
-        if (res && res.id) {
-          this.aboutPageDetails = res;
+      .subscribe({
+        next:(res:any)=>{
+          //handle response here
+        },
+        error:(err:any)=>{
+          console.log(err);
         }
-       
       });
   }
 

@@ -16,14 +16,14 @@
     <!-- Search Bar -->
     <div class="max-w-3xl mx-auto mb-8 sm:mb-12">
       <div
-        class="bg-white dark:bg-gray-800 rounded-lg shadow-sm flex flex-col sm:flex-row items-start sm:items-center p-1"
+        class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-start sm:items-center p-1"
       >
         <div class="flex-1 flex items-center px-4 w-full">
           <i class="fas fa-search text-gray-400 mr-3 flex-shrink-0"></i>
           <input
             type="search"
             placeholder="Have a question? Ask or enter a search term."
-            class="w-full py-3 outline-none bg-transparent text-gray-700 dark:text-gray-200"
+            class="w-full py-3 outline-none bg-transparent focus:outline-none shadow-none text-gray-700 dark:text-gray-200"
             [(ngModel)]="searchTerm"
             (input)="searchFaqs()"
           />
@@ -127,7 +127,7 @@
       <!-- Dynamic Card for each category -->
       <div
         *ngFor="let category of faqCategories"
-        class="rounded-lg p-4 sm:p-6 cursor-pointer hover:shadow-md transition-shadow duration-200"
+        class="rounded-lg p-4 sm:p-6 cursor-pointer shadow-lg drop-shadow-lg hover:shadow-md transition-shadow duration-200"
         [ngClass]="
           activeAccordion == category.id
             ? 'pointer-events-none bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-700'

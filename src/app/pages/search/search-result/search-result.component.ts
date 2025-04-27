@@ -74,13 +74,13 @@ export class SearchResultComponent implements OnInit, OnDestroy {
 
   shareQR(index: number): void {
     const result = this.filteredResults[index];
-    const url = this.siteUrl + '/' + result.id;
+    const url = this.siteUrl + '/destination/' + result.slug;
 
     if (navigator.share) {
       navigator
         .share({
-          title: `Explore ${result.title}`,
-          text: `Check out ${result.title} in Sikkim!`,
+          title: `Explore ${result.destinationname}`,
+          text: `Check out ${result.destinationname} in Sikkim!`,
           url: url,
         })
         .catch(console.error);
@@ -90,7 +90,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       tempInput.value = url;
       document.body.appendChild(tempInput);
       tempInput.select();
-      document.execCommand('copy');
       document.body.removeChild(tempInput);
     }
   }

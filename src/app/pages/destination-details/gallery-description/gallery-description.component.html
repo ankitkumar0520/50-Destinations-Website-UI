@@ -18,7 +18,7 @@
       </div>
 
       <!-- Description Section -->
-      <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+      <div class="bg-gray-50 dark:bg-gray-800 p-6 text-justify rounded-lg border border-gray-200 dark:border-gray-700">
         <p [innerHTML]="destination.fulldescription"
           class="text-gray-700 dark:text-gray-300 leading-relaxed text-sm md:text-base"></p>
       </div>
@@ -63,13 +63,13 @@
     </div>
 
     <!-- Galleria Modal -->
-    <div *ngIf="displayGalleria" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
+    <div *ngIf="displayGalleria" class="fixed inset-0 bg-black/95 z-2000 flex items-center justify-center p-4"
       (click)="displayGalleria = false">
       <div class="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-xl shadow-2xl"
         (click)="$event.stopPropagation()">
         <!-- Close Button -->
         <button
-          class="absolute top-4 right-4 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+          class="cursor-pointer absolute top-4 right-4 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
           (click)="displayGalleria = false">×</button>
 
         <!-- Navigation Buttons -->
