@@ -20,22 +20,8 @@ import {
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { ApiService } from '../../../services/api.service';
 import { ImageService } from '../../../services/image.service';
+import { Router } from '@angular/router';
 
-interface District {
-  id: number;
-  name: string;
-  value: string;
-  description: string;
-  image: string;
-  keyPlaces: string[];
-  population: string;
-  elevation: string;
-}
-
-interface Feature {
-  icon: string;
-  text: string;
-}
 
 @Component({
   selector: 'app-home-district-carousel',
@@ -51,53 +37,51 @@ export class HomeDistrictCarouselComponent implements OnInit, OnDestroy {
   shareUrl: string = isPlatformBrowser(this.platformId)
     ? window.location.origin
     : '';
+
   isQRVisibleMap: { [key: number]: boolean } = {};
 
-  features: Feature[] = [
+  features: any[] = [
     {
-      icon: 'fas fa-landmark',
-      text: 'Rich Cultural Heritage',
+      icon: 'fas fa-tree',
+      text: 'Lush Forest Trails',
     },
     {
-      icon: 'fas fa-map-marker-alt',
-      text: 'Top Tourist Attractions',
+      icon: 'fas fa-water',
+      text: 'Crystal Lakes',
     },
     {
-      icon: 'fas fa-route',
-      text: 'Seamlessly Connected Destinations',
+      icon: 'fas fa-umbrella-beach',
+      text: 'Scenic Valleys',
     },
+    {
+      icon: 'fas fa-mountain', 
+      text: 'Majestic Mountains',
+    }
   ];
+  
 
-  districts: District[] = [
+  districts = [
     {
-      id: 1,
-      name: 'Gangtok',
-      value: 'gangtok',
-      description:
-        'The capital city district of Sikkim, known for its monasteries, viewpoints, and vibrant culture. Home to many popular tourist destinations including Nathula Pass and Tsomgo Lake.',
+      districtid: 1,
+      districtname: 'Gangtok',
+      description: "Gangtok, Sikkim's capital, blends culture and stunning views. Explore monasteries, markets, and iconic spots like Nathula Pass and Tsomgo Lake.",
       image: 'assets/Images/districts/gangtok.jpeg',
-      keyPlaces: ['Tsomgo Lake', 'Nathula Pass', 'MG Marg', 'Hanuman Tok'],
       population: '100,000+',
       elevation: '5,500 ft',
     },
     {
-      id: 2,
-      name: 'Namchi',
-      value: 'namchi',
-      description:
-        "South Sikkim's district headquarters, famous for its religious sites and organic farming. Features the world's largest statue of Guru Padmasambhava.",
+      districtid: 2,
+      districtname: 'Namchi',
+      description: "Namchi, a serene town in Sikkim, offers stunning views of Kanchenjunga. Visit the towering Samdruptse Statue and explore peaceful monasteries and landscapes.",
       image: 'assets/Images/districts/namchi.jpg',
-      keyPlaces: ['Samdruptse', 'Char Dham', 'Temi Tea Garden', 'Tendong Hill'],
       population: '50,000+',
       elevation: '4,500 ft',
     },
     {
-      id: 4,
-      name: 'Mangan',
-      value: 'mangan',
-      description:
-        'The gateway to North Sikkim, featuring pristine landscapes, hot springs, and high-altitude lakes. Perfect for adventure tourism.',
-      image: 'assets/Images/districts/mangan_2.jpg',
+      districtid: 4,
+      districtname: 'Mangan',
+      description: 'Mangan, a tranquil town in North Sikkim, is surrounded by lush greenery and stunning mountain views. A gateway to various trekking routes and natural wonders.',
+      image: 'assets/Images/districts/mangan.jpg',
       keyPlaces: [
         'Gurudongmar Lake',
         'Yumthang Valley',
@@ -108,100 +92,256 @@ export class HomeDistrictCarouselComponent implements OnInit, OnDestroy {
       elevation: '3,950 ft',
     },
     {
-      id: 5,
-      name: 'Geyzing',
-      value: 'geyzing',
-      description:
-        'An emerging tourist destination known for its rich biodiversity and cultural heritage. Home to several important monasteries.',
+      districtid: 5,
+      districtname: 'Geyzing',
+      description: 'Gyalshing, a peaceful town in West Sikkim, offers beauty and cultural richness. Known for its monasteries, it is a base for treks to places like Pelling and Khangchendzonga.',
       image: 'assets/Images/districts/gyalshing.jpg',
-      keyPlaces: [
-        'Dubdi Monastery',
-        'Kangchendzonga National Park',
-        'Tashiding Monastery',
-        'Yuksom',
-      ],
       population: '35,000+',
       elevation: '5,600 ft',
     },
     {
-      id: 6,
-      name: 'Pakyong',
-      value: 'pakyong',
-      description:
-        "Home to Sikkim's only airport, this district offers beautiful landscapes and is known for its educational institutions and scenic beauty.",
+      districtid: 6,
+      districtname: 'Pakyong',
+      description: 'Pakyong, a district in Sikkim, blends natural beauty with cultural heritage. Known for its airport and educational institutions, it has scenic landscapes and rich biodiversity.',
       image: 'assets/Images/districts/pakyong.jpeg',
-      keyPlaces: [
-        'Pakyong Airport',
-        'Lungthung Valley',
-        'Zuluk',
-        'Aritar Lake',
-      ],
       population: '45,000+',
       elevation: '4,600 ft',
     },
     {
-      id: 3,
-      name: 'Soreng',
-      value: 'soreng',
-      description:
-        'A scenic district in West Sikkim region offering stunning views of Kanchenjunga. Known for its ancient monasteries and trekking routes.',
-      image: 'assets/Images/districts/pelling.jpg',
-      keyPlaces: [
-        'Pemayangtse Monastery',
-        'Khecheopalri Lake',
-        'Rabdentse Ruins',
-        'Singshore Bridge',
-      ],
+      districtid: 3,
+      districtname: 'Soreng',
+      description: 'Soreng, a peaceful district in Sikkim, is renowned for its natural beauty, lush green valleys, and vibrant cultural heritage. Known for its scenic trails and serene environment.',
+      image: 'assets/Images/districts/soreng.jpg',
       population: '30,000+',
       elevation: '6,800 ft',
     },
   ];
+  
+  popularDestinationofDistrict: any[] = [
+    // Gangtok (districtid: 1)
+    {
+      destinationid: 1,
+      districtid: 1,
+      destinationname: 'Tsomgo Lake',
+    },
+    {
+      destinationid: 2,
+      districtid: 1,
+      destinationname: 'Nathula Pass',
+    },
+    {
+      destinationid: 3,
+      districtid: 1,
+      destinationname: 'MG Marg',
+    },
+    {
+      destinationid: 4,
+      districtid: 1,
+      destinationname: 'Hanuman Tok',
+    },
+    // Namchi (districtid: 2)
+    {
+      destinationid: 5,
+      districtid: 2,
+      destinationname: 'Samdruptse',
+    },
+    {
+      destinationid: 6,
+      districtid: 2,
+      destinationname: 'Char Dham',
+    },
+    {
+      destinationid: 7,
+      districtid: 2,
+      destinationname: 'Tendong Hill',
+    },
+    {
+      destinationid: 8,
+      districtid: 2,
+      destinationname: 'Ralang Monastery', // Added new destination for Namchi
+    },
+    // Mangan (districtid: 4)
+    {
+      destinationid: 12,
+      districtid: 4,
+      destinationname: 'Yuksom',
+    },
+    {
+      destinationid: 13,
+      districtid: 4,
+      destinationname: 'Gurudongmar Lake',
+    },
+    {
+      destinationid: 14,
+      districtid: 4,
+      destinationname: 'Aritar Lake',
+    },
+    {
+      destinationid: 15,
+      districtid: 4,
+      destinationname: 'Lungthung Valley',
+    },
+    // Geyzing (districtid: 5)
+    {
+      destinationid: 16,
+      districtid: 5,
+      destinationname: 'Zuluk',
+    },
+    {
+      destinationid: 17,
+      districtid: 5,
+      destinationname: 'Pakyong Airport',
+    },
+    {
+      destinationid: 18,
+      districtid: 5,
+      destinationname: 'Pemayangtse Monastery',
+    },
+    {
+      destinationid: 19,
+      districtid: 5,
+      destinationname: 'Khecheopalri Lake',
+    },
+    // Pakyong (districtid: 6)
+    {
+      destinationid: 22,
+      districtid: 6,
+      destinationname: 'Pemayangtse Monastery',
+    },
+    {
+      destinationid: 23,
+      districtid: 6,
+      destinationname: 'Singshore Bridge',
+    },
+    {
+      destinationid: 24,
+      districtid: 6,
+      destinationname: 'Pakyong Viewpoint', // Added new destination for Pakyong
+    },
+    {
+      destinationid: 25,
+      districtid: 6,
+      destinationname: 'Pakyong Airport Viewpoint', // Added new destination for Pakyong
+    },
+    // Soreng (districtid: 3)
+    {
+      destinationid: 7,
+      districtid: 3,
+      destinationname: 'Temi Tea Garden',
+    },
+    {
+      destinationid: 8,
+      districtid: 3,
+      destinationname: 'Dubdi Monastery',
+    },
+    {
+      destinationid: 9,
+      districtid: 3,
+      destinationname: 'Kangchendzonga National Park',
+    },
+    {
+      destinationid: 10,
+      districtid: 3,
+      destinationname: 'Tashiding Monastery',
+    },
+  ];
+  
+  
 
-  selectedDistrict: District | null = null;
+  selectedDistrict: any | null = null;
+ 
+  private apiService = inject(ApiService);
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Remove alert and initialize carousel
-    if (this.isBrowser()) {
-      setTimeout(() => {
-        initializeOwlCarousel(
-          '.district-carousel',
-          false,
-          true,
-          0,
-          false,
-          [1, 3, 4]
-        );
-      }, 300);
-    }
+    //this.getDistricts();
+   // this.getPoularDestinationofDistrict();
   }
 
+  ngAfterViewInit() {
+    // Remove alert after testing
+    setTimeout(() => {
+      initializeOwlCarousel(
+        '.district-carousel',
+        false,
+        true,
+        0,
+        false,
+        [1, 3, 4]
+      );
+    }, 300);
+  }
+
+  
   ngOnDestroy(): void {
-    if (this.isBrowser()) {
       destroyOwlInstance('.district-carousel');
-    }
   }
 
+  getDistricts() {
+    this.apiService.get('Master/GetAllDistricts').subscribe({
+      next: (res: any) => {
+        if (res && Array.isArray(res)) {
+          // Ensure res is an array before attempting to map
+          this.districts = res.map((category: any) => ({
+            districtid: category.districtid || null,  // Fallback to null if districtid doesn't exist
+            districtname: category.districtname || 'Unknown',  // Default to 'Unknown' if districtname is missing
+            description: category.description || '',  // Default to empty string if description is missing
+            image: category.image || '',  // Default to empty string if image URL is missing
+            keyPlaces: category.keyPlaces || [],  // Default to empty array if keyPlaces is missing
+            population: category.population || 0,  // Default to 0 if population is missing
+            elevation: category.elevation || 0,  // Default to 0 if elevation is missing
+          }));
+        } 
+      },
+      error: (error: any) => {
+        console.error('Error fetching districts:', error);
+      },
+    });
+  }
+  
+
+  getPoularDestinationofDistrict(){
+    this.apiService.get('LandingPage/GetTopMostPopularDistrictWiseDestination').subscribe({
+      next:(res:any)=>{
+        if(res && Array.isArray(res)){
+          this.popularDestinationofDistrict = res.map((category: any) => ({
+            destinationid: category.destinationid || null,
+            destinationname: category.destinationname || '',
+          }));
+        }
+      }
+      ,error:(error:any)=>{
+        console.error('Error fetching popular destinations:', error);
+      }
+    });
+  }
+  
+  getTopDestinationsForDistrictFiltered(districtId: number): any[] {
+
+    const destinations = this.popularDestinationofDistrict.filter(
+      place => place.districtid === districtId
+     
+    );
+    return destinations.slice(0, 4); // Only top 4 destinations
+  }
+
+  
   switchQR(i: number): void {
     this.isQRVisibleMap[i] = !this.isQRVisibleMap[i];
   }
 
-  shareQR(district: District): void {
-    const url = `${this.shareUrl}/destinations/${district.value}`;
+  shareQR(district: any): void {
+    const url = `${this.shareUrl}/destinations/${district.districtname.toLowerCase()}`;
     shareQRCode(
       url,
-      `Explore ${district.name}`,
-      `Check out ${district.name} in Sikkim!`
+      `Explore ${district.districtname}`,
+      `Check out ${district.districtname} in Sikkim!`
     );
   }
 
-  downloadQR(district: District): void {
-    downloadQRCode(district.name);
-  }
-
-  isBrowser(): boolean {
-    return isPlatformBrowser(this.platformId);
+  downloadQR(district: any): void {
+    downloadQRCode(district.districtname.toLowerCase());
   }
 
   trackBy(index: number): number {
@@ -211,4 +351,17 @@ export class HomeDistrictCarouselComponent implements OnInit, OnDestroy {
   getGradientClasses(district: string): string[] {
     return getGradientClasses(district);
   }
+
+
+  navigateToPlace(place: string): void {
+    const formattedPlace = place.toLowerCase().replace(/\s+/g, '-');
+      this.router.navigate(['/destination', formattedPlace]);
+  
+  }
+
+
+
+
+
+
 }

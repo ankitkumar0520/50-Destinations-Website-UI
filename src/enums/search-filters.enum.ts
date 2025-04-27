@@ -9,21 +9,21 @@ export const DISTRICT_OPTIONS = [
   
 
   export const EXPERIENCE_OPTIONS = [
-    { id: 'adventure', value: 'Adventure', icon: 'fa-mountain' },
-    { id: 'spiritual', value: 'Spiritual Retreat', icon: 'fa-praying-hands' },
-    { id: 'nature', value: 'Nature & Scenery', icon: 'fa-tree' },
-    { id: 'culture', value: 'Cultural Immersion', icon: 'fa-mask' },
-    { id: 'wildlife', value: 'Wildlife Exploration', icon: 'fa-paw' },
-    { id: 'pilgrimage', value: 'Pilgrimage Journey', icon: 'fa-church' },
-    { id: 'relaxation', value: 'Peace & Relaxation', icon: 'fa-spa' },
-    { id: 'photography', value: 'Photography Spot', icon: 'fa-camera-retro' },
-    { id: 'family', value: 'Family Friendly', icon: 'fa-people-roof' },
-    { id: 'romantic', value: 'Romantic Escape', icon: 'fa-heart' },
-    { id: 'eco', value: 'Eco-Tourism', icon: 'fa-leaf' },
-    { id: 'village', value: 'Village Experience', icon: 'fa-home' },
-    { id: 'tea', value: 'Tea Trail', icon: 'fa-mug-hot' },
-    { id: 'hotspring', value: 'Hot Spring Experience', icon: 'fa-water' },
-    { id: 'snow', value: 'Snow Adventure', icon: 'fa-snowflake' }
+    { id: 'adventure', value: 'Adventure' },
+    { id: 'spiritual', value: 'Spiritual Retreat' },
+    { id: 'nature', value: 'Nature & Scenery' },
+    { id: 'culture', value: 'Cultural Immersion' },
+    { id: 'wildlife', value: 'Wildlife Exploration' },
+    { id: 'pilgrimage', value: 'Pilgrimage Journey' },
+    { id: 'relaxation', value: 'Peace & Relaxation' },
+    { id: 'photography', value: 'Photography Spot' },
+    { id: 'family', value: 'Family Friendly' },
+    { id: 'romantic', value: 'Romantic Escape' },
+    { id: 'eco', value: 'Eco-Tourism' },
+    { id: 'village', value: 'Village Experience' },
+    { id: 'tea', value: 'Tea Trail' },
+    { id: 'hotspring', value: 'Hot Spring Experience' },
+    { id: 'snow', value: 'Snow Adventure' }
   ];
   
 

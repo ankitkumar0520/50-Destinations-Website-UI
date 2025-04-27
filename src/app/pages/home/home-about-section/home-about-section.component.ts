@@ -5,7 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../../services/search.service';
 import { ApiService } from '../../../services/api.service';
 import {
-  DESTINATIONS_TAGS,} from '../../../../enums/search-filters.enum';
+  EXPERIENCE_OPTIONS,} from '../../../../enums/search-filters.enum';
 
 @Component({
   selector: 'app-home-about-section',
@@ -17,9 +17,9 @@ import {
 export class HomeAboutSectionComponent implements OnInit {
 
   aboutData: any = {
-    title: "Unlock the Wonders of Sikkim",
+    title: "Unlock the <span class='text-secondary-800'>Wonders</span> of Sikkim",
     subtitle: "Journey Through Serenity, Adventure, and Timeless Beauty",
-    description: `Welcome to Sikkim — a Himalayan paradise where snow-capped peaks touch the heavens, ancient monasteries echo with sacred chants, and every valley weaves a story of timeless beauty. Nestled in the heart of Northeast India, Sikkim is a land of awe-inspiring contrasts — from the towering splendor of Kanchenjunga to the serene reflections of glacial lakes and the vibrant blooms of alpine meadows. 
+    description: `<b>Welcome to Sikkim</b> — a Himalayan paradise where snow-capped peaks touch the heavens, ancient monasteries echo with sacred chants, and every valley weaves a story of timeless beauty. Nestled in the heart of Northeast India, Sikkim is a land of awe-inspiring contrasts — from the towering splendor of Kanchenjunga to the serene reflections of glacial lakes and the vibrant blooms of alpine meadows. 
   
   Discover the soul of Sikkim across its six unique districts, each offering a mesmerizing blend of heritage, spirituality, adventure, and local warmth. Embark on thrilling treks through misty rhododendron forests, find peace within centuries-old monasteries, or savor the charm of village life through authentic homestays. Witness colorful festivals that light up the mountains, indulge in traditional flavors, and uncover hidden gems known only to locals.
   
@@ -27,7 +27,7 @@ export class HomeAboutSectionComponent implements OnInit {
   };
   
 
-  destinationCategories=DESTINATIONS_TAGS;
+  experienceOptions=EXPERIENCE_OPTIONS;
 
   glanceCounts: any[] = [
     { number: 6, label: 'Districts' },
@@ -121,7 +121,7 @@ export class HomeAboutSectionComponent implements OnInit {
       .get('Master/GetAllDestinationTypes')
       .subscribe((res: any) => {
         if (res) {
-          this.destinationCategories = res.map((category: any) => ({
+          this.experienceOptions = res.map((category: any) => ({
             id: category.destinationtypeid,
             name: category.destinationtypename,
             icon: category.icon || 'fa-solid fa-circle-question',
