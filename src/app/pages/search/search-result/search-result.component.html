@@ -6,7 +6,8 @@
       <!-- Left: Search Results -->
       <div>
         <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300">
-          Search Results: Found {{ filteredResults.length }} items
+          Search Results: 
+          <span class="block md:inline">Found {{ filteredResults.length }} items</span>
         </h2>
       </div>
       <!-- Right: Flip All Button -->
@@ -16,7 +17,7 @@
           (click)="flipAll()"
         >
           <i class="fas fa-sync-alt text-blue-600 dark:text-green-300"></i>
-          Flip All Cards
+          Flip All <span class="hidden md:block">Cards</span>
         </button>
       </div>
     </div>
@@ -51,7 +52,7 @@
             >
               <img
                 [src]="result.image"
-                [alt]="result.title"
+                [alt]="result.destinationname"
                 class="w-full h-full object-cover"
                 (error)="imageService.handleImageError($event)"
               />
@@ -61,7 +62,7 @@
               <div
                 class="absolute bottom-2 left-2 bg-white/90 dark:bg-accent-800/90 backdrop-blur-sm rounded-full px-2 py-0.5 text-xs font-medium text-accent-900 dark:text-accent-100 flex items-center shadow-sm"
               >
-                <i class="fas fa-clock"></i>
+                <i class="fas fa-clock mr-1"></i>
                 {{ result.duration }}
               </div>
             </div>
@@ -73,12 +74,12 @@
                 <h3
                   class="text-base font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200 pr-2"
                 >
-                  {{ result.title }}
+                  {{ result.destinationname }}
                 </h3>
                 <span
-                  class="text-xs font-medium bg-secondary-50 dark:bg-secondary-900/20 text-secondary-700 dark:text-secondary-400 border border-secondary-100 dark:border-secondary-800 px-2 py-0.5 rounded-full whitespace-nowrap"
+                  class="text-xs font-medium bg-accent-50 dark:bg-accent-900/20 text-accent-700 dark:text-accent-400 border border-accent-100 dark:border-accent-800 px-2 py-0.5 rounded-full whitespace-nowrap"
                 >
-                  {{ result.location }}
+                  {{ result.districtname }}
                 </span>
               </div>
 
@@ -86,7 +87,7 @@
               <p
                 class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2 text-justify leading-relaxed"
               >
-                {{ result.description }}
+                {{ result.destinationdescription }}
               </p>
 
               <!-- Tags -->
@@ -99,23 +100,14 @@
                 </span>
               </div>
 
-              <!-- Action Button -->
-              <!-- <button [disabled]="result.id!==0" [ngClass]="{'!bg-primary-200':result.id!==0}"
-                (click)="navigateToDetail(result.id)"
-                class="cursor-pointer mt-auto bg-primary-600 dark:bg-primary-500 hover:bg-primary-700 dark:hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-sm hover:shadow-md text-sm flex items-center justify-center group"
-              >
-                <span>View Details</span>
-                <i class="ml-2 fas fa-arrow-right"></i>
-              </button>  -->
-
               <button
-                (click)="navigateToDetail(result.id)"
-                [disabled]="result.id !== 0"
+                (click)="navigateToDetail(result.slug)"
+                [disabled]="result.slug !== 'rumtek-monastery'"
                 [ngClass]="{
                   'bg-primary-600 dark:bg-primary-500 hover:bg-primary-700 dark:hover:bg-primary-600 text-white cursor-pointer':
-                    result.id === 0,
+                    result.slug === 'rumtek-monastery',
                   'bg-gray-300 dark:bg-gray-700 text-gray-500 cursor-not-allowed':
-                    result.id !== 0
+                    result.slug !== 'rumtek-monastery'
                 }"
                 class="mt-auto font-medium py-2 px-4 rounded-lg transition-all duration-200 transform shadow-sm text-sm flex items-center justify-center group"
               >
@@ -138,19 +130,17 @@
             <div class="qr-container flex justify-center mb-2">
               <qrcode
                 #qrCanvas
-                [qrdata]="siteUrl + '/' + result.id"
+                [qrdata]="siteUrl + '/destination/' + result.slug"
                 [width]="200"
                 [errorCorrectionLevel]="'M'"
+                [elementType]="'canvas'"
+                (qrCodeURL)="onQRCodeGenerated($event, i)"
               >
               </qrcode>
             </div>
-            <h3
-              class="text-sm font-bold text-gray-800 dark:text-gray-200 mb-1 line-clamp-2"
-            >
-              {{ result.title }}
-            </h3>
+           
             <p class="text-gray-600 dark:text-gray-400 text-xs mb-2">
-              Scan to explore {{ result.title }}
+              Scan to explore {{ result.destinationname }}
             </p>
             <div class="action-buttons flex gap-2">
               <button class="action-button share-button" (click)="shareQR(i)">
@@ -190,7 +180,7 @@
     <i class="fas fa-search"></i>
     <h2 class="text-lg font-semibold">No Results Found</h2>
     <p class="mt-1 text-sm">
-      We couldn’t find any matches. Try adjusting your search.
+      We couldn't find any matches. Try adjusting your search.
     </p>
   </div>
 </div>

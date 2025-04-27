@@ -1,6 +1,6 @@
 <div class="max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 my-8">
   <div
-    class="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700"
+    class="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden border-2 border-gray-200 dark:border-gray-700"
   >
     <!-- Destination Tags at the top with Clear Button -->
     <div class="p-3 border-b border-gray-100 dark:border-gray-700">
@@ -13,26 +13,30 @@
           class="cursor-pointer text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 flex items-center gap-1.5 px-2.5 py-1 bg-gray-50 dark:bg-gray-900/20 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900/30 transition-colors"
         >
           <i class="fas fa-trash-alt w-4 h-4"></i>
-          Clear All
+          Clear <span class="hidden md:block">All</span>
         </button>
         <!-- Filter Button -->
         <button
           (click)="showFilters = true"
-          class="cursor-pointer not-odd:ml-auto h-9 px-4 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-600 dark:border-gray-400 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors shadow-sm flex items-center justify-center gap-1.5"
-        >
+          class="cursor-pointer bg-gray-50 not-odd:ml-auto h-9 px-4 
+           dark:bg-gray-800 text-gray-600 dark:text-gray-400 border
+            border-gray-400 dark:border-gray-400 rounded-md text-sm font-medium
+             hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors shadow-sm 
+             flex items-center justify-center gap-1.5">
+
           <i class="fas fa-filter w-4 h-4"></i>
           Filter
         </button>
       </div>
-      <div class="flex flex-wrap gap-1.5">
+      <div class="grid lg:grid-cols-9 md:grid-cols-4 grid-cols-2 gap-1.5">
         <button
           *ngFor="let tag of destinationTags"
           (click)="toggleTag(tag.id)"
           [class]="
-            'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ' +
+            'flex items-center gap-1 md:gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ' +
             (selectedTags.has(tag.id)
               ? 'bg-accent-600 dark:bg-accent-500 text-white shadow-sm'
-              : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900/20')
+              : 'cursor-pointer bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900/20')
           "
         >
           <i [class]="'fas ' + tag.icon + ' w-4 h-4'"></i>

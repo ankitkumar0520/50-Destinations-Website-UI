@@ -8,7 +8,6 @@ import {
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import {
-  ResultItem,
   SearchFilters,
   SearchService,
 } from '../../../services/search.service';
@@ -16,6 +15,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { ImageService } from '../../../services/image.service';
+import { SafeUrl } from '@angular/platform-browser';
+import { downloadQRCode } from '../../../utils/utils';
 
 @Component({
   selector: 'app-search-result',
@@ -36,8 +37,8 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     : '';
 
   filters: SearchFilters | null = null;
-  filteredResults: ResultItem[] = [];
-  paginatedResults: ResultItem[] = [];
+  filteredResults: any[] = [];
+  paginatedResults: any[] = [];
   currentPage = 1;
   itemsPerPage = 8;
 
@@ -94,16 +95,16 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     }
   }
 
+  onQRCodeGenerated(url: SafeUrl, index: number): void {
+    // Store the QR code URL if needed
+    this.qrCodeUrls[index] = url.toString();
+  }
+
+  private qrCodeUrls: { [key: number]: string } = {};
+
   downloadQR(index: number): void {
-    const canvas = this.qrCanvases
-      .toArray()
-      [index]?.nativeElement?.querySelector('canvas');
-    if (canvas) {
-      const link = document.createElement('a');
-      link.download = `${this.filteredResults[index].title}-qr.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    }
+    const result = this.filteredResults[index];
+    downloadQRCode(result.destinationname.toLowerCase());
   }
 
   //for card to flip all

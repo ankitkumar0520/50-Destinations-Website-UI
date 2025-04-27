@@ -273,10 +273,10 @@ export class HomeDistrictCarouselComponent implements OnInit, OnDestroy {
     }, 300);
   }
 
-  
+
   ngOnDestroy(): void {
       destroyOwlInstance('.district-carousel');
-  }
+    }
 
   getDistricts() {
     this.apiService.get('Master/GetAllDistricts').subscribe({
@@ -326,7 +326,7 @@ export class HomeDistrictCarouselComponent implements OnInit, OnDestroy {
     return destinations.slice(0, 4); // Only top 4 destinations
   }
 
-  
+
   switchQR(i: number): void {
     this.isQRVisibleMap[i] = !this.isQRVisibleMap[i];
   }
