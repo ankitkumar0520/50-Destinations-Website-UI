@@ -29,7 +29,6 @@ export class HomeHeroSectionComponent implements OnInit {
     subtitle: 'Eco-friendly tourism that preserves the pristine beauty and cultural heritage of Sikkim, one adventure at a time.',
   };
   
-
   private searchTimeout: any;
 
   ngOnInit() {
@@ -130,4 +129,6 @@ export class HomeHeroSectionComponent implements OnInit {
   redirectToSearch() {
     this.router.navigate(['/destinations']);
   }
+
+
 }
