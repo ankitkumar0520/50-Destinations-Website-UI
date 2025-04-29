@@ -8,6 +8,7 @@ import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.co
 import { TermServicesComponent } from './pages/term-services/term-services.component';
 import { EventsComponent } from './pages/events/events.component';
 import { HeritageWalkComponent } from './pages/heritage-walk/heritage-walk.component';
+import { ViewPdfComponent } from './pages/events/view-pdf/view-pdf.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch:'full' },
   {
@@ -26,4 +27,5 @@ export const routes: Routes = [
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'terms-of-service', component: TermServicesComponent },
   { path: 'heritage-walk', component: HeritageWalkComponent },
+  { path: 'view-pdf', component: ViewPdfComponent },
 ];

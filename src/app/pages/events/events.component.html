@@ -62,7 +62,7 @@
       <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden backdrop-blur-lg bg-opacity-90 dark:bg-opacity-90 border border-[var(--color-primary-200)] dark:border-[var(--color-primary-800)]">
         <div class="overflow-x-auto">
           <table class="min-w-full divide-y divide-[var(--color-primary-200)] dark:divide-[var(--color-primary-800)]">
-            <thead class="bg-[var(--color-primary-50)] dark:bg-[var(--color-primary-900)]">
+            <thead class="bg-[var(--color-primary-200)] dark:bg-[var(--color-primary-900)]">
               <tr>
                 <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-[var(--color-primary-700)] dark:text-[var(--color-primary-300)] uppercase tracking-wider">
                   Event Name
@@ -98,8 +98,8 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
                   <button
-                    (click)="viewEvent(event)"
-                    class="inline-flex items-center px-3 py-1.5 bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] text-white rounded-lg transition-colors duration-200 text-xs"
+                    (click)="viewEvent(event.pdfUrl)"
+                    class="cursor-pointer inline-flex items-center px-3 py-1.5 bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-600)] text-white rounded-lg transition-colors duration-200 text-xs"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -107,15 +107,7 @@
                     </svg>
                     View
                   </button>
-                  <button
-                    (click)="downloadEvent(event)"
-                    class="inline-flex items-center px-3 py-1.5 bg-[var(--color-secondary-500)] hover:bg-[var(--color-secondary-600)] text-white rounded-lg transition-colors duration-200 text-xs"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
-                    Download
-                  </button>
+                
                 </td>
               </tr>
             </tbody>

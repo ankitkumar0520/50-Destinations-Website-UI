@@ -1,3 +1,35 @@
-<p>
-  view-pdf works!
-</p>
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto mt-16">
+
+
+    <!-- PDF Viewer Container -->
+    <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden backdrop-blur-lg bg-opacity-90 dark:bg-opacity-90 border border-[var(--color-primary-200)] dark:border-[var(--color-primary-800)]">
+      <div class="p-4 sm:p-6">
+        <ngx-extended-pdf-viewer 
+          #pdfViewer
+          [src]="pdfUrl"
+          [height]="'85vh'"
+          [textLayer]="true"
+          [showHandToolButton]="false"
+          [showFindButton]="true"
+          [showDownloadButton]="'always-visible'"
+          [showPrintButton]="true"
+          [showSecondaryToolbarButton]="false"
+          [showSidebarButton]="false"
+          [sidebarVisible]="false"
+          [showZoomButtons]="true"
+          [showPagingButtons]="true"
+          [showRotateButton]="false"
+          [showPresentationModeButton]="false"
+          [showOpenFileButton]="false"
+          [filenameForDownload]="'sikkimdarshan-'+pdfName"
+          [showTextEditor]="false"
+          [showDrawEditor]="false"
+          [showStampEditor]="false"
+          [showHighlightEditor]="false"
+          [forceUsingLegacyES5]="true"
+        ></ngx-extended-pdf-viewer>
+      </div>
+    </div>
+  </div>
+</div>
