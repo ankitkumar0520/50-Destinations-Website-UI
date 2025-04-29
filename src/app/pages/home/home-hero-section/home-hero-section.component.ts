@@ -21,6 +21,7 @@ export class HomeHeroSectionComponent implements OnInit {
   private searchService = inject(SearchService);
   private router = inject(Router);
   private apiService = inject(ApiService);
+  private imageService = inject(ImageService);
 
   snowflakes: Array<{ style: string }> = [];
 
@@ -130,5 +131,7 @@ export class HomeHeroSectionComponent implements OnInit {
     this.router.navigate(['/destinations']);
   }
 
-
+  navigateToHeritageWalk() {
+    this.router.navigate(['/heritage-walk']);
+  }
 }

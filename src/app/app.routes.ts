@@ -6,6 +6,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { FaqsComponent } from './pages/faqs/faqs.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 import { TermServicesComponent } from './pages/term-services/term-services.component';
+import { EventsComponent } from './pages/events/events.component';
+import { HeritageWalkComponent } from './pages/heritage-walk/heritage-walk.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch:'full' },
   {
@@ -20,6 +22,8 @@ export const routes: Routes = [
   { path: 'destination/:id', component: DestinationMainComponent },
   { path: 'about', component: AboutComponent },
   { path: 'faqs', component: FaqsComponent },
+  { path: 'events', component: EventsComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'terms-of-service', component: TermServicesComponent },
+  { path: 'heritage-walk', component: HeritageWalkComponent },
 ];

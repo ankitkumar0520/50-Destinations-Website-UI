@@ -17,7 +17,7 @@
                     "leaflet",
                     "qrcode"
                   ],
-           "outputPath": "dist/50-destinations-ui",
+            "outputPath": "dist/50-destinations-ui",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -30,14 +30,9 @@
                 "input": "public"
               },
               {
-                "glob": "marker-icon*.png",
-                "input": "./node_modules/leaflet/dist/images/",
-                "output": "/assets/"
-              },
-              {
-                "glob": "marker-shadow.png",
-                "input": "./node_modules/leaflet/dist/images/",
-                "output": "/assets/"
+                "glob": "**/*",
+                "input": "node_modules/ngx-extended-pdf-viewer/bleeding-edge/",
+                "output": "/bleeding-edge/"
               }
             ],
             "styles": [
