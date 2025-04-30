@@ -1,0 +1,78 @@
+<section class="min-h-screen py-16 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800">
+  <div class="max-w-7xl mx-auto px-6 md:px-8 2xl:px-0">
+    <app-section-header
+      [badgeText]="'Sikkim Rural Tourism Meet 2025'"
+      [titleLeft]="'Sikkim Rural : '"
+      [titleMiddleHighlighted]="'Tourism Meet 2025'"
+      [titleRight]="' Community-Led'"
+      [description]="'Held in the scenic village of Uttarey, West Sikkim, the Sikkim Rural Tourism Meet (SRTM) 2025 marked a transformative step in sustainable rural tourism.'"
+    ></app-section-header>
+
+
+    <div class="flex flex-col md:grid md:grid-cols-2 gap-6 mt-8">
+
+      <!-- Video Section -->
+
+      <div class="relative w-full aspect-video sm:aspect-auto rounded-xl overflow-hidden bg-black shadow-md">
+        <h1 class="text-white text-2xl font-bold flex justify-center items-center ">This is a sample video</h1>
+        <button 
+          (click)="loadVideo()" 
+          class="absolute inset-0 flex items-center justify-center text-white text-4xl bg-black/50 hover:bg-black/30 transition">
+          ▶
+        </button>
+      
+        <ng-container *ngIf="isVideoLoaded">
+          <iframe 
+            class="absolute top-0 left-0 w-full h-full"
+            [src]="safeVideoUrl"
+            frameborder="0"
+            loading="lazy"
+            preload="metadata"
+            controls
+            
+            allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+          </iframe>
+        </ng-container>
+      </div>
+      
+      
+      <!-- Description Section -->
+      <div class="bg-white  dark:bg-gray-800 rounded-xl p-5 shadow-xl border border-gray-200 dark:border-gray-700 w-full transition-all duration-500">
+        <h1 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Event Overview</h1>
+        <div class="max-h-[300px] overflow-y-auto custom-scrollbar text-base text-gray-700 dark:text-gray-300 leading-relaxed space-y-4 pr-2">
+          <p>
+            The <strong>Sikkim Rural Tourism Meet (SRTM) 2025</strong> was hosted in the picturesque village of Uttarey, West Sikkim. It represented a significant leap forward in sustainable and community-based tourism.
+          </p>
+          <p>
+            Organized under the <em>Sikkim INSPIRES</em> project by the Tourism and Civil Aviation Department, it welcomed rural entrepreneurs, government officials, and tour professionals to collaborate on eco-tourism initiatives.
+          </p>
+          <p>
+            Highlights included immersive homestays, traditional food showcases, and cultural performances. Strategic alliances with travel influencers helped spread the message of Sikkim’s rural richness nationwide.
+          </p>
+          <p>
+            The Meet emphasized the values of participation, pride, and prosperity—laying the groundwork for replicating this model in other rural regions of Sikkim.
+          </p>
+        </div>
+        
+        <div class="grid p-2 border-t border-gray-300 dark:border-gray-700  grid-cols-2 gap-3 mt-4">
+          
+          <button (click)="showPdf(pdfUrl.acknowledgment)" class="cursor-pointer flex items-center justify-center gap-2 bg-white border border-primary-600 text-primary-600 hover:bg-primary-50 px-4 py-2 rounded-md shadow transition duration-300">
+            <i class="fas fa-file-pdf"></i>
+             Acknowledgment
+
+          </button>
+        
+          <button (click)="showPdf(pdfUrl.tourismImpact)" class="cursor-pointer flex items-center justify-center gap-2 bg-white border border-primary-600 text-primary-600 hover:bg-primary-50 px-4 py-2 rounded-md shadow transition duration-300">
+            <i class="fas fa-file-pdf"></i>
+            Tourism Impact
+          </button>
+        </div>
+        
+
+      </div>
+      
+    </div>
+  </div>
+</section>
+

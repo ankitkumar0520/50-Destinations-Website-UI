@@ -6,7 +6,7 @@ import { HomeAboutSectionComponent } from './home-about-section/home-about-secti
 import { HomeDistrictCarouselComponent } from './home-district-carousel/home-district-carousel.component';
 import { HomeGallerySectionComponent } from './home-gallery-section/home-gallery-section.component';
 import { HomeHeroSectionComponent } from './home-hero-section/home-hero-section.component';
-
+import { VideoSectionComponent } from './video-section/video-section.component';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +16,7 @@ import { HomeHeroSectionComponent } from './home-hero-section/home-hero-section.
     HomeHeroSectionComponent,
     HomeGallerySectionComponent,
     HomeAboutSectionComponent,
+    VideoSectionComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
