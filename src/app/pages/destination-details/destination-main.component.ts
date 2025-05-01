@@ -8,7 +8,7 @@ import { ShopsComponent } from './shops/shops.component';
 import { AccomodationEateryComponent } from './accomodation-eatery/accomodation-eatery.component';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MapComponent } from './map/map.component';
-
+import { AiAudioModelComponent } from './ai-audio-model/ai-audio-model.component';
 @Component({
   selector: 'app-destination-main',
   standalone: true,
@@ -24,6 +24,7 @@ import { MapComponent } from './map/map.component';
     ShopsComponent,
     AccomodationEateryComponent,
     MapComponent,
+    AiAudioModelComponent,
   ],
 })
 export class DestinationMainComponent implements OnInit {
@@ -90,4 +91,6 @@ showAside = false;
       this.activeSection = id;
     }
   }
+
+
 }

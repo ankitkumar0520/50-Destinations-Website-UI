@@ -1,97 +1,204 @@
-<div class="fixed inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-  <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 w-full max-w-md shadow-2xl relative transform transition-all duration-300 hover:scale-[1.02]">
-    <!-- Close Button -->
-    <button (click)="closeModal()" aria-label="Close" class="cursor-pointer absolute top-4 right-4 text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 transition-colors">
-      <i class="fas fa-times h-6 w-6"></i>
-    </button>
+<div *ngIf="showModal$ | async" class="fixed inset-0 bg-black/40 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+  <div class="relative bg-white dark:bg-gray-900 rounded-3xl p-4 w-[95%] max-w-sm shadow-2xl transition-all transform hover:scale-[1.01]">
+    <!-- Header with Close Button -->
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-2">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Audio Guide</h2>
 
-    <!-- Cover Art -->
-    <div class="relative group overflow-hidden">
-      <img [src]="selectedLanguage.image" class="w-48 h-48 mx-auto rounded-xl shadow-lg mb-6 object-cover transition-transform duration-300 group-hover:scale-105" alt="Audio Cover" />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-    </div>
 
-    <!-- Track Info -->
-    <div class="text-center mb-6">
-      <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ selectedLanguage.title }}</h3>
-    </div>
-
-    <!-- Language Selector -->
-    <div class="flex items-center justify-center gap-2 mb-6">
-      <!-- Globe Icon -->
-      <i class="fas fa-globe text-primary"></i>
-
-      <!-- Dropdown -->
-      <select
-        [value]="selectedLang"
-        (change)="changeLanguage($any($event.target).value)"
-        class="text-base bg-primary/10 text-primary border-0 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:outline-none font-medium cursor-pointer hover:bg-primary/20 transition-colors"
-      >
-        <option class="cursor-pointer" *ngFor="let lang of languages | keyvalue" [value]="lang.value.languageCode">
-          {{ lang.value.language }}
-        </option>
-      </select>
-    </div>
-
-    <!-- Audio Visualization -->
-    <div class="flex items-center justify-center gap-1.5 h-12 mb-6">
-      <div *ngFor="let bar of [1,2,3,4,5,6,7,8,9,10]" 
-           class="w-1.5 bg-gradient-to-t from-accent to-secondary rounded-full transition-all duration-300"
-           [style.height]="isPlaying ? (getBarHeight() + 'px') : '4px'"
-           [style.opacity]="isPlaying ? '1' : '0.5'">
+        <!-- Animated Equalizer Playing Indicator -->
+      <div *ngIf="audioSettings.isPlaying" class="flex item s-center gap-1">
+        <div class="w-1.5 h-4 bg-indigo-500 rounded-sm animate-wave delay-0"></div>
+        <div class="w-1.5 h-3 bg-indigo-500 rounded-sm animate-wave delay-100"></div>
+        <div class="w-1.5 h-2 bg-indigo-500 rounded-sm animate-wave delay-200"></div>
+        <div class="w-1.5 h-4 bg-indigo-500 rounded-sm animate-wave delay-300"></div>
+        <div class="w-1.5 h-5 bg-indigo-500 rounded-sm animate-wave delay-100"></div>
       </div>
-    </div>
 
-    <!-- Progress Bar -->
-    <div class="mb-6">
-      <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
-        <span>{{ formatTime(currentTime) }}</span>
-        <span>{{ formatTime(duration) }}</span>
+
+
+        
       </div>
-      <input
-        type="range"
-        min="0"
-        [max]="duration || 1"
-        [value]="currentTime"
-        (input)="onSeek($event)"
-        class="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full appearance-none cursor-pointer accent-primary"
-      />
+      <button (click)="closeModal()" aria-label="Close"
+        class="cursor-pointer p-2 text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
     </div>
 
-    <!-- Controls -->
-    <div class="flex items-center justify-between mb-6">
+    <!-- Main Content -->
+    <div class="flex flex-col items-center">
+      <!-- Album Art & Title -->
+      <div class="w-40 h-40 mb-6 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 flex items-center justify-center shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+        </svg>
+      </div>
+      
+      <!-- Track Info -->
+      <div class="text-center mb-6">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">{{ selectedLanguage.title }}</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Audio Guide</p>
+      </div>
+
+      <!-- Progress Bar with Seek Slider -->
+      <div class="w-full mb-6">
+        <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
+          <span>{{ formatTime(audioSettings.currentTime) }}</span>
+          <span>{{ formatTime(audioSettings.duration) }}</span>
+        </div>
+        <input type="range" min="0" [max]="audioSettings.duration || 1" [value]="audioSettings.currentTime" (input)="onSeek($event)"
+          class="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full appearance-none cursor-pointer accent-indigo-500">
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center justify-center gap-6 mb-6">
+        <button (click)="skip(-10)" aria-label="Rewind 10 seconds"
+          class="p-2 text-gray-500 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 19 2 12 11 5 11 19"></polygon>
+            <polygon points="22 19 13 12 22 5 22 19"></polygon>
+          </svg>
+        </button>
+
+        <button (click)="togglePlay()" aria-label="Play or Pause"
+          class="bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all transform hover:scale-110">
+          <svg *ngIf="!audioSettings.isPlaying" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <svg *ngIf="audioSettings.isPlaying" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+        </button>
+
+        <button (click)="skip(10)" aria-label="Forward 10 seconds"
+          class="p-2 text-gray-500 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 19 22 12 13 5 13 19"></polygon>
+            <polygon points="2 19 11 12 2 5 2 19"></polygon>
+          </svg>
+        </button>
+      </div>
+
       <!-- Volume Control -->
-      <div class="flex items-center gap-2 w-32">
-        <i class="fas fa-volume-up text-gray-500 dark:text-gray-400"></i>
-        <input 
-          type="range" 
-          min="0" 
-          max="1" 
-          step="0.01" 
-          [value]="volume" 
-          (input)="adjustVolume($event)" 
-          class="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full appearance-none cursor-pointer accent-primary"
-        />
+      <div class="flex items-center gap-3 w-full max-w-xs">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <input type="range" min="0" max="1" step="0.01" [value]="audioSettings.volume" (input)="adjustVolume($event)"
+          class="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full appearance-none cursor-pointer accent-indigo-500">
       </div>
 
-      <!-- Playback Controls -->
-      <div class="flex items-center gap-4">
-        <button (click)="skip(-10)" aria-label="Rewind 10 seconds" class="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
-          <i class="fas fa-backward"></i>
-        </button>
-
-        <button
-          (click)="togglePlay()"
-          aria-label="Play or Pause"
-          class="bg-primary text-white p-4 rounded-full shadow-lg hover:bg-primary-dark transition-colors transform hover:scale-105"
-        >
-          <i [class]="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
-        </button>
-
-        <button (click)="skip(10)" aria-label="Forward 10 seconds" class="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
-          <i class="fas fa-forward"></i>
-        </button>
+      <!-- Language Selector -->
+      <div class="mt-6 w-full max-w-xs">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+          </div>
+          <select #audioInput [value]="audioSettings.selectedLang" (change)="changeLanguage($any($event.target).value)"
+            class="w-full bg-gray-200 font-semibold dark:bg-gray-800 text-gray-900 dark:text-white border-0 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none">
+            <option *ngFor="let lang of languages | keyvalue" [value]="lang.value.languageCode">
+              {{ lang.value.language }}
+            </option>
+          </select>
+          <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
       </div>
+  
+        <!-- Loading Indicator and Error Indicator -->
+        <div *ngIf="audioSettings.showLoadingIndicator || audioSettings.showError" class="fixed inset-0 bg-black/30 dark:bg-black/60 backdrop-blur-sm 
+        flex items-center justify-center z-50 rounded-3xl">
+          <div class="bg-white/90 dark:bg-gray-900/90 p-8 rounded-xl shadow-2xl">
+            
+            <!-- Audio Bars -->
+            <div class="flex items-end justify-center h-16 gap-0.5 mb-4">
+              <div [ngClass]="{'bg-red-400': audioSettings.showError}" class="w-2 h-4 bg-purple-400 rounded-t-sm animate-pulse" style="animation-delay: 0ms"></div>
+              <div [ngClass]="{'bg-red-400': audioSettings.showError}" class="w-2 h-6 bg-purple-500 rounded-t-sm animate-pulse" style="animation-delay: 150ms"></div>
+              <div [ngClass]="{'bg-red-400': audioSettings.showError}" class="w-2 h-8 bg-purple-600 rounded-t-sm animate-pulse" style="animation-delay: 300ms"></div>
+              <div [ngClass]="{'bg-red-400': audioSettings.showError}" class="w-2 h-6 bg-purple-500 rounded-t-sm animate-pulse" style="animation-delay: 450ms"></div>
+              <div [ngClass]="{'bg-red-400': audioSettings.showError}" class="w-2 h-4 bg-purple-400 rounded-t-sm animate-pulse" style="animation-delay: 600ms"></div>
+            </div>
+            
+            <!-- Loading Text -->
+            <p *ngIf="!audioSettings.showError" class="text-center text-purple-600 dark:text-purple-300 font-medium">
+              Loading audio...
+            </p>
+
+             <!-- Error Text -->
+             <p *ngIf="audioSettings.showError" class="text-center text-red-600 dark:text-red-300 font-medium">
+              Error loading audio. Please try again.
+            </p>
+
+          </div>
+        </div>
+
+        
+
     </div>
+  </div>
+</div>
+
+
+
+<!-- Floating Audio Control -->
+<div class="fixed left-8 bottom-8 z-50">
+  <!-- Main Container -->
+  <div class="relative flex items-center">
+    <!-- Playback Controls (Hidden until hover) -->
+    <div [ngClass]="{'opacity-100 translate-x-2 !pointer-events-auto delay-300':audioSettings.isPlaying, 'opacity-0 delay-700': !audioSettings.isPlaying}" 
+         class="absolute left-14 flex items-center space-x-2 translate-x-0 transition-all duration-300 pointer-events-none">
+      
+      <!-- Backward -->
+      <button aria-label="Backward" (click)="skip(-10); $event.stopPropagation()"
+              class="bg-white/90 dark:bg-gray-800/90 shadow-lg hover:bg-white dark:hover:bg-gray-700 border border-gray-300/50 dark:border-gray-600/50 text-indigo-600 dark:text-indigo-300 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M11 19V5l-9 7 9 7zm1-7l9 7V5l-9 7z"/>
+        </svg>
+      </button>
+
+      <!-- Play/Pause -->
+      <button aria-label="Play/Pause" (click)="togglePlay(); $event.stopPropagation()"
+              class="bg-gradient-to-br from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 hover:brightness-110">
+        <svg *ngIf="!audioSettings.isPlaying" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg *ngIf="audioSettings.isPlaying" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+          <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
+        </svg>
+      </button>
+
+      <!-- Forward -->
+      <button aria-label="Forward" (click)="skip(10); $event.stopPropagation()"
+              class="bg-white/90 dark:bg-gray-800/90 shadow-lg hover:bg-white dark:hover:bg-gray-700 border border-gray-300/50 dark:border-gray-600/50 text-indigo-600 dark:text-indigo-300 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M13 5v14l9-7-9-7zm-1 7L3 5v14l9-7z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Main Speaker Button -->
+    <div class="relative">
+      <button aria-label="Toggle Audio Guide" (click)="toggleAudioGuideModel()"
+              class="bg-gradient-to-br from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md transition-transform duration-300 hover:scale-110 hover:brightness-110">
+        <svg xmlns="http://www.w3.org/2000/svg" [ngClass]="{'animate-ping !w-5 !h-5': audioSettings.isPlaying}" class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a3.5 3.5 0 0 0-1.5-2.83v5.66A3.5 3.5 0 0 0 16.5 12zm2.5 0a6 6 0 0 0-2.25-4.72v9.44A6 6 0 0 0 19 12z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Hover Label -->
+  <div class="absolute -top-10 left-0 bg-gray-800/95 dark:bg-gray-900/95 text-white text-xs font-medium py-1 px-3 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg backdrop-blur-sm">
+    Audio Guide
   </div>
 </div>
