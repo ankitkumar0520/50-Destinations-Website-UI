@@ -75,7 +75,7 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy, AfterVie
         false,
         [1, 2, 3]
       );
-    }, 2000);
+    }, 1000);
   }
 
   ngOnDestroy() {

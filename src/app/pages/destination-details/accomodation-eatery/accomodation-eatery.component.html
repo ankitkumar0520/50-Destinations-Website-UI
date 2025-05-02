@@ -51,18 +51,18 @@
 
             <!-- Hotel Details -->
             <div class="p-4 flex flex-col ">
-              <div class="gap-2 mb-4 h-24  justify-between grid grid-cols-1 ">
-                <div class="col">
-                <i class="fas fa-map-marker-alt text-primary-500 mt-0.5 w-5 text-center flex-shrink-0"></i>
-                <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ hotel.address }}</p>
-              </div>
-              <div class="col"> 
-               
-                <i class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center" aria-hidden="true"></i>
-                <a [href]="'tel:' + hotel.contact" class="hover:underline">{{ hotel.contact }}</a>
-                </div>
 
+              <div class="gap-2 mb-4 justify-between grid grid-cols-1">
+                <div class="flex items-start gap-2">
+                  <i class="fas fa-map-marker-alt text-primary-500 mt-0.5 w-5 text-center flex-shrink-0"></i>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ hotel.address }}</p>
+                </div>
+                <div class="flex items-start gap-2"> 
+                  <i class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center flex-shrink-0" aria-hidden="true"></i>
+                  <a [href]="'tel:' + hotel.contact" class="hover:underline">{{ hotel.contact }}</a>
+                </div>
               </div>
+              
 
                           <!-- Phone -->
            
@@ -113,18 +113,18 @@
 
             <!-- Eatery Details -->
             <div class="p-4 flex flex-col">
-              <div class="gap-2 mb-4 h-24  justify-between grid grid-cols-1 ">
-                <div class="col">
-                <i class="fas fa-map-marker-alt text-primary-500 mt-1 w-5 text-center"></i>
-                <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ eatery.address }}</p>
+
+              <div class="gap-2 mb-4 h-24 justify-between grid grid-cols-1">
+                <div class="flex items-start gap-2">
+                  <i class="fas fa-map-marker-alt text-primary-500 mt-1 w-5 text-center"></i>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ eatery.address }}</p>
                 </div>
-                <div class="col"> 
-               
+                <div class="flex items-start gap-2">
                   <i class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center" aria-hidden="true"></i>
                   <a [href]="'tel:' + eatery.contact" class="hover:underline">{{ eatery.contact }}</a>
-                  </div>
+                </div>
               </div>
-
+              
               <!-- Action Button -->
               <button
                 (click)="openEateryModal(eatery)"

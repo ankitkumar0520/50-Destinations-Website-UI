@@ -160,5 +160,10 @@ export class AiAudioModelComponent {
     return Math.random() * 20 + 4;
   }
 
+  ngOnDestroy(): void {
+    this.audio.pause();
+    this.audio.currentTime = 0;
+  }
+
 
 }
