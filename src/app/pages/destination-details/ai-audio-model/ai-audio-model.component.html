@@ -169,7 +169,8 @@
       <!-- Play/Pause -->
       <button aria-label="Play/Pause" (click)="togglePlay(); $event.stopPropagation()"
               class="bg-gradient-to-br from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 hover:brightness-110">
-        <svg *ngIf="!audioSettings.isPlaying" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+        <svg *ngIf="!audioSettings.isPlaying"
+         xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
           <path d="M8 5v14l11-7z"/>
         </svg>
         <svg *ngIf="audioSettings.isPlaying" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
