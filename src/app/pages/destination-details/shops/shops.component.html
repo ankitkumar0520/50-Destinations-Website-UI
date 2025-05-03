@@ -22,42 +22,41 @@
 
     <!-- Shops Carousel -->
     <div class="shops-carousel owl-carousel owl-theme">
-      <div 
-        *ngFor="let shop of destination.shops" 
-        class="item"
-      >
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
-          <!-- Shop Image -->
-          <div class="relative h-40 overflow-hidden">
-            <img
-              [src]="shop.image"
-              [alt]="shop.name"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-4">
-              <h3 class="text-lg font-semibold text-white">{{ shop.name }}</h3>
-            </div>
-          </div>
-
-          <!-- Shop Details -->
-          <div class="p-4 flex flex-col">
-            <div class="flex items-start gap-2 mb-4 h-16">
-              <i class="fas fa-map-marker-alt text-blue-500 mt-0.5 w-5 text-center flex-shrink-0"></i>
-              <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ shop.address }}</p>
+      <ng-container *ngFor="let shop of destination.shops; trackBy: trackByShopId">
+        <div class="item">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
+            <!-- Shop Image -->
+            <div class="relative h-40 overflow-hidden">
+              <img
+                [src]="shop.image"
+                [alt]="shop.name"
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-4">
+                <h3 class="text-lg font-semibold text-white">{{ shop.name }}</h3>
+              </div>
             </div>
 
-            <!-- Action Button -->
-            <button
-              (click)="openModal(shop)"
-              class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md transition flex items-center justify-center gap-2 mt-auto"
-            >
-              <i class="fas fa-box-open text-xs"></i>
-              View Products
-            </button>
+            <!-- Shop Details -->
+            <div class="p-4 flex flex-col">
+              <div class="flex items-start gap-2 mb-4 h-16">
+                <i class="fas fa-map-marker-alt text-blue-500 mt-0.5 w-5 text-center flex-shrink-0"></i>
+                <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ shop.address }}</p>
+              </div>
+
+              <!-- Action Button -->
+              <button
+                (click)="openModal(shop)"
+                class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md transition flex items-center justify-center gap-2 mt-auto"
+              >
+                <i class="fas fa-box-open text-xs"></i>
+                View Products
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </ng-container>
     </div>
 
     <!-- Products Modal -->

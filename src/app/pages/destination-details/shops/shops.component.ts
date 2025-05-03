@@ -1,4 +1,4 @@
-import { Component, inject, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, inject, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
@@ -24,28 +24,55 @@ import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils'
 export class ShopsComponent implements AfterViewInit, OnDestroy {
   
   private destinationService = inject(DestinationService);
+  private cdr = inject(ChangeDetectorRef);
   
   destination = this.destinationService.getDestionation();
   selectedShop: any = null;
   isModalOpen = false;
+  private carouselInitialized = false;
 
   constructor() {}
   
   ngAfterViewInit(): void {
-    // Initialize carousel
-    setTimeout(() => {   
-      // Configure the carousel with responsive breakpoints
-      initializeOwlCarousel('.shops-carousel', true, true, 16, false, 
-        [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
-        true); 
-    }, 300);
+    if (!this.carouselInitialized) {
+      // Initialize carousel
+      setTimeout(() => {   
+        initializeOwlCarousel('.shops-carousel', true, true, 16, false, 
+          [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
+          true);
+        
+        // Add event listener for cloned items
+        const carousel = document.querySelector('.shops-carousel');
+        if (carousel) {
+          carousel.addEventListener('click', (event) => {
+            const target = event.target as HTMLElement;
+            const button = target.closest('button');
+            if (button) {
+              const item = button.closest('.item');
+              if (item) {
+                const index = Array.from(item.parentElement?.children || []).indexOf(item);
+                if (index !== -1) {
+                  this.openModal(this.destination.shops[index]);
+                }
+              }
+            }
+          });
+        }
+        
+        this.carouselInitialized = true;
+        this.cdr.detectChanges();
+      }, 300);
+    }
   }
   
   openModal(shop: any) {
-    this.selectedShop = shop;
+    // Ensure we're working with the original shop data
+    const originalShop = this.destination.shops.find((s: { id: number }) => s.id === shop.id) || shop;
+    this.selectedShop = originalShop;
     this.isModalOpen = true;
     // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden';
+    this.cdr.detectChanges();
   }
 
   closeModal() {
@@ -53,6 +80,11 @@ export class ShopsComponent implements AfterViewInit, OnDestroy {
     this.isModalOpen = false;
     // Restore body scroll
     document.body.style.overflow = 'auto';
+    this.cdr.detectChanges();
+  }
+  
+  trackByShopId(index: number, shop: any): number {
+    return shop.id || index;
   }
   
   ngOnDestroy(): void {
