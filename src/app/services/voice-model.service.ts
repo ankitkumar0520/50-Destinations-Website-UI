@@ -13,7 +13,6 @@ constructor() { }
 
   showModel() {
     this.showModelSubject.next(true);
-
   }
 
   hideModel() {
@@ -21,7 +20,7 @@ constructor() { }
 
   }
 
-  toggleModel() {
+  toogleModel() {
     this.showModelSubject.next(!this.showModelSubject.value);
   }
 

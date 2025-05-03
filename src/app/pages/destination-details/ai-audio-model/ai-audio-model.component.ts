@@ -2,6 +2,8 @@
 import { Component, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VoiceModelService } from '../../../services/voice-model.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-ai-audio-model',
@@ -15,15 +17,16 @@ export class AiAudioModelComponent {
    Math:Math = Math;   
 
    voiceModelService= inject(VoiceModelService)
+   private destroy$ = new Subject<void>();
    
-   showModal$= this.voiceModelService.showModel$
+   showModal:boolean = false;
 
    languages = this.voiceModelService.getAudioLanguage()
 
    selectedLanguage = this.languages.english;
   
 
- audio = new Audio('');
+   audio = new Audio();
 
  audioSettings={
   volume:0.8,
@@ -33,22 +36,26 @@ export class AiAudioModelComponent {
   showLoadingIndicator:true,
   showError:false,
   selectedLang:this.selectedLanguage.languageCode,
- }
+}
 
 
 
   constructor(private cdr: ChangeDetectorRef) {
-    this.audio.addEventListener('timeupdate', () => {
-      this.audioSettings.currentTime = this.audio.currentTime;
-      this.cdr.detectChanges();
-    });
+  
   }
   
   ngOnInit() {
+    this.handleModelVisibility();//subscribe to the showModel$ observable
+
     // Set the initial volume from audio settings
     this.audio.volume = this.audioSettings.volume;
     this.audio.preload = 'none';
   
+    this.audio.addEventListener('timeupdate', () => {
+      this.audioSettings.currentTime = this.audio.currentTime;
+      this.cdr.detectChanges();
+    });
+
     // Once metadata is loaded, update the duration in settings
     this.audio.addEventListener('loadedmetadata', () => {
       this.audioSettings.duration = this.audio.duration;
@@ -83,26 +90,25 @@ export class AiAudioModelComponent {
       this.cdr.detectChanges();
     });
 
-    //when some error occurs, show the error message
+      // When some error occurs, decide whether to show a loader or error
     this.audio.addEventListener('error', () => {
-      this.audioSettings.showLoadingIndicator = false;
-      this.audioSettings.showError = true;
+      // If no valid audio URL is set yet (intentional empty state)
+      if (!this.selectedLanguage.audio || this.selectedLanguage.audio.trim() === '') {
+        // Show loading indicator, do NOT show error
+        this.audioSettings.showLoadingIndicator = true;
+        this.audioSettings.showError = false;
+      } else {
+        // Audio source was set, but failed to load => show error
+        this.audioSettings.showLoadingIndicator = false;
+        this.audioSettings.showError = true;
+      }
+
+      // Update UI
       this.cdr.detectChanges();
     });
+
   }
   
-  toggleAudioGuideModel() {
-    if (!this.audio.src || this.audio.src !== this.selectedLanguage.audio) {
-      this.audio.src = this.selectedLanguage.audio;
-      this.audio.load(); 
-    }
-    
-    this.voiceModelService.toggleModel();
-    const selectEl = document.getElementById('audioInput') as HTMLSelectElement;
-    selectEl.value = this.audioSettings.selectedLang;
-    this.cdr.detectChanges();
-   }
-
 
   togglePlay() {
     if (this.audioSettings.isPlaying) {
@@ -160,9 +166,53 @@ export class AiAudioModelComponent {
     return Math.random() * 20 + 4;
   }
 
-  ngOnDestroy(): void {
-    this.audio.pause();
-    this.audio.currentTime = 0;
+
+  
+// Subscribes to showModel$ observable to control modal visibility and audio source
+handleModelVisibility() {
+  this.voiceModelService.showModel$
+    .pipe(takeUntil(this.destroy$)) // Unsubscribe when component is destroyed
+    .subscribe({
+      next: (show) => {
+        this.showModal = show;
+
+        if (show) {
+          // Set audio source only if it's not already set or different
+          if (!this.audio.src || this.audio.src !== this.selectedLanguage.audio) {
+            this.audio.src = this.selectedLanguage.audio;
+            this.audio.load(); // Reload audio for new source
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling when modal is open
+          }
+        } else {
+          document.body.style.overflow = 'auto'; // Re-enable scrolling when modal is closed
+        }
+
+        this.cdr.detectChanges(); // Trigger UI update
+      },
+      error: (err) => {
+        console.error('Error in showModel$ subscription:', err);
+      }
+    });
+}
+
+// Lifecycle hook to clean up when the component is destroyed
+ngOnDestroy() {
+  this.destroy$.next();      // Signal all takeUntil() observables to complete
+  this.destroy$.complete();  // Complete the destroy$ subject to free memory
+
+  // Stop and reset audio
+  this.audio.pause();
+  this.audio.currentTime = 0;
+  this.audio.src = '';
+
+  // Restore scroll in case modal was open
+  document.body.style.overflow = 'auto';
+}
+
+  
+  
+  toogleModel(){
+    this.voiceModelService.toogleModel();
   }
 
 

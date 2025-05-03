@@ -1,4 +1,4 @@
-<div *ngIf="showModal$ | async" class="fixed inset-0 bg-black/40 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+<div *ngIf="showModal" class="fixed inset-0 bg-black/40 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center z-51">
   <div class="relative bg-white dark:bg-gray-900 rounded-3xl p-4 w-[95%] max-w-sm shadow-2xl transition-all transform hover:scale-[1.01]">
     <!-- Header with Close Button -->
     <div class="flex items-center justify-between mb-4">
@@ -151,46 +151,82 @@
 
 
 <!-- Floating Audio Control -->
-<div class="fixed left-8 bottom-4 z-50">
+<div class="fixed left-8 bottom-4 z-51">
   <!-- Main Container -->
   <div class="relative flex items-center">
     <!-- Playback Controls (Hidden until hover) -->
     <div [ngClass]="{'opacity-100 translate-x-2 !pointer-events-auto delay-300':audioSettings.isPlaying, 'opacity-0 delay-700': !audioSettings.isPlaying}" 
          class="absolute left-14 flex items-center space-x-2 translate-x-0 transition-all duration-300 pointer-events-none">
       
-      <!-- Backward -->
-      <button aria-label="Backward" (click)="skip(-10); $event.stopPropagation()"
-              class="bg-white/90 dark:bg-gray-800/90 shadow-lg hover:bg-white dark:hover:bg-gray-700 border border-gray-300/50 dark:border-gray-600/50 text-indigo-600 dark:text-indigo-300 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105">
+     <!-- Backward -->
+        <button 
+        aria-label="Backward" 
+        (click)="skip(-10); $event.stopPropagation()" 
+        class="bg-blue-100 hover:bg-blue-500 text-blue-700 hover:text-white 
+              dark:bg-gray-800 dark:hover:bg-gray-700 
+              border border-gray-300 dark:border-gray-600 
+              shadow-md w-10 h-10 rounded-full 
+              flex items-center justify-center 
+              transition-all duration-200 hover:scale-105"
+        >
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
           <path d="M11 19V5l-9 7 9 7zm1-7l9 7V5l-9 7z"/>
         </svg>
-      </button>
+        </button>
 
-      <!-- Play/Pause -->
-      <button aria-label="Play/Pause" (click)="togglePlay(); $event.stopPropagation()"
-              class="bg-gradient-to-br from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 hover:brightness-110">
-        <svg *ngIf="!audioSettings.isPlaying"
-         xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+
+                  <!-- Play/Pause -->
+          <button aria-label="Play/Pause" 
+          (click)="togglePlay(); $event.stopPropagation()"
+          class="bg-indigo-500/90 dark:bg-indigo-600/90 
+                text-white w-12 h-12 rounded-full 
+                flex items-center justify-center 
+                shadow-lg hover:shadow-xl 
+                transition-all duration-300 transform 
+                hover:scale-110 hover:brightness-110">
+
+          <!-- Play Icon -->
+          <svg *ngIf="!audioSettings.isPlaying"
+          xmlns="http://www.w3.org/2000/svg" 
+          class="w-6 h-6 fill-current" 
+          viewBox="0 0 24 24">
           <path d="M8 5v14l11-7z"/>
-        </svg>
-        <svg *ngIf="audioSettings.isPlaying" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+          </svg>
+
+          <!-- Pause Icon -->
+          <svg *ngIf="audioSettings.isPlaying" 
+          xmlns="http://www.w3.org/2000/svg" 
+          class="w-6 h-6 fill-current" 
+          viewBox="0 0 24 24">
           <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
-        </svg>
+          </svg>
+          </button>
+
+  
+            <!-- Forward -->
+      <button aria-label="Forward" 
+      (click)="skip(10); $event.stopPropagation()"
+      class="bg-blue-100 hover:bg-blue-500 text-blue-700 hover:text-white
+            dark:bg-gray-800 dark:hover:bg-gray-700 
+            border border-gray-300 dark:border-gray-600 
+            shadow-md w-10 h-10 rounded-full 
+            flex items-center justify-center 
+            transition-all duration-200 hover:scale-105">
+      <svg xmlns="http://www.w3.org/2000/svg" 
+      class="w-5 h-5" 
+      fill="currentColor" 
+      viewBox="0 0 24 24">
+      <path d="M13 5v14l9-7-9-7zm-1 7L3 5v14l9-7z"/>
+      </svg>
       </button>
 
-      <!-- Forward -->
-      <button aria-label="Forward" (click)="skip(10); $event.stopPropagation()"
-              class="bg-white/90 dark:bg-gray-800/90 shadow-lg hover:bg-white dark:hover:bg-gray-700 border border-gray-300/50 dark:border-gray-600/50 text-indigo-600 dark:text-indigo-300 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M13 5v14l9-7-9-7zm-1 7L3 5v14l9-7z"/>
-        </svg>
-      </button>
+
     </div>
 
     <!-- Main Speaker Button -->
     <div class="relative">
-      <button aria-label="Toggle Audio Guide" (click)="toggleAudioGuideModel()"
-              class="bg-gradient-to-br from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md transition-transform duration-300 hover:scale-110 hover:brightness-110">
+      <button aria-label="Toggle Audio Guide" (click)="toogleModel()"
+              class="cursor-pointer bg-gradient-to-br from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md transition-transform duration-300 hover:scale-110 hover:brightness-110">
         <svg xmlns="http://www.w3.org/2000/svg" [ngClass]="{'animate-ping !w-5 !h-5': audioSettings.isPlaying}" class="w-7 h-7 fill-current" viewBox="0 0 24 24">
           <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a3.5 3.5 0 0 0-1.5-2.83v5.66A3.5 3.5 0 0 0 16.5 12zm2.5 0a6 6 0 0 0-2.25-4.72v9.44A6 6 0 0 0 19 12z"/>
         </svg>

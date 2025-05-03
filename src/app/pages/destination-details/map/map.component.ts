@@ -132,7 +132,13 @@ export class MapComponent implements AfterViewInit {
   }
 
   private initMap(lat: number, lng: number): void {
-    this.map = L.map('map', { 
+
+    if (this.map) {
+      this.map.remove(); // Removes the old map instance if it exists
+    }
+
+    
+    this.map = L.map(this.mapContainer.nativeElement, { 
       zoomControl: false,
       attributionControl: true
     }).setView([lat, lng], 13);

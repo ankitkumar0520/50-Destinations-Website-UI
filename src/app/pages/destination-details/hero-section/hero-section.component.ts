@@ -4,6 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DestinationService } from '../../../services/destination.service';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { shareQRCode, downloadQRCode } from '../../../utils/utils';
+import { VoiceModelService } from '../../../services/voice-model.service';
 
 @Component({
   selector: 'app-hero-section',
@@ -19,6 +20,8 @@ import { shareQRCode, downloadQRCode } from '../../../utils/utils';
 export class HeroSectionComponent implements OnInit {
 
   private destinationService = inject(DestinationService);
+  private voiceModeService = inject(VoiceModelService);
+
   destination = this.destinationService.getDestionation();
   shareUrl: string;
   isMenuOpen = false;
@@ -65,4 +68,7 @@ export class HeroSectionComponent implements OnInit {
     return isPlatformBrowser(this.platformId);
   }
 
+  showModelVoiceModel(){
+    this.voiceModeService.showModel();
+  }
 }
