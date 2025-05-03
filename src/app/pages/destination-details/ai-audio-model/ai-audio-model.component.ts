@@ -2,7 +2,7 @@
 import { Component, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VoiceModelService } from '../../../services/voice-model.service';
-import { takeUntil } from 'rxjs/operators';
+import { skip, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -57,7 +57,7 @@ export class AiAudioModelComponent {
     });
 
     // Once metadata is loaded, update the duration in settings
-    this.audio.addEventListener('loadedmetadata', () => {
+    this.audio.addEventListener('canplaythrough', () => {
       this.audioSettings.duration = this.audio.duration;
       this.audioSettings.showError = false;
       this.audioSettings.showLoadingIndicator = false;
@@ -83,13 +83,6 @@ export class AiAudioModelComponent {
       this.cdr.detectChanges();
     });
 
-    //when the audio is loading, show the loading indicator
-    this.audio.addEventListener('canplay', () => {
-      this.audioSettings.showLoadingIndicator = false;
-      this.audioSettings.showError = false;
-      this.cdr.detectChanges();
-    });
-
       // When some error occurs, decide whether to show a loader or error
     this.audio.addEventListener('error', () => {
       // If no valid audio URL is set yet (intentional empty state)
@@ -111,17 +104,22 @@ export class AiAudioModelComponent {
   
 
   togglePlay() {
-    if (this.audioSettings.isPlaying) {
-      this.audio.pause();
-    } else {
-      this.audio.play();
+      if (this.audioSettings.isPlaying) {
+          this.audio.pause();
+        } 
+        else {
+        if(!this.audioSettings.showLoadingIndicator){
+          this.audio.play();
+        }
     }
   }
 
   
 
   skip(seconds: number) {
-    this.audio.currentTime += seconds;
+    if(this.audioSettings.isPlaying){
+      this.audio.currentTime += seconds;
+    }
   }
 
   adjustVolume(event: Event) {
@@ -133,9 +131,11 @@ export class AiAudioModelComponent {
   onSeek(event: Event) {
     const input = event.target as HTMLInputElement;
     const seekTime = parseFloat(input.value);
-    this.audio.currentTime = seekTime;
-    this.audioSettings.currentTime = seekTime;
-    this.cdr.detectChanges();
+    if(this.audioSettings.isPlaying){
+      this.audio.currentTime = seekTime;
+      this.audioSettings.currentTime = seekTime;
+      this.cdr.detectChanges();
+    }
   }
 
   formatTime(t: number): string {
@@ -154,7 +154,7 @@ export class AiAudioModelComponent {
     if (newLanguage) {
       this.selectedLanguage = newLanguage;
       this.audio.src = newLanguage.audio;
-      if (this.audioSettings.isPlaying) {
+      if (!this.audioSettings.showLoadingIndicator) {
         this.audio.play();
       }
     }
