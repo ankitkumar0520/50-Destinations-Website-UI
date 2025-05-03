@@ -1,4 +1,4 @@
-import { Component, inject, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, inject, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
@@ -22,58 +22,125 @@ import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils'
     ])
   ]
 })
+
 export class AccomodationEateryComponent implements AfterViewInit, OnDestroy {
   selectedHotel: any = null;
   selectedEatery: any = null;
   isHotelModalOpen = false;
   isEateryModalOpen = false;
 
+  @ViewChild('hotelsCarousel') hotelsCarousel!: ElementRef;
+  @ViewChild('eateriesCarousel') eateriesCarousel!: ElementRef;
+  private hotelCarouselInstance: any;
+  private eateryCarouselInstance: any;
+  private carouselsInitialized = false;
+
   private destinationService = inject(DestinationService);
   destination = this.destinationService.getDestionation();
   imageService = inject(ImageService);
+  private cdr = inject(ChangeDetectorRef);
 
   constructor() {}
   
   ngAfterViewInit(): void {
     // Initialize carousels
     setTimeout(() => {   
-      // Configure the carousels with responsive breakpoints
-      initializeOwlCarousel('.hotels-carousel', true, true, 16, false, 
-        [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
-        true);
+      if (!this.carouselsInitialized) {
+        this.hotelCarouselInstance = initializeOwlCarousel('.hotels-carousel', true, true, 16, false, 
+          [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
+          true);
         
-      initializeOwlCarousel('.eateries-carousel', true, true, 16, false, 
-        [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
-        true);
+        this.eateryCarouselInstance = initializeOwlCarousel('.eateries-carousel', true, true, 16, false, 
+          [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
+          true);
+        
+        // Add event listeners for both carousels
+        this.setupCarouselEventListeners();
+        this.carouselsInitialized = true;
+      }
     }, 300);
+  }
+
+  private setupCarouselEventListeners() {
+    // Hotel carousel event listener
+    const hotelCarouselElement = this.hotelsCarousel.nativeElement;
+    hotelCarouselElement.addEventListener('click', (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      const button = target.closest('button');
+      
+      if (button) {
+        const item = button.closest('.item');
+        if (item) {
+          const index = Array.from(item.parentElement!.children).indexOf(item);
+          const originalIndex = index % this.destination.accommodations.length;
+          const originalHotel = this.destination.accommodations[originalIndex];
+          this.openHotelModal(originalHotel);
+        }
+      }
+    });
+
+    // Eatery carousel event listener
+    const eateryCarouselElement = this.eateriesCarousel.nativeElement;
+    eateryCarouselElement.addEventListener('click', (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      const button = target.closest('button');
+      
+      if (button) {
+        const item = button.closest('.item');
+        if (item) {
+          const index = Array.from(item.parentElement!.children).indexOf(item);
+          const originalIndex = index % this.destination.eateries.length;
+          const originalEatery = this.destination.eateries[originalIndex];
+          this.openEateryModal(originalEatery);
+        }
+      }
+    });
   }
   
   openHotelModal(hotel: any) {
-    this.selectedHotel = hotel;
+    const originalHotel = this.destination.accommodations.find((h: { id: number }) => h.id === hotel.id) || hotel;
+    this.selectedHotel = originalHotel;
     this.isHotelModalOpen = true;
     document.body.style.overflow = 'hidden';
+    this.cdr.detectChanges();
   }
 
   closeHotelModal() {
     this.selectedHotel = null;
     this.isHotelModalOpen = false;
     document.body.style.overflow = 'auto';
+    this.cdr.detectChanges();
   }
 
   openEateryModal(eatery: any) {
-    this.selectedEatery = eatery;
+    const originalEatery = this.destination.eateries.find((e: { id: number }) => e.id === eatery.id) || eatery;
+    this.selectedEatery = originalEatery;
     this.isEateryModalOpen = true;
     document.body.style.overflow = 'hidden';
+    this.cdr.detectChanges();
   }
 
   closeEateryModal() {
     this.selectedEatery = null;
     this.isEateryModalOpen = false;
     document.body.style.overflow = 'auto';
+    this.cdr.detectChanges();
+  }
+
+  trackByHotelId(index: number, hotel: any): number {
+    return hotel.id || index;
+  }
+
+  trackByEateryId(index: number, eatery: any): number {
+    return eatery.id || index;
   }
   
   ngOnDestroy(): void {
-    destroyOwlInstance('.hotels-carousel');
-    destroyOwlInstance('.eateries-carousel');
+    if (this.hotelCarouselInstance) {
+      destroyOwlInstance('.hotels-carousel');
+    }
+    if (this.eateryCarouselInstance) {
+      destroyOwlInstance('.eateries-carousel');
+    }
   }
 }

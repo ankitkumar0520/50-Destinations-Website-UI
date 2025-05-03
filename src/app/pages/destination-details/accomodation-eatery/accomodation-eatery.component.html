@@ -29,55 +29,49 @@
       </h2>
       
       <!-- Hotels Carousel -->
-      <div class="hotels-carousel owl-carousel owl-theme">
-        <div
-          *ngFor="let hotel of destination.accommodations"
-          class="item"
-        >
-          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
-            <!-- Hotel Image -->
-            <div class="relative h-44 overflow-hidden">
-            <img
-              [src]="hotel.image"
-              [alt]="hotel.name"
-              class="w-full h-full object-cover"
-              (error)="imageService.handleImageError($event)"
-            />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div class="absolute bottom-0 left-0 right-0 p-4">
-                <h3 class="text-lg font-semibold text-white">{{ hotel.name }}</h3>
-          </div>
-            </div>
-
-            <!-- Hotel Details -->
-            <div class="p-4 flex flex-col ">
-
-              <div class="gap-2 mb-4 justify-between grid grid-cols-1">
-                <div class="flex items-start gap-2">
-                  <i class="fas fa-map-marker-alt text-primary-500 mt-0.5 w-5 text-center flex-shrink-0"></i>
-                  <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ hotel.address }}</p>
-                </div>
-                <div class="flex items-start gap-2"> 
-                  <i class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center flex-shrink-0" aria-hidden="true"></i>
-                  <a [href]="'tel:' + hotel.contact" class="hover:underline">{{ hotel.contact }}</a>
+      <div #hotelsCarousel class="hotels-carousel owl-carousel owl-theme">
+        <ng-container *ngFor="let hotel of destination.accommodations; trackBy: trackByHotelId">
+          <div class="item">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
+              <!-- Hotel Image -->
+              <div class="relative h-44 overflow-hidden">
+                <img
+                  [src]="hotel.image"
+                  [alt]="hotel.name"
+                  class="w-full h-full object-cover"
+                  (error)="imageService.handleImageError($event)"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <h3 class="text-lg font-semibold text-white">{{ hotel.name }}</h3>
                 </div>
               </div>
-              
 
-                          <!-- Phone -->
-           
+              <!-- Hotel Details -->
+              <div class="p-4 flex flex-col">
+                <div class="gap-2 mb-4 justify-between grid grid-cols-1 min-h-20 max-h-20">
+                  <div class="flex items-start gap-2">
+                    <i class="fas fa-map-marker-alt text-primary-500 mt-0.5 w-5 text-center flex-shrink-0"></i>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ hotel.address }}</p>
+                  </div>
+                  <div class="flex items-start gap-2"> 
+                    <i class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center flex-shrink-0" aria-hidden="true"></i>
+                    <a [href]="'tel:' + hotel.contact" class="hover:underline">{{ hotel.contact }}</a>
+                  </div>
+                </div>
 
-              <!-- Action Button -->
-            <button
-              (click)="openHotelModal(hotel)"
-                class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md transition flex items-center justify-center gap-2 mt-auto"
-            >
-                <i class="fas fa-info-circle text-xs"></i>
-              View Details
-            </button>
+                <!-- Action Button -->
+                <button
+                  (click)="openHotelModal(hotel)"
+                  class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md transition flex items-center justify-center gap-2 mt-auto"
+                >
+                  <i class="fas fa-info-circle text-xs"></i>
+                  View Details
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
     </div>
 
@@ -91,51 +85,49 @@
       </h2>
       
       <!-- Eateries Carousel -->
-      <div class="eateries-carousel owl-carousel owl-theme">
-        <div
-          *ngFor="let eatery of destination.eateries"
-          class="item"
-        >
-          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
-            <!-- Eatery Image -->
-            <div class="relative h-44 overflow-hidden">
-            <img
-              [src]="eatery.image"
-              [alt]="eatery.name"
-              class="w-full h-full object-cover"
-              (error)="imageService.handleImageError($event)"
-            />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div class="absolute bottom-0 left-0 right-0 p-4">
-                <h3 class="text-lg font-semibold text-white">{{ eatery.name }}</h3>
-              </div>
-            </div>
-
-            <!-- Eatery Details -->
-            <div class="p-4 flex flex-col">
-
-              <div class="gap-2 mb-4 h-24 justify-between grid grid-cols-1">
-                <div class="flex items-start gap-2">
-                  <i class="fas fa-map-marker-alt text-primary-500 mt-1 w-5 text-center"></i>
-                  <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ eatery.address }}</p>
-                </div>
-                <div class="flex items-start gap-2">
-                  <i class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center" aria-hidden="true"></i>
-                  <a [href]="'tel:' + eatery.contact" class="hover:underline">{{ eatery.contact }}</a>
+      <div #eateriesCarousel class="eateries-carousel owl-carousel owl-theme">
+        <ng-container *ngFor="let eatery of destination.eateries; trackBy: trackByEateryId">
+          <div class="item">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
+              <!-- Eatery Image -->
+              <div class="relative h-44 overflow-hidden">
+                <img
+                  [src]="eatery.image"
+                  [alt]="eatery.name"
+                  class="w-full h-full object-cover"
+                  (error)="imageService.handleImageError($event)"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <h3 class="text-lg font-semibold text-white">{{ eatery.name }}</h3>
                 </div>
               </div>
-              
-              <!-- Action Button -->
-              <button
-                (click)="openEateryModal(eatery)"
-                class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md transition flex items-center justify-center gap-2 mt-auto"
-              >
-                <i class="fas fa-info-circle text-xs"></i>
-                View Details
-              </button>
+
+              <!-- Eatery Details -->
+              <div class="p-4 flex flex-col">
+                <div class="gap-2 mb-4 h-24 justify-between grid grid-cols-1 min-h-20 max-h-20">
+                  <div class="flex items-start gap-2">
+                    <i class="fas fa-map-marker-alt text-primary-500 mt-1 w-5 text-center"></i>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ eatery.address }}</p>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <i class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center" aria-hidden="true"></i>
+                    <a [href]="'tel:' + eatery.contact" class="hover:underline">{{ eatery.contact }}</a>
+                  </div>
+                </div>
+                
+                <!-- Action Button -->
+                <button
+                  (click)="openEateryModal(eatery)"
+                  class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md transition flex items-center justify-center gap-2 mt-auto"
+                >
+                  <i class="fas fa-info-circle text-xs"></i>
+                  View Details
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
     </div>
   </div>
