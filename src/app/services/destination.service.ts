@@ -9,10 +9,11 @@ export class DestinationService {
   constructor() { }
 
   getDestionation():any{
+   return this.tareyBhir;
+
    return this.destination = {
 
       name: 'Rumtek Monastery',
-      bgimage: 'assets/Images/rumtek-monastry/hero-img.jpg',
       shortdescription: `Rumtek Monastery, also called the Dharma Chakra Centre, is a gompa located in the Indian state of
       Sikkim near the capital Gangtok. It is the seat in exile of the Gyalwang Karmapa, inaugurated in 1966 by the 16th Karmapa.`,
       tags: [
@@ -25,9 +26,8 @@ export class DestinationService {
       title: 'Rumtek Monastery: The Majestic Seat of the Karmapa',
       location: 'Rumtek, Gangtok,Sikkim 737135, India',
       distance: 'Approx. 24 km from Gangtok, on a hilltop overlooking the Ranipool River',
-     
       fulldescription: 'RumtekMonastery also known as the Dharma Chakra Centre is a prominent Buddhist monastery located near Gangtok in Sikkim India Founded in the 16th century by the 9th Karmapa Wangchuk Dorje it serves as the main seat in exile of the Karmapa Lama and is renowned for its stunning architecture and serene surroundings Perched at an elevation of 5 500 feet the monastery is a vital center for Tibetan Buddhism housing sacred relics and offering a glimpse into the rich cultural heritage of the region Visitors are often captivated by its tranquil atmosphere and the breathtaking views of the Himalayas The monastery has a rich history having been originally established in the mid 18th century under the guidance of the 12th Karmapa Changchub Dorje After the 16th Karmapa Rangjung Rigpe Dorje fled Tibet in 1959 he chose to rebuild Rumtek which had fallen into disrepair The reconstruction was completed in 1966 and the monastery became a significant site for the Karma Kagyu lineage symbolizing resilience and continuity of Tibetan Buddhism in exile Today Rumtek Monastery is not only a spiritual hub but also a center of learning with the Karma Shri Nalanda Institute for Higher Buddhist Studies.',
-     voiceoverContent: `Welcome to Rumtek Monastery — a spiritual sanctuary nestled amidst the misty hills of Gangtok, Sikkim.
+      voiceOverContent: `Welcome to Rumtek Monastery — a spiritual sanctuary nestled amidst the misty hills of Gangtok, Sikkim.
 
                 Located just 23 kilometers from Gangtok, Rumtek Monastery is one of the most significant and largest Tibetan Buddhist monasteries in India. Perched at an altitude of about 
                 5,800 feet, the monastery offers a peaceful escape from the bustling town, with panoramic views of the surrounding mountains and valleys.
@@ -75,10 +75,6 @@ export class DestinationService {
           alt: 'Monastery Garden'
         }
       ],
-      galleryInfo : {
-        title: 'Rumtek Monastery Gallery',
-        description: 'Explore the stunning architecture and serene beauty of Rumtek Monastery through our curated collection of images. From the majestic main shrine hall to the peaceful monastery gardens, each photograph captures the essence of this spiritual sanctuary.',
-      },
       touristAttractions: [
         {
           images: [
@@ -167,7 +163,7 @@ export class DestinationService {
           ],
         }
       ],
-      safty:[
+      safety:[
         {
           id: 'police-station',
           name: 'Ranipool Police Station',
@@ -402,17 +398,161 @@ export class DestinationService {
     longitude:'88.53637'
   }
   
-
-
-
-
-
-
-
-
-
-
     };
   }
+
+
+  tareyBhir={
+    name: 'Tarey Bhir',
+    location: 'Tarey Bhir,Namchi ,Sikkim, India',
+    distance: 'Approx. 16.3 km km from Namchi',
+    shortdescription: `Tarey Bhir is an area surrounding a hill that was once part of an ancient trade route connecting Sikkim to other regions of India and neighboring countries. It is considered a sacred site by the local community, with various legends and myths associated with it.`,
+    fulldescription:'The name "BHIR" means "CLIFF" in Nepali, reflecting the dramatic and rugged landscape. Tarey Bhir is a stunning hilltop ridge located in South Sikkim, India, near the town of Namchi. This 3km long ridge features steep cliffs and offers panoramic views of the Teesta River, lush valleys, and the snow-capped mountains of the Eastern Himalayas.',
+    title: 'Tarey Bhir: A Sacred Hilltop in South Sikkim',    
+    tags: [
+      { label: 'Hill Station' },
+      { label: 'Nature View' },
+      { label: 'Adventure' },
+    ],
+    galleryImages: [
+      {
+        itemImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(1).JPG',
+        thumbnailImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(1).JPG',
+        alt: 'Tarey Bhir View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(2).JPG',
+        thumbnailImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(2).JPG',
+        alt: 'Tarey Bhir View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/tarey-bhir/tar.jpg',
+        thumbnailImageSrc: 'assets/Images/destinations/tarey-bhir/tar.jpg',
+        alt: 'Tarey Bhir View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/tarey-bhir/tar1.jpg',
+        thumbnailImageSrc: 'assets/Images/destinations/tarey-bhir/tar1.jpg',
+        alt: 'Tarey Bhir View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/tarey-bhir/tar3.jpg',
+        thumbnailImageSrc: 'assets/Images/destinations/tarey-bhir/tar3.jpg',
+        alt: 'Tarey Bhir View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/tarey-bhir/tar4.jpg',
+        thumbnailImageSrc: 'assets/Images/destinations/tarey-bhir/tar4.jpg',
+        alt: 'Tarey Bhir View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/tarey-bhir/tar5.jpg',
+        thumbnailImageSrc: 'assets/Images/destinations/tarey-bhir/tar5.jpg',
+        alt: 'Tarey Bhir View'
+      },
+    ],
+    touristAttractions:[
+      {
+        title: 'Panoramic Views of the Himalayan Range',
+        description: 'Enjoy sweeping vistas of the Eastern Himalayas, including the majestic Mount Kanchanjunga towering above the skyline.',
+        images: [
+          'assets/Images/destinations/tarey-bhir/tar.jpg',
+        ],
+      },
+      {
+        title:'Tarey Bhir viewpoint',
+        description:'At Tarey Bhir, visitors can experience several stunning natural sights. The steep 10,000 ft vertical drop from the cliff offers a thrilling and dramatic landscape.',
+        images: [
+          'assets/Images/destinations/tarey-bhir/tar-attraction1.jpg',
+        ],
+      },
+      {
+        title:'Kalimpong and Darjeeling Hills',
+        description:'On clear days, spot the charming hills of Kalimpong and Darjeeling, framed beautifully in the distant horizon.',
+        images: [
+          'assets/Images/destinations/tarey-bhir/tar1.jpg',
+        ],
+      }
+    ],
+    facilities: [
+    ],
+    safety:[
+      {
+        id: 'police-station',
+        name: 'Namchi Police Station',
+        description: 'The Namchi Police Station serves as the primary law enforcement agency for the Namchi area and its surroundings, including Tarey Bhir.',
+        distance: '5KM and Above',
+        contact: '03592-202892',
+        address: 'Opposite Kisan Market, Namchi bazar, Namchi, Sikkim, India',
+        location:{
+          lat:'27.164948420937872',
+          long:'88.36029856639986'
+        },
+        image: 'assets/Images/destinations/tarey-bhir/police-station.jpg',
+        badge: '24/7 Service'
+      },
+      {
+        id: 'Police-Booth',
+        name: 'Bhanjyang Bazar Police Post',
+        description: 'The Bhanjyang Bazar Police Post plays a vital role in ensuring public safety, maintaining law and order, and supporting the local community in the region',
+        distance: '5 KM and Above',
+        contact: '03592202747',
+        address: 'Bhanjyang Bazaar, Namchi, Sikkim, India',
+        location:{
+          lat:'27.16061618127796',
+          long:'88.4079644729543'
+        },
+        image: 'assets/Images/destinations/tarey-bhir/police-booth.jpg',
+      }
+    ],
+    healthcare:[
+      {
+        id: 'hospital',
+        name: 'Health and Wellness center - Sub - Health center',
+        description: 'The Health and Wellness center is a primary healthcare facility serving the local community in and around Tarey Bhir.',
+        distance: 'Under 4 KM',
+        contact: '8388807775',
+        address: 'Sadam , Namchi District',
+        location:{
+          lat:'27.17166778938794',
+          long:'88.3669206532149'
+        },
+        image: 'assets/Images/destinations/tarey-bhir/hospital.jpg',
+      }
+    ],
+    shops:[],
+    accommodations:[
+      {
+        name: 'SAY HOMES GRACE homestay',
+        image: 'assets/Images/destinations/tarey-bhir/hotel1.jpg',
+        address: 'Upper Sukrabarey,Sadam,Namchi District',
+        contact: '+91 8918984651',
+        facilities: ['Single Bed Room', 'Double Bed Room', 'Valet Parking', 'Heater', 'Private Balcony','CCTV Camera']
+      },
+      {
+        name: 'SHALOM homestay',
+        image: 'assets/Images/destinations/tarey-bhir/hotel2.jpg',
+        address: 'Namthang Road,Namchi district',
+        contact: '+91 7319079996',
+        facilities: ['Single Bed Room', 'Double Bed Room', 'Valet Parking', 'Heater', 'Private Balcony']
+      }
+    ],
+    eateries:[
+      {
+        name: 'TASTE OF SADAM',
+        image: 'assets/Images/destinations/tarey-bhir/resturant1.jpg',
+        address: 'Sadam,Namchi District',
+        contact: '+91 7679486311',
+        facilities: ['Family Friendly', 'Digital Payment', 'Main Course', 'Chinese Food','Pet Friendly']
+      }
+    ],
+    travelInfo:{
+      transportModes:[],
+      latitude:'27.112847879683084',
+      longitude:'88.42797728544849'
+    }
+  }
+
+
 
 }

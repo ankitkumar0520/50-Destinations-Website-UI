@@ -50,10 +50,9 @@ export class AccomodationEateryComponent implements AfterViewInit, OnDestroy {
           [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
           true);
         
-        this.eateryCarouselInstance = initializeOwlCarousel('.eateries-carousel', true, true, 16, false, 
-          [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
-          true);
-        
+            this.eateryCarouselInstance = initializeOwlCarousel('.eateries-carousel', true, true, 16, false, 
+              [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
+              true);
         // Add event listeners for both carousels
         this.setupCarouselEventListeners();
         this.carouselsInitialized = true;

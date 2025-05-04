@@ -22,7 +22,7 @@
           <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">By Air</h3>
         </div>
         <p class="text-gray-600 dark:text-gray-300 text-sm">
-          {{ travelInfo.transportModes[0].description }}
+          {{ travelInfo.transportModes[0]?.description }}
         </p>
       </div>
 
@@ -32,7 +32,7 @@
           <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">By Train</h3>
         </div>
         <p class="text-gray-600 dark:text-gray-300 text-sm">
-          {{ travelInfo.transportModes[1].description }}
+          {{ travelInfo.transportModes[1]?.description }}
         </p>
       </div>
 
@@ -42,7 +42,7 @@
           <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">By Road</h3>
         </div>
         <p class="text-gray-600 dark:text-gray-300 text-sm">
-          {{ travelInfo.transportModes[2].description }}
+          {{ travelInfo.transportModes[2]?.description }}
         </p>
       </div>
     </div>

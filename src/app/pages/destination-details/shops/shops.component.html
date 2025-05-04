@@ -1,4 +1,4 @@
-<section class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="shops-section">
+<section *ngIf="destination.shops.length > 0" class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="shops-section">
   <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-8">
     <app-section-header 
       [badgeText]="'Local Shopping'"
