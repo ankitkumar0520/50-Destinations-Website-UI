@@ -28,13 +28,6 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy, AfterVie
 
   ministers: any = [
     {
-      name: 'Shri Prem Singh Tamang',
-      designation: "Hon'ble Chief Minister of Sikkim",
-      description: "With the launch of this QR-enabled tourism platform, we are embracing innovation to enhance how visitors discover Sikkim. It represents our commitment to smart, sustainable, and accessible travel for all.",
-      fullMessage: "With the launch of this QR-enabled tourism platform, we are embracing innovation to enhance how visitors discover Sikkim. It represents our commitment to smart, sustainable, and accessible travel for all. Our vision is to make Sikkim a model for sustainable tourism while preserving our rich cultural heritage and natural beauty. This platform will help visitors explore our state in a more organized and meaningful way.",
-      image: 'assets/Images/officials/ps-golay.jpg'
-    },
-    {
       name: 'Shri Tshering Thendup Bhutia',
       designation: 'Hon\'ble Minister',
       description: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity.",
@@ -54,7 +47,14 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy, AfterVie
       description: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity.",
       fullMessage: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity. We are committed to leveraging technology to enhance the visitor experience while maintaining the authenticity of Sikkim's unique cultural and natural heritage.",
       image: 'assets/Images/officials/cs-rao-min.png'
-    }
+    },
+    {
+      name: 'Shri Prakash Chettri',
+      designation: "Secretary, Tourism Department",
+      description: "This QR-enabled tourism platform marks a step forward in transforming how visitors experience Sikkim. It reflects our dedication to promoting smart, sustainable, and inclusive travel for everyone.",
+      fullMessage: "This QR-enabled tourism platform marks a step forward in transforming how visitors experience Sikkim. It reflects our dedication to promoting smart, sustainable, and inclusive travel for everyone. Our goal is to establish Sikkim as a beacon of sustainable tourism, ensuring the protection of our rich cultural heritage and breathtaking landscapes. This platform is designed to help tourists navigate and experience Sikkim in a more efficient, meaningful, and immersive way.",
+      image: 'assets/Images/officials/prakash-chettri.png'      
+    },
   ];
 
   constructor(private apiService: ApiService) {}
