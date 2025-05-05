@@ -1,12 +1,14 @@
 <!-- Hero Section -->
-<section class="relative min-h-screen" id="hero-section">
+<section class="relative min-h-screen w-full overflow-hidden" id="hero-section">
   <!-- Main background image -->
-   <img [src]="destination.galleryImages[0].itemImageSrc" 
-       alt="Gangtok" 
-       class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
-       [class.opacity-100]="isImageLoaded"
-       [class.opacity-0]="!isImageLoaded"
-       (load)="onImageLoad()">
+  <div class="absolute inset-0 w-full h-full">
+    <img [src]="destination.galleryImages[0].itemImageSrc" 
+         [alt]="destination.name"
+         class="w-full h-full object-cover transition-opacity duration-1000"
+         [class.opacity-100]="isImageLoaded"
+         [class.opacity-0]="!isImageLoaded"
+         (load)="onImageLoad()">
+  </div>
 
   <!-- Animated background (shown while image loads) -->
   <div class="absolute inset-0 overflow-hidden transition-opacity duration-1000"
@@ -23,9 +25,9 @@
     <div class="absolute top-24 left-1/2 transform -translate-x-1/2 right-0 wave-animation">
       <div class="flag-line"></div>
       
-      <div class="flex">
+      <div class="flex justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8">
         <!-- First set of flags -->
-        <div class="flutter-animation relative h-16 w-14 hidden md:block bg-pink-600 shadow-md delay-100">
+        <div class="flutter-animation relative h-12 w-10 sm:h-16 sm:w-14 md:h-20 md:w-16 lg:h-24 lg:w-20 bg-pink-600 shadow-md delay-100">
           <svg class="symbol" viewBox="0 0 40 40">
             <!-- Endless Knot -->
             <g transform="translate(20, 20)">
@@ -263,7 +265,7 @@
             </h1>
           </div>
           
-          <p class="text-sm sm:text-base lg:text-lg leading-relaxed sm:mb-4 text-white dark:text-gray-200/90 max-w-2xl  p-4 rounded-xl ">
+          <p class="text-sm sm:text-base lg:text-lg leading-relaxed sm:mb-4 text-white dark:text-gray-200/90 max-w-2xl p-4 rounded-xl">
             {{destination.shortdescription}}
           </p>
         </div>

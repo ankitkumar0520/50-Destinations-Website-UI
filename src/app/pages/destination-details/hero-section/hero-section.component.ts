@@ -37,7 +37,19 @@ export class HeroSectionComponent implements OnInit {
   }
   
   ngOnInit(): void {
-   preloadImages([this.bgImage]);
+    if (this.isBrowser()) {
+      // Preload the background image
+      const img = new Image();
+      img.src = this.bgImage;
+      img.onload = () => {
+        this.isImageLoaded = true;
+      };
+      img.onerror = () => {
+        console.error('Failed to load background image:', this.bgImage);
+        // Set a fallback image or handle the error
+        this.isImageLoaded = true; // Still set to true to show the animated background
+      };
+    }
   }
 
   onImageLoad() {
