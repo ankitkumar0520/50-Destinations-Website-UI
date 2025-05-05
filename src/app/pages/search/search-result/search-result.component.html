@@ -26,6 +26,14 @@
   <div
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
   >
+    <!-- <div
+      *ngFor="
+        let result of filteredResults
+          | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage };
+        let i = index
+      "
+      class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300 h-[360px] flex flex-col border border-gray-100 dark:border-gray-700 group hover:border-primary-200 dark:hover:border-primary-600 hover:-translate-y-1"
+    > -->
     <div
       *ngFor="
         let result of filteredResults
@@ -100,7 +108,7 @@
                 </span>
               </div>
 
-              <button
+              <!-- <button
                 (click)="navigateToDetail(result.slug)"
                 [disabled]="result.slug !== 'rumtek-monastery'"
                 [ngClass]="{
@@ -110,6 +118,13 @@
                     result.slug !== 'rumtek-monastery'
                 }"
                 class="mt-auto font-medium py-2 px-4 rounded-lg transition-all duration-200 transform shadow-sm text-sm flex items-center justify-center group"
+              >
+                <span>View Details</span>
+                <i class="ml-2 fas fa-arrow-right"></i>
+              </button> -->
+              <button
+                (click)="navigateToDetail(result.slug)"
+                class="bg-primary-600 dark:bg-primary-500 hover:bg-primary-700 dark:hover:bg-primary-600 text-white cursor-pointer mt-auto font-medium py-2 px-4 rounded-lg transition-all duration-200 transform shadow-sm text-sm flex items-center justify-center group"
               >
                 <span>View Details</span>
                 <i class="ml-2 fas fa-arrow-right"></i>
