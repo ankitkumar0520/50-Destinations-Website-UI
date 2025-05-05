@@ -111,3 +111,44 @@ export function getGradientClasses(district: string): string[] {
   };
   return classes[lowerDistrict] || [];
 }
+
+
+
+// utils/image-preloader
+type Callback = () => void;
+type ErrorCallback = (failedUrls: string[]) => void;
+
+export function preloadImages(
+  urls: string[],
+  onComplete: Callback = () => {},
+  onError: ErrorCallback = () => {}
+): void {
+  let loaded = 0;
+  const total = urls.length;
+  const failed: string[] = [];
+
+  if (total === 0) {
+    onComplete();
+    return;
+  }
+
+  urls.forEach((url) => {
+    const img = new Image();
+    img.onload = () => {
+      loaded++;
+      if (loaded === total) {
+        failed.length ? onError(failed) : onComplete();
+      }
+    };
+    img.onerror = () => {
+      failed.push(url);
+      loaded++;
+      if (loaded === total) {
+        onError(failed);
+      }
+    };
+    img.src = url;
+  });
+}
+
+

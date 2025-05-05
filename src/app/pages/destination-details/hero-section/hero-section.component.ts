@@ -3,7 +3,7 @@ import { Component, inject, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DestinationService } from '../../../services/destination.service';
 import { QRCodeComponent } from 'angularx-qrcode';
-import { shareQRCode, downloadQRCode } from '../../../utils/utils';
+import { shareQRCode, downloadQRCode, preloadImages } from '../../../utils/utils';
 import { VoiceModelService } from '../../../services/voice-model.service';
 
 @Component({
@@ -21,12 +21,14 @@ export class HeroSectionComponent implements OnInit {
 
   private destinationService = inject(DestinationService);
   private voiceModeService = inject(VoiceModelService);
+  private bgImage = this.destinationService.getDestionation().galleryImages[0].itemImageSrc;
 
   destination = this.destinationService.getDestionation();
   shareUrl: string;
   isMenuOpen = false;
   activeSection: string = 'points-of-interest';
   navbarHeight = 70;
+  isImageLoaded = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.shareUrl = isPlatformBrowser(this.platformId)
@@ -35,10 +37,12 @@ export class HeroSectionComponent implements OnInit {
   }
   
   ngOnInit(): void {
-
+   preloadImages([this.bgImage]);
   }
 
-
+  onImageLoad() {
+    this.isImageLoaded = true;
+  }
 
   scrollTo(id: string) {
     if (!this.isBrowser()) return;
