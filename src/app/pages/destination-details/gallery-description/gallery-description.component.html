@@ -45,7 +45,8 @@
       <div *ngFor="let image of destination.galleryImages; let i = index"
         class="gallery-item relative group cursor-pointer rounded-lg overflow-hidden shadow-md"
         (click)="showGalleria(i)">
-        <img [src]="image.thumbnailImageSrc" [alt]="image.alt"
+        <img [src]="image.thumbnailImageSrc" [alt]="image.alt" 
+        loading="lazy" 
           class="w-full h-full aspect-[4/3] object-cover rounded-lg transition-all duration-300 group-hover:scale-105" />
         <!-- Always visible minimal title -->
         <div class="absolute bottom-0 left-0 right-0 p-2 bg-black/30 backdrop-blur-sm">
