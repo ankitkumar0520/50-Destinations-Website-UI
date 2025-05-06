@@ -4,6 +4,7 @@ import { SectionHeaderComponent } from '../../../common/section-header/section-h
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { EventService } from '../../../services/event.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-video-section',
   standalone: true,
@@ -16,29 +17,30 @@ export class VideoSectionComponent {
   public safeVideoUrl: SafeResourceUrl;
   private eventService = inject(EventService);
   private router = inject(Router);
-   pdfUrl={
+  
+  pdfUrl = {
     acknowledgment: 'assets/PDF/Impact_of_SRTM.pdf',
     tourismImpact: 'assets/PDF/SRTM_Acknowlegement.pdf'
-   }
+  }
 
-  constructor(private sanitizer: DomSanitizer,
-  ) {
-    // Replace with your YouTube embed URL or other iframe source
-    this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/Video/samplevideo.mp4');
+  constructor(private sanitizer: DomSanitizer) {
+    this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/Video/srtm-video.mp4');
   }
 
   isVideoLoaded = false;
+  isThumbnailLoaded = false;
+  thumbnailUrl = 'assets/Images/website-images/srtm-banner.png';
   
-  thumbnailUrl = 'assets/images/video-thumbnail.jpg';
+  onThumbnailLoad() {
+    this.isThumbnailLoaded = true;
+  }
   
   loadVideo() {
     this.isVideoLoaded = true;
   }
   
   showPdf(pdfUrl: string) {
-      this.eventService.setPdfUrl(pdfUrl);
-      this.router.navigate(['/view-pdf']);
+    this.eventService.setPdfUrl(pdfUrl);
+    this.router.navigate(['/view-pdf']);
   }
-
-
 }

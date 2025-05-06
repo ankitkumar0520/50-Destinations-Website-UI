@@ -14,17 +14,35 @@
       <!-- Video Section -->
 
       <div class="relative w-full aspect-video sm:aspect-auto rounded-xl overflow-hidden bg-black shadow-md">
-        <h1 class="text-white text-2xl font-bold flex justify-center items-center ">This is a sample video</h1>
-      
-        <button 
-          (click)="loadVideo()" 
-          class="cursor-pointer  absolute inset-0 flex items-center justify-center text-white text-4xl bg-white/50 hover:bg-white/30 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <circle cx="24" cy="24" r="23" stroke="black" stroke-width="2"/>
-            <polygon points="18,15 34,24 18,33" fill="black"/>
-          </svg>          
-        </button>
-      
+        <!-- Banner/Thumbnail -->
+        <div *ngIf="!isVideoLoaded" class="absolute inset-0">
+          <img [src]="thumbnailUrl" 
+               alt="Video Thumbnail" 
+               class="w-full h-full object-cover"
+               (load)="onThumbnailLoad()">
+          
+          <!-- Play Button Overlay -->
+          <div class="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-all duration-300">
+            <button 
+              (click)="loadVideo()" 
+              class="cursor-pointer group">
+              <div class="relative">
+                <!-- Outer Circle -->
+                <div class="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <!-- Inner Circle -->
+                  <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center">
+                    <!-- Play Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white" class="ml-1">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Video Player -->
         <ng-container *ngIf="isVideoLoaded">
           <iframe 
             class="absolute top-0 left-0 w-full h-full"
@@ -33,7 +51,6 @@
             loading="lazy"
             preload="metadata"
             controls
-            
             allowfullscreen
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
           </iframe>
@@ -52,7 +69,7 @@
             Organized under the <em>Sikkim INSPIRES</em> project by the Tourism and Civil Aviation Department, it welcomed rural entrepreneurs, government officials, and tour professionals to collaborate on eco-tourism initiatives.
           </p>
           <p>
-            Highlights included immersive homestays, traditional food showcases, and cultural performances. Strategic alliances with travel influencers helped spread the message of Sikkim’s rural richness nationwide.
+            Highlights included immersive homestays, traditional food showcases, and cultural performances. Strategic alliances with travel influencers helped spread the message of Sikkim's rural richness nationwide.
           </p>
           <p>
             The Meet emphasized the values of participation, pride, and prosperity—laying the groundwork for replicating this model in other rural regions of Sikkim.
