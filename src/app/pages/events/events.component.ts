@@ -40,18 +40,32 @@ export class EventsComponent implements OnInit {
   }
 
   filterEvents(): void {
+    this.p = 1;
+    
     if (!this.searchTerm) {
       this.filteredEvents = [...this.events];
       return;
     }
-
+  
     const searchLower = this.searchTerm.toLowerCase();
-    this.filteredEvents = this.events.filter(event => 
-      event.name.toLowerCase().includes(searchLower) ||
-      event.location.toLowerCase().includes(searchLower) ||
-      event.date.toLocaleDateString().toLowerCase().includes(searchLower)
-    );
+  
+    this.filteredEvents = this.events.filter(event => {
+      const eventDateString = event.date.toLocaleDateString('en-US', {
+        weekday: 'long', // Optional: include weekday if desired (e.g., "Friday")
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }).toLowerCase();
+      const eventLocationString = event.location.toLowerCase();
+  
+      return (
+        event.name.toLowerCase().includes(searchLower) ||
+        eventLocationString.includes(searchLower) ||
+        eventDateString.includes(searchLower)
+      );
+    });
   }
+  
 
    filterAndSortEvents(events: Event[]): Event[] {
     return events
