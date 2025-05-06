@@ -416,13 +416,13 @@ export class DestinationService {
     ],
     galleryImages: [
       {
-        itemImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(1).JPG',
-        thumbnailImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(1).JPG',
+        itemImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(1).jpg',
+        thumbnailImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(1).jpg',
         alt: 'Tarey Bhir View'
       },
       {
-        itemImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(2).JPG',
-        thumbnailImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(2).JPG',
+        itemImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(2).jpg',
+        thumbnailImageSrc: 'assets/Images/destinations/tarey-bhir/Tarey_Bhir_(2).jpg',
         alt: 'Tarey Bhir View'
       },
       {

@@ -26,7 +26,7 @@ export class HomeGallerySectionComponent implements OnInit {
       id: 1,
       name: 'Tsomgo Lake',
       type: 'Natural Lake',
-      image: 'assets/Images/destinations/tsomgo-lake.jpg',
+      image: 'assets/Images/popular-places/tsomgo-lake.jpg',
       description:
         'A sacred glacial lake located at an altitude of 12,400 ft. The oval-shaped lake is a visual treat with crystal clear waters reflecting different colors throughout the year.',
       highlights: [
@@ -45,7 +45,7 @@ export class HomeGallerySectionComponent implements OnInit {
       id: 2,
       name: 'Nathula Pass',
       type: 'Mountain Pass',
-      image: 'assets/Images/destinations/nathula-pass.jpg',
+      image: 'assets/Images/popular-places/nathula-pass.jpg',
       description:
         'A historic mountain pass in the Himalayas that connects Sikkim with Tibet. Located at 14,140 ft, it offers breathtaking views and holds significant historical importance.',
       highlights: [
@@ -63,7 +63,7 @@ export class HomeGallerySectionComponent implements OnInit {
       id: 3,
       name: 'MG Marg',
       type: 'Shopping & Entertainment',
-      image: 'assets/Images/destinations/mg-marg.jpg',
+      image: 'assets/Images/popular-places/mg-marg.jpg',
       description:
         'The heart of Gangtok city, this pedestrian-only zone is known for its vibrant atmosphere, cafes, and shopping. A perfect place to experience local culture and modern amenities.',
       highlights: [
@@ -81,7 +81,7 @@ export class HomeGallerySectionComponent implements OnInit {
       id: 4,
       name: 'Yumthang Valley',
       type: 'Valley of Flowers',
-      image: 'assets/Images/destinations/yumthang-valley.jpg',
+      image: 'assets/Images/popular-places/yumthang-valley.jpg',
       description:
         'Known as the "Valley of Flowers", this stunning valley is a paradise for nature lovers. In spring, it transforms into a carpet of colorful rhododendrons and other alpine flowers.',
       highlights: [
@@ -99,7 +99,7 @@ export class HomeGallerySectionComponent implements OnInit {
       id: 5,
       name: 'Baba Harbhajan Singh Mandir',
       type: 'Spiritual Site',
-      image: 'assets/Images/destinations/baba-harbhajan-mandir.jpg',
+      image: 'assets/Images/popular-places/baba-harbhajan-mandir.jpg',
       description:
         "A memorial dedicated to Indian soldier Harbhajan Singh, believed to be a guardian spirit of the area. Set amidst the mountains, it's both spiritually uplifting and scenic.",
       highlights: [
@@ -117,7 +117,7 @@ export class HomeGallerySectionComponent implements OnInit {
       id: 6,
       name: 'Ravangla Buddha Park',
       type: 'Cultural Landmark',
-      image: 'assets/Images/destinations/buddha-park.jpg',
+      image: 'assets/Images/popular-places/buddha-park.jpg',
       description:
         'Home to a massive 130-foot statue of Lord Buddha set in beautifully landscaped gardens. Offers panoramic views of the Himalayas and peaceful surroundings.',
       highlights: [
