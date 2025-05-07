@@ -47,7 +47,7 @@ export class DestinationService {
     fulldescription: 'RumtekMonastery also known as the Dharma Chakra Centre is a prominent Buddhist monastery located near Gangtok in Sikkim India Founded in the 16th century by the 9th Karmapa Wangchuk Dorje it serves as the main seat in exile of the Karmapa Lama and is renowned for its stunning architecture and serene surroundings Perched at an elevation of 5 500 feet the monastery is a vital center for Tibetan Buddhism housing sacred relics and offering a glimpse into the rich cultural heritage of the region Visitors are often captivated by its tranquil atmosphere and the breathtaking views of the Himalayas The monastery has a rich history having been originally established in the mid 18th century under the guidance of the 12th Karmapa Changchub Dorje After the 16th Karmapa Rangjung Rigpe Dorje fled Tibet in 1959 he chose to rebuild Rumtek which had fallen into disrepair The reconstruction was completed in 1966 and the monastery became a significant site for the Karma Kagyu lineage symbolizing resilience and continuity of Tibetan Buddhism in exile Today Rumtek Monastery is not only a spiritual hub but also a center of learning with the Karma Shri Nalanda Institute for Higher Buddhist Studies.',
     duration: '2-3 hours',
     popularityCount: 78,
-    seasons: ['All'],
+    seasons: ['all'],
     addedOn: '2025-02-15T14:15:00Z',
     galleryImages: [
       {
@@ -412,7 +412,7 @@ travelInfo :{
     duration: '2-3 hours',
     districtname: 'Namchi',
     popularityCount: 78,
-    seasons: ['All'],
+    seasons: ['all'],
     addedOn: '2025-02-15T14:15:00Z',
     tags: [
       { label: 'Hill Station' },
@@ -579,7 +579,7 @@ travelInfo :{
     duration: '2-3 hours',
     districtname: 'Pakyong',
     popularityCount: 91,
-    seasons: ['Spring (March - May)'],
+    seasons: ['spring', 'autumn'],
     addedOn: '2025-02-15T14:15:00Z',
     tags: [
       { label: 'Lake' },
@@ -860,12 +860,47 @@ travelInfo :{
     }
   }
   
+  tsongoLake={
+    name: 'Tsongo Lake',
+    slug: 'tsongo-lake',
+    location: 'Tsongo Lake,Gangtok,Sikkim,India',
+    distance: 'Approx. 40 km from Gangtok',
+    shortdescription: `Tsomgo Lake, also called Changu Lake, is a 
+    mesmerizing glacial lake located in East Sikkim, 
+    India. It's a major tourist attraction, renowned for its 
+     natural beauty, peaceful surroundings, and spiritual 
+    significance.`,
+   fulldescription: 'Tsomgo Lake, also known as Changu Lake, is a stunning glacial lake situated in East Sikkim, approximately 40 kilometers from Gangtok. Resting at an elevation of 3,753 meters, the lake is surrounded by snow-covered mountains and alpine forests, offering a serene and picturesque landscape. The lake is revered by the locals for its spiritual significance and is believed to be the dwelling place of a protective deity, drawing pilgrims and tourists alike. During winter, the lake freezes over, creating a magical, mirror-like reflection of the surroundings, while in spring and autumn, it comes alive with vibrant hues and blooming flora. The journey to Tsomgo Lake is equally scenic, making it a must-visit destination for anyone traveling to Sikkim. The best time to visit is between April to June and September to November, as winters often bring heavy snowfall that can block access to the region.',
+    title: 'Tsomgo Lake: A Sacred Glacial Wonder of Sikkim',
+    duration: '3–6 hours',
+    districtname: 'Gangtok',
+    popularityCount: 2000,
+    seasons: ['spring', 'summer', 'autumn', 'winter'],
+    addedOn: '2025-05-08T14:15:00Z',
+    tags: [
+      { label: 'Glacial Lake' },
+      { label: 'Scenic Drive' },
+      { label: 'Photography Spot' },
+      { label: 'Snow Views' },
+      { label: 'Yak Ride' },
+      { label: 'Spiritual Site' }
+    ],    
+    galleryImages: [
+      {
+        itemImageSrc: 'assets/Images/destinations/tsongo-Lake/1.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/tsongo-Lake/1.webp',
+        alt: 'Tsongo Lake View'
+      },
+    ]
+    
+  }
   
 
   destinations = [
     this.rumtekMonastery,
     this.tareyBhir,
-    this.aritarLake
+    this.aritarLake,
+    this.tsongoLake
     // Add other destinations here as they are added
   ];
 

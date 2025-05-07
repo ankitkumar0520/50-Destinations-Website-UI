@@ -44,6 +44,7 @@ export const DISTRICT_OPTIONS = [
     { id: 'monsoon', name: 'Monsoon (July - September)', icon: 'fa-cloud-rain' },
     { id: 'autumn', name: 'Autumn (September - November)', icon: 'fa-leaf' },
     { id: 'winter', name: 'Winter (December - February)', icon: 'fa-snowflake' },
+    { id: 'all', name: 'All', icon: 'fa-solid fa-calendar-days' },
   ];
 
   export const   DURATIONS = [
