@@ -407,7 +407,7 @@ travelInfo :{
     location: 'Tarey Bhir,Namchi ,Sikkim, India',
     distance: 'Approx. 16.3 km km from Namchi',
     shortdescription: `Tarey Bhir is an area surrounding a hill that was once part of an ancient trade route connecting Sikkim to other regions of India and neighboring countries. It is considered a sacred site by the local community, with various legends and myths associated with it.`,
-    fulldescription:'The name "BHIR" means "CLIFF" in Nepali, reflecting the dramatic and rugged landscape. Tarey Bhir is a stunning hilltop ridge located in South Sikkim, India, near the town of Namchi. This 3km long ridge features steep cliffs and offers panoramic views of the Teesta River, lush valleys, and the snow-capped mountains of the Eastern Himalayas.',
+    fulldescription:'Perched dramatically above South Sikkim’s lush valleys, Tarey Bhir (meaning "cliff" in Nepali) is a breathtaking 3km razor-edge ridge where sheer drops meet endless skies. This natural wonder was once part of an ancient Himalayan trade route, its windswept trails trodden by merchants, monks, and pilgrims. Steeped in local legend, the cliffs are said to be guarded by spirits, with whispers of hidden caves and divine blessings lingering in the mountain air. Today, adventurers trek its narrow spine for heart-stopping views—the Teesta River glinting far below, emerald valleys unfolding endlessly, and the snow-crowned peaks of Kanchenjunga blazing in the distance. More than a viewpoint, Tarey Bhir is where myth, history, and raw Himalayan grandeur collide into pure magic.',
     title: 'Tarey Bhir: A Sacred Hilltop in South Sikkim',  
     duration: '2-3 hours',
     districtname: 'Namchi',
