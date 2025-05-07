@@ -144,8 +144,12 @@
                     <i class="fas fa-arrow-left"></i>
                   </div>
                   <div class="qr-container flex justify-center mb-4">
-                     
-                    
+                    <qrcode
+                    [qrdata]="shareUrl + '/destinations/' + (district?.districtname?.toLowerCase() || '')"
+                    [width]="140"
+                    [errorCorrectionLevel]="'M'"
+                    [margin]="1"
+                  ></qrcode>
                   </div>
                   <h3
                     class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2"

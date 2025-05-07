@@ -1,12 +1,12 @@
 import {
   Component,
   OnInit,
-  AfterViewInit,
   OnDestroy,
   inject,
   PLATFORM_ID,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 
 
@@ -15,7 +15,7 @@ import {
   initializeOwlCarousel,
   shareQRCode,
   downloadQRCode,
-  getGradientClasses,
+  getGradientClasses
 } from '../../../utils/utils';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { ApiService } from '../../../services/api.service';
@@ -26,7 +26,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home-district-carousel',
   standalone: true,
-  imports: [CommonModule, SectionHeaderComponent],
+  imports: [CommonModule, SectionHeaderComponent,  QRCodeComponent],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
 })
