@@ -48,7 +48,12 @@ export class FacilitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor() {}
 
   ngOnInit() {
-    this.destination = this.destinationService.getDestionation();
+    this.destinationService.destination$.subscribe(dest => {
+      if (dest) {
+        this.destination = dest;
+      }
+    });
+
     if (isPlatformBrowser(this.platformId)) {
       // Initialize screen size detection
       this.checkScreenSize();

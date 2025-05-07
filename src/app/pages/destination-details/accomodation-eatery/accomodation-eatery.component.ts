@@ -1,4 +1,4 @@
-import { Component, inject, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef , OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
@@ -23,7 +23,7 @@ import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils'
   ]
 })
 
-export class AccomodationEateryComponent implements AfterViewInit, OnDestroy {
+export class AccomodationEateryComponent implements AfterViewInit, OnDestroy , OnInit {
   selectedHotel: any = null;
   selectedEatery: any = null;
   isHotelModalOpen = false;
@@ -36,21 +36,29 @@ export class AccomodationEateryComponent implements AfterViewInit, OnDestroy {
   private carouselsInitialized = false;
 
   private destinationService = inject(DestinationService);
-  destination = this.destinationService.getDestionation();
+  destination :any;
   imageService = inject(ImageService);
   private cdr = inject(ChangeDetectorRef);
 
   constructor() {}
   
+  ngOnInit(): void {
+    this.destinationService.destination$.subscribe(dest => {
+      if (dest) {
+        this.destination = dest;
+      }
+    });
+  }
+  
   ngAfterViewInit(): void {
     // Initialize carousels
     setTimeout(() => {   
       if (!this.carouselsInitialized) {
-        this.hotelCarouselInstance = initializeOwlCarousel('.hotels-carousel', true, true, 16, false, 
+        this.hotelCarouselInstance = initializeOwlCarousel('.hotels-carousel', false, true, 16, false, 
           [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
           true);
         
-            this.eateryCarouselInstance = initializeOwlCarousel('.eateries-carousel', true, true, 16, false, 
+            this.eateryCarouselInstance = initializeOwlCarousel('.eateries-carousel', false, true, 16, false, 
               [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
               true);
         // Add event listeners for both carousels

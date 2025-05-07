@@ -15,10 +15,16 @@ import { ImageService } from '../../../services/image.service';
 export class PoliceHospitalComponent implements OnInit {
   private destinationService = inject(DestinationService);
 
-  destination = this.destinationService.getDestionation();
+  destination :any;
   imageService = inject(ImageService);
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.destinationService.destination$.subscribe(dest => {
+      if (dest) {
+        this.destination = dest;
+      }
+    });
+  }
 }

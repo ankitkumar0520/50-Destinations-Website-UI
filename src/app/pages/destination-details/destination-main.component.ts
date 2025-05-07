@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
 import { GalleryDescriptionComponent } from './gallery-description/gallery-description.component';
 import { PointsOfInterestComponent } from './points-of-interest/points-of-interest.component';
@@ -9,6 +9,8 @@ import { AccomodationEateryComponent } from './accomodation-eatery/accomodation-
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MapComponent } from './map/map.component';
 import { AiAudioModelComponent } from './ai-audio-model/ai-audio-model.component';
+import { ActivatedRoute } from '@angular/router';
+import { DestinationService } from '../../services/destination.service';
 @Component({
   selector: 'app-destination-main',
   standalone: true,
@@ -30,6 +32,8 @@ import { AiAudioModelComponent } from './ai-audio-model/ai-audio-model.component
 export class DestinationMainComponent implements OnInit {
   showModal = false;
   shareUrl = 'https://your-link.com';
+  route = inject(ActivatedRoute);
+  destinationService = inject(DestinationService);
 
   menuItems = [
     { id: 'about-section', name: 'About', icon: 'info-circle' },
@@ -53,6 +57,14 @@ showAside = false;
     if (this.isBrowser) {
       this.checkActiveSection();
     }
+
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      console.log('ID from URL:', id);
+      this.destinationService.getDestinationBySlug(id);
+    });
+
+
   }
 
   @HostListener('window:scroll', ['$event'])

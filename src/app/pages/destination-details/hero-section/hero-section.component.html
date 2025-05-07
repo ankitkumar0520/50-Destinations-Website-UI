@@ -301,7 +301,7 @@
         <div class="shrink-0 bg-white/10 p-1.5 sm:p-2 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]">
           <qrcode *ngIf="isBrowser()"
               class="aspect-square w-full h-full" 
-              [qrdata]="shareUrl + '/destination/' + destination.id" 
+              [qrdata]="shareUrl + '/destination/' + destination.slug"     
               [width]="100" 
               [margin]="1"
               [cssClass]="'qr-code'"

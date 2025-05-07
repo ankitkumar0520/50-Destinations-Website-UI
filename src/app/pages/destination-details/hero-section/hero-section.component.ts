@@ -3,7 +3,7 @@ import { Component, inject, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DestinationService } from '../../../services/destination.service';
 import { QRCodeComponent } from 'angularx-qrcode';
-import { shareQRCode, downloadQRCode, preloadImages } from '../../../utils/utils';
+import { shareQRCode, downloadQRCode, slugify } from '../../../utils/utils';
 import { VoiceModelService } from '../../../services/voice-model.service';
 
 @Component({
@@ -14,16 +14,15 @@ import { VoiceModelService } from '../../../services/voice-model.service';
   imports: [
     CommonModule,
     FontAwesomeModule,
-    QRCodeComponent
+    QRCodeComponent,
   ],
 })
 export class HeroSectionComponent implements OnInit {
-
   private destinationService = inject(DestinationService);
+  
   private voiceModeService = inject(VoiceModelService);
-  private bgImage = this.destinationService.getDestionation().galleryImages[0].itemImageSrc;
+  destination:any;
 
-  destination = this.destinationService.getDestionation();
   shareUrl: string;
   isMenuOpen = false;
   activeSection: string = 'points-of-interest';
@@ -37,19 +36,13 @@ export class HeroSectionComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    if (this.isBrowser()) {
-      // Preload the background image
-      const img = new Image();
-      img.src = this.bgImage;
-      img.onload = () => {
-        this.isImageLoaded = true;
-      };
-      img.onerror = () => {
-        console.error('Failed to load background image:', this.bgImage);
-        // Set a fallback image or handle the error
-        this.isImageLoaded = true; // Still set to true to show the animated background
-      };
-    }
+
+    this.destinationService.destination$.subscribe(dest => {
+      if (dest) {
+        this.destination = dest;
+      }
+    });
+
   }
 
   onImageLoad() {
@@ -68,7 +61,7 @@ export class HeroSectionComponent implements OnInit {
   }
 
   shareQR(): void {
-    const url = `${this.shareUrl}/destination/${this.destination.name.toLowerCase()}`;
+    const url = `${this.shareUrl}/destination/${slugify(this.destination.slug)}`;
     shareQRCode(
       url,
       `Explore ${this.destination.name}`,
@@ -77,7 +70,7 @@ export class HeroSectionComponent implements OnInit {
   }
 
   downloadQR(): void {
-    downloadQRCode(this.destination.name);
+    downloadQRCode(this.destination.slug);
   }
 
   isBrowser(): boolean {

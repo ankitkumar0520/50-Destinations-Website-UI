@@ -30,29 +30,25 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy, AfterVie
     {
       name: 'Shri Tshering Thendup Bhutia',
       designation: 'Hon\'ble Minister',
-      description: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity.",
       fullMessage: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity. We believe in sustainable tourism that benefits both visitors and local communities. Our digital initiatives are designed to provide authentic experiences while maintaining the ecological balance of our beautiful state.",
       image: 'assets/Images/officials/tshering-thendup.jpg'
     },
     {
       name: 'Shri Sudesh Kumar Subba',
       designation: 'Advisor, Tourism Department',
-      description: "The QR-based destination platform is a forward-thinking approach to promoting tourism while staying aligned with Sikkim's core values—sustainability, inclusivity, and accessibility.",
       fullMessage: "The QR-based destination platform is a forward-thinking approach to promoting tourism while staying aligned with Sikkim's core values—sustainability, inclusivity, and accessibility. Our goal is to create a seamless experience for tourists while ensuring that our natural resources and cultural heritage are preserved for future generations. This platform represents our commitment to responsible tourism.",
       image: 'assets/Images/officials/sudeshkumarsubba.jpg'
     },
     {
       name: 'C.Subhakar Rao, IFS',
       designation: 'Principal Secretary, Tourism Department',
-      description: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity.",
       fullMessage: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity. We are committed to leveraging technology to enhance the visitor experience while maintaining the authenticity of Sikkim's unique cultural and natural heritage.",
       image: 'assets/Images/officials/cs-rao-min.png'
     },
     {
       name: 'Shri Prakash Chettri',
       designation: "Secretary, Tourism Department",
-      description: "This QR-enabled tourism platform marks a step forward in transforming how visitors experience Sikkim. It reflects our dedication to promoting smart, sustainable, and inclusive travel for everyone.",
-      fullMessage: "This QR-enabled tourism platform marks a step forward in transforming how visitors experience Sikkim. It reflects our dedication to promoting smart, sustainable, and inclusive travel for everyone. Our goal is to establish Sikkim as a beacon of sustainable tourism, ensuring the protection of our rich cultural heritage and breathtaking landscapes. This platform is designed to help tourists navigate and experience Sikkim in a more efficient, meaningful, and immersive way.",
+      fullMessage: "This QR-enabled tourism platform marks a step forward in transforming how visitors experience Sikkim. It reflects our dedication to promoting smart, sustainable, and inclusive travel for everyone.",
       image: 'assets/Images/officials/prakash-chettri.png'      
     },
   ];
@@ -61,7 +57,7 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy, AfterVie
 
   ngOnInit() {
     // Commented out API call , make this uncommented to fetch testimonials from API
-    this.getTestimonials();
+    //this.getTestimonials();
   }
 
   ngAfterViewInit() {

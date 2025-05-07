@@ -1,4 +1,4 @@
-import { Component, inject, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, AfterViewInit, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
@@ -21,18 +21,26 @@ import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils'
     ])
   ]
 })
-export class ShopsComponent implements AfterViewInit, OnDestroy {
+export class ShopsComponent implements AfterViewInit, OnDestroy, OnInit {
   
   private destinationService = inject(DestinationService);
   private cdr = inject(ChangeDetectorRef);
   
-  destination = this.destinationService.getDestionation();
+  destination :any;
   selectedShop: any = null;
   isModalOpen = false;
   private carouselInitialized = false;
 
-  constructor() {}
+    constructor() {}
   
+  ngOnInit(): void {
+    this.destinationService.destination$.subscribe(dest => {
+      if (dest) {
+        this.destination = dest;
+      }
+    });
+  }
+
   ngAfterViewInit(): void {
     if (!this.carouselInitialized) {
       // Initialize carousel

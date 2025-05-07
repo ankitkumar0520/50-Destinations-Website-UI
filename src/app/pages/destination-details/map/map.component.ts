@@ -7,6 +7,7 @@ import {
   ElementRef,
   ViewChild,
   inject,
+  OnInit
 } from '@angular/core';
 import { DestinationService } from '../../../services/destination.service';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
@@ -20,7 +21,7 @@ let L: any;
   standalone: true,
   imports: [CommonModule, SectionHeaderComponent],
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements AfterViewInit, OnInit {
   @ViewChild('mapContainer') mapContainer!: ElementRef;
   private map: L.Map | undefined;
   currentLayer: string = 'OpenStreetMap';
@@ -30,8 +31,8 @@ export class MapComponent implements AfterViewInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   private destinationService = inject(DestinationService);
-  destination = this.destinationService.getDestionation();
-  travelInfo = this.destination.travelInfo;
+  destination :any;
+  travelInfo :any;
 
   mapLayers = [
     {
@@ -53,6 +54,15 @@ export class MapComponent implements AfterViewInit {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }
   ];
+
+  ngOnInit(): void {
+    this.destinationService.destination$.subscribe(dest => {
+      if (dest) {
+        this.destination = dest;
+        this.travelInfo = dest.travelInfo;
+      }
+    });
+  }
 
   openGoogleMaps(): void {
     const lat = parseFloat(this.travelInfo?.latitude ?? '');

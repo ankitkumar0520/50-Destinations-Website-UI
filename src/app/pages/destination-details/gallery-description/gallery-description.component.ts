@@ -18,7 +18,7 @@ export class GalleryDescriptionComponent implements OnInit, AfterViewInit, OnDes
   private destinationService = inject(DestinationService);
 
   // Sample destination data
-  destination = this.destinationService.getDestionation();
+  destination :any;
 
   // Calculate image count from destination data
   get imageCount(): number {
@@ -29,8 +29,11 @@ export class GalleryDescriptionComponent implements OnInit, AfterViewInit, OnDes
   }
 
   ngOnInit(): void {
-    // Ensure image count is initialized correctly
-    console.log(`Gallery initialized with ${this.imageCount} images`);
+    this.destinationService.destination$.subscribe(dest => {
+      if (dest) {
+        this.destination = dest;
+      }
+    });
   }
 
   ngAfterViewInit(): void {

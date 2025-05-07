@@ -151,4 +151,13 @@ export function preloadImages(
   });
 }
 
+export function slugify(text: string): string {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')    // Remove non-word characters
+    .replace(/\s+/g, '-')        // Replace spaces with dashes
+    .replace(/--+/g, '-');       // Replace multiple dashes with a single dash
+}
 

@@ -27,7 +27,7 @@ export class HomeAboutSectionComponent implements OnInit {
   };
   
 
-  experienceOptions: any[] = [];
+  experienceOptions=EXPERIENCE_OPTIONS;
 
   glanceCounts: any[] = [
     { number: 6, label: 'Districts' },
@@ -55,8 +55,8 @@ export class HomeAboutSectionComponent implements OnInit {
       this.startCountAnimation();
     }
     // Commented out API calls
-    this.getGlanceCounts();
-     this.getDestinationCategories();
+    //this.getGlanceCounts();
+    // this.getDestinationCategories();
   }
 
   setFilter(categorie: any) {

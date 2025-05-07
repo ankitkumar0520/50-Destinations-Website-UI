@@ -13,7 +13,7 @@ import { DestinationService } from '../../../services/destination.service';
 })
 export class PointsOfInterestComponent implements OnInit, OnDestroy {
   private destinationService = inject(DestinationService);
-  destination = this.destinationService.getDestionation();
+  destination :any;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -21,6 +21,11 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.destinationService.destination$.subscribe(dest => {
+      if (dest) {
+        this.destination = dest;
+      }
+    });
     if (isPlatformBrowser(this.platformId)) {
       const attractionCount = this.destination.touristAttractions.length;
 
