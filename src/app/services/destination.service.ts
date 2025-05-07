@@ -861,16 +861,16 @@ travelInfo :{
   }
   
   tsongoLake={
-    name: 'Tsongo Lake',
-    slug: 'tsongo-lake',
-    location: 'Tsongo Lake,Gangtok,Sikkim,India',
+    name: 'Tsomgo Lake',
+    slug: 'tsomgo-lake',
+    location: 'Tsomgo Lake,Gangtok,Sikkim,India',
     distance: 'Approx. 40 km from Gangtok',
     shortdescription: `Tsomgo Lake, also called Changu Lake, is a 
     mesmerizing glacial lake located in East Sikkim, 
     India. It's a major tourist attraction, renowned for its 
      natural beauty, peaceful surroundings, and spiritual 
     significance.`,
-   fulldescription: 'Tsomgo Lake, also known as Changu Lake, is a stunning glacial lake situated in East Sikkim, approximately 40 kilometers from Gangtok. Resting at an elevation of 3,753 meters, the lake is surrounded by snow-covered mountains and alpine forests, offering a serene and picturesque landscape. The lake is revered by the locals for its spiritual significance and is believed to be the dwelling place of a protective deity, drawing pilgrims and tourists alike. During winter, the lake freezes over, creating a magical, mirror-like reflection of the surroundings, while in spring and autumn, it comes alive with vibrant hues and blooming flora. The journey to Tsomgo Lake is equally scenic, making it a must-visit destination for anyone traveling to Sikkim. The best time to visit is between April to June and September to November, as winters often bring heavy snowfall that can block access to the region.',
+    fulldescription: 'Tsomgo Lake, also known as Changu Lake, is a stunning glacial lake situated in East Sikkim, approximately 40 kilometers from Gangtok. Resting at an elevation of 3,753 meters, the lake is surrounded by snow-covered mountains and alpine forests, offering a serene and picturesque landscape. The lake is revered by the locals for its spiritual significance and is believed to be the dwelling place of a protective deity, drawing pilgrims and tourists alike. During winter, the lake freezes over, creating a magical, mirror-like reflection of the surroundings, while in spring and autumn, it comes alive with vibrant hues and blooming flora. The journey to Tsomgo Lake is equally scenic, making it a must-visit destination for anyone traveling to Sikkim. The best time to visit is between April to June and September to November, as winters often bring heavy snowfall that can block access to the region.',
     title: 'Tsomgo Lake: A Sacred Glacial Wonder of Sikkim',
     duration: '3–6 hours',
     districtname: 'Gangtok',
@@ -887,13 +887,239 @@ travelInfo :{
     ],    
     galleryImages: [
       {
-        itemImageSrc: 'assets/Images/destinations/tsongo-Lake/1.webp',
-        thumbnailImageSrc: 'assets/Images/destinations/tsongo-Lake/1.webp',
-        alt: 'Tsongo Lake View'
+        itemImageSrc: 'assets/Images/destinations/tsomgu-lake/5.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/tsomgu-lake/5.webp',
+        alt: 'Tsomgo Lake View' 
       },
-    ]
-    
-  }
+      {
+        itemImageSrc: 'assets/Images/destinations/tsomgu-lake/1.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/tsomgu-lake/1.webp',
+        alt: 'Tsomgo Lake View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/tsomgu-lake/2.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/tsomgu-lake/2.webp',
+        alt: 'Tsomgo Lake View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/tsomgu-lake/3.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/tsomgu-lake/3.webp',
+        alt: 'Tsomgo Lake View' 
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/tsomgu-lake/4.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/tsomgu-lake/4.webp',
+        alt: 'Tsomgo Lake View' 
+      },
+   
+      {
+        itemImageSrc: 'assets/Images/destinations/tsomgu-lake/6.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/tsomgu-lake/6.webp',
+        alt: 'Tsomgo Lake View' 
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/tsomgu-lake/7.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/tsomgu-lake/7.webp',
+        alt: 'Tsomgo Lake View' 
+      }
+    ],
+    touristAttractions:[
+      {
+        title: 'Ropeway',
+        description: `The Tsomgo Ropeway is a ropeway system located
+                in the East Sikkim district of Sikkim, India. It
+                connects to lake and Tsomgo Hill which is 14000ft
+                hight offering breathtaking views of the surrounding
+                mountains and valleys.`,
+        images: [ 
+          'assets/Images/destinations/tsomgu-lake/5691ebba-b73e-414b-a4a1-57ad8c273664.jpeg',
+          'assets/Images/destinations/tsomgu-lake/012514fb-71f1-40dc-89c6-697a25ec51d3.jpeg',
+        ],
+      },
+      {
+        title: 'Yak Ride',
+        description: `Yak rides are a popular attraction at Tsomgo Lake,
+            especially known for the thrilling experience of
+            riding on snow at high altitudes. Adventure
+            enthusiasts will surely enjoy it. The yaks are
+            adorned with vibrant, colorful decorations, making
+            them quite eye-catching, and they are generally
+            gentle and friendly creatures`,
+        images: [ 
+          'assets/Images/destinations/tsomgu-lake/IMG_4221.jpeg',
+          'assets/Images/destinations/tsomgu-lake/IMG_4220.jpeg',
+        ],
+      },
+      {
+        title: 'Kanchenjunga Viewpoint',
+        description: `The Kanchenjunga Viewpoint is a popular tourist
+            destination in Sikkim, India, offering breathtaking
+            views of the Kanchenjunga mountain range. It is
+            one of the highest viewpoints on the way to Tsomgo
+            lake , providing an unobstructed view of the
+            mountains`,
+        images: [ 
+          'assets/Images/destinations/tsomgu-lake/5bb50362-248d-474c-9670-bb075a249848.jpeg',
+          'assets/Images/destinations/tsomgu-lake/31c142ff-596b-4ea6-a07e-81f19944296d.jpeg',
+        ],
+      }
+    ],
+    facilities:[
+      {
+        id: 'parking',
+        title: 'Secure Parking',
+        subtitle: 'Convenient Parking',
+        description: `Visitors are requested to follow marked signs and park only in authorized areas. Availability may vary based on season or crowd levels, so plan accordingly. For security, please do not leave valuables in your vehicle.`,  
+        image: 'assets/Images/destinations/tsomgu-lake/IMG_4175.jpeg',
+        imageAlt: 'Parking',
+        location: 'Parking Area',
+        distance: 'Within 50 Meters',
+        tags: [
+          { text: '₹30 per hour' },
+          { text: 'Secure and well-lit area'}
+        ],
+      },
+    ],
+    safety:[
+      {
+        id: 'police-station',
+        name: 'Sadar Police Station',
+        description: `The Sadar Police Station serves as the primary law enforcement agency for the Rhenock area and its surroundings, including Tsomgo Lake. It operates 24/7, ensuring the safety and security of residents and visitors.`,
+        distance: '5 kilometers and Above', 
+        contact: '03592202022',
+        address: 'Sadar Police Station, Upper Sichey, Arithang, Gangtok, Sikkim 737101',
+        location:{
+          lat:'27.33728957249378',
+          long:'88.61485983919334'
+         },
+        image: 'assets/Images/destinations/tsomgu-lake/IMG_4239.jpeg',
+        badge: '24/7 Service'
+      },
+    ],
+    healthcare:[
+      {
+        id: 'hospital',
+        name: 'STNM Hospital',
+        description: 'The Rhenock Hospital is a primary healthcare facility serving the local community in and around Rhenock.',
+        distance: 'Above 5 KM',
+        contact: '9635302468',
+        address: `Sochakhana Sichey, Stnn Hospital, near Stnm
+                Hospital, Sungava, Gangtok, Sikkim 737101
+                `,
+        location:{
+         },
+        image: 'assets/Images/destinations/tsomgu-lake/stnm.jpg',
+        badge: '24/7 Service'
+      }
+    ],
+    shops:[
+      {
+        name: "Jangmu sherpa shop",
+        address: "Kanchenjunga view point",
+        image: "assets/Images/destinations/tsomgu-lake/506ad807-8716-46da-82a1-6377f65cd195.jpeg", 
+        category: "Clothes and accessories ",
+        products: [
+          { name: "Clothes and accessories", image: 'assets/Images/destinations/tsomgu-lake/8dd31dfe-7904-4c7d-83fb-79fcda9a5e4e.jpeg'},
+        ]
+      },
+      {
+        name: "Chipchu shop number 2",
+        address: "Chipchu",
+        image: "assets/Images/destinations/tsomgu-lake/ef067116-ec85-4e88-82b7-6515cb1f1d31.jpeg",
+        category: "Food , cloths , and accessories",
+        products: [
+          { name: "Food , cloths , and accessories", image: "assets/Images/destinations/tsomgu-lake/42f55eb7-c548-427e-be44-5bf2c2d8d9ae.jpeg" },
+     ]
+      }
+    ],
+    accommodations:[
+      {
+        name: "Sinclairs Gangtok",
+        image: "assets/Images/destinations/tsomgu-lake/IMG_4506.jpeg",
+        address: `Cherry Residency Complex, Zero Point P.O, Raj Bhavan Rd, Gangtok, Sikkim 737101`,
+        contact: "+91 7003207937",
+        facilities: [
+          "Single Bed",
+          "Double Bed",
+          "King Bed",
+          "Air Conditioning",
+          "Heating",
+          "Television with Cable",
+          "Free Wi-Fi",
+          "Private Balcony",
+          "Swimming Pool",
+          "Gym / Fitness Center",
+          "Valet Parking / Free Parking",
+          "24/7 Security & CCTV Surveillance"
+        ]
+      },
+      {
+        name: "Deltin Denzong | Casino in Sikkim",
+        image: "assets/Images/destinations/tsomgu-lake/IMG_4508.jpeg",
+        address: "Denzong Regency, Cherry Banks, Gangtok, Sikkim 737101",
+        contact: "+91 98196 98196",
+        facilities: [
+          "Single Bed",
+          "Double Bed",
+          "King Bed",
+          "Air Conditioning",
+          "Heating",
+          "Television with Cable",
+          "Free Wi-Fi",
+          "Private Balcony",
+          "Swimming Pool",
+          "Gym / Fitness Center",
+          "Valet Parking / Free Parking",
+          "24/7 Security & CCTV Surveillance"
+        ]
+      }
+    ],
+    eateries:[
+      {
+        name: "Alpine cafeteria",
+        image: "assets/Images/destinations/tsomgu-lake/IMG_4509.jpeg",
+        address: "Tsomgo lake",
+        contact: "+91 80 6957 5004",
+        facilities: [
+          "Family Seating",
+          "Regular Cleaning & Disinfection",
+          "Cash & Card Payments",
+          "UPI / Digital Wallet Payments"
+        ]
+      },
+      {
+        name: "Sikkim Tourism Lakeside Cafeteria",
+        image: "assets/Images/destinations/tsomgu-lake/IMG_4191.jpeg",
+        address: "Tsomgo lake",
+        contact: "+91 8668894546",
+        facilities: [
+          "Family Seating",
+          "Lounge Area",
+          "Cash & Card Payments",
+          "UPI / Digital Wallet Payments",
+          "Parking Facility (Free or Paid)",
+          "Vegetarian & Vegan Option",
+          "Bar Counter Seating",
+          "Beverages"
+        ]
+      }
+    ],
+    travelInfo:{
+      transportModes: [
+        {
+          description: 'From Bagdogra Airport, hire a taxi or shared cab to Gangtok (4-5 hours), then take another vehicle to Tsomgo Lake (2 hours from Gangtok). The total journey offers scenic views of Teesta River and mountain landscapes.'
+          },
+          {
+          description: 'From New Jalpaiguri (NJP) Railway Station, take a taxi or shared vehicle to Gangtok (4 hours), then continue to Tsomgo Lake (additional 2 hours). Travel time may vary based on road conditions.'
+          },
+          {
+          description: 'From Namchi, first travel to Gangtok by road (3 hours), then proceed to Tsomgo Lake (another 2 hours). Alternatively, take the route via Rongli which connects to the Tsomgo road, totaling about 4-5 hours of travel time.'
+          }
+      ],
+      latitude:'27.37610832089108',
+      longitude:'88.76142916691389'
+    }
+  } 
   
 
   destinations = [
