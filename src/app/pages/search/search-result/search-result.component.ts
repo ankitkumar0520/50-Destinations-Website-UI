@@ -16,7 +16,7 @@ import { QRCodeComponent } from 'angularx-qrcode';
 import { ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { ImageService } from '../../../services/image.service';
 import { SafeUrl } from '@angular/platform-browser';
-import { downloadQRCode } from '../../../utils/utils';
+import { downloadQRCode, shareQRCode } from '../../../utils/utils';
 import { DestinationService } from '../../../services/destination.service';
 
 interface Tag {
@@ -72,7 +72,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
         this.filteredResults = this.searchService.applyFilters(
           filters,
           this.searchResults
-        ); // Apply filters once received
+        );
       },
       error: (err) => console.error('Error loading filters:', err),
       complete: () => console.log('Filters stream completed'),
@@ -80,7 +80,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   }
 
   navigateToDetail(slug: string): void {
-    // redirect to main destination page (implement routing as needed)
     this.router.navigate(['/destination', slug]);
   }
 
@@ -91,46 +90,38 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   shareQR(index: number): void {
     const result = this.filteredResults[index];
     const url = this.siteUrl + '/destination/' + result.slug;
-
-    if (navigator.share) {
-      navigator
-        .share({
-          title: `Explore ${result.destinationname}`,
-          text: `Check out ${result.destinationname} in Sikkim!`,
-          url: url,
-        })
-        .catch(console.error);
-    } else {
-      // Fallback for browsers that don't support Web Share API
-      const tempInput = document.createElement('input');
-      tempInput.value = url;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.body.removeChild(tempInput);
-    }
+    shareQRCode(
+      url,
+      `Explore ${result.name}`,
+      `Check out ${result.name} in Sikkim!`
+    );
   }
-
-  onQRCodeGenerated(url: SafeUrl, index: number): void {
-    // Store the QR code URL if needed
-    this.qrCodeUrls[index] = url.toString();
-  }
-
-  private qrCodeUrls: { [key: number]: string } = {};
 
   downloadQR(index: number): void {
     const result = this.filteredResults[index];
-    downloadQRCode(result.destinationname.toLowerCase());
+    const qrCanvas = document.querySelector(`#qr-${index} canvas`) as HTMLCanvasElement;
+    
+    if (!qrCanvas) {
+      console.error('QR canvas not found for index:', index);
+      return;
+    }
+
+    try {
+      const link = document.createElement('a');
+      link.download = `${result.name.toLowerCase().replace(/\s+/g, '-')}-qr.png`;
+      link.href = qrCanvas.toDataURL('image/png');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading QR code:', error);
+    }
   }
 
-  //for card to flip all
   flipAll(): void {
-    // Check if any card is currently showing QR
     const anyVisible = Object.values(this.isQRVisibleMap).some((val) => val);
-
-    // If any card is showing QR, hide all. Otherwise show all
     const shouldShow = !anyVisible;
 
-    // Update all cards in the current page
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = Math.min(
       startIndex + this.itemsPerPage,
@@ -149,7 +140,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       this.filteredResults.length
     );
 
-    // Check if all cards in current page are showing QR
     for (let i = startIndex; i < endIndex; i++) {
       if (!this.isQRVisibleMap[i]) {
         return false;
