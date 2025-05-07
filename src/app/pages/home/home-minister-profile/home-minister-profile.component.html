@@ -28,15 +28,16 @@
           <div class="text-center max-w-md">
             <h3 class="text-lg font-semibold mb-1">{{ minister.name }}</h3>
             <p class="text-sm text-white/80 mb-3">{{ minister.designation }}</p>
-            <p class="text-sm italic text-white/90 leading-relaxed">
+            <p class="text-sm italic text-white/90 line-clamp-4 leading-relaxed">
               "{{ minister.description }}"
-              <button 
-                class="cursor-pointer read-more-btn text-primary-400 hover:text-primary-300 transition-colors"
-                [attr.data-id]="minister.name"
-              >
-                ..Read More
-              </button>
+             
             </p>
+            <button 
+            class="cursor-pointer text-xs read-more-btn text-primary-400 hover:text-primary-300 transition-colors"
+            [attr.data-id]="minister.name"
+          >
+            ..Read More
+          </button>
           </div>
         </div>
       </div>
@@ -80,8 +81,8 @@
 
           <!-- Minister Message -->
           <div class="max-h-[50vh] overflow-y-auto px-4 sm:px-6 md:px-8">
-            <p class="text-gray-700 dark:text-gray-200 leading-relaxed text-center text-xs sm:text-base md:text-lg">
-              "{{ selectedMinister?.fullMessage }}"
+            <p class="text-gray-700  dark:text-gray-200 leading-relaxed text-center text-xs sm:text-base md:text-lg">
+              {{ selectedMinister?.description }}
             </p>
           </div>
 
