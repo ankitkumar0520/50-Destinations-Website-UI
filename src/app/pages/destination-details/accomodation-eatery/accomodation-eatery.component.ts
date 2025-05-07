@@ -1,4 +1,4 @@
-import { Component, inject, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef , OnInit} from '@angular/core';
+import { Component, inject, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef , OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
@@ -23,7 +23,7 @@ import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils'
   ]
 })
 
-export class AccomodationEateryComponent implements AfterViewInit, OnDestroy , OnInit {
+export class AccomodationEateryComponent implements OnDestroy , OnInit {
   selectedHotel: any = null;
   selectedEatery: any = null;
   isHotelModalOpen = false;
@@ -46,11 +46,12 @@ export class AccomodationEateryComponent implements AfterViewInit, OnDestroy , O
     this.destinationService.destination$.subscribe(dest => {
       if (dest) {
         this.destination = dest;
+        this.initCarousel();
       }
     });
   }
   
-  ngAfterViewInit(): void {
+  initCarousel(): void {
     // Initialize carousels
     setTimeout(() => {   
       if (!this.carouselsInitialized) {

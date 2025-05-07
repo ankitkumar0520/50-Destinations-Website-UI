@@ -17,6 +17,22 @@ import { ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { ImageService } from '../../../services/image.service';
 import { SafeUrl } from '@angular/platform-browser';
 import { downloadQRCode } from '../../../utils/utils';
+import { DestinationService } from '../../../services/destination.service';
+
+interface Tag {
+  label: string;
+}
+
+interface SearchResult {
+  tags: Tag[];
+  slug: string;
+  destinationname: string;
+  galleryImages: Array<{itemImageSrc: string}>;
+  duration: string;
+  districtname: string;
+  shortdescription: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-search-result',
@@ -37,15 +53,15 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     : '';
 
   filters: SearchFilters | null = null;
-  filteredResults: any[] = [];
-  paginatedResults: any[] = [];
+  filteredResults: SearchResult[] = [];
   currentPage = 1;
   itemsPerPage = 8;
 
   isQRVisibleMap: { [key: number]: boolean } = {};
 
   private searchService = inject(SearchService);
-  searchResults = this.searchService.getDestinations();
+  destinationService = inject(DestinationService);
+  searchResults = this.destinationService.getAllDestinations();
 
   constructor(private router: Router) {}
 
@@ -63,9 +79,9 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     });
   }
 
-  navigateToDetail(id: number): void {
+  navigateToDetail(slug: string): void {
     // redirect to main destination page (implement routing as needed)
-    this.router.navigate(['/destination', id]);
+    this.router.navigate(['/destination', slug]);
   }
 
   switchQR(i: number): void {

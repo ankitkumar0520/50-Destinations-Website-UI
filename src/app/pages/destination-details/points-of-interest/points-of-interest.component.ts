@@ -48,7 +48,7 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           const imageCarousels = document.querySelectorAll('#points-of-interest-section .flex .point-image-carousel'); // More specific selector
           imageCarousels.forEach((carousel, index) => {
-            initializeOwlCarousel(`#point-image-carousel-flex-${index}`, false, true, 0, false, [1,1,1], false);
+            initializeOwlCarousel(`#point-image-carousel-flex-${index}`, true, true, 0, false, [1,1,1], false);
           });
         }, 500);
       }

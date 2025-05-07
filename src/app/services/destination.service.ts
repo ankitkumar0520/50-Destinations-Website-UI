@@ -8,6 +8,7 @@ export class DestinationService {
   private destinationSubject = new BehaviorSubject<any>(null);
   destination$ = this.destinationSubject.asObservable();
 
+
   getDestinationBySlug(slug: string) {
     const destination = this.getLocalDestinationBySlug(slug);
     if (destination) {
@@ -17,20 +18,14 @@ export class DestinationService {
   
    getLocalDestinationBySlug(slug: string): any {
     // Check all local destination objects
-    const destinations = [
-      this.rumtekMonastery,
-      this.tareyBhir
-      // Add other destinations here as they are added
-    ];
+
 
     // Find the destination that matches the slug
-    return destinations.find(dest => dest.slug === slug);
+    return this.destinations.find(dest => dest.slug === slug);
   }
 
 
-  getDestionation():any{
-     return this.rumtekMonastery;
-  }
+
 
   rumtekMonastery={
 
@@ -45,31 +40,15 @@ export class DestinationService {
       { label: 'Religious Site' },
       { label: 'Tourist Spot' }
     ],
+    districtname: 'Gangtok',
     title: 'Rumtek Monastery: The Majestic Seat of the Karmapa',
     location: 'Rumtek, Gangtok,Sikkim 737135, India',
     distance: 'Approx. 24 km from Gangtok, on a hilltop overlooking the Ranipool River',
     fulldescription: 'RumtekMonastery also known as the Dharma Chakra Centre is a prominent Buddhist monastery located near Gangtok in Sikkim India Founded in the 16th century by the 9th Karmapa Wangchuk Dorje it serves as the main seat in exile of the Karmapa Lama and is renowned for its stunning architecture and serene surroundings Perched at an elevation of 5 500 feet the monastery is a vital center for Tibetan Buddhism housing sacred relics and offering a glimpse into the rich cultural heritage of the region Visitors are often captivated by its tranquil atmosphere and the breathtaking views of the Himalayas The monastery has a rich history having been originally established in the mid 18th century under the guidance of the 12th Karmapa Changchub Dorje After the 16th Karmapa Rangjung Rigpe Dorje fled Tibet in 1959 he chose to rebuild Rumtek which had fallen into disrepair The reconstruction was completed in 1966 and the monastery became a significant site for the Karma Kagyu lineage symbolizing resilience and continuity of Tibetan Buddhism in exile Today Rumtek Monastery is not only a spiritual hub but also a center of learning with the Karma Shri Nalanda Institute for Higher Buddhist Studies.',
-    voiceOverContent: `Welcome to Rumtek Monastery — a spiritual sanctuary nestled amidst the misty hills of Gangtok, Sikkim.
-
-              Located just 23 kilometers from Gangtok, Rumtek Monastery is one of the most significant and largest Tibetan Buddhist monasteries in India. Perched at an altitude of about 
-              5,800 feet, the monastery offers a peaceful escape from the bustling town, with panoramic views of the surrounding mountains and valleys.
-
-              Originally built in the 16th century by the 9th Karmapa, Wangchuk Dorje, 
-              Rumtek Monastery was rebuilt in the 20th century under the guidance of the 16th Karmapa after he fled Tibet. Today, it serves as the main seat of the Karma Kagyu lineage outside of Tibet and is also known as the Dharmachakra Centre.
-
-              As you walk through its ornate gates, you'll be greeted by vibrant murals,
-               colorful prayer flags fluttering in the breeze, and the calming sound of monks chanting ancient mantras. The monastery houses many sacred relics, ancient scriptures, and a golden stupa containing the remains of the 16th Karmapa.
-
-              One of the most striking aspects of Rumtek is its architecture — a perfect blend of traditional Tibetan design and modern craftsmanship. The main prayer hall is adorned with majestic thangkas, statues, and intricate woodwork that tell stories of Buddhist teachings.
-
-              Rumtek is not just a place of worship — it's a center of learning, meditation, and cultural preservation. Visitors often witness prayer ceremonies, rituals, and sometimes even traditional Tibetan festivals celebrated by the monks.
-
-              To reach Rumtek, you can travel by road from Gangtok — either by private taxi or shared cab. The journey, though winding, is scenic and serene, taking you through lush forests and picturesque villages.
-
-              Whether you're a spiritual seeker, a cultural explorer, or a curious traveler, Rumtek Monastery promises a soulful experience — one that lingers in your heart long after you've left its tranquil grounds.
-
-              Thank you for visiting Rumtek Monastery — a beacon of peace, devotion, and timeless wisdom.`,
-
+    duration: '2-3 hours',
+    popularityCount: 78,
+    seasons: ['All'],
+    addedOn: '2025-02-15T14:15:00Z',
     galleryImages: [
       {
         itemImageSrc: 'assets/Images/rumtek-monastry/rumtek1.jpeg',
@@ -429,7 +408,12 @@ travelInfo :{
     distance: 'Approx. 16.3 km km from Namchi',
     shortdescription: `Tarey Bhir is an area surrounding a hill that was once part of an ancient trade route connecting Sikkim to other regions of India and neighboring countries. It is considered a sacred site by the local community, with various legends and myths associated with it.`,
     fulldescription:'The name "BHIR" means "CLIFF" in Nepali, reflecting the dramatic and rugged landscape. Tarey Bhir is a stunning hilltop ridge located in South Sikkim, India, near the town of Namchi. This 3km long ridge features steep cliffs and offers panoramic views of the Teesta River, lush valleys, and the snow-capped mountains of the Eastern Himalayas.',
-    title: 'Tarey Bhir: A Sacred Hilltop in South Sikkim',    
+    title: 'Tarey Bhir: A Sacred Hilltop in South Sikkim',  
+    duration: '2-3 hours',
+    districtname: 'Namchi',
+    popularityCount: 78,
+    seasons: ['All'],
+    addedOn: '2025-02-15T14:15:00Z',
     tags: [
       { label: 'Hill Station' },
       { label: 'Nature View' },
@@ -583,8 +567,311 @@ travelInfo :{
       longitude:'88.42797728544849'
     }
   }
+
+  aritarLake={
+    name: 'Aritar Lampokhari Lake',
+    slug: 'aritar-lampokhari-lake',
+    location: 'Aritar Lampokhari Lake,Pakyong,Sikkim,India',
+    distance: 'Approx. 30 km from Rangpo',
+    shortdescription: `Aritar Lampokhari Lake, also known as Aritar Lake, is one of the oldest natural freshwater lakes in Sikkim. Situated in the serene town of Aritar, this emerald boot-shaped lake is surrounded by lush green pine forests, offering a tranquil retreat for nature enthusiasts and spiritual seekers alike.`,
+    fulldescription: 'Aritar Lampokhari Lake, also known as Aritar Lake, is a serene and picturesque retreat nestled in the eastern part of Sikkim, India. Situated at an elevation of approximately 4,600 feet (1,402 meters), this emerald boot-shaped lake is one of the oldest natural freshwater lakes in Sikkim. The lake measures about 1,120 feet in length and 240 feet in width, and is surrounded by lush green pine forests, creating a tranquil environment perfect for relaxation and nature appreciation. The lake holds spiritual significance for local communities, with a small shrine dedicated to Guru Padmasambhava located on its banks. Visitors can enjoy a leisurely walk along the pathway constructed around the lake, offering diverse perspectives of its natural beauty. Nearby attractions include the Aritar Monastery, known for its traditional architecture and monastic art, and the Mankhim Temple, which provides panoramic views of the surrounding landscape. The best time to visit Aritar Lampokhari Lake is during the summer months, from March to May, when the weather remains pleasant and cool.',
+    title: 'Aritar Lampokhari Lake: Sikkim’s Emerald Jewel Amidst Pine Forests',
+    duration: '2-3 hours',
+    districtname: 'Pakyong',
+    popularityCount: 91,
+    seasons: ['Spring (March - May)'],
+    addedOn: '2025-02-15T14:15:00Z',
+    tags: [
+      { label: 'Lake' },
+      { label: 'Bird Watching' },
+      { label: 'Natural Walk' },
+      { label: 'Paddle Boating' },
+    ],
+    galleryImages: [
+      {
+        itemImageSrc: 'assets/Images/destinations/aritar-Lake/1.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/aritar-Lake/1.webp',
+        alt: 'Aritar Lake View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/aritar-Lake/2.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/aritar-Lake/2.webp',
+        alt: 'Aritar Lake View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/aritar-Lake/3.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/aritar-Lake/3.webp',
+        alt: 'Aritar Lake View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/aritar-Lake/4.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/aritar-Lake/4.webp',
+        alt: 'Aritar Lake View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/aritar-Lake/5.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/aritar-Lake/5.webp',
+        alt: 'Aritar Lake View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/aritar-Lake/6.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/aritar-Lake/6.webp',
+        alt: 'Aritar Lake View'
+      },
+      {
+        itemImageSrc: 'assets/Images/destinations/aritar-Lake/7.webp',
+        thumbnailImageSrc: 'assets/Images/destinations/aritar-Lake/7.webp',
+        alt: 'Aritar Lake View'
+      },
+
+    ],  
+    touristAttractions:[
+      {
+        title: 'Lamphokhri lake',
+        description: 'The lake is a popular spot for picnicking and relaxation, with benches and tables scattered around its perimeter. The serene environment and the beautiful views of the surrounding mountains make it a perfect place for a leisurely stroll.',
+        images: [
+          'assets/Images/destinations/aritar-Lake/attraction/attraction1.1.webp',
+          'assets/Images/destinations/aritar-Lake/attraction/attraction1.2.webp',
+        ],   
+      },
+      {
+        title: 'Zip-lining',
+        description: 'Adding a touch of adventure to the tranquil surroundings, Aritar Lake features a zip line set against its scenic backdrop. While it doesn’t cross the lake itself, the ride offers a fun and safe experience, letting visitors glide through the crisp mountain air with beautiful views of the surrounding forests and hills. It’s a unique way to enjoy the natural beauty of the area from a different angle.',
+        images: [
+          'assets/Images/destinations/aritar-Lake/attraction/attraction3 (1).webp',
+          'assets/Images/destinations/aritar-Lake/attraction/attraction3 (2).webp',
+        ],
+      },
+      {
+        title: 'Guru Padmasambhava',
+        description: 'On the banks of Aritar Lake stands a serene shrine dedicated to Guru Padmasambhava, the revered saint who brought Buddhism to the Himalayas. Draped in prayer flags and nestled amid whispering pines, the shrine offers a quiet space for reflection and reverence. Locals and visitors alike light butter lamps here, seeking blessings and peace by the sacred waters that echo centuries of devotion.',
+        images: [
+          'assets/Images/destinations/aritar-Lake/attraction/attraction2.webp',
+        ],
+      },
+      {
+        title: 'Traditional Cooking Class',
+        description: 'Right beside the tranquil Aritar Lake, Poonam’s Cooking Classes invite you to step into the heart of Sikkimese culinary heritage. Run by a local tourism veteran, this unique experience offers hands-on lessons in traditional pickle making, the art of folding perfect momos, and crafting khap-tyse—beautiful flower-shaped cookies beloved in local culture.',
+        images: [
+          'assets/Images/destinations/aritar-Lake/attraction/attraction4.1.webp',
+          'assets/Images/destinations/aritar-Lake/attraction/attraction4.2.webp',
+        ],
+      },
+      {
+        title: 'Mangkhim Temple Hike',
+        description: 'A short and scenic hike from Aritar Lake leads you to the sacred Mangkhim Temple, perched on a hilltop with sweeping views of the surrounding valleys and snow-capped peaks. This peaceful trail winds through pine forests and prayer flag-lined paths, offering moments of calm and quiet reflection. The temple, revered by the Rai community, stands as a spiritual beacon and a perfect spot to take in the natural and cultural beauty of East Sikkim.',
+        images: [
+          'assets/Images/destinations/aritar-Lake/attraction/attraction5.webp',
+        ],
+      }
+
+    ],
+    facilities: [
+      {
+        id: 'parking',
+        title: 'Secure Parking',
+        subtitle: 'Convenient Parking',
+        description: 'Safe and convenient parking options with well-lit areas, easy access to the main area, and thoughtful security measures to ensure peace of mind.',
+        image: 'assets/Images/destinations/aritar-Lake/facility/parking.webp',
+        imageAlt: 'Parking',
+        location: 'Main Parking Area',
+        distance: '50m from main entrance',
+        tags: [
+          { text: '₹20 per Two Wheeler' },
+          { text: '₹30 per Four Wheeler'},
+          { text: 'Secure and well-lit area'}
+        ],
+      },
+    ],
+    safety:[
+      {
+        id: 'police-station',
+        name: 'Rhenock Police Station',
+        description: 'The Rhenock Police Station serves as the primary law enforcement agency for the Rhenock area and its surroundings, including Aritar Lake. It operates 24/7, ensuring the safety and security of residents and visitors.',
+        distance: '5 kilometers and Above',
+        contact: '9933490266',
+        address: 'Rhenock Police Station; Rhenock Bazar, Rhenock, Pakyong District, Sikkim',
+        location:{
+          lat:'27.174970939808897',
+          long:'88.6452678096149'
+         },
+        image: 'assets/Images/destinations/aritar-Lake/safety/police-statiion.webp',
+        badge: '24/7 Service'
+      },
+    ],
+    healthcare:[
+      {
+        id: 'hospital',
+        name: 'Rhenock Hospital',
+        description: 'The Rhenock Hospital is a primary healthcare facility serving the local community in and around Rhenock.',
+        distance: 'Above 5 KM',
+        contact: '9635302468',
+        address: 'Rhenock Bazar, Pakyong District , Sikkim',
+        location:{
+          lat:'27.17453888474031',
+          long:'88.64575453634791'
+         },
+         image: 'assets/Images/destinations/aritar-Lake/safety/renok-hospital.webp',
+         badge: '24/7 Service'
+      }
+    ],
+    shops:[
+      {
+        name: "Lal Babu Gupta",
+        address: "Rongli Bazar, Rongli , Pakyong District",
+        image: "assets/Images/destinations/aritar-Lake/shops/shop1.webp",
+        category: "Souvenirs ",
+        products: [
+          { name: "Keychains", image: "assets/Images/destinations/aritar-Lake/shops/shop1product1.webp", category: "Souvenirs" },
+        ]
+      },
+      {
+        name: "Mangal Gift Shop",
+        address: "Rongli Bazar, Rongli , Pakyong District",
+        image: "assets/Images/destinations/aritar-Lake/shops/shop2.webp",
+        category: "",
+        products: [
+          { name: "Destination Fridge Magnets", image: "assets/Images/destinations/aritar-Lake/shops/shop2product1.webp", category: "Plastic Products" },
+          { name: "Oriental Design Tea Cups", image: "assets/Images/destinations/aritar-Lake/shops/shop2product2.webp", category: "Household Products" }
+        ]
+      },
+      {
+        name: "Jai Kumar Gift Shop",
+        address: "Rongli Bazar, Rongli , Pakyong District",
+        image: "assets/Images/destinations/aritar-Lake/shops/shop3.webp",
+        category: "",
+        products: [
+          { name: "Keychains", image: "assets/Images/destinations/aritar-Lake/shops/shop3product1.webp", category: "Souvenirs" },
+        ]
+      }
+    ],
+    accommodations:[
+      {
+        name: "Lake View Cottage",
+        image: "assets/Images/destinations/aritar-Lake/hotels/hotel1.webp",
+        address: "Beside Lamphokhari Lake, Aritar, Pakyong District",
+        contact: "+91 8972639124",
+        facilities: [
+          "Free WiFi",
+          "Single Bed Room",
+          "Double Bed Room",
+          "Valet Parking",
+          "Heater",
+        ]
+      },
+      {
+        name: "Hotel Aditya",
+        image: "assets/Images/destinations/aritar-Lake/hotels/hotel2.webp",
+        address: "Aritar Bazar, Pakyong District",
+        contact: "+91 8145013140",
+        facilities: [
+          "Free WiFi",
+          "Single Bed Room",
+          "Double Bed Room",
+          "Valet Parking",
+          "Heater",
+          "Television",
+          "Private Balcony",
+          "CCTV Camera",
+          "First Aid Kit"
+        ]
+      },
+      {
+        name: "Eco Log Hut Resort",
+        image: "assets/Images/destinations/aritar-Lake/hotels/hotel3.webp",
+        address: "Beside Dak Bungalow, Aritar, Pakyong District",
+        contact: "+91 6297200976",
+        facilities: [
+          "Free WiFi",
+          "Single Bed Room",
+          "Double Bed Room",
+          "King Bed Room",
+          "Valet Parking",
+          "Heater",
+          "Television",
+          "Private Balcony",
+          "CCTV Camera",
+          "First Aid Kit"
+        ]
+      },
+      {
+        name: "Lampokhari Village Resort",
+        image: "assets/Images/destinations/aritar-Lake/hotels/hotel4.webp",
+        address: "Beside Lamphokhari Lake, Aritar, Pakyong District",
+        contact: "+91 9734843981",
+        facilities: [
+          "Free WiFi",
+          "Single Bed Room",
+          "Double Bed Room",
+          "King Bed Room",
+          "Valet Parking",
+          "Heater",
+          "Television",
+        ]
+      }
+    ],
+    eateries:[
+      {
+        name: "Bhaichung Restaurant",
+        image: "assets/Images/destinations/aritar-Lake/resturant/rest1.webp",
+        address: "Aritar Bazar, Pakyong District",
+        contact: "+91 9064023647",
+        facilities: [
+          "Family Friendly",
+          "Digital Payment",
+          "Multi Cuisine",
+          "Appetizers",
+          "Chinese Food",
+          "Parking"
+        ]
+      },
+      {
+        name: "Lake View Fast Food",
+        image: "assets/Images/destinations/aritar-Lake/resturant/rest2.webp",
+        address: "Lamphokari Lake, Aritar",
+        contact: "+91 8768120472",
+        facilities: [
+          "Family Friendly",
+          "Digital Payment",
+        ]
+      },
+      {
+        name: "Punjabi Fast Food",
+        image: "assets/Images/destinations/aritar-Lake/resturant/rest3.webp",
+        address: "Aritar Bazar, Pakyong District",
+        contact: "+91 9064023647",
+      }
+    ],
+    travelInfo:{
+      transportModes: [
+        {
+          description: 'From Bagdogra Airport, you can hire a taxi or a shared cab heading towards Pakyong and then onward to Aritar. The journey takes around 4 to 5 hours, offering scenic views of the Teesta River and hilly terrain.'
+        },
+        {
+          description: 'From New Jalpaiguri (NJP) Railway Station, taxis and shared vehicles are available towards Pakyong. From there, a connecting ride will take you to Aritar Lampokhari Lake. The entire trip may take approximately 4 hours depending on road conditions.'
+        },
+        {
+          description: 'From Namchi, you can reach Aritar by road via Rongli or Rhenock. Taxis and shared vehicles frequently ply this route, taking roughly 2 to 3 hours. The road winds through lush hills, offering beautiful vistas.'
+        }
+      ],
+      
+      latitude:'27.187255381582823',
+      longitude:'88.6765699422714'
+    }
+  }
   
   
+
+  destinations = [
+    this.rumtekMonastery,
+    this.tareyBhir,
+    this.aritarLake
+    // Add other destinations here as they are added
+  ];
+
+ getAllDestinations(){
+  return this.destinations;
+ }
 
 
 }
