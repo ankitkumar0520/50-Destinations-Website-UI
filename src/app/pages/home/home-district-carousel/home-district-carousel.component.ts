@@ -7,7 +7,7 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { QRCodeComponent } from 'angularx-qrcode';
+
 
 
 import {
@@ -26,7 +26,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home-district-carousel',
   standalone: true,
-  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent],
+  imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
 })
