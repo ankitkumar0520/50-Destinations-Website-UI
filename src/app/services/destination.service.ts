@@ -1,12 +1,28 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DestinationService {
  destination:any={};
+ apiService = inject(ApiService)
 
-  constructor() { }
+   getDestinationBySlug(slug:string){
+     this.apiService.get(`/destination/slug/${slug}`).subscribe({
+      next: (res:any)=>{
+        this.destination= res; 
+        console.log(this.destination);
+      },
+      error: (err:any)=>{
+        console.log(err);
+      }
+     });
+   }
+ 
+  constructor() {
+    this.getDestinationBySlug('sample-destination');
+   }
 
   getDestionation():any{
    return this.tareyBhir;

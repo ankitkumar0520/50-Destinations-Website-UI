@@ -39,6 +39,7 @@ export class HomeGallerySectionComponent implements OnInit {
       bestTime: 'May to September',
       duration: '2-3 hours',
       district: 'Gangtok',
+      slug:'tsomgo-lake '
     },
     
     {
@@ -58,6 +59,7 @@ export class HomeGallerySectionComponent implements OnInit {
       bestTime: 'Apr to May',
       duration: 'Full Day',
       district: 'Mangan',
+      slug:'nathula-pass'
     },
     {
       id: 3,
@@ -76,6 +78,7 @@ export class HomeGallerySectionComponent implements OnInit {
       bestTime: 'Throughout Year',
       duration: '2-4 hours',
       district: 'Namchi',
+      slug:'mg-marg'
     },
     {
       id: 4,
@@ -94,6 +97,7 @@ export class HomeGallerySectionComponent implements OnInit {
       bestTime: 'Mar to Jun',
       duration: 'Full Day',
       district: 'Geyzing',
+      slug:'yumthang-valley'
     },
     {
       id: 5,
@@ -112,6 +116,7 @@ export class HomeGallerySectionComponent implements OnInit {
       bestTime: 'Apr to Jun, Oct to Nov',
       duration: '2-3 hours',
       district: 'Pakyong',
+      slug:'baba-harbhajan-mandir'
     },
     {
       id: 6,
@@ -130,6 +135,7 @@ export class HomeGallerySectionComponent implements OnInit {
       bestTime: 'Mar to May, Sep to Nov',
       duration: '1-2 hours',
       district: 'Soreng',
+      slug:'ravangla-buddha-park'
     }
   ];
 
@@ -141,7 +147,7 @@ export class HomeGallerySectionComponent implements OnInit {
   
   ngOnInit(): void {
     // Using static data, no need to call API
-    // this.getPopularDestinations();
+     this.getPopularDestinations();
   }
 
   switchQR(index: number): void {
@@ -190,6 +196,7 @@ export class HomeGallerySectionComponent implements OnInit {
                 .join(', '),
               duration: destination.duration || 'N/A',
               district: destination.districtname,
+              slug: destination.slug
             }));
           }
         },

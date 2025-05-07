@@ -169,7 +169,7 @@
                     <div class="qr-left-section">
                       <div class="qr-container">
                         <qrcode
-                          [qrdata]="shareUrl + '/destinations/' + dest.name | slugify"
+                          [qrdata]="shareUrl + '/destination/' + dest.slug"
                           [width]="140"
                           [errorCorrectionLevel]="'M'"
                           [margin]="1"

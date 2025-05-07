@@ -27,7 +27,7 @@ export class HomeAboutSectionComponent implements OnInit {
   };
   
 
-  experienceOptions=EXPERIENCE_OPTIONS;
+  experienceOptions: any[] = [];
 
   glanceCounts: any[] = [
     { number: 6, label: 'Districts' },
@@ -55,8 +55,8 @@ export class HomeAboutSectionComponent implements OnInit {
       this.startCountAnimation();
     }
     // Commented out API calls
-    // this.getGlanceCounts();
-    // this.getDestinationCategories();
+    this.getGlanceCounts();
+     this.getDestinationCategories();
   }
 
   setFilter(categorie: any) {
@@ -121,11 +121,7 @@ export class HomeAboutSectionComponent implements OnInit {
       .get('Master/GetAllDestinationTypes')
       .subscribe((res: any) => {
         if (res) {
-          this.experienceOptions = res.map((category: any) => ({
-            id: category.destinationtypeid,
-            name: category.destinationtypename,
-            icon: category.icon || 'fa-solid fa-circle-question',
-          }));
+          this.experienceOptions = res;
         }
       });
   }

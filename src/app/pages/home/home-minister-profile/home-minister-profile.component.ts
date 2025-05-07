@@ -61,7 +61,7 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy, AfterVie
 
   ngOnInit() {
     // Commented out API call , make this uncommented to fetch testimonials from API
-    // this.getTestimonials();
+    this.getTestimonials();
   }
 
   ngAfterViewInit() {

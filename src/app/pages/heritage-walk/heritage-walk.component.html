@@ -38,7 +38,7 @@
         <div class="md:w-2/5 w-full flex items-start">
           <div [ngClass]="walk.carouselClass + ' owl-carousel owl-theme w-full'">
             <div class="item" *ngFor="let img of walk.images; let imgIdx = index">
-              <img [src]="img" [alt]="walk.title + ' Image'" class="w-full h-72 object-cover cursor-pointer rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              <img [src]="img" [alt]="walk.title + ' Image'" loading="lazy" class="w-full h-72 object-cover cursor-pointer rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
                 (click)="openModal(walk.images, imgIdx)" />
             </div>
           </div>
@@ -100,7 +100,7 @@
       <button (click)="closeModal()" class="absolute top-2 right-2 z-10 text-white text-3xl font-bold">&times;</button>
       <div [ngClass]="modalCarouselClass + ' owl-carousel owl-theme'">
         <div class="item" *ngFor="let img of modalImages">
-          <img [src]="img" class="w-full max-h-[85vh] object-contain" />
+          <img [src]="img" loading="lazy" class="w-full max-h-[85vh] object-contain" />
         </div>
       </div>
     </div>

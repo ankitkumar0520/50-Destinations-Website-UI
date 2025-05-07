@@ -255,8 +255,8 @@ export class HomeDistrictCarouselComponent implements OnInit, OnDestroy {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    //this.getDistricts();
-   // this.getPoularDestinationofDistrict();
+    this.getDistricts();
+    this.getPoularDestinationofDistrict();
   }
 
   ngAfterViewInit() {
