@@ -1,9 +1,20 @@
 // audio-player-modal.component.ts
-import { Component, ChangeDetectorRef, inject } from '@angular/core';
+import { Component, ChangeDetectorRef, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VoiceModelService } from '../../../services/voice-model.service';
-import { skip, takeUntil } from 'rxjs/operators';
+import {  takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { DestinationService } from '../../../services/destination.service';
+
+interface Language {
+  language: string;
+  languageCode: string;
+  audio: string;
+}
+
+interface Languages {
+  [key: string]: Language;
+}
 
 @Component({
   selector: 'app-ai-audio-model',
@@ -12,31 +23,36 @@ import { Subject } from 'rxjs';
   styleUrl: './ai-audio-model.component.css',
   standalone: true, 
 })
-export class AiAudioModelComponent {
+export class AiAudioModelComponent implements OnInit, OnDestroy {
 
    Math:Math = Math;   
 
    voiceModelService= inject(VoiceModelService)
+   destinationService = inject(DestinationService)
    private destroy$ = new Subject<void>();
    
    showModal:boolean = false;
 
-   languages = this.voiceModelService.getAudioLanguage()
+   languages: Languages = {
+     english: { language: 'English', languageCode: 'en', audio: '' },
+     hindi: { language: 'Hindi', languageCode: 'hi', audio: '' },
+     nepali: { language: 'Nepali', languageCode: 'ne', audio: '' }
+   };
 
-   selectedLanguage = this.languages.english;
-  
+   selectedLanguage: Language = this.languages['english'];
+   title: string = '';
 
    audio = new Audio();
 
- audioSettings={
-  volume:0.8,
-  currentTime:0,
-  duration:0,
-  isPlaying:false,
-  showLoadingIndicator:true,
-  showError:false,
-  selectedLang:this.selectedLanguage.languageCode,
-}
+  audioSettings={
+    volume:0.8,
+    currentTime:0,
+    duration:0,
+    isPlaying:false,
+    showLoadingIndicator:true,
+    showError:false,
+    selectedLang:this.selectedLanguage.languageCode,
+  }
 
 
 
@@ -45,63 +61,27 @@ export class AiAudioModelComponent {
   }
   
   ngOnInit() {
-    this.handleModelVisibility();//subscribe to the showModel$ observable
 
-    // Set the initial volume from audio settings
-    this.audio.volume = this.audioSettings.volume;
-    this.audio.preload = 'none';
-  
-    this.audio.addEventListener('timeupdate', () => {
-      this.audioSettings.currentTime = this.audio.currentTime;
-      this.cdr.detectChanges();
-    });
-
-    // Once metadata is loaded, update the duration in settings
-    this.audio.addEventListener('canplaythrough', () => {
-      this.audioSettings.duration = this.audio.duration;
-      this.audioSettings.showError = false;
-      this.audioSettings.showLoadingIndicator = false;
-      this.cdr.detectChanges(); // Trigger change detection to update the UI
-    });
-  
-    // When audio starts playing, update isPlaying flag
-    this.audio.addEventListener('play', () => {
-      this.audioSettings.isPlaying = true;
-      this.cdr.detectChanges();
-    });
-  
-    // When audio is paused, update isPlaying flag
-    this.audio.addEventListener('pause', () => {
-      this.audioSettings.isPlaying = false;
-      this.cdr.detectChanges();
-    });
-  
-    // When audio ends, reset isPlaying and currentTime
-    this.audio.addEventListener('ended', () => {
-      this.audioSettings.isPlaying = false;
-      this.audioSettings.currentTime = 0;
-      this.cdr.detectChanges();
-    });
-
-      // When some error occurs, decide whether to show a loader or error
-    this.audio.addEventListener('error', () => {
-      // If no valid audio URL is set yet (intentional empty state)
-      if (!this.selectedLanguage.audio || this.selectedLanguage.audio.trim() === '') {
-        // Show loading indicator, do NOT show error
-        this.audioSettings.showLoadingIndicator = true;
-        this.audioSettings.showError = false;
-      } else {
-        // Audio source was set, but failed to load => show error
-        this.audioSettings.showLoadingIndicator = false;
-        this.audioSettings.showError = true;
+    // Subscribe to destination data
+    this.destinationService.destination$.subscribe((dest)=>{
+      if(dest?.audioLanguage){
+        this.languages = dest.audioLanguage;
+        this.title = dest.name;
+        this.selectedLanguage = this.languages['english'];
       }
+    })
 
-      // Update UI
-      this.cdr.detectChanges();
-    });
+    // Subscribe to showModel$ observable to control modal visibility and audio source
+    this.handleModelVisibility();
+
+    // Initialize event listeners for audio
+    this.initializeEventListeners();
 
   }
   
+
+
+
 
   togglePlay() {
       if (this.audioSettings.isPlaying) {
@@ -213,6 +193,61 @@ ngOnDestroy() {
   
   toogleModel(){
     this.voiceModelService.toogleModel();
+  }
+
+  initializeEventListeners(){
+    // Set the initial volume from audio settings
+    this.audio.volume = this.audioSettings.volume;
+    this.audio.preload = 'none';
+  
+    this.audio.addEventListener('timeupdate', () => {
+      this.audioSettings.currentTime = this.audio.currentTime;
+      this.cdr.detectChanges();
+    });
+
+    // Once metadata is loaded, update the duration in settings
+    this.audio.addEventListener('canplaythrough', () => {
+      console.log('Audio metadata loaded successfully');
+      this.audioSettings.duration = this.audio.duration;
+      this.audioSettings.showError = false;
+      this.audioSettings.showLoadingIndicator = false;
+      this.cdr.detectChanges();
+    });
+  
+    // When audio starts playing, update isPlaying flag
+    this.audio.addEventListener('play', () => {
+      console.log('Audio started playing');
+      this.audioSettings.isPlaying = true;
+      this.cdr.detectChanges();
+    });
+  
+    // When audio is paused, update isPlaying flag
+    this.audio.addEventListener('pause', () => {
+      console.log('Audio paused');
+      this.audioSettings.isPlaying = false;
+      this.cdr.detectChanges();
+    });
+  
+    // When audio ends, reset isPlaying and currentTime
+    this.audio.addEventListener('ended', () => {
+      console.log('Audio ended');
+      this.audioSettings.isPlaying = false;
+      this.audioSettings.currentTime = 0;
+      this.cdr.detectChanges();
+    });
+
+    // When some error occurs, decide whether to show a loader or error
+    this.audio.addEventListener('error', (e) => {
+      console.error('Audio error:', e);
+      if (!this.selectedLanguage.audio || this.selectedLanguage.audio.trim() === '') {
+        this.audioSettings.showLoadingIndicator = true;
+        this.audioSettings.showError = false;
+      } else {
+        this.audioSettings.showLoadingIndicator = false;
+        this.audioSettings.showError = true;
+      }
+      this.cdr.detectChanges();
+    });
   }
 
 

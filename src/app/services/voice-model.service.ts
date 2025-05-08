@@ -29,19 +29,16 @@ constructor() { }
       english: {
         language:'English',
         languageCode:'en',
-        title: 'Rumtek Monastery',
         audio: 'https://raw.githubusercontent.com/ankitkumar0520/audio-samples/main/ElevenLabs_Sarah_Rumtek_English_Audio.mp3'
       },
       hindi: {
         language:'हिन्दी',
         languageCode:'hi',
-        title: 'रुमटेक मठ',
         audio: 'https://raw.githubusercontent.com/ankitkumar0520/audio-samples/main/ElevenLabs_Sarah_Rumtek_Hindi_Audio.mp3'
       },
       nepali: {
         language:'नेपाली',
         languageCode:'ne',
-        title: 'रुमटेक गुम्बा',
         audio: 'https://raw.githubusercontent.com/ankitkumar0520/audio-samples/main/ElevenLabs_Sarah_Rumtek_Nepali_Audio.mp3'
       }
     };

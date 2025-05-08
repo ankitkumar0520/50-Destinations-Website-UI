@@ -397,9 +397,25 @@ travelInfo :{
   ],
   latitude:'27.305827',
   longitude:'88.53637'
-}
-
-  };
+  },
+  audioLanguage:{
+  english: {
+    language:'English',
+    languageCode:'en',
+    audio: 'https://raw.githubusercontent.com/ankitkumar0520/audio-samples/main/ElevenLabs_Sarah_Rumtek_English_Audio.mp3'
+  },
+  hindi: {
+    language:'हिन्दी',
+    languageCode:'hi',
+    audio: 'https://raw.githubusercontent.com/ankitkumar0520/audio-samples/main/ElevenLabs_Sarah_Rumtek_Hindi_Audio.mp3'
+  },
+  nepali: {
+    language:'नेपाली',
+    languageCode:'ne',
+      audio: 'https://raw.githubusercontent.com/ankitkumar0520/audio-samples/main/ElevenLabs_Sarah_Rumtek_Nepali_Audio.mp3'
+    }
+  }
+};
 
   tareyBhir={
     name: 'Tarey Bhir',
