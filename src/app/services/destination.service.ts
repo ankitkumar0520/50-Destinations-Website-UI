@@ -581,7 +581,24 @@ travelInfo :{
       ],
       latitude:'27.112847879683084',
       longitude:'88.42797728544849'
-    }
+    },
+    audioLanguage:{
+      english: {
+        language:'English',
+        languageCode:'en',
+        audio: 'assets/Audio/tarey-bhir/TareyBhir-English.mp3'
+      },
+      hindi: {
+        language:'हिन्दी',
+        languageCode:'hi',
+        audio: 'assets/Audio/tarey-bhir/TareyBhir-Hindi.mp3'
+      },
+      nepali: {
+        language:'नेपाली',
+        languageCode:'ne',
+          audio: 'assets/Audio/tarey-bhir/TareyBhir-Nepali.mp3'
+        }
+      }
   }
 
   aritarLake={
@@ -873,7 +890,24 @@ travelInfo :{
       
       latitude:'27.187255381582823',
       longitude:'88.6765699422714'
-    }
+    },
+    audioLanguage:{
+      english: {
+        language:'English',
+        languageCode:'en',
+        audio: 'assets/Audio/aritar-lake/Aritar-English.mp3'
+      },
+      hindi: {
+        language:'हिन्दी',
+        languageCode:'hi',
+        audio: 'assets/Audio/aritar-lake/Aritar-Hindi.mp3'
+      },
+      nepali: {
+        language:'नेपाली',
+        languageCode:'ne',
+          audio: 'assets/Audio/aritar-lake/Aritar-Nepali.mp3'
+        }
+      }
   }
   
   tsongoLake={
