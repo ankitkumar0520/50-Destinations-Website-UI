@@ -1,11 +1,12 @@
-import { Component, inject, HostListener, OnInit } from '@angular/core';
+import { Component, inject, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HomeMinisterProfileComponent } from '../home-minister-profile/home-minister-profile.component';
 import { SearchService } from '../../../services/search.service';
 import { Router } from '@angular/router';
 import { ImageService } from '../../../services/image.service';
 import { ApiService } from '../../../services/api.service';
+import { PLATFORM_ID, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-home-hero-section',
@@ -14,7 +15,7 @@ import { ApiService } from '../../../services/api.service';
   templateUrl: './home-hero-section.component.html',
   styleUrl: './home-hero-section.component.css',
 })
-export class HomeHeroSectionComponent implements OnInit {
+export class HomeHeroSectionComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   filteredDestinations: any[] = [];
   showDropdown = false;
@@ -22,18 +23,67 @@ export class HomeHeroSectionComponent implements OnInit {
   private router = inject(Router);
   private apiService = inject(ApiService);
   private imageService = inject(ImageService);
+  private platformId = inject(PLATFORM_ID);
 
   snowflakes: Array<{ style: string }> = [];
 
   heroData = {
-    title: 'An Adventurer’s Paradise',
-    subtitle: 'Eco-friendly tourism that preserves the pristine beauty and cultural heritage of Sikkim, one adventure at a time.',
+    title: "An Adventurer's Paradise",
+    subtitle: "Eco-friendly tourism that preserves the pristine beauty and cultural heritage of Sikkim, one adventure at a time."
   };
   
-  private searchTimeout: any;
+  // Service worker
+  deferredPrompt: any = null;
 
-  ngOnInit() {
+  private searchTimeout: any;
+  private handleBeforeInstallPrompt: ((e: any) => void) | null = null;
+  private handleAppInstalled: (() => void) | null = null;
+  private cleanupTimeout: any;
+
+  ngOnInit(): void {
     this.generateSnowflakes();
+
+    // Only run in browser environment
+    if (typeof window !== 'undefined' && isPlatformBrowser(this.platformId)) {
+      // Handle PWA installation
+      this.handleBeforeInstallPrompt = (e: any) => {
+        e.preventDefault();
+        this.deferredPrompt = e;
+      };
+
+      this.handleAppInstalled = () => {
+        console.log('App installed');
+        this.deferredPrompt = null;
+      };
+
+      // Add event listeners
+      window.addEventListener('beforeinstallprompt', this.handleBeforeInstallPrompt);
+      window.addEventListener('appinstalled', this.handleAppInstalled);
+    }
+
+    //hide the install app button after 10 seconds
+    if (typeof window !== 'undefined') {
+      this.cleanupTimeout = setTimeout(() => {
+        this.deferredPrompt = null;
+      }, 10000);
+    }
+  }
+
+  ngOnDestroy(): void {
+    // Clean up event listeners
+    if (typeof window !== 'undefined' && isPlatformBrowser(this.platformId)) {
+      if (this.handleBeforeInstallPrompt) {
+        window.removeEventListener('beforeinstallprompt', this.handleBeforeInstallPrompt);
+      }
+      if (this.handleAppInstalled) {
+        window.removeEventListener('appinstalled', this.handleAppInstalled);
+      }
+    }
+
+    // Clear timeout
+    if (this.cleanupTimeout) {
+      clearTimeout(this.cleanupTimeout);
+    }
   }
 
   private generateSnowflakes() {
@@ -134,4 +184,21 @@ export class HomeHeroSectionComponent implements OnInit {
   navigateToHeritageWalk() {
     this.router.navigate(['/heritage-walk']);
   }
+
+
+  installApp() {
+    if (this.deferredPrompt) {
+      this.deferredPrompt.prompt();
+      this.deferredPrompt.userChoice.then((choiceResult: any) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the installation');
+        } else {
+          console.log('User dismissed the installation');
+        }
+        this.deferredPrompt = null; // Clear prompt after it's used
+      });
+    }
+  }
+
+
 }

@@ -5,6 +5,7 @@ import {
   ElementRef,
   Inject,
   PLATFORM_ID,
+  OnInit,
 } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './common/navbar/navbar.component';
@@ -12,16 +13,28 @@ import { FooterComponent } from './common/footer/footer.component';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { filter } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, FontAwesomeModule],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, FontAwesomeModule, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  showScrollTop = false;
+  private scrollThreshold = 300;
+
+  // Define icon property
+  arrowUp = faArrowUp;
+
+  // Show welcome message
+  showWelcomeMessage = false;
+
+
+
   constructor(
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -34,12 +47,6 @@ export class AppComponent {
         }
       });
   }
-
-  showScrollTop = false;
-  private scrollThreshold = 300;
-
-  // Define icon property
-  arrowUp = faArrowUp;
 
   // Add ViewChild for the button
   @ViewChild('scrollToTopButton')
@@ -63,4 +70,21 @@ export class AppComponent {
       this.scrollToTopButton?.nativeElement.blur();
     }
   }
+
+
+
+  ngOnInit() {
+    // Check if app is in standalone mode (installed as PWA)
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      if (!localStorage.getItem('pwaFirstVisit')) {
+        this.showWelcomeMessage = true;
+        localStorage.setItem('pwaFirstVisit', 'true');
+      }
+    }
+  }
+
+
+
+
+
 }

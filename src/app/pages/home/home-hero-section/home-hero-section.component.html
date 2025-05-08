@@ -11,12 +11,12 @@
   class="absolute top-24 right-6 sm:right-8 lg:right-12 z-[4] group cursor-pointer animate-slide-fade-in"
   (click)="navigateToHeritageWalk()"
 >
-  <div class="animate-bounce flex items-center gap-2 sm:gap-3 bg-gray-800/90 dark:bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20 dark:border-gray-600/40 hover:shadow-lg hover:shadow-primary-400/30 transition-all duration-300">
+  <div class="animate-bounce flex items-center gap-2 sm:gap-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-full px-4 py-2 border border-gray-200/40 dark:border-gray-600/40 hover:shadow-lg hover:shadow-primary-400/30 dark:hover:shadow-primary-400/30 transition-all duration-300">
     
     <!-- Heritage Walk Icon -->
     <div class="relative">
       <svg 
-        class="w-5 h-5 sm:w-6 sm:h-6 text-primary-400 dark:text-primary-300 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
+        class="w-5 h-5 sm:w-6 sm:h-6 text-primary-600 dark:text-primary-300 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
         viewBox="0 0 24 24" 
         fill="none" 
         stroke="currentColor" 
@@ -33,8 +33,39 @@
       <div class="absolute inset-0 rounded-full border border-primary-400/40 dark:border-primary-300/30 animate-pulse"></div>
     </div>
 
-    <span class="text-white dark:text-white/80 text-xs sm:text-sm font-semibold group-hover:text-primary-300 transition-colors duration-300">
+    <span class="text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold group-hover:text-primary-500 dark:group-hover:text-primary-300 transition-colors duration-300">
       Heritage Walk
+    </span>
+  </div>
+</div>
+
+<!-- Install App Button - Top Left -->
+<div *ngIf="deferredPrompt"
+  class="absolute top-24 left-6 sm:left-8 lg:left-12 z-[4] group cursor-pointer animate-slide-fade-in"
+  (click)="installApp()"
+>
+  <div class="animate-bounce flex items-center gap-2 sm:gap-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-full px-4 py-2 border border-gray-200/40 dark:border-gray-600/40 hover:shadow-lg hover:shadow-secondary-400/30 dark:hover:shadow-secondary-400/30 transition-all duration-300">
+    
+    <!-- Install App Icon -->
+    <div class="relative">
+      <svg 
+        class="w-5 h-5 sm:w-6 sm:h-6 text-secondary-600 dark:text-secondary-300 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
+        xmlns="http://www.w3.org/2000/svg" 
+        fill="none" 
+        viewBox="0 0 24 24" 
+        stroke="currentColor" 
+        stroke-width="1.5"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+      </svg>
+
+      <!-- Pulsing Border -->
+      <div class="absolute inset-0 rounded-full border border-secondary-400/40 dark:border-secondary-300/30 animate-pulse"></div>
+    </div>
+
+    <span class="text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold group-hover:text-secondary-500 dark:group-hover:text-secondary-300 transition-colors duration-300">
+      Install App
     </span>
   </div>
 </div>
@@ -143,4 +174,6 @@
     <app-home-minister-profile></app-home-minister-profile>
   </div>
   
+
+
 </section>
