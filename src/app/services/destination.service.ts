@@ -1168,7 +1168,24 @@ travelInfo :{
       ],
       latitude:'27.37610832089108',
       longitude:'88.76142916691389'
-    }
+    },
+    audioLanguage:{
+      english: {
+        language:'English',
+        languageCode:'en',
+        audio: 'assets/Audio/tsomgo-lake/tsomgo-english.mpeg'
+      },
+      hindi: {
+        language:'हिन्दी',
+        languageCode:'hi',
+        audio: 'assets/Audio/tsomgo-lake/tsomgo-hindi.mpeg'
+      },
+      nepali: {
+        language:'नेपाली',
+        languageCode:'ne',
+          audio: 'assets/Audio/tsomgo-lake/tsomgo-nepali.mpeg'
+        }
+      }
   } 
   
 
