@@ -9,6 +9,7 @@ import { TermServicesComponent } from './pages/term-services/term-services.compo
 import { EventsComponent } from './pages/events/events.component';
 import { HeritageWalkComponent } from './pages/heritage-walk/heritage-walk.component';
 import { ViewPdfComponent } from './pages/events/view-pdf/view-pdf.component';
+import { QrGeneratorComponent } from './qr-generator/qr-generator.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch:'full' },
   {
@@ -28,4 +29,5 @@ export const routes: Routes = [
   { path: 'terms-of-service', component: TermServicesComponent },
   { path: 'heritage-walk', component: HeritageWalkComponent },
   { path: 'view-pdf', component: ViewPdfComponent },
+  { path: 'qr-generator', component: QrGeneratorComponent },
 ];
