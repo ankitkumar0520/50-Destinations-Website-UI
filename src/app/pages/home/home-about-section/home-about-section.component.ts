@@ -6,7 +6,7 @@ import { SearchService } from '../../../services/search.service';
 import { ApiService } from '../../../services/api.service';
 import {
   EXPERIENCE_OPTIONS,} from '../../../../enums/search-filters.enum';
-
+import { DestinationService } from '../../../services/destination.service';
 @Component({
   selector: 'app-home-about-section',
   standalone: true,
@@ -15,6 +15,8 @@ import {
   styleUrls: ['./home-about-section.component.css'],
 })
 export class HomeAboutSectionComponent implements OnInit {
+
+  destinationService = inject(DestinationService);
 
   aboutData: any = {
     title: "Unlock the <span class='text-secondary-800'>Wonders</span> of Sikkim",
@@ -31,7 +33,7 @@ export class HomeAboutSectionComponent implements OnInit {
 
   glanceCounts: any[] = [
     { number: 6, label: 'Districts' },
-    { number: 50, label: 'Destinations' },
+    { number: this.destinationService.getAllDestinations().length, label: 'Destinations' },
     { number: 15, label: 'Experience Types' },
     { number: 4, label: 'Seasons' }
   ];

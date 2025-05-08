@@ -41,7 +41,7 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy, AfterVie
     },
     {
       name: 'C.Subhakar Rao, IFS',
-      designation: 'Principal Secretary, Tourism Department',
+      designation: 'Additional Cheif Secretary',
       fullMessage: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity. We are committed to leveraging technology to enhance the visitor experience while maintaining the authenticity of Sikkim's unique cultural and natural heritage.",
       image: 'assets/Images/officials/cs-rao-min.png'
     },

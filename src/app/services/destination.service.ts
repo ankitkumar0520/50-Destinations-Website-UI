@@ -1173,10 +1173,11 @@ travelInfo :{
   
 
   destinations = [
-    this.rumtekMonastery,
+
     this.tareyBhir,
     this.aritarLake,
-    this.tsongoLake
+    this.tsongoLake,
+    this.rumtekMonastery,
     // Add other destinations here as they are added
   ];
 
