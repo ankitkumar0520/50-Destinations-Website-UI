@@ -15,8 +15,6 @@
         <div class="w-1.5 h-5 bg-indigo-500 rounded-sm animate-wave delay-100"></div>
       </div>
 
-
-
         
       </div>
       <button (click)="closeModal()" aria-label="Close"
@@ -39,7 +37,7 @@
       
       <!-- Track Info -->
       <div class="text-center mb-6">
-        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">{{ title }}</h3>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">{{ audioSettings.title }}</h3>
         <p class="text-sm text-gray-500 dark:text-gray-400">Audio Guide</p>
       </div>
 
@@ -101,12 +99,14 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
             </svg>
           </div>
-          <select #audioInput [value]="audioSettings.selectedLang" (change)="changeLanguage($any($event.target).value)"
+
+          <select [(ngModel)]="audioSettings.selectedCode" (change)="handleAudio()"
             class="w-full bg-gray-200 font-semibold dark:bg-gray-800 text-gray-900 dark:text-white border-0 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none">
-            <option *ngFor="let lang of languages | keyvalue" [value]="lang.value.languageCode">
-              {{ lang.value.language }}
-            </option>
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="ne">Nepali</option>
           </select>
+
           <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />

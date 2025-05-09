@@ -398,23 +398,20 @@ travelInfo :{
   latitude:'27.305827',
   longitude:'88.53637'
   },
-  audioLanguage:{
-  english: {
-    language:'English',
+  audioLanguage:[
+  {
     languageCode:'en',
     audio: 'https://raw.githubusercontent.com/ankitkumar0520/audio-samples/main/ElevenLabs_Sarah_Rumtek_English_Audio.mp3'
   },
-  hindi: {
-    language:'हिन्दी',
+  {
     languageCode:'hi',
     audio: 'https://raw.githubusercontent.com/ankitkumar0520/audio-samples/main/ElevenLabs_Sarah_Rumtek_Hindi_Audio.mp3'
   },
-  nepali: {
-    language:'नेपाली',
+  {
     languageCode:'ne',
-      audio: 'https://raw.githubusercontent.com/ankitkumar0520/audio-samples/main/ElevenLabs_Sarah_Rumtek_Nepali_Audio.mp3'
-    }
+    audio: 'https://raw.githubusercontent.com/ankitkumar0520/audio-samples/main/ElevenLabs_Sarah_Rumtek_Nepali_Audio.mp3'
   }
+  ]
 };
 
   tareyBhir={
@@ -582,23 +579,20 @@ travelInfo :{
       latitude:'27.112847879683084',
       longitude:'88.42797728544849'
     },
-    audioLanguage:{
-      english: {
-        language:'English',
+    audioLanguage:[
+      {
         languageCode:'en',
         audio: 'assets/Audio/tarey-bhir/TareyBhir-English.mp3'
       },
-      hindi: {
-        language:'हिन्दी',
+      {
         languageCode:'hi',
         audio: 'assets/Audio/tarey-bhir/TareyBhir-Hindi.mp3'
       },
-      nepali: {
-        language:'नेपाली',
+      {
         languageCode:'ne',
-          audio: 'assets/Audio/tarey-bhir/TareyBhir-Nepali.mp3'
-        }
+        audio: 'assets/Audio/tarey-bhir/TareyBhir-Nepali.mp3'
       }
+    ]
   }
 
   aritarLake={
@@ -891,23 +885,20 @@ travelInfo :{
       latitude:'27.187255381582823',
       longitude:'88.6765699422714'
     },
-    audioLanguage:{
-      english: {
-        language:'English',
+    audioLanguage:[
+      {
         languageCode:'en',
         audio: 'assets/Audio/aritar-lake/Aritar-English.mp3'
       },
-      hindi: {
-        language:'हिन्दी',
+      {
         languageCode:'hi',
         audio: 'assets/Audio/aritar-lake/Aritar-Hindi.mp3'
       },
-      nepali: {
-        language:'नेपाली',
+      {
         languageCode:'ne',
-          audio: 'assets/Audio/aritar-lake/Aritar-Nepali.mp3'
-        }
+        audio: 'assets/Audio/aritar-lake/Aritar-Nepali.mp3'
       }
+    ]
   }
   
   tsongoLake={
@@ -1169,23 +1160,20 @@ travelInfo :{
       latitude:'27.37610832089108',
       longitude:'88.76142916691389'
     },
-    audioLanguage:{
-      english: {
-        language:'English',
+    audioLanguage:[
+     {
         languageCode:'en',
         audio: 'assets/Audio/tsomgo-lake/tsomgo-english.mpeg'
       },
-      hindi: {
-        language:'हिन्दी',
+      {
         languageCode:'hi',
         audio: 'assets/Audio/tsomgo-lake/tsomgo-hindi.mpeg'
       },
-      nepali: {
-        language:'नेपाली',
+      { 
         languageCode:'ne',
-          audio: 'assets/Audio/tsomgo-lake/tsomgo-nepali.mpeg'
-        }
+        audio: 'assets/Audio/tsomgo-lake/tsomgo-nepali.mpeg'
       }
+    ]
   } 
   
 

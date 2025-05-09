@@ -5,20 +5,17 @@ import { VoiceModelService } from '../../../services/voice-model.service';
 import {  takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DestinationService } from '../../../services/destination.service';
+import { FormsModule } from '@angular/forms';
 
-interface Language {
-  language: string;
+
+interface AudioLanguage {
   languageCode: string;
-  audio: string;
-}
-
-interface Languages {
-  [key: string]: Language;
+  audiosrc: string;
 }
 
 @Component({
   selector: 'app-ai-audio-model',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './ai-audio-model.component.html',
   styleUrl: './ai-audio-model.component.css',
   standalone: true, 
@@ -26,32 +23,27 @@ interface Languages {
 export class AiAudioModelComponent implements OnInit, OnDestroy {
 
    Math:Math = Math;   
-
    voiceModelService= inject(VoiceModelService)
    destinationService = inject(DestinationService)
    private destroy$ = new Subject<void>();
    
    showModal:boolean = false;
 
-   languages: Languages = {
-     english: { language: 'English', languageCode: 'en', audio: '' },
-     hindi: { language: 'Hindi', languageCode: 'hi', audio: '' },
-     nepali: { language: 'Nepali', languageCode: 'ne', audio: '' }
-   };
+   audioList:AudioLanguage[]=[]
 
-   selectedLanguage: Language = this.languages['english'];
-   title: string = '';
 
-   audio = new Audio();
+  audio = new Audio();
 
   audioSettings={
+    title: '',
     volume:0.8,
     currentTime:0,
     duration:0,
     isPlaying:false,
     showLoadingIndicator:true,
     showError:false,
-    selectedLang:this.selectedLanguage.languageCode,
+    selectedCode:'en',
+    selectAudioSrc:''
   }
 
 
@@ -62,14 +54,16 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
   
   ngOnInit() {
 
-    // Subscribe to destination data
-    this.destinationService.destination$.subscribe((dest)=>{
-      if(dest?.audioLanguage){
-        this.languages = dest.audioLanguage;
-        this.title = dest.name;
-        this.selectedLanguage = this.languages['english'];
+ 
+    this.destinationService.destination$.subscribe((dest) => {
+      if (dest?.audioLanguage) {
+        this.audioList = dest.audioLanguage.map((item: any) => ({
+          languageCode: item.languageCode,
+          audiosrc: item.audio
+        }));
       }
-    })
+    });
+    
 
     // Subscribe to showModel$ observable to control modal visibility and audio source
     this.handleModelVisibility();
@@ -83,6 +77,79 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
 
 
 
+  
+  handleAudio() {
+    const newLanguageSrc = this.audioList.find(l => l.languageCode == this.audioSettings.selectedCode)?.audiosrc;
+
+
+    if (newLanguageSrc) {
+      
+      //set audio source
+      this.audioSettings.selectAudioSrc = newLanguageSrc;
+
+      //set audio source
+      this.audio.src=this.audioSettings.selectAudioSrc;
+
+      //load audio
+      this.audio.load();
+
+      //play audio
+      if (!this.audioSettings.showLoadingIndicator) {
+        this.audio.play();
+      }
+    }
+  }
+
+
+  getBarHeight(): number {
+    if (!this.audioSettings.isPlaying) return 4;
+    return Math.random() * 20 + 4;
+  }
+
+  
+  
+// Subscribes to showModel$ observable to control modal visibility and audio source
+handleModelVisibility() {
+  this.voiceModelService.showModel$
+  .pipe(takeUntil(this.destroy$)) // Unsubscribe when component is destroyed
+  .subscribe({
+    next: (show) => {
+      this.showModal = show;
+      
+      if (show) {
+
+            if(!this.audioSettings.isPlaying  ){
+              this.handleAudio(); // update audio language on modal open
+            }
+
+          document.body.style.overflow = 'hidden'; // Prevent background scrolling when modal is open
+        
+      } else {
+          document.body.style.overflow = 'auto'; // Re-enable scrolling when modal is closed
+        }
+
+        this.cdr.detectChanges(); // Trigger UI update
+      },
+      error: (err) => {
+        console.error('Error in showModel$ subscription:', err);
+      }
+    });
+}
+
+// Lifecycle hook to clean up when the component is destroyed
+ngOnDestroy() {
+  this.destroy$.next();      // Signal all takeUntil() observables to complete
+  this.destroy$.complete();  // Complete the destroy$ subject to free memory
+
+  // Stop and reset audio
+  this.audio.pause();
+  this.audio.currentTime = 0;
+  this.audio.src = '';
+
+  // Restore scroll in case modal was open
+  document.body.style.overflow = 'auto';
+}
+
   togglePlay() {
       if (this.audioSettings.isPlaying) {
           this.audio.pause();
@@ -93,8 +160,6 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
         }
     }
   }
-
-  
 
   skip(seconds: number) {
     if(this.audioSettings.isPlaying){
@@ -128,69 +193,6 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
     this.voiceModelService.hideModel();
   }
 
-  changeLanguage(lang: string) {
-    this.audioSettings.selectedLang = lang;
-    const newLanguage = Object.values(this.languages).find(l => l.languageCode === lang);
-    if (newLanguage) {
-      this.selectedLanguage = newLanguage;
-      this.audio.src = newLanguage.audio;
-      if (!this.audioSettings.showLoadingIndicator) {
-        this.audio.play();
-      }
-    }
-  }
-
-
-  getBarHeight(): number {
-    if (!this.audioSettings.isPlaying) return 4;
-    return Math.random() * 20 + 4;
-  }
-
-
-  
-// Subscribes to showModel$ observable to control modal visibility and audio source
-handleModelVisibility() {
-  this.voiceModelService.showModel$
-    .pipe(takeUntil(this.destroy$)) // Unsubscribe when component is destroyed
-    .subscribe({
-      next: (show) => {
-        this.showModal = show;
-
-        if (show) {
-          // Set audio source only if it's not already set or different
-          if (!this.audio.src || this.audio.src !== this.selectedLanguage.audio) {
-            this.audio.src = this.selectedLanguage.audio;
-            this.audio.load(); // Reload audio for new source
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling when modal is open
-          }
-        } else {
-          document.body.style.overflow = 'auto'; // Re-enable scrolling when modal is closed
-        }
-
-        this.cdr.detectChanges(); // Trigger UI update
-      },
-      error: (err) => {
-        console.error('Error in showModel$ subscription:', err);
-      }
-    });
-}
-
-// Lifecycle hook to clean up when the component is destroyed
-ngOnDestroy() {
-  this.destroy$.next();      // Signal all takeUntil() observables to complete
-  this.destroy$.complete();  // Complete the destroy$ subject to free memory
-
-  // Stop and reset audio
-  this.audio.pause();
-  this.audio.currentTime = 0;
-  this.audio.src = '';
-
-  // Restore scroll in case modal was open
-  document.body.style.overflow = 'auto';
-}
-
-  
-  
   toogleModel(){
     this.voiceModelService.toogleModel();
   }
@@ -204,6 +206,14 @@ ngOnDestroy() {
       this.audioSettings.currentTime = this.audio.currentTime;
       this.cdr.detectChanges();
     });
+
+     // When audio starts playing, update isPlaying flag
+     this.audio.addEventListener('loadstart', () => {
+      console.log('Audio started loading');
+      this.audioSettings.showLoadingIndicator = true;
+      this.cdr.detectChanges();
+    });
+  
 
     // Once metadata is loaded, update the duration in settings
     this.audio.addEventListener('canplaythrough', () => {
@@ -239,7 +249,7 @@ ngOnDestroy() {
     // When some error occurs, decide whether to show a loader or error
     this.audio.addEventListener('error', (e) => {
       console.error('Audio error:', e);
-      if (!this.selectedLanguage.audio || this.selectedLanguage.audio.trim() === '') {
+      if (!this.audioSettings.selectAudioSrc || this.audioSettings.selectAudioSrc.trim() === '') {
         this.audioSettings.showLoadingIndicator = true;
         this.audioSettings.showError = false;
       } else {

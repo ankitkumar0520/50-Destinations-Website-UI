@@ -85,7 +85,7 @@
 <!-- Install App Prompt for iOS - Top Left -->
 <div
   *ngIf="showInstallPopupIos"
-  class="absolute top-24 left-4 sm:left-8 lg:left-12 z-10 animate-slide-fade-in"
+  class="absolute top-40 lg:top-24 left-4 sm:left-8 lg:left-12 z-10 animate-slide-fade-in"
 >
   <div
     class="flex items-start sm:items-center gap-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-md dark:shadow-lg rounded-full px-5 py-3 transition-all duration-300 max-w-xs sm:max-w-sm animate-bounce group"
@@ -106,9 +106,24 @@
 
     <!-- Text Content -->
     <div class="flex flex-col text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold">
-      <p>Install this app</p>
+      <p>Install this app for better experience - </p>
       <p class="text-sm font-normal text-gray-600 dark:text-gray-300">
-        Tap <span class="font-bold">Share</span>, then <span class="font-bold">“Add to Home Screen”</span>.
+        Tap <span class="font-bold">Share
+          <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          class="w-5 h-5 inline-block align-text-bottom text-blue-500 ml-1" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor" 
+          stroke-width="2"
+        >
+          <path 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+            d="M12 4v12m0-12l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" 
+          />
+        </svg>
+        </span>, then <span class="font-bold">“Add to Home Screen”</span>.
       </p>
     </div>
 
