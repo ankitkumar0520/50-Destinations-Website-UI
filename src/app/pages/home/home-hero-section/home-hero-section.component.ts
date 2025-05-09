@@ -76,11 +76,15 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
   }
   
 
-  isInStandaloneMode() {
+  isInStandaloneMode(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-      const isStandalone = ('standalone' in window.navigator) && !!(window.navigator as any).standalone;
-      this.showInstallPopupIos= isIOS && isStandalone;
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      const isIOS = /iphone|ipad|ipod/.test(userAgent);
+      const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent); // iOS Safari only
+      const isInStandalone = ('standalone' in window.navigator) && (window.navigator as any)['standalone'];
+  
+      // Show prompt only if it's iOS Safari and NOT already installed
+      this.showInstallPopupIos = isIOS && isSafari && !isInStandalone;
     }
   }
   
