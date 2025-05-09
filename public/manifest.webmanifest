@@ -5,6 +5,8 @@
   "background_color": "#fafafa",
   "display": "standalone",
   "orientation": "portrait",
+  "apple-mobile-web-app-capable": "yes",
+  "apple-mobile-web-app-status-bar-style": "black",
   "description": "Explore the top travel destinations with maps, details, and guides.",
   "scope": "./",
   "start_url": "./",

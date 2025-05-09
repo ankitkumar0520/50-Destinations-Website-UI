@@ -67,8 +67,64 @@
     <span class="text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold group-hover:text-secondary-500 dark:group-hover:text-secondary-300 transition-colors duration-300">
       Install App
     </span>
+
+     <!-- Close Button -->
+     <button
+     (click)="deferredPrompt = null"
+     class="ml-auto text-gray-500 cursor-pointer hover:text-red-500 text-xl leading-none"
+     aria-label="Close"
+   >
+     &times;
+   </button>
+
+
   </div>
 </div>
+
+
+<!-- Install App Prompt for iOS - Top Left -->
+<div
+  *ngIf="showInstallPopupIos"
+  class="absolute top-24 left-4 sm:left-8 lg:left-12 z-10 animate-slide-fade-in"
+>
+  <div
+    class="flex items-start sm:items-center gap-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-md dark:shadow-lg rounded-full px-5 py-3 transition-all duration-300 max-w-xs sm:max-w-sm animate-bounce group"
+  >
+    <!-- Animated Icon with Pulsing Border -->
+    <div class="relative flex-shrink-0 mt-1 sm:mt-0">
+      <svg
+        class="w-6 h-6 text-secondary-600 dark:text-secondary-300 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+      </svg>
+      <div class="absolute inset-0 rounded-full border border-secondary-400/40 dark:border-secondary-300/30 animate-pulse"></div>
+    </div>
+
+    <!-- Text Content -->
+    <div class="flex flex-col text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold">
+      <p>Install this app</p>
+      <p class="text-sm font-normal text-gray-600 dark:text-gray-300">
+        Tap <span class="font-bold">Share</span>, then <span class="font-bold">“Add to Home Screen”</span>.
+      </p>
+    </div>
+
+    <!-- Close Button -->
+    <button
+      (click)="showInstallPopupIos = false"
+      class="ml-auto text-gray-500 cursor-pointer hover:text-red-500 text-xl leading-none"
+      aria-label="Close"
+    >
+      &times;
+    </button>
+  </div>
+</div>
+
+
+
 
 
 

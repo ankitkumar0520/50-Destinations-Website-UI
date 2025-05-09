@@ -19,6 +19,16 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   filteredDestinations: any[] = [];
   showDropdown = false;
+
+    // Service worker
+  deferredPrompt: any = null;
+  private handleBeforeInstallPrompt: ((e: any) => void) | null = null;
+  private handleAppInstalled: (() => void) | null = null;
+  private cleanupTimeout: any;
+  showInstallPopupIos=false;
+
+  private searchTimeout: any;
+
   private searchService = inject(SearchService);
   private router = inject(Router);
   private apiService = inject(ApiService);
@@ -32,17 +42,17 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
     subtitle: "Eco-friendly tourism that preserves the pristine beauty and cultural heritage of Sikkim, one adventure at a time."
   };
   
-  // Service worker
-  deferredPrompt: any = null;
 
-  private searchTimeout: any;
-  private handleBeforeInstallPrompt: ((e: any) => void) | null = null;
-  private handleAppInstalled: (() => void) | null = null;
-  private cleanupTimeout: any;
+
 
   ngOnInit(): void {
+    // Generate snowflakes
     this.generateSnowflakes();
-    this.deferredPrompt=true;
+
+
+    // Check if the app is in standalone mode and is iOS  
+    this.isInStandaloneMode();
+
     // Only run in browser environment
     if (typeof window !== 'undefined' && isPlatformBrowser(this.platformId)) {
       // Handle PWA installation
@@ -59,15 +69,21 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
       // Add event listeners
       window.addEventListener('beforeinstallprompt', this.handleBeforeInstallPrompt);
       window.addEventListener('appinstalled', this.handleAppInstalled);
+
     }
 
-    //hide the install app button after 10 seconds
-    if (typeof window !== 'undefined') {
-      this.cleanupTimeout = setTimeout(() => {
-        this.deferredPrompt = null;
-      }, 10000);
+
+  }
+  
+
+  isInStandaloneMode() {
+    if (isPlatformBrowser(this.platformId)) {
+      const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+      const isStandalone = ('standalone' in window.navigator) && !!(window.navigator as any).standalone;
+      this.showInstallPopupIos= isIOS && isStandalone;
     }
   }
+  
 
   ngOnDestroy(): void {
     // Clean up event listeners
