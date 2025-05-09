@@ -42,7 +42,7 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.generateSnowflakes();
-
+    this.deferredPrompt=true;
     // Only run in browser environment
     if (typeof window !== 'undefined' && isPlatformBrowser(this.platformId)) {
       // Handle PWA installation
