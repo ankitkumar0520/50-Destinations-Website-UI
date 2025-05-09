@@ -59,19 +59,7 @@
                 ></span>
               </a>
 
-              <a
-                routerLink="/about"
-                routerLinkActive="text-gray-900 dark:text-gray-100 pointer-events-none"
-                class="relative text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 py-5 text-sm font-medium group m-0"
-              >
-                <span>About</span>
-                <span
-                  class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
-                  [class.w-full]="router.isActive('/about', true)"
-                  [class.left-0]="router.isActive('/about', true)"
-                  [class.-translate-x-0]="router.isActive('/about', true)"
-                ></span>
-              </a>
+            
               <a
               routerLink="/events"
               routerLinkActive="text-gray-900 dark:text-gray-100 pointer-events-none"
@@ -85,6 +73,19 @@
                 [class.-translate-x-0]="router.isActive('/events', true)"
               ></span>
             </a>
+            <a
+            routerLink="/about"
+            routerLinkActive="text-gray-900 dark:text-gray-100 pointer-events-none"
+            class="relative text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 py-5 text-sm font-medium group m-0"
+          >
+            <span>About</span>
+            <span
+              class="absolute bottom-4 left-1/2 w-0 h-0.5 bg-gray-900 dark:bg-gray-100 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out transform -translate-x-1/2 group-hover:translate-x-0"
+              [class.w-full]="router.isActive('/about', true)"
+              [class.left-0]="router.isActive('/about', true)"
+              [class.-translate-x-0]="router.isActive('/about', true)"
+            ></span>
+          </a>
               <a
                 routerLink="/faqs"
                 routerLinkActive="text-gray-900 dark:text-gray-100 pointer-events-none"
@@ -206,31 +207,38 @@
               <i class="fas fa-map-marked-alt w-6 text-center mr-3"></i>
               Destinations
             </a>
+
+            
+            
             <a
-              routerLink="/about"
-              routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
-              class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
-              (click)="toggleMobileMenu()"
+            routerLink="/events"
+            routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
+            class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
+            (click)="toggleMobileMenu()"
             >
-              <i class="fas fa-info-circle w-6 text-center mr-3"></i> About
-            </a>
-            <a
-              routerLink="/faqs"
-              routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
-              class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
-              (click)="toggleMobileMenu()"
-            >
-              <i class="fas fa-question-circle w-6 text-center mr-3"></i> Faqs
-            </a>
-            <a
-              routerLink="/events"
-              routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
-              class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
-              (click)="toggleMobileMenu()"
-            >
-              <i class="fas fa-calendar-alt w-6 text-center mr-3"></i> Events
-            </a>
-          </div>
+            <i class="fas fa-calendar-alt w-6 text-center mr-3"></i> Events
+          </a>
+          
+          <a
+            routerLink="/about"
+            routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
+            class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
+            (click)="toggleMobileMenu()"
+          >
+            <i class="fas fa-info-circle w-6 text-center mr-3"></i> About
+          </a>
+          
+          <a
+            routerLink="/faqs"
+            routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
+            class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
+            (click)="toggleMobileMenu()"
+          >
+            <i class="fas fa-question-circle w-6 text-center mr-3"></i> Faqs
+          </a>
+
+
+        </div>
         </div>
       </div>
     </div>

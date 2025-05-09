@@ -2,18 +2,16 @@
   class="bg-gradient-to-b from-primary-50 via-white to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-800 min-h-screen  pb-12"
 >
   <!-- Hero Section -->
-  <div
-    class="relative dark:bg-gray-900  bg-gradient-to-r from-primary-300 to-primary-200 shadow-lg"
-  >
+  <div class="relative bg-gradient-to-r from-primary-400 to-primary-300 dark:from-gray-800 dark:to-gray-900 shadow-lg">
     <div class="max-w-7xl mt-12 mx-auto px-4 sm:px-6 lg:px-8">
       <div class="py-12 md:py-16 flex flex-col items-center text-center">
-        <h1 class="text-3xl drop-shadow-lg  md:text-4xl font-bold text-gray-50 mb-4">
+        <h1 class="text-3xl drop-shadow-lg md:text-4xl font-bold text-white dark:text-gray-100 mb-4">
           {{
             aboutPageDetails?.title ||
               "Sikkim Darshan — Explore the Wonders of Sikkim"
           }}
         </h1>
-        <p class="text-xl text-gray-50 drop-shadow-lg max-w-3xl">
+        <p class="text-xl text-white dark:text-gray-200 drop-shadow-lg max-w-3xl">
           {{
             aboutPageDetails?.tagline ||
               "Where Nature Whispers Peace & Culture Breathes Life"
@@ -23,24 +21,24 @@
     </div>
     <div class="absolute -bottom-6 left-0 right-0 flex justify-center">
       <div
-        class="bg-white dark:bg-gray-800 shadow-lg rounded-full px-6 py-3 flex items-center space-x-4"
+        class="bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-full px-6 py-3 flex items-center space-x-4 backdrop-blur-sm"
       >
-        <div class="flex items-center text-primary-600 dark:text-primary-400">
+        <div class="flex items-center text-primary-500 dark:text-primary-400">
           <i class="fas fa-map-marker-alt mr-2"></i>
           <span class="font-medium">6 Districts</span>
         </div>
-        <div class="h-4 border-r border-gray-300 dark:border-gray-600"></div>
+        <div class="h-4 border-r border-gray-200 dark:border-gray-600"></div>
         <div
-          class="flex items-center text-secondary-600 dark:text-secondary-400"
+          class="flex items-center text-secondary-500 dark:text-secondary-400"
         >
           <i class="fas fa-mountain mr-2"></i>
           <span class="font-medium">50+ Destinations</span>
         </div>
         <div
-          class="h-4 border-r border-gray-300 dark:border-gray-600 hidden md:block"
+          class="h-4 border-r border-gray-200 dark:border-gray-600 hidden md:block"
         ></div>
         <div
-          class="hidden md:flex items-center text-accent-600 dark:text-accent-400"
+          class="hidden md:flex items-center text-accent-500 dark:text-accent-400"
         >
           <i class="fas fa-hands-helping mr-2"></i>
           <span class="font-medium">100+ Experiences</span>

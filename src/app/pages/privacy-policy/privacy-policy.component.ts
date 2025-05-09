@@ -75,7 +75,6 @@ export class PrivacyPolicyComponent implements OnInit {
       isList: true,
       content: [
         'Mapping services for destination locations',
-        'Weather services for destination conditions',
         'Analytics tools for website improvement',
         'Each third-party service operates under its own privacy policy'
       ]
@@ -94,7 +93,6 @@ export class PrivacyPolicyComponent implements OnInit {
       content: [
         'Opt out of location services',
         'Clear your browsing data and cookies',
-        'Request information about your data',
         'Choose your preferred theme (dark/light mode)'
       ]
     },

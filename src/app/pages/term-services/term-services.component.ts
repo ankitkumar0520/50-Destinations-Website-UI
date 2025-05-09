@@ -76,7 +76,6 @@ export class TermServicesComponent implements OnInit {
       content: [
         'All content on this website is protected by copyright law',
         'Photos, text, and other materials may not be used without permission',
-        'The Sikkim Darshan name and logo are our trademarks',
         'User-submitted content remains the property of the respective users'
       ]
     },
