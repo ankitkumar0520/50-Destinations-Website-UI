@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy, inject } from '@angular/co
 import { CommonModule } from '@angular/common';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
-
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-gallery-description',
@@ -12,10 +12,11 @@ import { DestinationService } from '../../../services/destination.service';
   styleUrls: ['./gallery-description.component.css']
 })
 export class GalleryDescriptionComponent implements OnInit, AfterViewInit, OnDestroy {
+  imageService = inject(ImageService);
+  private destinationService = inject(DestinationService);
+  
   displayGalleria: boolean = false;
   activeIndex: number = 0;
-  
-  private destinationService = inject(DestinationService);
 
   // Sample destination data
   destination :any;
