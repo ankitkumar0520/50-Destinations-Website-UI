@@ -5,6 +5,7 @@ import { DestinationService } from '../../../services/destination.service';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { shareQRCode, downloadQRCode, slugify } from '../../../utils/utils';
 import { VoiceModelService } from '../../../services/voice-model.service';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-hero-section',
@@ -19,7 +20,8 @@ import { VoiceModelService } from '../../../services/voice-model.service';
 })
 export class HeroSectionComponent implements OnInit {
   private destinationService = inject(DestinationService);
-  
+  imageService = inject(ImageService);
+
   private voiceModeService = inject(VoiceModelService);
   destination:any;
 
@@ -36,14 +38,13 @@ export class HeroSectionComponent implements OnInit {
   }
   
   ngOnInit(): void {
-
     this.destinationService.destination$.subscribe(dest => {
       if (dest) {
         this.destination = dest;
       }
     });
-
   }
+
 
   onImageLoad() {
     this.isImageLoaded = true;

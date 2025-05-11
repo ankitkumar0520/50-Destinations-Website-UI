@@ -1,14 +1,18 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { ApiService } from './api.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DestinationService {
+  private apiService = inject(ApiService);
   private destinationSubject = new BehaviorSubject<any>(null);
   destination$ = this.destinationSubject.asObservable();
 
-
+  
+  //get destination by slug
   getDestinationBySlug(slug: string) {
     const destination = this.getLocalDestinationBySlug(slug);
     if (destination) {
@@ -18,13 +22,21 @@ export class DestinationService {
   
    getLocalDestinationBySlug(slug: string): any {
     // Check all local destination objects
-
-
     // Find the destination that matches the slug
     return this.destinations.find(dest => dest.slug === slug);
   }
 
 
+  getDestinationbySlug(slug: string): any {
+    this.apiService.get(`LandingPage/GetDestinationsWithBasicDetailsBySlug?slug=${slug}`).subscribe({
+      next: (data: any) => {
+        this.destinationSubject.next(data);
+      },
+      error: (error: any) => {
+        console.error('Error fetching destination by slug:', error);
+      }
+    });
+  }
 
 
   rumtekMonastery={
@@ -1186,9 +1198,7 @@ travelInfo :{
     // Add other destinations here as they are added
   ];
 
- getAllDestinations(){
-  return this.destinations;
- }
+
 
 
 }

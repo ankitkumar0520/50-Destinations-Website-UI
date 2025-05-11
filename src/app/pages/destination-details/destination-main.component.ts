@@ -31,7 +31,6 @@ import { DestinationService } from '../../services/destination.service';
 })
 export class DestinationMainComponent implements OnInit {
   showModal = false;
-  shareUrl = 'https://your-link.com';
   route = inject(ActivatedRoute);
   destinationService = inject(DestinationService);
 
@@ -48,7 +47,7 @@ export class DestinationMainComponent implements OnInit {
   navbarHeight = 70; // Fixed navbar height
   activeSection: string = 'points-of-interest';
   isBrowser: boolean;
-showAside = false;
+  showAside = false;
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -58,10 +57,13 @@ showAside = false;
       this.checkActiveSection();
     }
 
+    //get destination by slug from url, just call this function in ngoninit , then subscribe to the destination service varible as destination$   , if slug is not found then redirect to home 
     this.route.params.subscribe(params => {
-      const id = params['id'];
-      console.log('ID from URL:', id);
-      this.destinationService.getDestinationBySlug(id);
+      if(params['slug']){
+        const slug = params['slug'];
+        console.log('ID from URL:', slug);
+        this.destinationService.getDestinationbySlug(slug);
+      }
     });
 
 
