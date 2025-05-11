@@ -8,6 +8,26 @@ import { ImageService } from '../../../services/image.service';
 import { SlugifyPipe } from "../../../pipes/slugify.pipe";
 import { RouterModule } from '@angular/router';
 
+export interface Destination {
+  destinationname: string;
+  destinationtypename: string;
+  media: {
+    mediaurl: string;
+  }[];
+  destinationdescription: string;
+  tags: {
+    tagname: string;
+  }[];
+  distance: string;
+  seasons: {
+    seasonmonth: string;
+  }[];
+  duration: string;
+  districtname: string;
+  slug: string;
+}
+
+
 @Component({
   selector: 'app-home-gallery-section',
   standalone: true,
@@ -15,33 +35,14 @@ import { RouterModule } from '@angular/router';
   templateUrl: './home-gallery-section.component.html',
   styleUrl: './home-gallery-section.component.css',
 })
+
 export class HomeGallerySectionComponent implements OnInit {
   isQRVisibleMap: { [key: number]: boolean } = {};
   shareUrl: string = '';
   imageService = inject(ImageService);
   apiService = inject(ApiService);
 
-  destinations: any = [
-    {
-      id: 1,
-      name: 'Tsomgo Lake',
-      type: 'Natural Lake',
-      image: 'assets/Images/popular-places/tsomgo-lake.jpg',
-      description:
-        'A sacred glacial lake located at an altitude of 12,400 ft. The oval-shaped lake is a visual treat with crystal clear waters reflecting different colors throughout the year.',
-      highlights: [
-        'Sacred Site',
-        'Yak Rides Available',
-        'Stunning Views',
-        'Crystal Clear Waters',
-      ],
-      location: '40 km from Gangtok',
-      bestTime: 'May to September',
-      duration: '2-3 hours',
-      district: 'Gangtok',
-      slug:'tsomgo-lake '
-    }
-  ];
+  destinations: Destination[] = [];
 
   
 
@@ -50,10 +51,12 @@ export class HomeGallerySectionComponent implements OnInit {
       this.shareUrl = window.location.origin;
     }
   }
+
+
   
   ngOnInit(): void {
     // Using static data, no need to call API
-    // this.getPopularDestinations();
+     this.getPopularDestinations();
   }
 
   switchQR(index: number): void {
@@ -86,24 +89,7 @@ export class HomeGallerySectionComponent implements OnInit {
       .subscribe({
         next:(res:any)=>{
           if (res && res.length > 0) {
-            this.destinations = res.map((destination: any) => ({
-              id: destination.destinationid,
-              name: destination.destinationname,
-              type: destination.destinationtypename,
-              image:
-                destination.media.length > 0
-                  ? destination.media[0].url
-                  : 'assets/Images/default-destination.jpg',
-              description: destination.destinationdescription,
-              highlights: destination.tags.map((tag: any) => tag.tagname),
-              location: destination.distance,
-              bestTime: destination.seasons
-                .map((season: any) => season.seasonmonth)
-                .join(', '),
-              duration: destination.duration || 'N/A',
-              district: destination.districtname,
-              slug: destination.slug
-            }));
+            this.destinations = res;
           }
         },
         error: (error: any) => {

@@ -8,28 +8,33 @@
       [titleLeft]="'Unveiling Sikkim\'s'"
       [titleMiddleHighlighted]="'Most Visited'"
       [titleRight]="'Wonders'"
-      [description]="
-      'Explore Sikkim’s breathtaking landscapes  — from towering mountains to serene lakes and ancient monasteries. Discover the top destinations that capture the heart and soul of Sikkim.'
-    "
-    [features]="[
-      { icon: 'fas fa-map-marked-alt', text: 'Top Destinations' },
-      { icon: 'fas fa-mountain', text: 'Majestic Mountains' },
-      { icon: 'fas fa-water', text: 'Sacred Lakes' },
-      { icon: 'fas fa-spa', text: 'Cultural Heritage' }
-    ]"
+      [description]="'Explore Sikkim\'s breathtaking landscapes - from towering mountains to serene lakes and ancient monasteries. Discover the top destinations that capture the heart and soul of Sikkim.'"
+      [features]="[
+        { icon: 'fas fa-map-marked-alt', text: 'Top Destinations' },
+        { icon: 'fas fa-mountain', text: 'Majestic Mountains' },
+        { icon: 'fas fa-water', text: 'Sacred Lakes' },
+        { icon: 'fas fa-spa', text: 'Cultural Heritage' }
+      ]"
     
     ></app-section-header>
 
     <!-- Gallery Grid -->
     <div class="max-w-[1400px] mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mx-2">
         <!-- Destination Cards -->
-        <div *ngFor="let dest of destinations; let i = index" class="relative shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300">
-          <span
-            [ngClass]="getGradientClasses(dest.district)"
-            class="absolute top-1/2 -translate-x-1/2 -left-2 text-xs bg-gradient-to-r text-white rounded-t-lg px-2 py-0 -rotate-90"
-            >{{ dest.district }}</span
-          >
+        <div *ngFor="let dest of destinations; let i = index"
+        class="mx-1 relative shadow-lg dark:shadow-gray-900/50 hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 overflow-visible">
+   
+       
+        <!-- District Name Label -->
+              <span
+              class="absolute top-1/2 left-[-2.8rem] -translate-y-1/2 -rotate-90 
+                    text-xs text-white rounded-t-lg px-3 py-0.5  whitespace-nowrap shadow-sm
+                    bg-gradient-to-r from-primary-700 to-accent-600 
+                    dark:from-purple-600 dark:to-fuchsia-600"
+              >
+              {{ dest.districtname }}
+                </span>
 
           <div
             class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 
@@ -54,8 +59,8 @@
                       class="h-64 md:h-full md:w-2/5 relative overflow-hidden"
                     >
                       <img
-                        [src]="dest.image"
-                        [alt]="dest.name"
+                        [src]="dest.media[0].mediaurl"
+                        [alt]="dest.destinationname"
                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                         (error)="imageService.handleImageError($event)"
                         loading="lazy"
@@ -65,7 +70,7 @@
                         <span
                           class="px-2.5 py-0.5 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full text-xs font-medium text-secondary-900 dark:text-secondary-400"
                         >
-                          {{ dest.type }}
+                          {{ dest.destinationtypename }}
                         </span>
                       </div>
                       <!-- Image Overlay -->
@@ -83,11 +88,11 @@
                           <h3
                             class="text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 truncate max-w-[70%]"
                           >
-                            {{ dest.name }}
+                            {{ dest.destinationname }}
                           </h3>
                           <!-- Explore Button - Compact Icon Text Version -->
                           <a 
-                            [routerLink]="['/destination', dest.name | slugify]"
+                            [routerLink]="['/destination', dest.destinationname | slugify]"
 
                             class="bg-blue-100 cursor-pointer py-1.5 px-3 rounded-lg text-gray-500 hover:text-primary font-semibold transition-colors duration-300 flex items-center justify-center gap-2 group text-xs"
                           >
@@ -100,7 +105,7 @@
 
                         <!-- Description - Added back in compact format -->
                         <p class="text-gray-600 dark:text-gray-300 h-16 text-xs mt-1 line-clamp-4">
-                          {{ dest.description }}
+                          {{ dest.destinationdescription }}
                         </p>
 
                         <!-- Highlights -->
@@ -109,10 +114,10 @@
                             class="flex flex-wrap gap-1 overflow-hidden max-h-[28px]"
                           >
                             <span
-                              *ngFor="let highlight of dest.highlights|slice:0:4"
+                              *ngFor="let tag of dest.tags|slice:0:4"
                               class="px-1.5 py-0.5 bg-gray-50 dark:bg-gray-900/50 text-gray-600 dark:text-gray-300 rounded-full text-[10px] whitespace-nowrap max-w-fit"
                             >
-                              {{ highlight }}
+                              {{ tag.tagname }}
                             </span>
                           </div>
                         </div>
@@ -131,7 +136,7 @@
                             >
                               Location
                             </p>
-                            <p class="truncate">{{ dest.location }}</p>
+                            <p class="truncate">{{ dest.distance }}</p>
                           </div>
                           <div>
                             <p
@@ -139,7 +144,12 @@
                             >
                               Best Time
                             </p>
-                            <p class="truncate">{{ dest.bestTime }}</p>
+
+                         <p class="truncate">
+                                     {{ dest.seasons.length ? dest.seasons[0].seasonmonth : 'N/A' }}
+                           </p>
+
+                                                
                           </div>
                           <div>
                             <p
@@ -147,7 +157,7 @@
                             >
                               Duration
                             </p>
-                            <p class="truncate">{{ dest.duration }}</p>
+                              <p class="truncate">{{ dest.duration || 'N/A'}}</p>
                           </div>
                         </div>
                       </div>
@@ -184,12 +194,12 @@
                     <!-- Right section for title and buttons -->
                     <div class="qr-right-section">
                       <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">
-                        {{ dest.name }}
+                        {{ dest.destinationname }}
                       </h3>
                       
                       <!-- Only visible on desktop -->
                       <p class="hidden md:block text-sm text-gray-600 dark:text-gray-400 mb-2">
-                        Scan to explore {{ dest.name }} and discover its beautiful attractions and unique experiences.
+                        Scan to explore {{ dest.destinationname }} and discover its beautiful attractions and unique experiences.
                       </p>
                       
                       <div class="button-group">
