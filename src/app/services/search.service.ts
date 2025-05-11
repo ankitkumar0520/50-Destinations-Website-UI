@@ -44,6 +44,7 @@ export class SearchService {
   }
 
 
+
   updateFilters(updated: Partial<SearchFilters>) {
     const current = this.filtersSubject.value;
     const merged: SearchFilters = {
@@ -70,6 +71,7 @@ export class SearchService {
 
   resetFilters() {
     this.filtersSubject.next({ ...DEFAULT_FILTERS });
+    this.UpdatePayload();
   }
 
 

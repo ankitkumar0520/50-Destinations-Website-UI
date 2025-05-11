@@ -88,6 +88,10 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   ngOnInit() {
+ 
+
+    this.searchService.resetFilters(); //reset filters when component is initialized
+    
 
     this.getDestinationTags();
     this.getExperienceTags();
