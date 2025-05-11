@@ -33,7 +33,7 @@ export class HomeAboutSectionComponent implements OnInit {
 
   glanceCounts: any[] = [
     { number: 6, label: 'Districts' },
-    { number: this.destinationService.getAllDestinations().length, label: 'Destinations' },
+    { number: 50, label: 'Destinations' },
     { number: 15, label: 'Experience Types' },
     { number: 4, label: 'Seasons' }
   ];
@@ -63,7 +63,7 @@ export class HomeAboutSectionComponent implements OnInit {
 
   setFilter(categorie: any) {
     this.searchService.updateFilters({
-      experienceType: categorie,
+      experienceids: categorie,
     });
     this.navigateToSearch();
   }

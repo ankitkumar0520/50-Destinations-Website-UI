@@ -8,30 +8,30 @@ import {
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import {
-  SearchFilters,
+  DEFAULT_FILTERS,
   SearchService,
 } from '../../../services/search.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { ImageService } from '../../../services/image.service';
-import { SafeUrl } from '@angular/platform-browser';
-import { downloadQRCode, shareQRCode } from '../../../utils/utils';
+import { shareQRCode } from '../../../utils/utils';
 import { DestinationService } from '../../../services/destination.service';
+import { ApiService } from '../../../services/api.service'; 
+import { finalize } from 'rxjs';
 
 interface Tag {
-  label: string;
+  tagname: string;
 }
 
 interface SearchResult {
-  tags: Tag[];
-  slug: string;
   destinationname: string;
-  galleryImages: Array<{itemImageSrc: string}>;
-  duration: string;
   districtname: string;
-  shortdescription: string;
-  name: string;
+  destinationdescription: string;
+  slug: string;
+  duration: number;
+  media: { mediaurl: string }[];
+  tags: Tag[];
 }
 
 @Component({
@@ -42,41 +42,63 @@ interface SearchResult {
   styleUrl: './search-result.component.css',
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
+
+  private searchService = inject(SearchService);
+  private destinationService = inject(DestinationService);
+  private router = inject(Router);
   imageService = inject(ImageService);
+  private apiService = inject(ApiService);
 
   @ViewChildren('qrCanvas') qrCanvases!: QueryList<ElementRef>;
 
-  districtParam: string | null = null;
   private platformId = inject(PLATFORM_ID);
   siteUrl: string = isPlatformBrowser(this.platformId)
     ? window.location.origin
     : '';
 
-  filters: SearchFilters | null = null;
+  payload: any; 
   filteredResults: SearchResult[] = [];
-  currentPage = 1;
-  itemsPerPage = 8;
-
   isQRVisibleMap: { [key: number]: boolean } = {};
+  currentPage = DEFAULT_FILTERS.pageNumber;
+  itemsPerPage = DEFAULT_FILTERS.pageSize;
+  totalItems = 0;
+  isLoading = false;
+  imageLoaded = false;
 
-  private searchService = inject(SearchService);
-  destinationService = inject(DestinationService);
-  searchResults = this.destinationService.getAllDestinations();
-
-  constructor(private router: Router) {}
-
+  searchResults: any;
   ngOnInit(): void {
-    this.searchService.filters$.subscribe({
-      next: (filters) => {
-        this.filters = filters;
-        this.filteredResults = this.searchService.applyFilters(
-          filters,
-          this.searchResults
-        );
+    this.searchService.payload$.subscribe({
+      next: (payload) => {
+        this.payload = payload;
+        console.log('payload',this.payload);
+        this.getSearchResults();
+        this.currentPage = payload.pageNumber;
+        this.itemsPerPage = payload.pageSize;
       },
-      error: (err) => console.error('Error loading filters:', err),
-      complete: () => console.log('Filters stream completed'),
-    });
+      error: (error) => {
+        console.error('Error fetching search payload:', error.error.message);
+      }
+    }); 
+
+  }
+
+  getSearchResults() {
+    this.isLoading = true;
+  
+    this.apiService.post('LandingPage/GetAllDestinationsBasicDetailsWithSearchParams', this.payload)
+      .pipe(
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe({
+        next: (response) => {
+          this.searchResults = response;
+          this.filteredResults = this.searchResults.data;
+          this.totalItems = this.searchResults.totalRecords;
+        },
+        error: (error) => {
+          console.error('Error fetching search results:', error);
+        }
+      });
   }
 
   navigateToDetail(slug: string): void {
@@ -92,8 +114,8 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     const url = this.siteUrl + '/destination/' + result.slug;
     shareQRCode(
       url,
-      `Explore ${result.name}`,
-      `Check out ${result.name} in Sikkim!`
+      `Explore ${result.destinationname}`,
+      `Check out ${result.destinationname} in Sikkim!`
     );
   }
 
@@ -108,7 +130,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
 
     try {
       const link = document.createElement('a');
-      link.download = `${result.name.toLowerCase().replace(/\s+/g, '-')}-qr.png`;
+      link.download = `${result.destinationname.toLowerCase().replace(/\s+/g, '-')}-qr.png`;
       link.href = qrCanvas.toDataURL('image/png');
       document.body.appendChild(link);
       link.click();
@@ -148,7 +170,15 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     return true;
   }
 
+
+  changePage(page: number) {
+    this.searchService.updateFilters({ pageNumber: page });
+    this.currentPage = page;
+  }
+
   ngOnDestroy(): void {
     this.searchService.resetFilters();
   }
+
+
 }

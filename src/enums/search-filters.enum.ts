@@ -48,11 +48,11 @@ export const DISTRICT_OPTIONS = [
   ];
 
   export const   DURATIONS = [
-    { id: '0-3', name: '0-3 hours', min: 0, max: 3 },
-    { id: '3-6', name: '3-6 hours', min: 3, max: 6 },
-    { id: '1-day', name: 'Full day', min: 6, max: 12 },
-    { id: '2-3-days', name: '2-3 days', min: 24, max: 72 },
-    { id: '4-plus', name: '4+ days', min: 96, max: 1000 },
+    { name: '0-3 hours', min: 0, max: 3 },
+    { name: '3-6 hours', min: 3, max: 6 },
+    { name: 'Full day', min: 6, max: 12 },
+    { name: '2-3 days', min: 24, max: 72 },
+    { name: '4+ days', min: 96, max: 1000 },
   ];
 
   export const SORT_OPTIONS  = [

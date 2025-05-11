@@ -192,7 +192,7 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
 
   searchDestinations() {
     this.searchService.updateFilters({
-      searchQuery: this.searchQuery,
+      searchtext: this.searchQuery,
     });
     this.redirectToSearch();
   }

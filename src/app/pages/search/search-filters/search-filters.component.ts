@@ -4,14 +4,34 @@ import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../../services/search.service';
 import {
-  DESTINATIONS_TAGS,
-  DISTRICT_OPTIONS,
   DURATIONS,
-  EXPERIENCE_OPTIONS,
-  SEASONS,
   SORT_OPTIONS,
 } from '../../../../enums/search-filters.enum';
 import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../../services/api.service';
+
+interface DestinationType {
+  id: string;
+  name: string;
+  icon: string;
+}
+
+interface ExperienceType {
+  id: string;
+  value: string;
+}
+
+interface DistrictType {
+  id: string;
+  value: string;
+}
+
+interface Season {
+  id: string;
+  icon: string;
+  name: string;
+  month: string;
+}
 
 @Component({
   selector: 'app-search-filters',
@@ -21,16 +41,19 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './search-filters.component.css',
 })
 export class SearchFiltersComponent implements OnInit {
+ 
+  private apiService = inject(ApiService);
+
   showFilters = false;
   isDarkMode = false;
 
-  districts = DISTRICT_OPTIONS;
+  districts: DistrictType[] = [];
 
-  experiences = EXPERIENCE_OPTIONS;
+  experiences: ExperienceType[] = [];
 
-  destinationTags = DESTINATIONS_TAGS;
+  destinationTags: DestinationType[] = [];
 
-  seasons = SEASONS;
+  seasons: Season[] = [];
 
   durations = DURATIONS;
 
@@ -40,9 +63,11 @@ export class SearchFiltersComponent implements OnInit {
   selectedDistrict: string = '';
   selectedExperience: string = '';
   searchQuery: string = '';
-  selectedTags = new Set<string>();
-  selectedSeasons = new Set<string>();
+  selectedTags: string[] = [];
+  selectedSeasons: string[] = [];
   selectedDurationId: string = ''; // id from durations array
+  minHours: number = 0;
+  maxHours: number = 9999;
   selectedSort: string = '';
 
   private searchService = inject(SearchService);
@@ -63,34 +88,94 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Get district from URL parameter
-    this.route.paramMap.subscribe((params) => {
+
+    this.getDestinationTags();
+    this.getExperienceTags();
+    this.getDistricts();
+    this.getSeasons();
+      
+  }
+
+  setDistrictWithUrl(){
+     // In your component.ts
+     this.route.paramMap.subscribe((params) => {
       const districtParam = params.get('district');
       if (districtParam) {
-        this.selectedDistrict = districtParam;
-        this.searchService.updateFilters({
-          district: districtParam,
-        });
+        const matchedDistrict = this.districts.find(d => d.value.toLowerCase() === districtParam.toLowerCase());
+        
+        if (matchedDistrict) {
+          this.selectedDistrict = matchedDistrict.id; // or districtParam
+          this.searchService.updateFilters({
+            districtid: matchedDistrict.id
+          });
+        } else {
+          console.warn('District not found in list:', districtParam);
+          // Optionally handle this case (e.g., show message or ignore)
+        }
       }
     });
+  }
+  
+  getDestinationTags(){
+    this.apiService.get('Master/GetAllDestinationTypes').subscribe({
+      next: (response: any) => {
+        this.destinationTags = response.map((tag: any) => ({
+          id: tag.destinationtypeid,
+          name: tag.destinationtypename,
+          icon: tag.icon
+        }));
+      },
+      error: (error) => {
+        console.error('Error fetching destination tags:', error);
+      }
+    });
+  }
 
-    const currentFilters = this.searchService.getFilters();
+  getExperienceTags(){
+    this.apiService.get('Master/GetAllExpeiences').subscribe({
+      next: (response: any) => {
+        this.experiences = response.map((experience: any) => ({
+          id: experience.experienceid,
+          value: experience.experiencename
+        }));
 
-    this.selectedDistrict = currentFilters.district;
-    this.selectedExperience = currentFilters.experienceType;
-    this.searchQuery = currentFilters.searchQuery;
-    this.selectedTags = new Set(currentFilters.tags);
-    this.selectedSeasons = new Set(currentFilters.seasons);
+      },
+      error: (error) => {
+        console.error('Error fetching experience tags:', error);
+      }
+    });
+  }
 
-    // Determine duration id based on current filter values
-    const match = this.durations.find(
-      (d) =>
-        d.min === currentFilters.durations.minHours &&
-        d.max === currentFilters.durations.maxHours
-    );
-    this.selectedDurationId = match?.id ?? '';
+  getDistricts(){
+    this.apiService.get('Master/GetAllDistricts').subscribe({
+      next: (response: any) => {
+        this.districts = response.map((district: any) => ({
+          id: district.districtid,
+          value: district.districtname,
+        }));
+        this.setDistrictWithUrl();
+      },
+      error: (error) => {
+        console.error('Error fetching districts:', error);
+      }
+    });
+  }
 
-    this.selectedSort = currentFilters.sort;
+
+  getSeasons(){
+    this.apiService.get('Master/GetAllSeasons').subscribe({
+      next: (response: any) => {
+        this.seasons = response.map((season: any) => ({
+          id: season.seasonid,
+          seasonicon: season.icon,
+          name: season.seasonname,
+          month: season.seasonmonth
+        }));
+      },
+      error: (error) => {
+        console.error('Error fetching seasons:', error);
+      }
+    });
   }
 
   toggleFilters() {
@@ -98,25 +183,31 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   toggleTag(tagId: string) {
-    this.selectedTags.has(tagId)
-      ? this.selectedTags.delete(tagId)
-      : this.selectedTags.add(tagId);
+
+    if (this.selectedTags.includes(tagId)) {
+      this.selectedTags = this.selectedTags.filter(tag => tag !== tagId);
+    } else {
+      this.selectedTags.push(tagId);
+    }
   }
 
   toggleSeason(seasonId: string) {
-    this.selectedSeasons.has(seasonId)
-      ? this.selectedSeasons.delete(seasonId)
-      : this.selectedSeasons.add(seasonId);
+    if (this.selectedSeasons.includes(seasonId)) {
+      this.selectedSeasons = this.selectedSeasons.filter(season => season !== seasonId);
+    } else {
+      this.selectedSeasons.push(seasonId);
+    }
   }
 
-  selectDuration(durationId: string) {
-    this.selectedDurationId =
-      this.selectedDurationId === durationId ? '' : durationId;
-  }
+    selectDuration(durationId: string) {
+    this.selectedDurationId = this.selectedDurationId === durationId ? '' : durationId;
+  
+    }
+  
 
   clearFilters() {
     this.selectedSort = '';
-    this.selectedSeasons.clear();
+    this.selectedSeasons = [];
     this.selectedDurationId = '';
     this.applyFilters();
     this.showFilters = false;
@@ -126,7 +217,7 @@ export class SearchFiltersComponent implements OnInit {
     this.selectedDistrict = '';
     this.selectedExperience = '';
     this.searchQuery = '';
-    this.selectedTags.clear();
+    this.selectedTags  = [];
     this.applyFilters();
     this.clearFilters();
   }
@@ -136,19 +227,20 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   applyFilters() {
-    const duration = this.durations.find(
-      (d) => d.id === this.selectedDurationId
-    );
+    this.selectedDurationId = this.selectedDurationId === '' ? '' : this.selectedDurationId;
+    const selected = DURATIONS.find(d => d.name === this.selectedDurationId);
+
     this.searchService.updateFilters({
-      district: this.selectedDistrict,
-      experienceType: this.selectedExperience,
-      searchQuery: this.searchQuery,
-      tags: Array.from(this.selectedTags),
-      sort: this.selectedSort,
-      seasons: Array.from(this.selectedSeasons),
-      durations: duration
-        ? { minHours: duration.min, maxHours: duration.max }
-        : { minHours: 0, maxHours: 0 },
+      districtid: this.selectedDistrict,
+      experienceids: this.selectedExperience,
+      searchtext: this.searchQuery,
+      destinationtypeids: this.selectedTags,
+      sortby: this.selectedSort,
+      seasonids: this.selectedSeasons,
+      min_durationinhrs: selected?.min ?? 0,
+      max_durationinhrs: selected?.max ?? 9999
     });
+
   }
+
 }
