@@ -1,4 +1,4 @@
-<section
+<section *ngIf="pointsOfInterest.length > 0"
   class="min-h-screen pt-16 pb-12 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
   id="points-of-interest-section"
 >
@@ -15,8 +15,8 @@
 
     <div class="max-w-[1400px] mx-auto mt-10">
       <!-- Layout for MORE than 2 items: OWL CAROUSEL -->
-      <div *ngIf="destination.touristAttractions.length > 2" class="owl-carousel owl-theme points-of-interest-carousel">
-        <div class="item p-2" *ngFor="let point of destination.touristAttractions; let i = index">
+      <div *ngIf="pointsOfInterest.length > 2" class="owl-carousel owl-theme points-of-interest-carousel">
+        <div class="item p-2" *ngFor="let point of pointsOfInterest; let i = index">
           <!-- Carousel Card Structure (Image Top) -->
           <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all
            duration-300 transform hover:-translate-y-1 w-full min-h-[400px] h-[400px] max-h-[400px] md:min-h-[380px] md:max-h-[380px] md:h-[380px]">
@@ -24,10 +24,11 @@
             <div class="relative h-[200px] overflow-hidden group">
               <!-- NESTED Image Carousel -->
               <div [id]="'point-image-carousel-main-' + i" class="owl-carousel owl-theme point-image-carousel h-full">
-                <div *ngFor="let image of point.images" class="item h-full">
+                <div *ngFor="let image of point.media" class="item h-full">
                   <img 
-                    [src]="image" 
-                    [alt]="point.imageAlt" 
+                    [src]="image.mediaurl" 
+                    [alt]="point.name" 
+                    (error)="imageService.handleImageError($event)"
                     loading="lazy"
                     class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                   />
@@ -35,18 +36,18 @@
               </div>
               <!-- Indicator Dots -->
               <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-10">
-                <span *ngFor="let image of point.images; let imgIndex = index" class="w-2 h-2 rounded-full bg-white" [ngClass]="{'bg-opacity-100': imgIndex === 0, 'bg-opacity-50': imgIndex !== 0}"></span>
+                <span *ngFor="let image of point.media; let imgIndex = index" class="w-2 h-2 rounded-full bg-white" [ngClass]="{'bg-opacity-100': imgIndex === 0, 'bg-opacity-50': imgIndex !== 0}"></span>
               </div>
             </div>
             <!-- Content Box -->
             <div class="flex flex-col p-5 ">
               <!-- Title -->
               <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
-                {{ point.title }}
+                {{ point?.name }}
               </h3>
               <!-- Description -->
               <p class="text-sm  text-justify text-gray-600 dark:text-gray-300 line-clamp-5 flex-grow">
-                {{ point.description }}
+                {{ point?.description }}
               </p>
             </div>
           </div>
@@ -57,18 +58,19 @@
       
 
 <!-- Layout for UP TO 2 items: FLEX ROW -->
-<div *ngIf="destination.touristAttractions.length <= 2" class="flex flex-wrap justify-center -mx-3">
-  <div class="w-full sm:w-1/2 px-3 mb-6" *ngFor="let point of destination.touristAttractions; let i = index">
+<div *ngIf="pointsOfInterest.length <= 2" class="flex flex-wrap justify-center -mx-3">
+  <div class="w-full sm:w-1/2 px-3 mb-6" *ngFor="let point of pointsOfInterest; let i = index">
     <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 group sm:h-[280px] h-auto">
       
       <div class="flex flex-col sm:flex-row sm:h-full">
         <!-- Image Section with Owl Carousel -->
         <div class="sm:w-2/4 w-full h-56 sm:h-full flex-shrink-0 relative overflow-hidden">
           <div [id]="'point-image-carousel-flex-' + i" class="owl-carousel owl-theme point-image-carousel h-full">
-            <div *ngFor="let image of point.images" class="item h-full">
+            <div *ngFor="let image of point.media" class="item h-full">
               <img 
-                [src]="image" 
-                [alt]="point.imageAlt" 
+                [src]="image.mediaurl" 
+                [alt]="point.name" 
+                (error)="imageService.handleImageError($event)"
                 loading="lazy"
                 class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
               />
@@ -81,12 +83,12 @@
         
           <!-- Title -->
           <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-2">
-            {{ point.title }}
+            {{ point?.name }}
           </h3>
 
           <!-- Description -->
           <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-            {{ point.description }}
+            {{ point?.description }}
           </p>
         </div>
       </div>

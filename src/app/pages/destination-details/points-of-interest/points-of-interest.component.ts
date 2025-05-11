@@ -3,6 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils';
 import { DestinationService } from '../../../services/destination.service';
+import { ImageService } from '../../../services/image.service';
 
 @Component({
   selector: 'app-points-of-interest',
@@ -13,7 +14,8 @@ import { DestinationService } from '../../../services/destination.service';
 })
 export class PointsOfInterestComponent implements OnInit, OnDestroy {
   private destinationService = inject(DestinationService);
-  destination :any;
+   imageService = inject(ImageService);
+  pointsOfInterest:any[]=[];
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -21,13 +23,27 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+
+
+    const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, ' ').trim();
+
     this.destinationService.destination$.subscribe(dest => {
-      if (dest) {
-        this.destination = dest;
-      }
+
+
+      this.pointsOfInterest = dest.entities.filter((entity: any) => {
+        if (!entity) return false; // Skip if entity is null or undefined
+    
+        // Normalize sectorName, check case insensitively
+        const name = (normalize(entity.sectorName || '')).toLowerCase();
+    
+        // Check if sectorId is 3 or if sectorName matches 'Point Of Interest' case-insensitively
+        return entity.sectorId === 3 || name === 'Point Of Interest';
+      });
     });
+
+
     if (isPlatformBrowser(this.platformId)) {
-      const attractionCount = this.destination.touristAttractions.length;
+      const attractionCount = this.pointsOfInterest.length;
 
       if (attractionCount > 2) {
         // Initialize MAIN carousel
@@ -57,7 +73,7 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const attractionCount = this.destination.touristAttractions.length;
+      const attractionCount = this.pointsOfInterest.length;
 
       if (attractionCount > 2) {
         // Destroy MAIN carousel

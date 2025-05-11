@@ -35,7 +35,6 @@ export class FacilitiesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.destinationService.destination$.subscribe(dest => {
 
-      console.log(dest);
       
       this.facilities = dest.entities.filter((entity: any) => {
         if (!entity) return false; // Skip if entity is null or undefined
