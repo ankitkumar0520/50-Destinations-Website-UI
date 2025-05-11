@@ -4,22 +4,22 @@
     <div class="">
       <!-- Header Section -->
       <div class="mb-6">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">{{destination.tagline}}</h1>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">{{destination?.tagline}}</h1>
         <div class="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 text-sm md:text-base">
           <div class="flex items-center gap-2">
             <i class="fas fa-map-marker-alt text-primary-600 dark:text-primary-400"></i>
-            <span class="text-gray-600 dark:text-gray-400">{{destination.landmark}}, {{destination.districtname}}</span>
+            <span class="text-gray-600 dark:text-gray-400">{{destination?.landmark}}, {{destination?.districtname}}</span>
           </div>
           <div *ngIf="destination.distance" class="flex items-center gap-2">
             <i class="fas fa-route text-secondary-700 dark:text-secondary-400"></i>
-            <span class="text-gray-600 dark:text-gray-400">{{destination.distance}}</span>
+            <span class="text-gray-600 dark:text-gray-400">{{destination?.distance}}</span>
           </div>
         </div>
       </div>
 
       <!-- Description Section -->
       <div class="bg-gray-50 dark:bg-gray-800 p-6 text-justify rounded-lg border border-gray-200 dark:border-gray-700">
-        <p [innerHTML]="destination.destinationdescription"
+        <p [innerHTML]="destination?.about"
           class="text-gray-700 dark:text-gray-300 leading-relaxed text-sm md:text-base"></p>
       </div>
     </div>
@@ -31,10 +31,10 @@
     <app-section-header 
       [badgeText]="'Gallery'"
       [titleLeft]="'Explore'"
-      [titleMiddleHighlighted]="destination.destinationname + ' Gallery'"
+      [titleMiddleHighlighted]="destination?.destinationname + ' Gallery'"
       [description]="'Discover the beauty, culture, and unique charm of this destination through our curated collection of images. From iconic landmarks to hidden gems, each photograph highlights the essence and atmosphere that make this place truly special'"
       [features]="[
-        { icon: 'fas fa-images', text: destination.media?.length+ ' Images' },
+        { icon: 'fas fa-images', text: destination?.media?.length+ ' Images' },
         { icon: 'fas fa-map-marker-alt', text: 'Location Highlights' },
         { icon: 'fas fa-camera', text: 'Photographic Excellence' }
       ]"
@@ -42,10 +42,10 @@
 
     <!-- Gallery Carousel -->
     <div class="destination-gallery-grid py-4">
-      <div *ngFor="let image of destination.media; let i = index"
+      <div *ngFor="let image of destination?.media; let i = index"
         class="gallery-item relative group cursor-pointer rounded-lg overflow-hidden shadow-md"
         (click)="showGalleria(i)">
-        <img [src]="image.mediaurl" [alt]="destination.destinationname" 
+        <img [src]="image?.mediaurl" [alt]="destination?.destinationname" 
         loading="lazy" 
         (error)="imageService.handleImageError($event)"
           class="w-full h-full aspect-[4/3] object-cover rounded-lg transition-all duration-300 group-hover:scale-105" />
@@ -88,7 +88,7 @@
         <div class="flex flex-col h-full bg-gray-900">
           <!-- Main Image -->
           <div class="flex-1 flex items-center justify-center p-4 md:p-6 min-h-[50vh] md:min-h-[60vh]">
-            <img [src]="destination.media[activeIndex].mediaurl" [alt]="destination.destinationname"
+            <img [src]="destination?.media[activeIndex]?.mediaurl" [alt]="destination?.destinationname"
               class="max-w-full h-[50vh] md:h-[65vh] object-contain rounded-lg shadow-lg" />
           </div>
 
@@ -101,11 +101,11 @@
           <div class="bg-black/50 backdrop-blur-sm py-2 border-t border-gray-700">
             <div class="container mx-auto px-2 md:px-4">
               <div class="flex justify-center gap-1 md:gap-2 overflow-x-auto scrollbar-hide">
-                <div *ngFor="let image of destination.media; let i = index"
+                <div *ngFor="let image of destination?.media; let i = index"
                   class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-300"
                   [class.border-primary-500]="i === activeIndex" [class.border-transparent]="i !== activeIndex"
                   (click)="activeIndex = i">
-                  <img [src]="image.mediaurl" [alt]="destination.destinationname"
+                  <img [src]="image?.mediaurl" [alt]="destination?.destinationname"
                     class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
                 </div>
               </div>

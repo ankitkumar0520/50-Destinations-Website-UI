@@ -12,24 +12,6 @@ import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
 import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils';
 
-interface Facility {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  image: string;
-  imageAlt: string;
-  location: string;
-  distance: string;
-  tags: {
-    text: string;
-    icon: string;
-    color: string;
-  }[];
-  buttonText: string;
-  buttonIcon: string;
-}
-
 @Component({
   selector: 'app-facilities',
   standalone: true,
@@ -42,17 +24,30 @@ export class FacilitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   imageService = inject(ImageService);
   
-  destination: any;
+ 
+  facilities:any[]=[];
   isMobile = false;
 
   constructor() {}
 
   ngOnInit() {
+    const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, ' ').trim();
+
     this.destinationService.destination$.subscribe(dest => {
-      if (dest) {
-        this.destination = dest;
-      }
+
+      console.log(dest);
+      
+      this.facilities = dest.entities.filter((entity: any) => {
+        if (!entity) return false; // Skip if entity is null or undefined
+    
+        // Normalize sectorName, check case insensitively
+        const name = (normalize(entity.sectorName || '')).toLowerCase();
+    
+        // Check if sectorId is 2 or if sectorName matches 'facilities & services' case-insensitively
+        return entity.sectorId === 2 || name === 'facilities & services';
+      });
     });
+     
 
     if (isPlatformBrowser(this.platformId)) {
       // Initialize screen size detection

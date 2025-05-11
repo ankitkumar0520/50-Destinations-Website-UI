@@ -77,23 +77,37 @@ export class DestinationMainComponent implements OnInit {
   }
 
   checkActiveSection() {
-    if (!this.isBrowser) return;
-
-    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-
-    for (const item of this.menuItems) {
-      const element = document.getElementById(item.id);
-      if (element) {
-        const offsetTop = element.offsetTop;
-        const offsetHeight = element.offsetHeight;
-
-        if (scrollPosition >= offsetTop - this.navbarHeight && scrollPosition < offsetTop + offsetHeight - this.navbarHeight) {
-          this.activeSection = item.id;
-          break;
+    // Ensure this function is running only on the client-side (browser)
+    if (typeof window === 'undefined' || !this.isBrowser) return;
+  
+    try {
+      const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  
+      // Safeguard against undefined or empty menuItems
+      if (!Array.isArray(this.menuItems) || this.menuItems.length === 0) return;
+  
+      for (const item of this.menuItems) {
+        if (!item.id) continue; // Skip items without an id
+  
+        const element = document.getElementById(item.id);
+  
+        // Ensure the element exists before accessing its properties
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
+  
+          // Check if the scroll position is within the element's range
+          if (scrollPosition >= offsetTop - this.navbarHeight && scrollPosition < offsetTop + offsetHeight - this.navbarHeight) {
+            this.activeSection = item.id;
+            break;
+          }
         }
       }
+    } catch (error) {
+      console.error('Error in checkActiveSection:', error);
     }
   }
+  
 
   scrollTo(id: string) {
     if (!this.isBrowser) return;
