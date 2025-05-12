@@ -46,47 +46,46 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, ' ').trim();
 
-    console.log('Starting subscription to destination$');
+
     
     this.destinationService.destination$.subscribe({
       next: (dest) => {
-        console.log('Received destination data:', dest);
+
         
         if (!dest || !dest.entities) {
           console.warn('No destination data available');
           return;
         }
 
-        console.log('Total entities:', dest.entities.length);
+
 
         // Filter accommodation
       this.accomodation = dest.entities.filter((entity: any) => {
           if (!entity) return false;
         const name = (normalize(entity.sectorName || '')).toLowerCase();
           const isMatch = entity.sectorId === 5 || name === 'accommodation & eatery';
-          console.log('Checking entity:', entity.sectorName, 'isMatch:', isMatch);
+
           return isMatch;
         });
 
-        console.log('Filtered accommodation:', this.accomodation);
+
 
         // Filter eatery
       this.eatery = dest.entities.filter((entity: any) => {
           if (!entity) return false;
         const name = (normalize(entity.sectorName || '')).toLowerCase();
           const isMatch = entity.sectorId === 7 || name === 'eatery';
-          console.log('Checking entity:', entity.sectorName, 'isMatch:', isMatch);
+
           return isMatch;
         });
 
-        console.log('Filtered eatery:', this.eatery);
 
         // Force change detection
         this.cdr.detectChanges();
 
         // Initialize carousel after data is loaded and DOM is updated
         if (this.accomodation.length > 0 || this.eatery.length > 0) {
-          console.log('Initializing carousel with data');
+
           // Use setTimeout to ensure DOM is updated
        setTimeout(() => {
         this.initCarousel();
@@ -116,7 +115,7 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
         destroyOwlInstance('.eateries-carousel');
       }
 
-      console.log('Initializing hotel carousel');
+
       if (this.accomodation.length > 0) {
         this.hotelCarouselInstance = initializeOwlCarousel(
           '.hotels-carousel',
@@ -129,7 +128,6 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
         );
       }
 
-      console.log('Initializing eatery carousel');
       if (this.eatery.length > 0) {
         this.eateryCarouselInstance = initializeOwlCarousel(
           '.eateries-carousel',
@@ -144,7 +142,7 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
 
         this.setupCarouselEventListeners();
         this.carouselsInitialized = true;
-      console.log('Carousels initialized successfully');
+
     } catch (error) {
       console.error('Error initializing carousels:', error);
       }

@@ -204,8 +204,8 @@
               "
             >
               <div class="flex items-center gap-2">
-                <i [class]="'fas ' + season.icon"></i>
-                <span class="whitespace-nowrap"><span class="font-bold">{{ season.name }}</span> &nbsp;({{ season.month }})</span>
+                <i [class]="'fas ' + season?.icon"></i>
+                <span class="whitespace-nowrap"><span class="font-bold">{{ season?.name }}</span> &nbsp;({{ season?.month }})</span>
               </div>
               <i
                 *ngIf="selectedSeasons.includes(season.id)"

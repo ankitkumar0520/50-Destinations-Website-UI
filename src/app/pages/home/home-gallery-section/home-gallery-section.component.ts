@@ -55,8 +55,9 @@ export class HomeGallerySectionComponent implements OnInit {
 
   
   ngOnInit(): void {
-    // Using static data, no need to call API
-     this.getPopularDestinations();
+    setTimeout(() => {
+      this.getPopularDestinations();
+    }, 500);
   }
 
   switchQR(index: number): void {
@@ -88,7 +89,7 @@ export class HomeGallerySectionComponent implements OnInit {
       .get('LandingPage/GetTopMostPopularDistrictWiseDestination')
       .subscribe({
         next:(res:any)=>{
-          if (res && res.length > 0) {
+          if (res) {
             this.destinations = res;
           }
         },

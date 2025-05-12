@@ -177,7 +177,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.searchService.resetFilters();
+   // this.searchService.resetFilters();
   }
 
 

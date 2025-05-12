@@ -24,7 +24,6 @@ export const routes: Routes = [
 
 { path: 'destination', redirectTo: '/destinations', pathMatch: 'full' },
 { path: 'destination/:slug', component: DestinationMainComponent },
-{ path: '**', redirectTo: '/destinations' } ,// fallback for undefined routes
 
   { path: 'about', component: AboutComponent },
   { path: 'faqs', component: FaqsComponent },

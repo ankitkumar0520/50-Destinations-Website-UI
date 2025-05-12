@@ -22,7 +22,7 @@
     <div class="max-w-[1400px] mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mx-2">
         <!-- Destination Cards -->
-        <div *ngFor="let dest of destinations; let i = index"
+        <div *ngFor="let dest of destinations | slice:0:5; let i = index"
         class="mx-1 relative shadow-lg dark:shadow-gray-900/50 hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 overflow-visible">
    
        

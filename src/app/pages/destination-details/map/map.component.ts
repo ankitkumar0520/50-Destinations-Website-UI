@@ -68,7 +68,9 @@ export class MapComponent implements OnInit {
     const lat = parseFloat(this.destination?.latitude ?? '');
     const lng = parseFloat(this.destination?.longitude ?? '');
     if (!isNaN(lat) && !isNaN(lng)) {
-      window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank');
+      if(isPlatformBrowser(this.platformId)){
+        window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank');
+      }
     }
   }
 
@@ -106,12 +108,10 @@ export class MapComponent implements OnInit {
         !isNaN(lng) && Number.isFinite(lng);
   
       if (isDataValid) {
-        console.log('MapComponent: Data valid, attempting to load Leaflet and initialize map.');
         import('leaflet').then((leaflet) => {
           L = leaflet.default;
           try {
             this.initMap(lat, lng);
-            console.log('MapComponent: Map initialized successfully.');
           } catch (mapError) {
             console.error('MapComponent: Error during map initialization:', mapError);
           }
@@ -134,7 +134,6 @@ export class MapComponent implements OnInit {
         this.isLoading = false;
       }
     } else {
-      console.log('MapComponent: Skipping map initialization on server.');
       this.isLoading = false;
     }
   }

@@ -67,6 +67,8 @@ export class FacilitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   checkScreenSize(): void {
+
+    if(isPlatformBrowser(this.platformId)){
     const wasMobile = this.isMobile;
     this.isMobile = window.innerWidth < 1024; // lg breakpoint in Tailwind
 
@@ -78,6 +80,7 @@ export class FacilitiesComponent implements OnInit, AfterViewInit, OnDestroy {
         }, 300);
       } else {
         destroyOwlInstance('.facilities-carousel');
+      }
       }
     }
   }

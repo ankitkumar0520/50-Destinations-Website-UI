@@ -61,7 +61,6 @@ export class DestinationMainComponent implements OnInit {
     this.route.params.subscribe(params => {
       if(params['slug']){
         const slug = params['slug'];
-        console.log('ID from URL:', slug);
         this.destinationService.getDestinationbySlug(slug);
       }
     });

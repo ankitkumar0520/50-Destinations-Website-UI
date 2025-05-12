@@ -74,6 +74,7 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
+    if(isPlatformBrowser(this.platformId)){
     // Check if app is in standalone mode (installed as PWA)
     if (window.matchMedia('(display-mode: standalone)').matches) {
       if (!localStorage.getItem('pwaFirstVisit')) {
@@ -81,6 +82,7 @@ export class AppComponent implements OnInit {
         localStorage.setItem('pwaFirstVisit', 'true');
       }
     }
+  }
   }
 
 
