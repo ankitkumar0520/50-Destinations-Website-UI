@@ -223,13 +223,14 @@
         <li
           *ngFor="let destination of filteredDestinations"
           class="flex items-center gap-3 p-3 transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-          (click)="onDestinationClick(destination.id)"
+          (click)="onDestinationClick(destination.slug)"
         >
           <img
-            [src]="destination.image"
+            [src]="baseUrl+destination.image"
             alt="{{ destination.name }}"
             class="w-12 h-12 rounded object-cover"
             loading="lazy"
+            (error)="imageService.handleImageError($event)"
           />
           <span class="text-gray-900 dark:text-gray-100">{{
             destination.name

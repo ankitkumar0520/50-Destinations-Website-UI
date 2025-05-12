@@ -41,7 +41,7 @@
         
           <ng-container *ngIf="security?.media?.length > 0 && security.media[0]?.mediaUrl; else fallbackIcon">
             <img
-              [src]="security.media[0].mediaUrl"
+              [src]="baseUrl+security.media[0].mediaUrl"
               [alt]="security.name || 'Security Image'"
               class="w-full aspect-square object-cover rounded-xl shadow"
               loading="lazy"
@@ -133,7 +133,7 @@
           <div class="w-full aspect-square max-h-[180px] md:max-h-[200px] lg:max-h-[220px] xl:max-h-[240px] bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
             <img
               *ngIf="medical?.media?.length > 0 && medical.media[0]?.mediaUrl"
-              [src]="medical.media[0].mediaUrl"
+              [src]="baseUrl+medical.media[0].mediaUrl"
               [alt]="medical.name"
               class="w-full h-full object-cover"
               (error)="imageService.handleImageError($event)"

@@ -45,7 +45,7 @@
                   </div>
                   <div class="relative">
                     <img
-                      [src]="facility?.media[0]?.mediaurl"
+                      [src]="baseUrl+facility?.media[0]?.mediaurl"
                       [alt]="facility.name"
                       class="w-full h-48 sm:h-56 object-cover rounded-3xl shadow-xl"
                       (error)="imageService.handleImageError($event)"
@@ -113,7 +113,7 @@
               </div>
               <div class="relative">
                 <img
-                  [src]="facility.image"
+                  [src]="baseUrl+facility.image"
                   [alt]="facility.imageAlt"
                   class="w-full h-64 object-cover rounded-3xl shadow-xl"
                   (error)="imageService.handleImageError($event)"

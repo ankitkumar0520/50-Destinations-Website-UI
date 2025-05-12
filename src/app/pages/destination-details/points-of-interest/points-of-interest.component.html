@@ -26,7 +26,7 @@
               <div [id]="'point-image-carousel-main-' + i" class="owl-carousel owl-theme point-image-carousel h-full">
                 <div *ngFor="let image of point.media" class="item h-full">
                   <img 
-                    [src]="image.mediaurl" 
+                    [src]="baseUrl+image.mediaurl" 
                     [alt]="point.name" 
                     (error)="imageService.handleImageError($event)"
                     loading="lazy"
@@ -68,7 +68,7 @@
           <div [id]="'point-image-carousel-flex-' + i" class="owl-carousel owl-theme point-image-carousel h-full">
             <div *ngFor="let image of point.media" class="item h-full">
               <img 
-                [src]="image.mediaurl" 
+                [src]="baseUrl+image.mediaurl" 
                 [alt]="point.name" 
                 (error)="imageService.handleImageError($event)"
                 loading="lazy"

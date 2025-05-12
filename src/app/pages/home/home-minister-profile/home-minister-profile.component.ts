@@ -13,9 +13,9 @@ import { ApiService } from '../../../services/api.service';
 import { ImageService } from '../../../services/image.service';
 
 //for production
-//import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment.prod';
 //for development
-import { environment } from '../../../../environments/environment';
+//import { environment } from '../../../../environments/environment';
 
 interface Official {
   name: string;

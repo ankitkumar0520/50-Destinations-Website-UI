@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ImageService } from '../../../services/image.service';
 import { ApiService } from '../../../services/api.service';
 import { PLATFORM_ID, Inject } from '@angular/core';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-home-hero-section',
@@ -19,6 +20,7 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   filteredDestinations: any[] = [];
   showDropdown = false;
+  baseUrl = environment.apiBaseUrl.replace('/api', '');
 
     // Service worker
   deferredPrompt: any = null;
@@ -32,7 +34,7 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
   private searchService = inject(SearchService);
   private router = inject(Router);
   private apiService = inject(ApiService);
-  private imageService = inject(ImageService);
+   imageService = inject(ImageService);
   private platformId = inject(PLATFORM_ID);
 
   snowflakes: Array<{ style: string }> = [];
@@ -148,7 +150,7 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
                 image:
                   dest.media?.find((m: any) => m.iscover)?.mediaurl ||
                   'assets/placeholders/landscape.webp',
-                id: dest.destinationid,
+                slug: dest.slug,
               }));
               this.showDropdown = this.filteredDestinations.length > 0;
             },

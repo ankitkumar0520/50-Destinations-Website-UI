@@ -11,6 +11,7 @@ import { SectionHeaderComponent } from '../../../common/section-header/section-h
 import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
 import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-facilities',
@@ -23,7 +24,7 @@ export class FacilitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   private destinationService = inject(DestinationService);
   private platformId = inject(PLATFORM_ID);
   imageService = inject(ImageService);
-  
+  baseUrl = environment.apiBaseUrl.replace('/api', '');
  
   facilities:any[]=[];
   isMobile = false;

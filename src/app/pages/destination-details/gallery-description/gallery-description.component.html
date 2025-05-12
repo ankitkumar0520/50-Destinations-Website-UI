@@ -45,7 +45,7 @@
       <div *ngFor="let image of destination?.media; let i = index"
         class="gallery-item relative group cursor-pointer rounded-lg overflow-hidden shadow-md"
         (click)="showGalleria(i)">
-        <img [src]="image?.mediaurl" [alt]="destination?.destinationname" 
+        <img [src]="baseUrl+image?.mediaurl" [alt]="destination?.destinationname" 
         loading="lazy" 
         (error)="imageService.handleImageError($event)"
           class="w-full h-full aspect-[4/3] object-cover rounded-lg transition-all duration-300 group-hover:scale-105" />
@@ -88,7 +88,7 @@
         <div class="flex flex-col h-full bg-gray-900">
           <!-- Main Image -->
           <div class="flex-1 flex items-center justify-center p-4 md:p-6 min-h-[50vh] md:min-h-[60vh]">
-            <img [src]="destination?.media[activeIndex]?.mediaurl" [alt]="destination?.destinationname"
+            <img [src]="baseUrl+destination?.media[activeIndex]?.mediaurl" [alt]="destination?.destinationname"
               class="max-w-full h-[50vh] md:h-[65vh] object-contain rounded-lg shadow-lg" />
           </div>
 
@@ -105,7 +105,7 @@
                   class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-300"
                   [class.border-primary-500]="i === activeIndex" [class.border-transparent]="i !== activeIndex"
                   (click)="activeIndex = i">
-                  <img [src]="image?.mediaurl" [alt]="destination?.destinationname"
+                  <img [src]="baseUrl+image?.mediaurl" [alt]="destination?.destinationname"
                     class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
                 </div>
               </div>

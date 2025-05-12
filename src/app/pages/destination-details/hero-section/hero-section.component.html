@@ -4,13 +4,16 @@
   <div class="absolute inset-0 w-full h-full">
     <img
          *ngIf="destination?.media?.length" 
-         [src]="destination.media[0]?.mediaurl"
+         [src]="baseUrl+destination.media[0]?.mediaurl"
          (error)="imageService.handleImageError($event)"
          [alt]="destination.destinationname"
          class="w-full h-full object-cover transition-opacity duration-1000"
          [class.opacity-100]="isImageLoaded"
          [class.opacity-0]="!isImageLoaded"
-         (load)="onImageLoad()">
+         (load)="onImageLoad()"
+         loading="eager"
+         >
+         
   </div>
 
   <!-- Animated background (shown while image loads) -->

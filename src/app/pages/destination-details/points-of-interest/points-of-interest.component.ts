@@ -4,7 +4,7 @@ import { SectionHeaderComponent } from '../../../common/section-header/section-h
 import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils';
 import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
-
+import { environment } from '../../../../environments/environment.prod';
 @Component({
   selector: 'app-points-of-interest',
   standalone: true,
@@ -16,7 +16,7 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
   private destinationService = inject(DestinationService);
    imageService = inject(ImageService);
   pointsOfInterest:any[]=[];
-
+  baseUrl = environment.apiBaseUrl.replace('/api', '');
   constructor(
     private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -39,10 +39,15 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
         // Check if sectorId is 3 or if sectorName matches 'Point Of Interest' case-insensitively
         return entity.sectorId === 3 || name === 'point of interest';
       });
+      this.initializeOwlCarousel();
        }
     });
 
 
+    
+  }
+
+  initializeOwlCarousel(){
     if (isPlatformBrowser(this.platformId)) {
       const attractionCount = this.pointsOfInterest.length;
 

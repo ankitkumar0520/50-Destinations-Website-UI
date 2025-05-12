@@ -6,7 +6,7 @@ import { QRCodeComponent } from 'angularx-qrcode';
 import { shareQRCode, downloadQRCode, slugify } from '../../../utils/utils';
 import { VoiceModelService } from '../../../services/voice-model.service';
 import { ImageService } from '../../../services/image.service';
-
+import { environment } from '../../../../environments/environment.prod';
 @Component({
   selector: 'app-hero-section',
   standalone: true,
@@ -24,7 +24,7 @@ export class HeroSectionComponent implements OnInit {
 
   private voiceModeService = inject(VoiceModelService);
   destination:any;
-
+  baseUrl = environment.apiBaseUrl.replace('/api', '');
   shareUrl: string;
   isMenuOpen = false;
   activeSection: string = 'points-of-interest';
