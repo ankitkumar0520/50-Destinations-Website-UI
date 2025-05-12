@@ -15,16 +15,44 @@ import { ImageService } from '../../../services/image.service';
 export class PoliceHospitalComponent implements OnInit {
   private destinationService = inject(DestinationService);
 
-  destination :any;
   imageService = inject(ImageService);
+  hospital:any[]=[];
+  police:any[]=[];  
 
   constructor() {}
 
   ngOnInit(): void {
+    const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, ' ').trim();
+
     this.destinationService.destination$.subscribe(dest => {
-      if (dest) {
-        this.destination = dest;
-      }
+
+      this.hospital = dest.entities.filter((entity: any) => {
+        if (!entity) return false; // Skip if entity is null or undefined
+    
+        // Normalize sectorName, check case insensitively
+        const name = (normalize(entity.sectorName || '')).toLowerCase();
+    
+
+        // Check if sectorId is 6 or if sectorName matches 'safety and emergency - healthcare service' case-insensitively
+        return entity.sectorId === 6 || name === 'safety and emergency - healthcare service';
+
+
+      });
+
+
+      this.police = dest.entities.filter((entity: any) => {
+        if (!entity) return false; // Skip if entity is null or undefined
+    
+        // Normalize sectorName, check case insensitively
+        const name = (normalize(entity.sectorName || '')).toLowerCase();
+    
+        // Check if sectorId is 1 or if sectorName matches 'safety and emergency - police service' case-insensitively
+        return entity.sectorId === 1 || name === 'safety and emergency - police service';
+      });
     });
+     
   }
+  
+
+  
 }

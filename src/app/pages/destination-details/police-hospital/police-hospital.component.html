@@ -26,7 +26,7 @@
 
   <div class="grid grid-cols-1 gap-6 lg:gap-8 xl:gap-10" id="police-services">
     <div
-      *ngFor="let security of destination.safety"
+      *ngFor="let security of police"
       class="relative p-6 lg:p-8 xl:p-10 rounded-2xl bg-white dark:bg-gray-900 
       shadow-lg border-b-1 border-b-blue-500 border border-gray-200 dark:border-gray-700"
     >
@@ -38,48 +38,63 @@
         
         <!-- Image with badge -->
         <div class="relative w-full md:w-48 lg:w-56 xl:w-64 shrink-0">
-          <img
-            [src]="security.image"
-            [alt]="security.name"
-            class="w-full aspect-square object-cover rounded-xl shadow"
-            (error)="imageService.handleImageError($event)"
-          />
+        
+          <ng-container *ngIf="security?.media?.length > 0 && security.media[0]?.mediaUrl; else fallbackIcon">
+            <img
+              [src]="security.media[0].mediaUrl"
+              [alt]="security.name || 'Security Image'"
+              class="w-full aspect-square object-cover rounded-xl shadow"
+              loading="lazy"
+              (error)="imageService.handleImageError($event)"
+            />
+          </ng-container>
+          
+          <ng-template #fallbackIcon>
+            <div class="w-full aspect-square flex items-center justify-center bg-gray-100 rounded-xl shadow">
+              <!-- Police Station SVG Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M4 10v10a1 1 0 001 1h3a1 1 0 001-1V14h6v6a1 1 0 001 1h3a1 1 0 001-1V10M4 10l8-6 8 6" />
+              </svg>
+            </div>
+          </ng-template>
+          
+
           <span
-            *ngIf="security.badge"
+            *ngIf="security?.tagname?.length>0"
             class="absolute top-2 right-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full text-xs font-medium shadow"
-          >
-            {{ security.badge }}
+          >        
+            {{ security.tagname[0].tagname }}
           </span>
         </div>
 
         <!-- Details section -->
         <div class="flex flex-col flex-1">
           <h3 class="text-lg lg:text-xl font-semibold text-primary-700 dark:text-primary-400 mb-2">
-            {{ security.name }}
+              {{ security?.name }}
           </h3>
 
           <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-            {{ security.description }}
+            {{ security?.description }}
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4 text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4">
             <div class="flex items-center gap-2">
               <i class="fas fa-map-marker-alt text-amber-500 dark:text-amber-400"></i>
-              <span>{{ security.distance }} from destination</span>
+              <span>{{ security?.distance }} from destination</span>
             </div>
             <div class="flex items-center gap-2">
               <i class="fas fa-phone text-amber-500 dark:text-amber-400"></i>
-              <span>{{ security.contact }}</span>
+              <span>{{ security.phone }}</span>
             </div>
             <div class="flex items-center gap-2 md:col-span-2">
               <i class="fas fa-location-arrow text-amber-500 dark:text-amber-400"></i>
-              <span>{{ security.address }}</span>
+              <span>{{ security.landmark }}</span>
             </div>
           </div>
 
           <a
-            [href]="security.location.lat && security.location.long ? 'https://www.google.com/maps?q=' + security.location.lat + ',' + security.location.long : '#' + security.id"
-            *ngIf="security.location.lat && security.location.long"
+            [href]="security?.latitude && security?.longitude ? 'https://www.google.com/maps?q=' + security?.latitude + ',' + security?.longitude : '#' + security?.id"
+            *ngIf="security?.latitude && security?.longitude"
             target="_blank"
             rel="noopener noreferrer"
             class="self-start inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2 rounded-md text-sm font-medium shadow transition"
@@ -104,7 +119,7 @@
 
   <div class="grid grid-cols-1 gap-6 lg:gap-8 xl:gap-10">
     <div
-      *ngFor="let medical of destination.healthcare"
+      *ngFor="let medical of hospital"
       class="relative p-6 lg:p-8 xl:p-10 rounded-2xl 
       shadow-lg bg-white dark:bg-gray-900 font-sans 
       border border-gray-100 dark:border-gray-700 border-b-1 border-b-blue-400"
@@ -115,16 +130,18 @@
 
       <div class="grid md:grid-cols-[25%_75%] gap-6 lg:gap-10 xl:gap-12 items-start">
         <div class="relative">
-          <img
-            [src]="medical.image"
-            [alt]="medical.name"
-            class="w-full aspect-square max-h-[180px] md:max-h-[200px] lg:max-h-[220px] xl:max-h-[240px] object-cover rounded-xl shadow-md"
-            (error)="imageService.handleImageError($event)"
-          />
-          <div class="absolute top-3 right-3">
-            <span *ngIf="medical.badge" class="px-2 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium shadow-sm">
-              {{ medical.badge }}
-            </span>
+          <div class="w-full aspect-square max-h-[180px] md:max-h-[200px] lg:max-h-[220px] xl:max-h-[240px] bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+            <img
+              *ngIf="medical?.media?.length > 0 && medical.media[0]?.mediaUrl"
+              [src]="medical.media[0].mediaUrl"
+              [alt]="medical.name"
+              class="w-full h-full object-cover"
+              (error)="imageService.handleImageError($event)"
+              loading="lazy"
+            />
+            <div *ngIf="!medical?.media?.length || !medical.media[0]?.mediaUrl" class="w-full h-full flex items-center justify-center">
+              <i class="fas fa-hospital text-4xl text-gray-400 dark:text-gray-600"></i>
+            </div>
           </div>
         </div>
 
@@ -140,38 +157,24 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 mb-4 text-sm lg:text-base text-gray-600 dark:text-gray-300">
             <div class="flex items-center gap-2">
               <i class="fas fa-map-marker-alt text-red-500 dark:text-red-400 w-5 text-center"></i>
-              <span>{{ medical.distance }} from destination</span>
+              <span>{{ medical.landmark }}</span>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2" *ngIf="medical.phone">
               <i class="fas fa-phone text-red-500 dark:text-red-400 w-5 text-center"></i>
-              <span>{{ medical.contact }}</span>
-            </div>
-            <div class="flex items-center gap-2 md:col-span-2">
-              <i class="fas fa-location-arrow text-red-500 dark:text-red-400 w-5 text-center"></i>
-              <span>{{ medical.address }}</span>
+              <span>{{ medical.phone }}</span>
             </div>
           </div>
 
-          <a
-            [href]="medical.location.lat && medical.location.long ? 'https://www.google.com/maps?q=' + medical.location.lat + ',' + medical.location.long : '#' + medical.id"
-            *ngIf="medical.location.lat && medical.location.long"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="self-start inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-5 py-2 rounded-md text-sm font-medium shadow transition"
-          >
-            <i class="fas fa-map-marker-alt text-sm"></i>
-            Locate Emergency Facility
-          </a>
-
-
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span *ngFor="let tag of medical.tags" class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium">
+              {{ tag }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
 
 
 
