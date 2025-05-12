@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  AfterViewInit,
   OnDestroy,
   inject,
 } from '@angular/core';
@@ -13,6 +12,23 @@ import {
 import { ApiService } from '../../../services/api.service';
 import { ImageService } from '../../../services/image.service';
 
+//for production
+//import { environment } from '../../../../environments/environment.prod';
+//for development
+import { environment } from '../../../../environments/environment';
+
+interface Official {
+  name: string;
+  designation: string;
+  fullMessage: string;
+  media: [
+    {
+      mediaurl: string;
+    }
+  ];
+}
+
+
 @Component({
   selector: 'app-home-minister-profile',
   standalone: true,
@@ -20,59 +36,24 @@ import { ImageService } from '../../../services/image.service';
   templateUrl: './home-minister-profile.component.html',
   styleUrl: './home-minister-profile.component.css',
 })
-export class HomeMinisterProfileComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
 
   imageService = inject(ImageService);
   selectedMinister: any = null;
   showModal: boolean = false;
+  baseUrl = environment.apiBaseUrl.replace('/api', '');
 
-  ministers: any = [
-    {
-      name: 'Shri Tshering Thendup Bhutia',
-      designation: 'Hon\'ble Minister',
-      fullMessage: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity. We believe in sustainable tourism that benefits both visitors and local communities. Our digital initiatives are designed to provide authentic experiences while maintaining the ecological balance of our beautiful state.",
-      image: 'assets/Images/officials/tshering-thendup.jpg'
-    },
-    {
-      name: 'Shri Sudesh Kumar Subba',
-      designation: 'Advisor, Tourism Department',
-      fullMessage: "The QR-based destination platform is a forward-thinking approach to promoting tourism while staying aligned with Sikkim's core values—sustainability, inclusivity, and accessibility. Our goal is to create a seamless experience for tourists while ensuring that our natural resources and cultural heritage are preserved for future generations. This platform represents our commitment to responsible tourism.",
-      image: 'assets/Images/officials/sudeshkumarsubba.jpg'
-    },
-    {
-      name: 'C.Subhakar Rao, IFS',
-      designation: 'Additional Cheif Secretary',
-      fullMessage: "This digital tourism system showcases the diversity of Sikkim in the most efficient way. It supports travelers with vital destination insights while preserving our cultural identity. We are committed to leveraging technology to enhance the visitor experience while maintaining the authenticity of Sikkim's unique cultural and natural heritage.",
-      image: 'assets/Images/officials/cs-rao-min.png'
-    },
-    {
-      name: 'Shri Prakash Chettri',
-      designation: "Secretary, Tourism Department",
-      fullMessage: "This QR-enabled tourism platform marks a step forward in transforming how visitors experience Sikkim. It reflects our dedication to promoting smart, sustainable, and inclusive travel for everyone.",
-      image: 'assets/Images/officials/prakash-chettri.png'      
-    },
-  ];
+  ministers: Official[] = [];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    // Commented out API call , make this uncommented to fetch testimonials from API
-    //this.getTestimonials();
+    
+    this.getTestimonials();
+
   }
 
-  ngAfterViewInit() {
-    // Initialize carousel with static data
-    setTimeout(() => {
-      initializeOwlCarousel(
-        '.minister-carousel',
-        true,
-        true,
-        0,
-        false,
-        [1, 2, 3]
-      );
-    }, 1000);
-  }
+
 
   ngOnDestroy() {
     destroyOwlInstance('.minister-carousel');
@@ -94,8 +75,19 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy, AfterVie
   getTestimonials() {
     this.apiService.get('LandingPage/GetAllTestimonials').subscribe({
       next: (response: any) => {
-        this.ministers = response;
+        if(response.data.length>0){
 
+
+        this.ministers = response.data.map((min: any) => ({
+          ...min,
+          name:min.name,
+          designation:min.designation,
+          fullMessage:min.description,
+          media:min.media
+        }));
+
+
+      
         setTimeout(() => {
           initializeOwlCarousel(
             '.minister-carousel',
@@ -106,6 +98,7 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy, AfterVie
             [1, 2, 3]
           );
         }, 200);
+        }
       },
       error: (error: any) => {
         console.error('Error fetching testimonials:', error);

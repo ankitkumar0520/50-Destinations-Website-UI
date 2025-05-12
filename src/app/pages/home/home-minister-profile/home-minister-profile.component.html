@@ -16,8 +16,8 @@
             class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-white/70 shadow-xl ring-2 ring-primary-400/40 dark:ring-primary-300/30 transition-transform hover:scale-105 duration-300 mb-4"
           >
             <img
-              [src]="minister.image"
-              [alt]="minister.name"
+              [src]="baseUrl+minister.media[0].mediaurl"
+              [alt]="minister?.name || 'Minister profile'"
               class="w-full h-full object-cover object-top"
               (error)="imageService.handleImageError($event)"
               loading="lazy"
@@ -26,15 +26,15 @@
 
           <!-- Minister Details -->
           <div class="text-center max-w-md">
-            <h3 class="text-lg font-semibold mb-1">{{ minister.name }}</h3>
-            <p class="text-sm text-white/80 mb-3">{{ minister.designation }}</p>
+            <h3 class="text-lg font-semibold mb-1">{{ minister?.name }}</h3>
+            <p class="text-sm text-white/80 mb-3">{{ minister?.designation }}</p>
             <p class="text-sm italic text-white/90 line-clamp-4 leading-relaxed">
-              "{{ minister.fullMessage }}"
+              "{{ minister?.fullMessage }}"
              
             </p>
             <button 
             class="cursor-pointer text-xs read-more-btn text-primary-400 hover:text-primary-300 transition-colors"
-            [attr.data-id]="minister.name"
+            [attr.data-id]="minister?.name"
           >
             ..Read More
           </button>
