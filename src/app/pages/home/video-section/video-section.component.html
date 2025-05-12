@@ -15,7 +15,7 @@
 
       <div class="relative w-full aspect-video sm:aspect-auto rounded-xl overflow-hidden bg-black shadow-md">
         <!-- Banner/Thumbnail -->
-        <div *ngIf="!isVideoLoaded" class="absolute inset-0">
+        <div *ngIf="showBanner" class="absolute inset-0">
           <img [src]="thumbnailUrl" 
                alt="Video Thumbnail" 
                class="w-full h-full object-cover"
@@ -24,7 +24,7 @@
           <!-- Play Button Overlay -->
           <div class="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-all duration-300">
             <button 
-              (click)="loadVideo()" 
+              (click)="showBanner = false" 
               class="cursor-pointer group">
               <div class="relative">
                 <!-- Outer Circle -->
@@ -42,19 +42,24 @@
           </div>
         </div>
 
-        <!-- Video Player -->
-        <ng-container *ngIf="isVideoLoaded">
-          <iframe 
-            class="absolute top-0 left-0 w-full h-full"
-            [src]="safeVideoUrl"
-            frameborder="0"
-            loading="lazy"
-            preload="metadata"
-            controls
-            allowfullscreen
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-          </iframe>
-        </ng-container>
+                <!-- Loader while video is loading -->
+          <div *ngIf="!isVideoLoaded && !showBanner" class="absolute top-0 left-0 w-full h-full bg-white z-10 flex items-center justify-center">
+            <div class="loader"></div> <!-- Customize this with your own spinner or text -->
+          </div>
+
+          <!-- Video Player -->
+          <ng-container *ngIf="!showBanner">
+            <iframe
+              class="absolute top-0 left-0 w-full h-full z-0"
+              [src]="safeVideoUrl"
+              frameborder="0"
+              loading="lazy"
+              (load)="onVideoLoad()"
+              allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+          </ng-container>
+
       </div>
       
       
