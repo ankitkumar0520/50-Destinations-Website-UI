@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef , OnInit} from '@angular/core';
+import { Component, inject, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
@@ -22,8 +22,7 @@ import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils'
     ])
   ]
 })
-
-export class AccomodationEateryComponent implements OnDestroy , OnInit {
+export class AccomodationEateryComponent implements OnDestroy, OnInit {
   selectedHotel: any = null;
   selectedEatery: any = null;
   isHotelModalOpen = false;
@@ -36,42 +35,126 @@ export class AccomodationEateryComponent implements OnDestroy , OnInit {
   private carouselsInitialized = false;
 
   private destinationService = inject(DestinationService);
-  destination :any;
+  accomodation: any[] = [];
+  eatery: any[] = [];
+  
   imageService = inject(ImageService);
   private cdr = inject(ChangeDetectorRef);
 
   constructor() {}
   
   ngOnInit(): void {
-    this.destinationService.destination$.subscribe(dest => {
-      if (dest) {
-        this.destination = dest;
+    const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, ' ').trim();
+
+    console.log('Starting subscription to destination$');
+    
+    this.destinationService.destination$.subscribe({
+      next: (dest) => {
+        console.log('Received destination data:', dest);
+        
+        if (!dest || !dest.entities) {
+          console.warn('No destination data available');
+          return;
+        }
+
+        console.log('Total entities:', dest.entities.length);
+
+        // Filter accommodation
+      this.accomodation = dest.entities.filter((entity: any) => {
+          if (!entity) return false;
+        const name = (normalize(entity.sectorName || '')).toLowerCase();
+          const isMatch = entity.sectorId === 5 || name === 'accommodation & eatery';
+          console.log('Checking entity:', entity.sectorName, 'isMatch:', isMatch);
+          return isMatch;
+        });
+
+        console.log('Filtered accommodation:', this.accomodation);
+
+        // Filter eatery
+      this.eatery = dest.entities.filter((entity: any) => {
+          if (!entity) return false;
+        const name = (normalize(entity.sectorName || '')).toLowerCase();
+          const isMatch = entity.sectorId === 7 || name === 'eatery';
+          console.log('Checking entity:', entity.sectorName, 'isMatch:', isMatch);
+          return isMatch;
+        });
+
+        console.log('Filtered eatery:', this.eatery);
+
+        // Force change detection
+        this.cdr.detectChanges();
+
+        // Initialize carousel after data is loaded and DOM is updated
+        if (this.accomodation.length > 0 || this.eatery.length > 0) {
+          console.log('Initializing carousel with data');
+          // Use setTimeout to ensure DOM is updated
+       setTimeout(() => {
         this.initCarousel();
+          }, 0);
+        } else {
+          console.log('No data to initialize carousel');
+        }
+      },
+      error: (error) => {
+        console.error('Error in destination subscription:', error);
       }
     });
   }
   
   initCarousel(): void {
-    // Initialize carousels
-    setTimeout(() => {   
-      if (!this.carouselsInitialized) {
-        this.hotelCarouselInstance = initializeOwlCarousel('.hotels-carousel', false, true, 16, false, 
-          [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
-          true);
-        
-            this.eateryCarouselInstance = initializeOwlCarousel('.eateries-carousel', false, true, 16, false, 
-              [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
-              true);
-        // Add event listeners for both carousels
+    if (this.carouselsInitialized) {
+      console.log('Carousels already initialized');
+      return;
+    }
+
+    try {
+      // Destroy any existing instances first
+      if (this.hotelCarouselInstance) {
+        destroyOwlInstance('.hotels-carousel');
+      }
+      if (this.eateryCarouselInstance) {
+        destroyOwlInstance('.eateries-carousel');
+      }
+
+      console.log('Initializing hotel carousel');
+      if (this.accomodation.length > 0) {
+        this.hotelCarouselInstance = initializeOwlCarousel(
+          '.hotels-carousel',
+          false,
+          true,
+          16,
+          false,
+          [1, 2, 3],
+          true
+        );
+      }
+
+      console.log('Initializing eatery carousel');
+      if (this.eatery.length > 0) {
+        this.eateryCarouselInstance = initializeOwlCarousel(
+          '.eateries-carousel',
+          false,
+          true,
+          16,
+          false,
+          [1, 2, 3],
+          true
+        );
+      }
+
         this.setupCarouselEventListeners();
         this.carouselsInitialized = true;
+      console.log('Carousels initialized successfully');
+    } catch (error) {
+      console.error('Error initializing carousels:', error);
       }
-    }, 300);
   }
 
   private setupCarouselEventListeners() {
+    try {
     // Hotel carousel event listener
-    const hotelCarouselElement = this.hotelsCarousel.nativeElement;
+      const hotelCarouselElement = this.hotelsCarousel?.nativeElement;
+      if (hotelCarouselElement) {
     hotelCarouselElement.addEventListener('click', (event: MouseEvent) => {
       const target = event.target as HTMLElement;
       const button = target.closest('button');
@@ -80,15 +163,17 @@ export class AccomodationEateryComponent implements OnDestroy , OnInit {
         const item = button.closest('.item');
         if (item) {
           const index = Array.from(item.parentElement!.children).indexOf(item);
-          const originalIndex = index % this.destination.accommodations.length;
-          const originalHotel = this.destination.accommodations[originalIndex];
+          const originalIndex = index % this.accomodation.length;
+          const originalHotel = this.accomodation[originalIndex];
           this.openHotelModal(originalHotel);
         }
       }
     });
+      }
 
     // Eatery carousel event listener
-    const eateryCarouselElement = this.eateriesCarousel.nativeElement;
+      const eateryCarouselElement = this.eateriesCarousel?.nativeElement;
+      if (eateryCarouselElement) {
     eateryCarouselElement.addEventListener('click', (event: MouseEvent) => {
       const target = event.target as HTMLElement;
       const button = target.closest('button');
@@ -97,16 +182,20 @@ export class AccomodationEateryComponent implements OnDestroy , OnInit {
         const item = button.closest('.item');
         if (item) {
           const index = Array.from(item.parentElement!.children).indexOf(item);
-          const originalIndex = index % this.destination.eateries.length;
-          const originalEatery = this.destination.eateries[originalIndex];
+          const originalIndex = index % this.eatery.length;
+          const originalEatery = this.eatery[originalIndex];
           this.openEateryModal(originalEatery);
         }
       }
     });
+      }
+    } catch (error) {
+      console.error('Error setting up carousel event listeners:', error);
+    }
   }
   
   openHotelModal(hotel: any) {
-    const originalHotel = this.destination.accommodations.find((h: { id: number }) => h.id === hotel.id) || hotel;
+    const originalHotel = this.accomodation.find((h: { id: number }) => h.id === hotel.id) || hotel;
     this.selectedHotel = originalHotel;
     this.isHotelModalOpen = true;
     document.body.style.overflow = 'hidden';
@@ -121,7 +210,7 @@ export class AccomodationEateryComponent implements OnDestroy , OnInit {
   }
 
   openEateryModal(eatery: any) {
-    const originalEatery = this.destination.eateries.find((e: { id: number }) => e.id === eatery.id) || eatery;
+    const originalEatery = this.eatery.find((e: { id: number }) => e.id === eatery.id) || eatery;
     this.selectedEatery = originalEatery;
     this.isEateryModalOpen = true;
     document.body.style.overflow = 'hidden';
