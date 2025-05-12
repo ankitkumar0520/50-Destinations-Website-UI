@@ -68,7 +68,7 @@
           <!-- Minister Image -->
           <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-primary-400 dark:border-primary-300 shadow-lg transition-transform hover:scale-105 duration-300">
             <img
-              [src]="selectedMinister?.image"
+              [src]="baseUrl+selectedMinister?.media[0]?.mediaurl"
               [alt]="selectedMinister?.name"
               class="w-full h-full object-cover object-top"
               (error)="imageService.handleImageError($event)"
