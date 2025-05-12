@@ -67,7 +67,7 @@
               class="w-full h-36 relative flex-shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-700"
             >
               <img
-                [src]="result.media[0].mediaurl"
+                [src]="baseUrl+result.media[0].mediaurl"
                 [alt]="result.destinationname"
                 class="w-full h-full object-cover"
                 (error)="imageService.handleImageError($event)"

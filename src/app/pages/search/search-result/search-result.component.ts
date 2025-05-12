@@ -16,9 +16,9 @@ import { QRCodeComponent } from 'angularx-qrcode';
 import { ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { ImageService } from '../../../services/image.service';
 import { shareQRCode } from '../../../utils/utils';
-import { DestinationService } from '../../../services/destination.service';
 import { ApiService } from '../../../services/api.service'; 
 import { finalize } from 'rxjs';
+import { environment } from '../../../../environments/environment.prod';
 
 interface Tag {
   tagname: string;
@@ -44,11 +44,10 @@ interface SearchResult {
 export class SearchResultComponent implements OnInit, OnDestroy {
 
   private searchService = inject(SearchService);
-  private destinationService = inject(DestinationService);
   private router = inject(Router);
   imageService = inject(ImageService);
   private apiService = inject(ApiService);
-
+  baseUrl = environment.apiBaseUrl.replace('/api', '');
   @ViewChildren('qrCanvas') qrCanvases!: QueryList<ElementRef>;
 
   private platformId = inject(PLATFORM_ID);

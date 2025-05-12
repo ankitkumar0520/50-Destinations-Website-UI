@@ -5,8 +5,8 @@ import { SectionHeaderComponent } from '../../../common/section-header/section-h
 import { getGradientClasses, shareQRCode, downloadQRCode } from '../../../utils/utils';
 import { ApiService } from '../../../services/api.service';
 import { ImageService } from '../../../services/image.service';
-import { SlugifyPipe } from "../../../pipes/slugify.pipe";
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment.prod';
 
 export interface Destination {
   destinationname: string;
@@ -31,7 +31,7 @@ export interface Destination {
 @Component({
   selector: 'app-home-gallery-section',
   standalone: true,
-  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent, SlugifyPipe, RouterModule],
+  imports: [CommonModule, QRCodeComponent, SectionHeaderComponent, RouterModule],
   templateUrl: './home-gallery-section.component.html',
   styleUrl: './home-gallery-section.component.css',
 })
@@ -41,7 +41,7 @@ export class HomeGallerySectionComponent implements OnInit {
   shareUrl: string = '';
   imageService = inject(ImageService);
   apiService = inject(ApiService);
-
+  baseUrl = environment.apiBaseUrl.replace('/api', '');
   destinations: Destination[] = [];
 
   
@@ -68,8 +68,8 @@ export class HomeGallerySectionComponent implements OnInit {
     const url = `${this.shareUrl}/destination/${destination.slug}`;
     shareQRCode(
       url,
-      `Explore ${destination.name}`,
-      `Check out ${destination.name} in Sikkim!`
+      `Explore ${destination.destinationname}`,
+      `Check out ${destination.destinationname} in Sikkim!`
     );
   }
 

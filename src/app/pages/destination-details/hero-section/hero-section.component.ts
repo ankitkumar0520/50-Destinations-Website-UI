@@ -3,7 +3,7 @@ import { Component, inject, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DestinationService } from '../../../services/destination.service';
 import { QRCodeComponent } from 'angularx-qrcode';
-import { shareQRCode, downloadQRCode, slugify } from '../../../utils/utils';
+import { shareQRCode, downloadQRCode } from '../../../utils/utils';
 import { VoiceModelService } from '../../../services/voice-model.service';
 import { ImageService } from '../../../services/image.service';
 import { environment } from '../../../../environments/environment.prod';
@@ -62,11 +62,11 @@ export class HeroSectionComponent implements OnInit {
   }
 
   shareQR(): void {
-    const url = `${this.shareUrl}/destination/${slugify(this.destination.slug)}`;
+    const url = `${this.shareUrl}/destination/${this.destination.slug}`;
     shareQRCode(
       url,
-      `Explore ${this.destination.name}`,
-      `Check out ${this.destination.name} in Sikkim!`
+      `Explore ${this.destination.destinationname}`,
+      `Check out ${this.destination.destinationname} in Sikkim!`
     );
   }
 

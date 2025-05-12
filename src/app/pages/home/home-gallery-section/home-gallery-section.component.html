@@ -59,7 +59,7 @@
                       class="h-64 md:h-full md:w-2/5 relative overflow-hidden"
                     >
                       <img
-                        [src]="dest.media[0].mediaurl"
+                        [src]="baseUrl+dest.media[0].mediaurl"
                         [alt]="dest.destinationname"
                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                         (error)="imageService.handleImageError($event)"
@@ -92,7 +92,7 @@
                           </h3>
                           <!-- Explore Button - Compact Icon Text Version -->
                           <a 
-                            [routerLink]="['/destination', dest.destinationname | slugify]"
+                            [routerLink]="['/destination', dest.slug]"
 
                             class="bg-blue-100 cursor-pointer py-1.5 px-3 rounded-lg text-gray-500 hover:text-primary font-semibold transition-colors duration-300 flex items-center justify-center gap-2 group text-xs"
                           >
