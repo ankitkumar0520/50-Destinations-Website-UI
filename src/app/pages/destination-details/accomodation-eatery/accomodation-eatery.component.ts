@@ -5,6 +5,7 @@ import { SectionHeaderComponent } from '../../../common/section-header/section-h
 import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
 import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-accomodation-eatery',
@@ -37,7 +38,7 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
   private destinationService = inject(DestinationService);
   accomodation: any[] = [];
   eatery: any[] = [];
-  
+  baseUrl = environment.apiBaseUrl.replace('/api', '');
   imageService = inject(ImageService);
   private cdr = inject(ChangeDetectorRef);
 

@@ -7,7 +7,7 @@
       [badgeText]="'Location Map'"
       [titleLeft]="'How to'"
       [titleMiddleHighlighted]="'Reach'"
-      [description]="'Find the exact location of ' + destination?.destinationname + ' on the interactive map below.'"
+      [description]="'Find the exact location of ' + (destination?.destinationname || fallback.name) + ' on the interactive map below.'"
       [features]="[
         { icon: 'fas fa-map-marker-alt', text: 'Interactive Map' }
       ]"
@@ -22,7 +22,7 @@
           <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">By Air</h3>
         </div>
         <p class="text-gray-600 dark:text-gray-300 text-sm">
-          {{ destination?.transportationbyairdescription }}
+          {{ destination?.transportationbyairdescription || fallback.transportationbyairdescription }}
         </p>
       </div>
 
@@ -32,7 +32,7 @@
           <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">By Train</h3>
         </div>
         <p class="text-gray-600 dark:text-gray-300 text-sm">
-          {{ destination?.transportationbytraindescription }}
+          {{ destination?.transportationbytraindescription || fallback.transportationbytraindescription }}
         </p>
       </div>
 
@@ -42,7 +42,7 @@
           <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">By Road</h3>
         </div>
         <p class="text-gray-600 dark:text-gray-300 text-sm">
-          {{ destination?.transportationbyroaddescription }}
+          {{ destination?.transportationbyroaddescription || fallback.transportationbyroaddescription }}
         </p>
       </div>
     </div>

@@ -1,4 +1,4 @@
-<section
+<section *ngIf="accomodation.length>0 || eatery.length>0"
   class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
   id="accommodation-eatery-section"
 >
@@ -19,7 +19,7 @@
     </app-section-header>
 
     <!-- ACCOMMODATIONS SECTION -->
-    <div class="py-4">
+    <div *ngIf="accomodation.length>0" class="py-4">
       <h2 class=" text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6
        flex items-center gap-3 mt-2">
         <span class="flex items-center justify-center bg-primary-600 rounded-full w-9 h-9 text-white">
@@ -37,8 +37,8 @@
               <div class="relative h-44 overflow-hidden">
                 <ng-container *ngIf="hotel?.media?.length > 0 && hotel.media[0]?.mediaUrl; else hotelFallback">
                   <img
-                    [src]="hotel.media[0].mediaUrl"
-                    [alt]="hotel.name"
+                    [src]="baseUrl+hotel?.media[0].mediaUrl"
+                    [alt]="hotel?.name"
                     class="w-full h-full object-cover"
                     (error)="imageService.handleImageError($event)"
                     loading="lazy"
@@ -71,7 +71,8 @@
                 <!-- Action Button -->
                 <button
                   (click)="openHotelModal(hotel)"
-                  class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md transition flex items-center justify-center gap-2 mt-auto"
+                  class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md]
+                   transition flex items-center justify-center gap-2 mt-auto"
                 >
                   <i class="fas fa-info-circle text-xs"></i>
                   View Details
@@ -80,14 +81,13 @@
             </div>
           </div>
         </ng-container>
-        <div *ngIf="!accomodation || accomodation.length === 0" class="text-center py-8">
-          <p class="text-gray-500">No accommodation data available</p>
-        </div>
+
+       
       </div>
     </div>
 
     <!-- EATERIES SECTION -->
-    <div class="py-4" id="eateries">
+    <div *ngIf="eatery.length>0" class="py-4" id="eateries">
       <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3 mt-4">
         <span class="flex items-center justify-center bg-primary-600 rounded-full w-9 h-9 text-white">
           <i class="fas fa-utensils text-base"></i>
@@ -104,7 +104,7 @@
               <div class="relative h-44 overflow-hidden">
                 <ng-container *ngIf="eatery?.media?.length > 0 && eatery.media[0]?.mediaUrl; else eateryFallback">
                   <img
-                    [src]="eatery.media[0].mediaUrl"
+                    [src]="baseUrl+eatery?.media[0].mediaUrl"
                     [alt]="eatery.name"
                     class="w-full h-full object-cover"
                     (error)="imageService.handleImageError($event)"
@@ -147,9 +147,7 @@
             </div>
           </div>
         </ng-container>
-        <div *ngIf="!eatery || eatery.length === 0" class="text-center py-8">
-          <p class="text-gray-500">No eatery data available</p>
-        </div>
+       
       </div>
     </div>
   </div>
@@ -168,7 +166,7 @@
       <div class="relative">
         <!-- Hotel image as background -->
         <div class="absolute inset-0 z-0">
-          <img loading="lazy" [src]="selectedHotel?.media[0]?.mediaUrl" [alt]="selectedHotel?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
+          <img loading="lazy" [src]="baseUrl+selectedHotel?.media[0]?.mediaUrl" [alt]="selectedHotel?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
           <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
         </div>
         
@@ -239,7 +237,7 @@
       <div class="relative">
         <!-- Eatery image as background -->
         <div class="absolute inset-0 z-0">
-          <img loading="lazy" [src]="selectedEatery?.media[0]?.mediaUrl" [alt]="selectedEatery?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
+          <img loading="lazy" [src]="baseUrl+selectedEatery?.media[0]?.mediaUrl" [alt]="selectedEatery?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
           <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
         </div>
         

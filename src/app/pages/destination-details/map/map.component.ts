@@ -31,6 +31,14 @@ export class MapComponent implements OnInit {
 
   private destinationService = inject(DestinationService);
   destination :any;
+  fallback={
+    name: 'Sikkim',
+    latitude: 27.3516,
+    longitude: 88.3239,
+    transportationbyairdescription: 'The nearest airport to Sikkim is Bagdogra Airport in West Bengal, located around 125 kilometers from Gangtok. It is well connected to major cities like Delhi, Kolkata, and Guwahati. From Bagdogra, you can hire a taxi or take a shared cab to reach Gangtok, which usually takes about 4 to 5 hours. There is also a smaller airport at Pakyong, about 30 kilometers from Gangtok, which occasionally operates flights depending on weather and availability.',
+    transportationbytraindescription: 'The closest major railway station to Sikkim is New Jalpaiguri (NJP), located near Siliguri in West Bengal. NJP is a well-connected railhead that links to most major cities across India. After arriving at NJP, travelers typically continue their journey to Gangtok by road using taxis, shared jeeps, or buses, which takes around 4 to 5 hours.',
+    transportationbyroaddescription: 'Sikkim is well accessible by road from nearby towns and cities in West Bengal like Siliguri, Darjeeling, and Kalimpong. The journey to Gangtok, the capital of Sikkim, is scenic and popular among travelers. Regular private taxis, shared jeeps, and Sikkim Nationalised Transport (SNT) buses operate between Siliguri/NJP and Gangtok, making road travel a convenient and flexible option.'
+  }
 
 
   mapLayers = [
@@ -100,8 +108,8 @@ export class MapComponent implements OnInit {
 
   initializeMap() {
     if (isPlatformBrowser(this.platformId)) {
-      const lat = parseFloat(this.destination?.latitude ?? '');
-      const lng = parseFloat(this.destination?.longitude ?? '');
+      const lat = parseFloat(this.destination?.latitude ?? this.fallback.latitude);
+      const lng = parseFloat(this.destination?.longitude ?? this.fallback.longitude);
       const isDataValid = 
         this.destination &&
         !isNaN(lat) && Number.isFinite(lat) &&
@@ -161,7 +169,7 @@ export class MapComponent implements OnInit {
   
     const popupContent = `
       <div>
-        <p style="margin: 0; font-size: 14px;">${this.destination?.destinationname}</p>
+          <p style="margin: 0; font-size: 14px;">${this.destination?.destinationname || this.fallback.name}</p>
       </div>
     `;
 

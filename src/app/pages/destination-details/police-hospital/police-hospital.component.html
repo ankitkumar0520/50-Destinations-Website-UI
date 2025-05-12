@@ -1,4 +1,4 @@
-<section
+<section *ngIf="police.length>0 || hospital.length>0"
   class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
   id="safety-emergency-section"
 >
@@ -16,7 +16,7 @@
 
     <div class="w-full h-full flex flex-col gap-8 mt-8">
 <!-- Police Services Section -->
-<div>
+<div *ngIf="police.length>0">
   <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3">
     <span class="flex items-center justify-center bg-amber-500 rounded-full w-9 h-9 text-white">
       <i class="fas fa-shield-alt text-base"></i>
@@ -84,11 +84,11 @@
             </div>
             <div class="flex items-center gap-2">
               <i class="fas fa-phone text-amber-500 dark:text-amber-400"></i>
-              <span>{{ security.phone }}</span>
+              <span>{{ security?.phone }}</span>
             </div>
             <div class="flex items-center gap-2 md:col-span-2">
               <i class="fas fa-location-arrow text-amber-500 dark:text-amber-400"></i>
-              <span>{{ security.landmark }}</span>
+              <span>{{ security?.landmark }}</span>
             </div>
           </div>
 
@@ -109,7 +109,7 @@
 </div>
 
 <!-- Healthcare Services Section -->
-<div class="mt-8" id="hospital-services">
+<div *ngIf="hospital.length>0" class="mt-8" id="hospital-services">
   <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3">
     <span class="flex items-center justify-center bg-red-500 rounded-full w-9 h-9 text-white">
       <i class="fas fa-heartbeat text-base"></i>
@@ -147,21 +147,21 @@
 
         <div class="flex flex-col">
           <h3 class="text-lg lg:text-xl font-bold text-primary-700 dark:text-primary-400 mb-2">
-            {{ medical.name }}
+            {{ medical?.name }}
           </h3>
 
           <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-            {{ medical.description }}
+            {{ medical?.description }}
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 mb-4 text-sm lg:text-base text-gray-600 dark:text-gray-300">
             <div class="flex items-center gap-2">
               <i class="fas fa-map-marker-alt text-red-500 dark:text-red-400 w-5 text-center"></i>
-              <span>{{ medical.landmark }}</span>
+              <span>{{ medical?.landmark }}</span>
             </div>
-            <div class="flex items-center gap-2" *ngIf="medical.phone">
+            <div class="flex items-center gap-2" *ngIf="medical?.phone">
               <i class="fas fa-phone text-red-500 dark:text-red-400 w-5 text-center"></i>
-              <span>{{ medical.phone }}</span>
+              <span>{{ medical?.phone }}</span>
             </div>
           </div>
 

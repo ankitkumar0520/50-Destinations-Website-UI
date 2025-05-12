@@ -24,7 +24,7 @@ export class GalleryDescriptionComponent implements OnInit, AfterViewInit, OnDes
 
   // Calculate image count from destination data
   get imageCount(): number {
-    return this.destination?.galleryImages?.length || 0;
+    return this.destination?.media?.length || 0;
   }
 
   constructor() {

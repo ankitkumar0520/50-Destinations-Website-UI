@@ -270,14 +270,17 @@
     <div class="text-white max-w-4xl flex flex-row relative z-10">
       <div>                    
         <div class="py-8">
-          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-4 sm:mb-6">
-            <h1 class="text-white text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-wide capitalize leading-snug drop-shadow-xl relative">
-              <span class="whitespace-nowrap bg-gradient-to-r from-primary-600 via-secondary-700 to-accent-500 dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400 bg-clip-text text-transparent font-boldanimate-gradient-move">
+
+          <div class="bg-white/5 dark:bg-white/10 backdrop-blur-md text-center p-2 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-4 sm:mb-6 shadow-md dark:shadow-lg">
+            <h1 class="text-gray-900 dark:text-white text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-wide capitalize leading-snug drop-shadow-xl relative">
+              <span class="whitespace-nowrap bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400 bg-clip-text text-transparent font-bold animate-gradient-move">
                 {{ destination?.destinationname }}
               </span>
               <div class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary-400/80 to-transparent rounded-full"></div>
             </h1>
           </div>
+          
+          
           
           <p class="text-sm sm:text-base line-clamp-3 lg:text-lg leading-relaxed sm:mb-4 text-white dark:text-gray-200/90 max-w-2xl p-4 rounded-xl">
             {{destination?.description}}
