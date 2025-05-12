@@ -1,6 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-  AfterViewInit,
   Component,
   Inject,
   PLATFORM_ID,
@@ -21,7 +20,7 @@ let L: any;
   standalone: true,
   imports: [CommonModule, SectionHeaderComponent],
 })
-export class MapComponent implements AfterViewInit, OnInit {
+export class MapComponent implements OnInit {
   @ViewChild('mapContainer') mapContainer!: ElementRef;
   private map: L.Map | undefined;
   currentLayer: string = 'OpenStreetMap';
@@ -32,7 +31,7 @@ export class MapComponent implements AfterViewInit, OnInit {
 
   private destinationService = inject(DestinationService);
   destination :any;
-  travelInfo :any;
+
 
   mapLayers = [
     {
@@ -59,14 +58,15 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.destinationService.destination$.subscribe(dest => {
       if (dest) {
         this.destination = dest;
-        this.travelInfo = dest.travelInfo;
+     
+        this.initializeMap();
       }
     });
   }
 
   openGoogleMaps(): void {
-    const lat = parseFloat(this.travelInfo?.latitude ?? '');
-    const lng = parseFloat(this.travelInfo?.longitude ?? '');
+    const lat = parseFloat(this.destination?.latitude ?? '');
+    const lng = parseFloat(this.destination?.longitude ?? '');
     if (!isNaN(lat) && !isNaN(lng)) {
       window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank');
     }
@@ -96,13 +96,12 @@ export class MapComponent implements AfterViewInit, OnInit {
     }, 500);
   }
 
-  ngAfterViewInit(): void {
+  initializeMap() {
     if (isPlatformBrowser(this.platformId)) {
-      const lat = parseFloat(this.travelInfo?.latitude ?? '');
-      const lng = parseFloat(this.travelInfo?.longitude ?? '');
+      const lat = parseFloat(this.destination?.latitude ?? '');
+      const lng = parseFloat(this.destination?.longitude ?? '');
       const isDataValid = 
         this.destination &&
-        this.travelInfo &&
         !isNaN(lat) && Number.isFinite(lat) &&
         !isNaN(lng) && Number.isFinite(lng);
   
@@ -125,7 +124,6 @@ export class MapComponent implements AfterViewInit, OnInit {
           'MapComponent: Map initialization skipped due to invalid or missing data.',
           { 
             destinationExists: !!this.destination,
-            travelInfoExists: !!this.travelInfo,
             latitude: lat,
             longitude: lng,
             isLatFinite: Number.isFinite(lat),
@@ -164,7 +162,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   
     const popupContent = `
       <div>
-        <p style="margin: 0; font-size: 14px;">${this.destination.name}</p>
+        <p style="margin: 0; font-size: 14px;">${this.destination?.destinationname}</p>
       </div>
     `;
 
