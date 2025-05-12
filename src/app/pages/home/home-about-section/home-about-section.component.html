@@ -39,21 +39,21 @@
           >
             Explore Categories
           </h3>
-          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-x-4 gap-y-2 md:gap-x-2 md:gap-y-2 ">
+          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-x-4 gap-y-2 md:gap-x-1 md:gap-y-2 ">
             
             <div
-            *ngFor="let option of experienceOptions; let i=index">
+            *ngFor="let option of experienceOptions | slice:0:10; ">
 
-            <div *ngIf="i<8" 
+            <div 
              
-              (click)="setFilter(option.id)"
+              (click)="setFilter(option.experienceid)"
               class="flex cursor-pointer items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:bg-primary-50 dark:hover:bg-primary-900/20 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-700"
             >
               <i
                 class="fa-solid fa-map-location-dot text-primary-600 dark:text-primary-300"
               ></i>
               <span class="text-sm font-medium line-clamp-1 text-gray-700 dark:text-gray-300">
-                <span>{{ (option?.value ?? '').split(' ')[0] }}</span>
+                <span>{{ (option?.experiencename ?? '').split(' ')[0] }}</span>
               </span>
               
             </div>

@@ -29,13 +29,13 @@ export class HomeAboutSectionComponent implements OnInit {
   };
   
 
-  experienceOptions=EXPERIENCE_OPTIONS;
+  experienceOptions:any[]=[];
 
   glanceCounts: any[] = [
-    { number: 6, label: 'Districts' },
-    { number: 50, label: 'Destinations' },
-    { number: 15, label: 'Experience Types' },
-    { number: 4, label: 'Seasons' }
+    { number: 0, label: 'Districts' },
+    { number: 0, label: 'Destinations' },
+    { number: 0, label: 'Experience Types' },
+    { number: 0, label: 'Seasons' }
   ];
 
   displayedCounts: number[] = [0, 0, 0, 0]; // For animation
@@ -52,20 +52,17 @@ export class HomeAboutSectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Start animation with static data
-    if (this.isBrowser) {
-      this.startCountAnimation();
-    }
+
     // Commented out API calls
-    //this.getGlanceCounts();
-    // this.getDestinationCategories();
+    this.getGlanceCounts();
+     this.getDestinationCategories();
   }
 
   setFilter(categorie: any) {
     this.searchService.updateFilters({
-      experienceids: categorie,
+     // experienceids: categorie,
     });
-    this.navigateToSearch();
+    //this.navigateToSearch();
   }
 
   navigateToSearch() {
@@ -120,12 +117,17 @@ export class HomeAboutSectionComponent implements OnInit {
 
   getDestinationCategories() {
     this.apiService
-      .get('Master/GetAllDestinationTypes')
-      .subscribe((res: any) => {
-        if (res) {
-          this.experienceOptions = res;
+      .get('Master/GetAllExpeiences')
+      .subscribe(({
+        next:(res:any)=>{
+          if(res){
+            this.experienceOptions=res;
+          }
+        },
+        error:(err:any)=>{
+          console.log(err);
         }
-      });
+      }));
   }
   
 
