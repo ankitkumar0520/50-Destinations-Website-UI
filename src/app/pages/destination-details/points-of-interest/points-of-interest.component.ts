@@ -29,7 +29,7 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
 
     this.destinationService.destination$.subscribe(dest => {
 
-
+      if(dest?.entities){
       this.pointsOfInterest = dest.entities.filter((entity: any) => {
         if (!entity) return false; // Skip if entity is null or undefined
     
@@ -39,6 +39,7 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
         // Check if sectorId is 3 or if sectorName matches 'Point Of Interest' case-insensitively
         return entity.sectorId === 3 || name === 'point of interest';
       });
+       }
     });
 
 

@@ -39,7 +39,7 @@ export class ShopsComponent implements OnDestroy, OnInit {
 
     this.destinationService.destination$.subscribe(dest => {
 
-
+      if(dest?.entities){
       this.shops = dest.entities.filter((entity: any) => {
         if (!entity) return false; // Skip if entity is null or undefined
     
@@ -53,6 +53,8 @@ export class ShopsComponent implements OnDestroy, OnInit {
       setTimeout(() => {
         this.initCarousel();
       }, 300);
+    }
+    
     });
 
   }

@@ -26,6 +26,7 @@ export class PoliceHospitalComponent implements OnInit {
 
     this.destinationService.destination$.subscribe(dest => {
 
+      if(dest?.entities){
       this.hospital = dest.entities.filter((entity: any) => {
         if (!entity) return false; // Skip if entity is null or undefined
     
@@ -49,6 +50,7 @@ export class PoliceHospitalComponent implements OnInit {
         // Check if sectorId is 1 or if sectorName matches 'safety and emergency - police service' case-insensitively
         return entity.sectorId === 1 || name === 'safety and emergency - police service';
       });
+    }
     });
      
   }

@@ -35,7 +35,7 @@ export class FacilitiesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.destinationService.destination$.subscribe(dest => {
 
-      
+      if(dest?.entities){
       this.facilities = dest.entities.filter((entity: any) => {
         if (!entity) return false; // Skip if entity is null or undefined
     
@@ -45,6 +45,7 @@ export class FacilitiesComponent implements OnInit, AfterViewInit, OnDestroy {
         // Check if sectorId is 2 or if sectorName matches 'facilities & services' case-insensitively
         return entity.sectorId === 2 || name === 'facilities & services';
       });
+    }
     });
      
 
