@@ -148,8 +148,7 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
               this.filteredDestinations = response.map((dest: any) => ({
                 name: dest.destinationname,
                 image:
-                  dest.media?.find((m: any) => m.iscover)?.mediaurl ||
-                  'assets/placeholders/landscape.webp',
+                  dest?.media[0]?.mediaurl,
                 slug: dest.slug,
               }));
               this.showDropdown = this.filteredDestinations.length > 0;
