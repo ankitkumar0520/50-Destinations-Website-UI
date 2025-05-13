@@ -66,15 +66,15 @@ export class MapComponent implements OnInit {
     this.destinationService.destination$.subscribe(dest => {
       if (dest) {
         this.destination = dest;
-     
+        console.log(this.destination);
         this.initializeMap();
       }
     });
   }
 
   openGoogleMaps(): void {
-    const lat = parseFloat(this.destination?.latitude ?? '');
-    const lng = parseFloat(this.destination?.longitude ?? '');
+    const lat = parseFloat(this.destination?.latitude ?? this.fallback.latitude);
+    const lng = parseFloat(this.destination?.longitude ?? this.fallback.longitude);
     if (!isNaN(lat) && !isNaN(lng)) {
       if(isPlatformBrowser(this.platformId)){
         window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank');
