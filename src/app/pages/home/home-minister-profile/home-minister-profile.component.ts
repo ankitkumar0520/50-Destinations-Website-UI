@@ -12,10 +12,7 @@ import {
 import { ApiService } from '../../../services/api.service';
 import { ImageService } from '../../../services/image.service';
 
-//for production
-import { environment } from '../../../../environments/environment.prod';
-//for development
-//import { environment } from '../../../../environments/environment';
+
 
 interface Official {
   name: string;
@@ -41,7 +38,7 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
   imageService = inject(ImageService);
   selectedMinister: any = null;
   showModal: boolean = false;
-  baseUrl = environment.apiBaseUrl.replace('/api', '');
+  baseUrl ='';
 
   ministers: Official[] = [];
 
