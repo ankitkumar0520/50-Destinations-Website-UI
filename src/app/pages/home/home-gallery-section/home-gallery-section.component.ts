@@ -11,17 +11,13 @@ import { RouterModule } from '@angular/router';
 export interface Destination {
   destinationname: string;
   destinationtypename: string;
-  media: {
-    mediaurl: string;
-  }[];
+  media: any,
   destinationdescription: string;
   tags: {
     tagname: string;
   }[];
   distance: string;
-  seasons: {
-    seasonmonth: string;
-  }[];
+  seasons: any,
   duration: string;
   districtname: string;
   slug: string;

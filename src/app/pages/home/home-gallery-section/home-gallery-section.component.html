@@ -59,8 +59,8 @@
                       class="h-64 md:h-full md:w-2/5 relative overflow-hidden"
                     >
                       <img
-                        [src]="baseUrl+dest.media[0].mediaurl"
-                        [alt]="dest.destinationname"
+                        [src]="baseUrl+dest?.media[0]?.mediaurl"
+                        [alt]="dest?.destinationname"
                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                         (error)="imageService.handleImageError($event)"
                         loading="lazy"
@@ -70,7 +70,7 @@
                         <span
                           class="px-2.5 py-0.5 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full text-xs font-medium text-secondary-900 dark:text-secondary-400"
                         >
-                          {{ dest.destinationtypename }}
+                          {{ dest?.destinationtypename }}
                         </span>
                       </div>
                       <!-- Image Overlay -->
@@ -88,11 +88,11 @@
                           <h3
                             class="text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 truncate max-w-[70%]"
                           >
-                            {{ dest.destinationname }}
+                            {{ dest?.destinationname }}
                           </h3>
                           <!-- Explore Button - Compact Icon Text Version -->
                           <a 
-                            [routerLink]="['/destination', dest.slug]"
+                            [routerLink]="['/destination', dest?.slug]"
 
                             class="bg-blue-100 cursor-pointer py-1.5 px-3 rounded-lg text-gray-500 hover:text-primary font-semibold transition-colors duration-300 flex items-center justify-center gap-2 group text-xs"
                           >
@@ -105,7 +105,7 @@
 
                         <!-- Description - Added back in compact format -->
                         <p class="text-gray-600 dark:text-gray-300 h-16 text-xs mt-1 line-clamp-4">
-                          {{ dest.destinationdescription }}
+                          {{ dest?.destinationdescription }}
                         </p>
 
                         <!-- Highlights -->
@@ -114,10 +114,10 @@
                             class="flex flex-wrap gap-1 overflow-hidden max-h-[28px]"
                           >
                             <span
-                              *ngFor="let tag of dest.tags|slice:0:4"
+                                *ngFor="let tag of dest?.tags|slice:0:4"
                               class="px-1.5 py-0.5 bg-gray-50 dark:bg-gray-900/50 text-gray-600 dark:text-gray-300 rounded-full text-[10px] whitespace-nowrap max-w-fit"
                             >
-                              {{ tag.tagname }}
+                              {{ tag?.tagname }}
                             </span>
                           </div>
                         </div>
@@ -136,7 +136,7 @@
                             >
                               Location
                             </p>
-                            <p class="truncate">{{ dest.distance }}</p>
+                            <p class="truncate">{{ dest?.distance }}</p>
                           </div>
                           <div>
                             <p
@@ -146,7 +146,7 @@
                             </p>
 
                          <p class="truncate">
-                                     {{ dest.seasons.length ? dest.seasons[0].seasonmonth : 'N/A' }}
+                                     {{ dest?.seasons?.length ? dest?.seasons[0]?.seasonmonth : 'N/A' }}
                            </p>
 
                                                 
@@ -157,7 +157,7 @@
                             >
                               Duration
                             </p>
-                              <p class="truncate">{{ dest.duration || 'N/A'}}</p>
+                              <p class="truncate">{{ dest?.duration || 'N/A'}}</p>
                           </div>
                         </div>
                       </div>
@@ -194,12 +194,12 @@
                     <!-- Right section for title and buttons -->
                     <div class="qr-right-section">
                       <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">
-                        {{ dest.destinationname }}
+                        {{ dest?.destinationname }}
                       </h3>
                       
                       <!-- Only visible on desktop -->
                       <p class="hidden md:block text-sm text-gray-600 dark:text-gray-400 mb-2">
-                        Scan to explore {{ dest.destinationname }} and discover its beautiful attractions and unique experiences.
+                        Scan to explore {{ dest?.destinationname }} and discover its beautiful attractions and unique experiences.
                       </p>
                       
                       <div class="button-group">

@@ -16,7 +16,7 @@
             class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-white/70 shadow-xl ring-2 ring-primary-400/40 dark:ring-primary-300/30 transition-transform hover:scale-105 duration-300 mb-4"
           >
             <img
-              [src]="baseUrl+minister.media[0].mediaurl"
+              [src]="baseUrl+minister?.media[0]?.mediaurl"
               [alt]="minister?.name || 'Minister profile'"
               class="w-full h-full object-cover object-top"
               (error)="imageService.handleImageError($event)"

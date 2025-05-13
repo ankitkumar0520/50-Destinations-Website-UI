@@ -18,11 +18,7 @@ interface Official {
   name: string;
   designation: string;
   fullMessage: string;
-  media: [
-    {
-      mediaurl: string;
-    }
-  ];
+    media:any
 }
 
 
