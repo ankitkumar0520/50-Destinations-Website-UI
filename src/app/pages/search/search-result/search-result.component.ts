@@ -29,7 +29,7 @@ interface SearchResult {
   destinationdescription: string;
   slug: string;
   duration: number;
-  media: { mediaurl: string }[];
+  media:any;
   tags: Tag[];
 }
 
