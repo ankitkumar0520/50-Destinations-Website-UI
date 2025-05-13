@@ -6,7 +6,7 @@ import { getGradientClasses, shareQRCode, downloadQRCode } from '../../../utils/
 import { ApiService } from '../../../services/api.service';
 import { ImageService } from '../../../services/image.service';
 import { RouterModule } from '@angular/router';
-import { environment } from '../../../../environments/environment.prod';
+
 
 export interface Destination {
   destinationname: string;
@@ -41,7 +41,7 @@ export class HomeGallerySectionComponent implements OnInit {
   shareUrl: string = '';
   imageService = inject(ImageService);
   apiService = inject(ApiService);
-  baseUrl = environment.apiBaseUrl.replace('/api', '');
+  baseUrl = '';
   destinations: Destination[] = [];
 
   

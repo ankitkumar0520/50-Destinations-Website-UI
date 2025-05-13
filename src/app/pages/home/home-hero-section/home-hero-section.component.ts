@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { ImageService } from '../../../services/image.service';
 import { ApiService } from '../../../services/api.service';
 import { PLATFORM_ID, Inject } from '@angular/core';
-import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-home-hero-section',
@@ -20,7 +19,7 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   filteredDestinations: any[] = [];
   showDropdown = false;
-  baseUrl = environment.apiBaseUrl.replace('/api', '');
+  baseUrl = '';
 
     // Service worker
   deferredPrompt: any = null;

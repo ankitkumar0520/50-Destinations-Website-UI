@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
-import { environment } from '../../../../environments/environment.prod';
 
 
 @Component({
@@ -19,7 +18,7 @@ export class PoliceHospitalComponent implements OnInit {
   imageService = inject(ImageService);
   hospital:any[]=[];
   police:any[]=[];  
-  baseUrl = environment.apiBaseUrl.replace('/api', '');
+    baseUrl = '';
   constructor() {}
 
   ngOnInit(): void {

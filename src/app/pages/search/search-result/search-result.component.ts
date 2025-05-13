@@ -18,7 +18,6 @@ import { ImageService } from '../../../services/image.service';
 import { shareQRCode } from '../../../utils/utils';
 import { ApiService } from '../../../services/api.service'; 
 import { finalize } from 'rxjs';
-import { environment } from '../../../../environments/environment.prod';
 
 interface Tag {
   tagname: string;
@@ -47,7 +46,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   imageService = inject(ImageService);
   private apiService = inject(ApiService);
-  baseUrl = environment.apiBaseUrl.replace('/api', '');
+  baseUrl = '';
   @ViewChildren('qrCanvas') qrCanvases!: QueryList<ElementRef>;
 
   private platformId = inject(PLATFORM_ID);

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
-import { environment } from '../../../../environments/environment.prod';
+
 
 @Component({
   selector: 'app-gallery-description',
@@ -18,7 +18,7 @@ export class GalleryDescriptionComponent implements OnInit, AfterViewInit, OnDes
   
   displayGalleria: boolean = false;
   activeIndex: number = 0;
-  baseUrl = environment.apiBaseUrl.replace('/api', '');
+  baseUrl = '';
   // Sample destination data
   destination :any;
 

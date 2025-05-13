@@ -4,7 +4,7 @@ import { SectionHeaderComponent } from '../../../common/section-header/section-h
 import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils';
 import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
-import { environment } from '../../../../environments/environment.prod';
+
 @Component({
   selector: 'app-points-of-interest',
   standalone: true,
@@ -16,7 +16,7 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
   private destinationService = inject(DestinationService);
    imageService = inject(ImageService);
   pointsOfInterest:any[]=[];
-  baseUrl = environment.apiBaseUrl.replace('/api', '');
+  baseUrl = '';
   constructor(
     private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object
