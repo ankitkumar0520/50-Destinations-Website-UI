@@ -39,7 +39,7 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
         // Check if sectorId is 3 or if sectorName matches 'Point Of Interest' case-insensitively
         return entity.sectorId === 3 || name === 'point of interest';
       });
-      this.initializeOwlCarousel();
+          this.initializeOwlCarousel();
        }
     });
 

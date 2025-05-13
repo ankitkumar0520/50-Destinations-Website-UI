@@ -29,24 +29,24 @@
                     <p
                       class="uppercase tracking-widest text-xs text-accent-500 dark:text-accent-400 font-semibold mb-2"
                     >
-                      <i class="fas fa-star"></i> {{ facility.name }}
+                      <i class="fas fa-star"></i> {{ facility?.name }}
                     </p>
                     <h1
                       class="text-xl sm:text-2xl font-extrabold text-primary-700 dark:text-primary-400 leading-tight mb-3"
                     >
-                      {{ facility.shortdescription }}<br />
+                      {{ facility?.shortdescription }}<br />
                       <span class="text-gray-500 dark:text-gray-400"
                         >For Your Needs</span
                       >
                     </h1>
                     <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                      {{ facility.description }}
+                      {{ facility?.description }}
                     </p>
                   </div>
                   <div class="relative">
                     <img
                       [src]="baseUrl+facility?.media[0]?.mediaurl"
-                      [alt]="facility.name"
+                      [alt]="facility?.name"
                       class="w-full h-48 sm:h-56 object-cover rounded-3xl shadow-xl"
                       (error)="imageService.handleImageError($event)"
                       loading="lazy"
@@ -57,21 +57,21 @@
                       <h3
                         class="font-bold text-sm text-gray-700 dark:text-gray-400"
                       >
-                        {{ facility.landmark }}
+                        {{ facility?.landmark }}
                       </h3>
                       <p class="text-xs text-secondary-500 dark:text-secondary-300">
-                        <i class="fas fa-map-marker-alt text-secondary-500 dark:text-secondary-300 mr-1"></i> {{ facility.distance }}
+                        <i class="fas fa-map-marker-alt text-secondary-500 dark:text-secondary-300 mr-1"></i> {{ facility?.distance }}
                       </p>
                       <div class="flex gap-1.5 mt-1.5 flex-wrap">
                         <span
-                          *ngFor="let tag of facility.tags; let tagIndex = index"
+                          *ngFor="let tag of facility?.tags; let tagIndex = index"
                           [class]="tagIndex % 3 === 0 ? 
                             'bg-blue-100 dark:bg-blue-800/30 text-blue-700 dark:text-blue-300 text-xs px-2 py-0.5 rounded-full' : 
                             tagIndex % 3 === 1 ? 
                             'bg-emerald-100 dark:bg-emerald-800/30 text-emerald-700 dark:text-emerald-300 text-xs px-2 py-0.5 rounded-full' : 
                             'bg-amber-100 dark:bg-amber-800/30 text-amber-700 dark:text-amber-300 text-xs px-2 py-0.5 rounded-full'"
                         >
-                          <i class="fas fa-circle text-2xs mr-1"></i> {{ tag.text }}
+                          <i class="fas fa-circle text-2xs mr-1"></i> {{ tag?.text }}
                         </span>
                       </div>
                     </div>
@@ -97,24 +97,24 @@
                 <p
                   class="uppercase tracking-widest text-xs text-accent-500 dark:text-accent-400 font-semibold mb-2"
                 >
-                  <i class="fas fa-star"></i> {{ facility.subtitle }}
+                  <i class="fas fa-star"></i> {{ facility?.name }}
                 </p>
                 <h1
                   class="text-2xl md:text-3xl font-extrabold text-primary-700 dark:text-primary-400 leading-tight mb-3"
                 >
-                  {{ facility.title }}<br />
+                  {{ facility?.shortdescription }}<br />
                   <span class="text-gray-500 dark:text-gray-400"
                     >For Your Needs</span
                   >
                 </h1>
                 <p class="text-base text-gray-600 dark:text-gray-300 mb-4">
-                  {{ facility.description }}
+                  {{ facility?.description }}
                 </p>
               </div>
               <div class="relative">
                 <img
-                  [src]="baseUrl+facility.image"
-                  [alt]="facility.imageAlt"
+                  [src]="baseUrl+facility?.media[0]?.mediaurl"
+                  [alt]="facility?.name"
                   class="w-full h-64 object-cover rounded-3xl shadow-xl"
                   (error)="imageService.handleImageError($event)"
                 />
@@ -124,21 +124,21 @@
                   <h3
                     class="font-bold text-base text-gray-700 dark:text-gray-400"
                   >
-                    {{ facility.landmark }}
+                    {{ facility?.landmark }}
                   </h3>
                   <p class="text-xs text-secondary-500 dark:text-secondary-300">
-                    <i class="fas fa-map-marker-alt text-secondary-500 dark:text-secondary-300 mr-1"></i> {{ facility.distance }}
+                    <i class="fas fa-map-marker-alt text-secondary-500 dark:text-secondary-300 mr-1"></i> {{ facility?.distance }}
                   </p>
                   <div class="flex gap-1.5 mt-1.5 flex-wrap">
                     <span
-                      *ngFor="let tag of facility.tags; let tagIndex = index"
+                      *ngFor="let tag of facility?.tags; let tagIndex = index"
                       [class]="tagIndex % 3 === 0 ? 
                         'bg-blue-100 dark:bg-blue-800/30 text-blue-700 dark:text-blue-300 text-xs px-2 py-0.5 rounded-full' : 
                         tagIndex % 3 === 1 ? 
                         'bg-emerald-100 dark:bg-emerald-800/30 text-emerald-700 dark:text-emerald-300 text-xs px-2 py-0.5 rounded-full' : 
                         'bg-amber-100 dark:bg-amber-800/30 text-amber-700 dark:text-amber-300 text-xs px-2 py-0.5 rounded-full'"
                     >
-                      <i class="fas fa-circle text-2xs mr-1"></i> {{ tag.tagname }}
+                      <i class="fas fa-circle text-2xs mr-1"></i> {{ tag?.tagname }}
                     </span>
                   </div>
                 </div>
