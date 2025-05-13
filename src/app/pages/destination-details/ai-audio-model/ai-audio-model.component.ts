@@ -6,6 +6,8 @@ import {  takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DestinationService } from '../../../services/destination.service';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../../services/api.service';
 
 
 interface AudioLanguage {
@@ -25,7 +27,12 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
    Math:Math = Math;   
    voiceModelService= inject(VoiceModelService)
    destinationService = inject(DestinationService)
+   apiService = inject(ApiService)
+   route = inject(ActivatedRoute)
+   cdr = inject(ChangeDetectorRef)
+
    private destroy$ = new Subject<void>();
+   slug:string = '';
    
    showModal:boolean = false;
 
@@ -48,22 +55,19 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(
+  ) {
   
   }
   
   ngOnInit() {
-
- 
-    this.destinationService.destination$.subscribe((dest) => {
-      if (dest?.audioLanguage) {
-        this.audioList = dest.audioLanguage.map((item: any) => ({
-          languageCode: item.languageCode,
-          audiosrc: item.audio
-        }));
+    this.route.paramMap.subscribe(params => {
+      if(params.get('slug')){
+        this.slug = params.get('slug') || '';
+        this.getAudioList()
       }
     });
-    
+ 
 
     // Subscribe to showModel$ observable to control modal visibility and audio source
     this.handleModelVisibility();
@@ -74,14 +78,26 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
   }
   
 
-
+  getAudioList(){
+    this.apiService.get(`LandingPage/GetAllAudioDetailsByDestinationSlug?slug=${this.slug}`).subscribe({
+      next:(res:any)=>{
+        if (res) {
+          this.audioList = res.map((item: any) => ({
+            languageCode: item.language,
+            audiosrc: item.audio_file_path
+          }));
+        }
+      },
+      error:(err:any)=>{
+        console.log(err)
+      }
+    })
+  }
 
 
   
   handleAudio() {
     const newLanguageSrc = this.audioList.find(l => l.languageCode == this.audioSettings.selectedCode)?.audiosrc;
-
-
     if (newLanguageSrc) {
       
       //set audio source

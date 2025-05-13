@@ -63,7 +63,7 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
       this.accomodation = dest.entities.filter((entity: any) => {
           if (!entity) return false;
         const name = (normalize(entity.sectorName || '')).toLowerCase();
-          const isMatch = entity.sectorId === 5 || name === 'accommodation & eatery';
+          const isMatch = entity.sectorId === 5 || name === 'accommodation & eatery - accommodation';
 
           return isMatch;
         });
@@ -74,7 +74,7 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
       this.eatery = dest.entities.filter((entity: any) => {
           if (!entity) return false;
         const name = (normalize(entity.sectorName || '')).toLowerCase();
-          const isMatch = entity.sectorId === 7 || name === 'eatery';
+          const isMatch = entity.sectorId === 7 || name === 'accommodation & eatery - eatery';
 
           return isMatch;
         });

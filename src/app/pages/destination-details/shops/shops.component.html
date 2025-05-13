@@ -74,7 +74,7 @@
         <div class="relative">
           <!-- Shop image as background -->
           <div class="absolute inset-0 z-0">
-            <img [src]="selectedShop?.media[0]?.mediaUrl" [alt]="selectedShop?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
+            <img loading="lazy" [src]="selectedShop?.media[0]?.mediaUrl" [alt]="selectedShop?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
             <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
           </div>
           
@@ -109,21 +109,23 @@
           
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div
-              *ngFor="let product of selectedShop.products"
+              *ngFor="let product of selectedShop?.products"
               class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer border border-gray-100 dark:border-gray-700"
             >
               <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
                 <img
-                  [src]="product.image"
-                  [alt]="product.name"
+                  [src]="product?.media[0]?.mediaUrl"
+                  [alt]="product?.productname"
                   class="w-full h-full object-cover"
+                  (error)="imageService.handleImageError($event)"
+                  loading="lazy"
                 />
               </div>
               <div class="flex-1 min-w-0">
-                <h4 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-1">{{ product.name }}</h4>
+                <h4 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-1">{{ product?.productname }}</h4>
                 <div class="flex items-center gap-2">
                   <span class="bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs px-2 py-0.5 rounded-full">
-                    {{ product.category }}
+                    {{ product?.productcategoryname }}
                   </span>
                 </div>
               </div>
