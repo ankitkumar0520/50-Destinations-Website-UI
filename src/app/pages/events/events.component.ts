@@ -31,6 +31,8 @@ export class EventsComponent implements OnInit {
 
   events: any[] = this.eventService.getEvents();
 
+  today = new Date();
+
   constructor() {
     this.filteredEvents = [...this.events];
   }
@@ -83,5 +85,8 @@ export class EventsComponent implements OnInit {
     this.router.navigate(['/view-pdf']);  
   }
 
+  isUpcomingEvent(eventDate: string | Date): boolean {
+    return new Date(eventDate) > this.today;
+  }
 
 }

@@ -120,14 +120,14 @@ export class EventService {
     name: 'Heritage Walks (Flag Off): Tsuklakhang Monastery to Raj Bhawan',
     date: new Date('2025-05-07'),
     location: 'Gangtok',
-    pdfUrl: ''
+    pdfUrl: 'assets/PDF/Gangtokheritagewalk.pdf'
   },
   {
     id: 14,
     name: 'Bike Rally: Gangtok to Dokala',
     date: new Date('2025-05-07'),
     location: 'Gangtok ',
-    pdfUrl: ''
+    pdfUrl: 'assets/PDF/BikeRide_Dokala.pdf'
   },
 
   // Pakyong District
@@ -255,14 +255,14 @@ export class EventService {
   name: 'Zo Maal, Primitive Rice Sowing Festival',
   date: new Date('2025-05-11'),
   location: 'Pentong, Dzongu, Mangan',
-  pdfUrl: ''
+  pdfUrl: 'assets/PDF/Dzo_Maal.pdf'
 },
 {
   id: 31,
   name: 'Zo Maal, Primitive Rice Sowing Festival',
   date: new Date('2025-05-12'),
   location: 'Pentong, Dzongu, Mangan',
-  pdfUrl: ''
+  pdfUrl: 'assets/PDF/Dzo_Maal.pdf'
 },
 // Gyalshing District
 {
@@ -325,8 +325,13 @@ export class EventService {
   date: new Date('2025-05-31'),
   location: 'Ridge Park, Gangtok',
   pdfUrl: ''
+},{
+  id: 40,
+  name: 'Rock Climbing',
+  date: new Date('2025-23-04'),
+  location: 'Ridge Park, Gangtok',
+  pdfUrl: 'assets/PDF/Rock_climbing.pdf'
 }
-      
     ]
   }
   
