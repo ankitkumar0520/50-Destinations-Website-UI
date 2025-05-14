@@ -4,6 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ImageService {
+  LANDSCAPE = 'assets/placeholders/landscape.webp';
+  PORTRAIT = 'assets/placeholders/portrait.webp';
+  SQUARE = 'assets/placeholders/square.webp';
+
   constructor() {}
 
   handleImageError(event: Event): void {
@@ -16,13 +20,13 @@ export class ImageService {
 
     if (width > height) {
       // Landscape
-      target.src = 'assets/placeholders/landscape.webp';
+      target.src = this.LANDSCAPE;
     } else if (width < height) {
       // Portrait
-      target.src = 'assets/placeholders/portrait.webp';
+      target.src = this.PORTRAIT;
     } else {
       // Square
-      target.src = 'assets/placeholders/square.webp';
+      target.src = this.SQUARE;
     }
   }
 }
