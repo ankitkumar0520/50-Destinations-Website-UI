@@ -24,6 +24,7 @@ import { ImageService } from '../../../services/image.service';
 })
 export class ShopsComponent implements OnDestroy, OnInit {
   
+  apiBaseUrl1 = (window as any)['apiBaseUrl1'];
   private destinationService = inject(DestinationService);
   private cdr = inject(ChangeDetectorRef);
    imageService = inject(ImageService);
@@ -54,7 +55,7 @@ export class ShopsComponent implements OnDestroy, OnInit {
         this.initCarousel();
       }, 300);
     }
-    
+
     });
 
   }

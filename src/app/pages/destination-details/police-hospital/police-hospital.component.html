@@ -39,9 +39,9 @@
         <!-- Image with badge -->
         <div class="relative w-full md:w-48 lg:w-56 xl:w-64 shrink-0">
         
-          <ng-container *ngIf="security?.media?.length > 0 && security.media[0]?.mediaUrl; else fallbackIcon">
+          <ng-container *ngIf="security?.media?.length > 0 && security.media[0]?.mediaurl; else fallbackIcon">
             <img
-              [src]="baseUrl+security.media[0].mediaUrl"
+              [src]="baseUrl+security.media[0].mediaurl"
               [alt]="security.name || 'Security Image'"
               class="w-full aspect-square object-cover rounded-xl shadow"
               loading="lazy"
@@ -132,14 +132,14 @@
         <div class="relative">
           <div class="w-full aspect-square max-h-[180px] md:max-h-[200px] lg:max-h-[220px] xl:max-h-[240px] bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
             <img
-              *ngIf="medical?.media?.length > 0 && medical.media[0]?.mediaUrl"
-              [src]="baseUrl+medical.media[0].mediaUrl"
+             
+              [src]="baseUrl+medical.media[0].mediaurl"
               [alt]="medical.name"
               class="w-full h-full object-cover"
               (error)="imageService.handleImageError($event)"
               loading="lazy"
             />
-            <div *ngIf="!medical?.media?.length || !medical.media[0]?.mediaUrl" class="w-full h-full flex items-center justify-center">
+            <div *ngIf="!medical?.media?.length || !medical.media[0]?.mediaurl" class="w-full h-full flex items-center justify-center">
               <i class="fas fa-hospital text-4xl text-gray-400 dark:text-gray-600"></i>
             </div>
           </div>
@@ -167,7 +167,7 @@
 
           <div class="flex flex-wrap gap-2 mt-2">
             <span *ngFor="let tag of medical.tags" class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium">
-              {{ tag }}
+              {{ tag?.tagname }}
             </span>
           </div>
         </div>
