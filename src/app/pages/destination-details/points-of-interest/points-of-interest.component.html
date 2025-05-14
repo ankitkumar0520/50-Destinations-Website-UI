@@ -60,7 +60,6 @@
 <!-- Layout for UP TO 2 items: FLEX ROW -->
 <div *ngIf="pointsOfInterest.length <= 2" class="flex flex-wrap justify-center -mx-3">
 
-  <p> here is what i am chekcing  {{ pointsOfInterest[0]?.media }}</p>
 
   <div class="w-full sm:w-1/2 px-3 mb-6" *ngFor="let point of pointsOfInterest; let i = index">
     <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 group sm:h-[280px] h-auto">
