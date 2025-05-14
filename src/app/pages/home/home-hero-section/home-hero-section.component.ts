@@ -40,7 +40,7 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
 
   heroData = {
     title: "Where Nature Embraces with a Smile",
-    subtitle: "Promoting tourism that respects and protects Sikkim’s nature and cultural heritage"
+    subtitle: "Promoting tourism that respects and protects Sikkim’s natural and cultural heritage"
   };
   
 
