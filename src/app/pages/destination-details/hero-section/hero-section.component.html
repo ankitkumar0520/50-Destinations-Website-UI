@@ -616,21 +616,16 @@
       <div>
         <div class="py-8">
           <div
-            class="p-2 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-4 sm:mb-6 shadow-md dark:shadow-lg 
-                  bg-white/20 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700"
+            class="p-2 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-4 sm:mb-6 shadow-md dark:shadow-lg bg-white/20 dark:bg-gray-800/50 backdrop-blur-xs dark:border-gray-700 w-fit"
           >
             <h1
-              class="text-gray-900 dark:text-white text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-wide capitalize leading-snug drop-shadow-xl relative w-full text-left"
+              class="text-gray-900 dark:text-white text-3xl sm:text-3xl lg:text-5xl font-extrabold tracking-wide capitalize leading-snug drop-shadow-xl relative w-full text-left"
             >
               <span
-                class="whitespace-nowrap bg-gradient-to-r from-primary-500 via-secondary-400 to-accent-600 dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400 
-                      bg-clip-text text-transparent font-bold animate-gradient-move"
+                class="whitespace-nowrap bg-gradient-to-r from-primary-500 via-secondary-400 to-accent-600 dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400 bg-clip-text text-transparent font-bold animate-gradient-move"
               >
                 {{ destination?.destinationname }}
               </span>
-              <div
-                class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-white/80 to-transparent dark:from-accent-400/70 dark:to-transparent rounded-full"
-              ></div>
             </h1>
           </div>
 
@@ -641,12 +636,10 @@
           </p>
         </div>
 
-        <div
-          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8 max-w-3xl px-4"
-        >
+        <div class="flex flex-row gap-3 sm:gap-4 mb-6 sm:mb-8 max-w-3xl px-4">
           <span
             *ngFor="let tag of destination?.tags"
-            class="px-4 py-2 bg-white/10 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl text-gray-100 dark:text-white/80 font-medium text-sm flex items-center justify-center min-h-[2.5rem] transition-all duration-300 group border border-white/20 dark:border-gray-600/40 hover:border-white/30 dark:hover:border-gray-500/40 shadow-lg hover:shadow-xl"
+            class="px-4 py-1 cursor-pointer backdrop-blur-sm bg-white/10 dark:bg-gray-800/70 rounded-full text-gray-100 dark:text-white/80 font-medium text-sm flex items-center justify-center transition-all duration-300 group border border-white/20 dark:border-gray-600/40 hover:border-white/30 dark:hover:border-gray-500/40 shadow-lg hover:shadow-xl"
           >
             {{ tag?.tagname }}
           </span>
