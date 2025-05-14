@@ -88,9 +88,8 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.searchService.getFilters().subscribe((filters: any) => {
-      this.selectedTags = filters?.destinationtypeids;
+      this.selectedTags = filters?.destinationtypeids || [];
     });
 
     this.getDestinationTags();
@@ -246,8 +245,9 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy(){
-    this.searchService.resetFilters(); //reset filters when component is destroyed
+  ngOnDestroy() {
+    // Clear all filters when component is destroyed
+    this.searchService.resetFilters();
   }
 
 }
