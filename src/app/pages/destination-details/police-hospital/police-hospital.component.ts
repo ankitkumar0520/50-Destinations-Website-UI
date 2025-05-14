@@ -36,7 +36,8 @@ export class PoliceHospitalComponent implements OnInit {
 
         // Check if sectorId is 6 or if sectorName matches 'safety and emergency - healthcare service' case-insensitively
         return entity.sectorId === 6 || name === 'safety and emergency - healthcare service';
-
+ 
+        
 
       });
 

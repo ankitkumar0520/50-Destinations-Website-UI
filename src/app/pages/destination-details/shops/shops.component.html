@@ -28,7 +28,7 @@
             <!-- Shop Image -->
             <div class="relative h-40 overflow-hidden">
               <img
-                [src]="shop?.media[0]?.mediaUrl"
+                [src]="shop?.media[0]?.mediaurl"
                 [alt]="shop?.name"
                 class="w-full h-full object-cover"
                 (error)="imageService.handleImageError($event)"             
@@ -74,7 +74,7 @@
         <div class="relative">
           <!-- Shop image as background -->
           <div class="absolute inset-0 z-0">
-            <img loading="lazy" [src]="selectedShop?.media[0]?.mediaUrl" [alt]="selectedShop?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
+              <img loading="lazy" [src]="selectedShop?.media[0]?.mediaurl" [alt]="selectedShop?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
             <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
           </div>
           
@@ -98,10 +98,10 @@
           </div>
         </div>
 
-        <p class="text-center text-gray-500 py-6">No products information available for this shop</p>
+        <p *ngIf="selectedShop?.products?.length == 0" class="text-center text-gray-500 py-6">No products information available for this shop</p>
 
         <!-- Products grid -->
-        <div *ngIf="selectedShop?.products?.length > 0" class="bg-white dark:bg-gray-800 p-6">
+        <div *ngIf="selectedShop?.products?.length >= 0" class="bg-white dark:bg-gray-800 p-6">
           <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
             <i class="fas fa-shopping-bag text-primary-500"></i>
             Available Products
@@ -113,8 +113,9 @@
               class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer border border-gray-100 dark:border-gray-700"
             >
               <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
+
                 <img
-                  [src]="product?.media[0]?.mediaUrl"
+                  [src]="apiBaseUrl1+product?.media[0]?.mediaurl"
                   [alt]="product?.productname"
                   class="w-full h-full object-cover"
                   (error)="imageService.handleImageError($event)"

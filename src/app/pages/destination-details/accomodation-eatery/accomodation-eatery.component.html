@@ -35,9 +35,9 @@
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
               <!-- Hotel Image -->
               <div class="relative h-44 overflow-hidden">
-                <ng-container *ngIf="hotel?.media?.length > 0 && hotel.media[0]?.mediaUrl; else hotelFallback">
+                <ng-container *ngIf="hotel?.media?.length > 0 && hotel.media[0]?.mediaurl; else hotelFallback">
                   <img
-                    [src]="baseUrl+hotel?.media[0].mediaUrl"
+                    [src]="baseUrl+hotel?.media[0].mediaurl"
                     [alt]="hotel?.name"
                     class="w-full h-full object-cover"
                     (error)="imageService.handleImageError($event)"
@@ -102,9 +102,9 @@
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
               <!-- Eatery Image -->
               <div class="relative h-44 overflow-hidden">
-                <ng-container *ngIf="eatery?.media?.length > 0 && eatery.media[0]?.mediaUrl; else eateryFallback">
+                <ng-container *ngIf="eatery?.media?.length > 0 && eatery.media[0]?.mediaurl; else eateryFallback">
                   <img
-                    [src]="baseUrl+eatery?.media[0].mediaUrl"
+                    [src]="baseUrl+eatery?.media[0].mediaurl"
                     [alt]="eatery.name"
                     class="w-full h-full object-cover"
                     (error)="imageService.handleImageError($event)"
@@ -166,7 +166,7 @@
       <div class="relative">
         <!-- Hotel image as background -->
         <div class="absolute inset-0 z-0">
-          <img loading="lazy" [src]="baseUrl+selectedHotel?.media[0]?.mediaUrl" [alt]="selectedHotel?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
+          <img loading="lazy" [src]="baseUrl+selectedHotel?.media[0]?.mediaurl" [alt]="selectedHotel?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
           <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
         </div>
         
@@ -194,7 +194,7 @@
       <div class="bg-white dark:bg-gray-800 p-6">
         <div class="grid grid-cols-1 gap-4">
           <!-- Description -->
-          <div class="mb-4">
+          <!-- <div class="mb-4">
             <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 flex items-center gap-2">
               <i class="fas fa-info-circle text-primary-500"></i>
               About
@@ -202,7 +202,7 @@
             <p class="text-gray-700 dark:text-gray-300">
               {{ selectedHotel?.description || 'A comfortable hotel offering great amenities for travelers. Enjoy your stay in this well-located accommodation with friendly staff and clean rooms.' }}
             </p>
-          </div>
+          </div> -->
           
           <!-- Amenities -->
           <div>
@@ -237,7 +237,7 @@
       <div class="relative">
         <!-- Eatery image as background -->
         <div class="absolute inset-0 z-0">
-          <img loading="lazy" [src]="baseUrl+selectedEatery?.media[0]?.mediaUrl" [alt]="selectedEatery?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
+          <img loading="lazy" [src]="baseUrl+selectedEatery?.media[0]?.mediaurl" [alt]="selectedEatery?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
           <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
         </div>
         
@@ -265,7 +265,7 @@
       <div class="bg-white dark:bg-gray-800 p-6">
         <div class="grid grid-cols-1 gap-4">
           <!-- Description -->
-          <div class="mb-4">
+          <!-- <div class="mb-4">
             <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 flex items-center gap-2">
               <i class="fas fa-info-circle text-primary-500"></i>
               About
@@ -273,13 +273,14 @@
             <p class="text-gray-700 dark:text-gray-300">
               {{ selectedEatery?.description || 'A delightful restaurant serving authentic local cuisine. Experience the flavors of the region in a comfortable and welcoming atmosphere.' }}
             </p>
-          </div>
+          </div> -->
           
+
           <!-- Cuisine Types -->
           <div>
             <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
               <i class="fas fa-utensils text-primary-500"></i>
-              Cuisine
+              Facilities
             </h4>
             <div class="grid grid-cols-2 gap-2">
               <div *ngFor="let amenities of selectedEatery?.tags || ['Local', 'Traditional', 'Vegetarian']" 
