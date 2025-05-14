@@ -612,30 +612,27 @@
   <div
     class="flex flex-row flex-wrap justify-center sm:justify-between items-center min-h-screen relative max-w-7xl mx-auto px-6 pt-[84px] pb-8 md:px-16 2xl:px-0"
   >
-    <div class="text-white max-w-4xl flex flex-row relative z-10">
+    <div class="text-white max-w-2xl flex flex-row relative z-10">
       <div>
         <div class="py-8">
-
-
-                <div
-                class="text-center p-2 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-4 sm:mb-6 shadow-md dark:shadow-lg 
-                      bg-white/20 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700"
+          <div
+            class="p-2 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-4 sm:mb-6 shadow-md dark:shadow-lg 
+                  bg-white/20 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700"
+          >
+            <h1
+              class="text-gray-900 dark:text-white text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-wide capitalize leading-snug drop-shadow-xl relative w-full text-left"
+            >
+              <span
+                class="whitespace-nowrap bg-gradient-to-r from-primary-500 via-secondary-400 to-accent-600 dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400 
+                      bg-clip-text text-transparent font-bold animate-gradient-move"
               >
-                <h1
-                  class="text-gray-900 dark:text-white text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-wide capitalize leading-snug drop-shadow-xl relative"
-                >
-                  <span
-                    class="whitespace-nowrap bg-gradient-to-r from-primary-500 via-secondary-400 to-accent-600 dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400 
-                          bg-clip-text text-transparent font-bold animate-gradient-move"
-                  >
-                    {{ destination?.destinationname }}
-                  </span>
-            <div
-              class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-white/80 to-transparent dark:from-accent-400/70 dark:to-transparent rounded-full"
-            ></div>
-          </h1>
-        </div>
-
+                {{ destination?.destinationname }}
+              </span>
+              <div
+                class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-white/80 to-transparent dark:from-accent-400/70 dark:to-transparent rounded-full"
+              ></div>
+            </h1>
+          </div>
 
           <p
             class="text-sm text-justify sm:text-base line-clamp-4 lg:text-lg leading-normal sm:mb-4 text-white dark:text-gray-200/90 max-w-2xl p-4 rounded-xl"
@@ -645,11 +642,11 @@
         </div>
 
         <div
-          class="grid grid-cols-2 !text-center align-center md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 mb-6 sm:mb-8 max-w-3xl px-4"
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8 max-w-3xl px-4"
         >
           <span
             *ngFor="let tag of destination?.tags"
-            class="px-3 sm:px-4 py-1 sm:py-1.5 bg-white/10 dark:bg-gray-800/70 backdrop-blur-sm rounded-full text-gray-100 dark:text-white/80 font-medium text-xs sm:text-sm items-center transition-all duration-300 group border border-white/20 dark:border-gray-600/40 hover:border-white/30 dark:hover:border-gray-500/40 shadow-lg hover:shadow-xl"
+            class="px-4 py-2 bg-white/10 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl text-gray-100 dark:text-white/80 font-medium text-sm flex items-center justify-center min-h-[2.5rem] transition-all duration-300 group border border-white/20 dark:border-gray-600/40 hover:border-white/30 dark:hover:border-gray-500/40 shadow-lg hover:shadow-xl"
           >
             {{ tag?.tagname }}
           </span>
@@ -682,12 +679,12 @@
     </div>
 
     <div
-      class="mt-6 sm:mt-8 lg:mt-10 bg-gray-500/20 p-3 sm:p-4 lg:p-5 rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl hover:shadow-2xl backdrop-blur-lg border border-white/20 w-full max-w-[280px] sm:max-w-sm md:max-w-md hover:bg-indigo-500/10 transition-all duration-300 ease-in-out"
+      class="mt-6 sm:mt-8 lg:mt-10 bg-gray-500/20 p-3 sm:p-4 lg:p-5 rounded-xl shadow-xl hover:shadow-2xl backdrop-blur-lg border border-white/20 w-full max-w-[280px] sm:max-w-sm md:max-w-md hover:bg-indigo-500/10 transition-all duration-300 ease-in-out"
     >
       <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-5">
         <!-- QR Code Container -->
         <div
-          class="shrink-0 bg-white/10 p-1.5 sm:p-2 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
+          class="shrink-0 bg-white/10 p-1.5 sm:p-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
         >
           <qrcode
             *ngIf="isBrowser()"
@@ -724,7 +721,7 @@
       <div class="grid grid-cols-2 gap-2 sm:gap-3 mt-3 sm:mt-4">
         <button
           (click)="downloadQR()"
-          class="cursor-pointer w-full bg-gray-500/20 hover:border-green-500/70 hover:bg-green-500/50 text-white/95 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow hover:shadow-md border border-white/10 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+          class="cursor-pointer w-full bg-gray-500/20 hover:border-green-500/70 hover:bg-green-500/50 text-white/95 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow hover:shadow-md border border-white/10 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
         >
           <i
             class="fas fa-download mr-1.5 sm:mr-2 text-gray-300 text-xs sm:text-sm"
@@ -733,7 +730,7 @@
         </button>
         <button
           (click)="shareQR()"
-          class="cursor-pointer w-full bg-gray-500/20 hover:border-primary-500/70 hover:bg-primary-500/70 text-white/95 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow hover:shadow-md border border-white/10 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+          class="cursor-pointer w-full bg-gray-500/20 hover:border-primary-500/70 hover:bg-primary-500/70 text-white/95 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow hover:shadow-md border border-white/10 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
         >
           <i
             class="fas fa-share-alt mr-1.5 sm:mr-2 text-gray-300 text-xs sm:text-sm"
