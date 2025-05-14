@@ -118,12 +118,10 @@ export class NavbarComponent {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const isSystemDark = window.matchMedia(
-        '(prefers-color-scheme: dark)'
-      ).matches;
       const savedMode = localStorage.getItem('darkMode');
-
-      this.isDarkMode = savedMode ? savedMode === 'true' : isSystemDark;
+      
+      // Set light mode as default if no saved preference
+      this.isDarkMode = savedMode ? savedMode === 'true' : false;
       document.documentElement.classList.toggle('dark', this.isDarkMode);
 
       this.isScrolled = window.scrollY > 10;
