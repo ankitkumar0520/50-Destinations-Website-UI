@@ -38,11 +38,10 @@
         
         <!-- Image with badge -->
         <div class="relative w-full md:w-48 lg:w-56 xl:w-64 shrink-0">
-        
           <ng-container *ngIf="security?.media?.length > 0 && security.media[0]?.mediaurl; else fallbackIcon">
             <img
               [src]="baseUrl+security.media[0].mediaurl"
-              [alt]="security.name || 'Security Image'"
+              [alt]="security?.name || 'Security Service'"
               class="w-full aspect-square object-cover rounded-xl shadow"
               loading="lazy"
               (error)="imageService.handleImageError($event)"
@@ -50,9 +49,9 @@
           </ng-container>
           
           <ng-template #fallbackIcon>
-            <div class="w-full aspect-square flex items-center justify-center bg-gray-100 rounded-xl shadow">
+            <div class="w-full aspect-square flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-xl shadow">
               <!-- Police Station SVG Icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M4 10v10a1 1 0 001 1h3a1 1 0 001-1V14h6v6a1 1 0 001 1h3a1 1 0 001-1V10M4 10l8-6 8 6" />
               </svg>
             </div>
@@ -60,35 +59,35 @@
           
 
           <span
-            *ngIf="security?.tagname?.length>0"
+            *ngIf="security?.tags?.length > 0 && security.tags[0]?.tagname"
             class="absolute top-2 right-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full text-xs font-medium shadow"
           >        
-            {{ security?.tags[0]?.tagname }}
+            {{ security.tags[0].tagname }}
           </span>
         </div>
 
         <!-- Details section -->
         <div class="flex flex-col flex-1">
           <h3 class="text-lg lg:text-xl font-semibold text-primary-700 dark:text-primary-400 mb-2">
-              {{ security?.name }}
+              {{ security?.name || 'Security Service' }}
           </h3>
 
           <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-            {{ security?.description }}
+            {{ security?.description || 'No description available' }}
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4 text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4">
             <div class="flex items-center gap-2">
               <i class="fas fa-map-marker-alt text-amber-500 dark:text-amber-400"></i>
-              <span>{{ security?.distance }} from destination</span>
+              <span>{{ security?.distance || 'Distance not available' }} from destination</span>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2" *ngIf="security?.phone">
               <i class="fas fa-phone text-amber-500 dark:text-amber-400"></i>
               <span>{{ security?.phone }}</span>
             </div>
             <div class="flex items-center gap-2 md:col-span-2">
               <i class="fas fa-location-arrow text-amber-500 dark:text-amber-400"></i>
-              <span>{{ security?.landmark }}</span>
+              <span>{{ security?.landmark || 'Location not specified' }}</span>
             </div>
           </div>
 
@@ -131,33 +130,36 @@
       <div class="grid md:grid-cols-[25%_75%] gap-6 lg:gap-10 xl:gap-12 items-start">
         <div class="relative">
           <div class="w-full aspect-square max-h-[180px] md:max-h-[200px] lg:max-h-[220px] xl:max-h-[240px] bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
-            <img
-             
-              [src]="baseUrl+medical.media[0].mediaurl"
-              [alt]="medical.name"
-              class="w-full h-full object-cover"
-              (error)="imageService.handleImageError($event)"
-              loading="lazy"
-            />
-            <div *ngIf="!medical?.media?.length || !medical.media[0]?.mediaurl" class="w-full h-full flex items-center justify-center">
-              <i class="fas fa-hospital text-4xl text-gray-400 dark:text-gray-600"></i>
-            </div>
+            <ng-container *ngIf="medical?.media?.length > 0 && medical.media[0]?.mediaurl; else fallbackHospitalIcon">
+              <img
+                [src]="baseUrl+medical.media[0].mediaurl"
+                [alt]="medical?.name || 'Healthcare Facility'"
+                class="w-full h-full object-cover"
+                (error)="imageService.handleImageError($event)"
+                loading="lazy"
+              />
+            </ng-container>
+            <ng-template #fallbackHospitalIcon>
+              <div class="w-full h-full flex items-center justify-center">
+                <i class="fas fa-hospital text-4xl text-gray-400 dark:text-gray-600"></i>
+              </div>
+            </ng-template>
           </div>
         </div>
 
         <div class="flex flex-col">
           <h3 class="text-lg lg:text-xl font-bold text-primary-700 dark:text-primary-400 mb-2">
-            {{ medical?.name }}
+            {{ medical?.name || 'Healthcare Facility' }}
           </h3>
 
           <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-            {{ medical?.description }}
+            {{ medical?.description || 'No description available' }}
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 mb-4 text-sm lg:text-base text-gray-600 dark:text-gray-300">
             <div class="flex items-center gap-2">
               <i class="fas fa-map-marker-alt text-red-500 dark:text-red-400 w-5 text-center"></i>
-              <span>{{ medical?.landmark }}</span>
+              <span>{{ medical?.landmark || 'Location not specified' }}</span>
             </div>
             <div class="flex items-center gap-2" *ngIf="medical?.phone">
               <i class="fas fa-phone text-red-500 dark:text-red-400 w-5 text-center"></i>
@@ -166,8 +168,9 @@
           </div>
 
           <div class="flex flex-wrap gap-2 mt-2">
-            <span *ngFor="let tag of medical.tags" class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium">
-              {{ tag?.tagname }}
+            <span *ngFor="let tag of medical?.tags || []" 
+                  class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium">
+              {{ tag?.tagname || 'Service' }}
             </span>
           </div>
         </div>

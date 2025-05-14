@@ -37,8 +37,8 @@
               <div class="relative h-44 overflow-hidden">
                 <ng-container *ngIf="hotel?.media?.length > 0 && hotel.media[0]?.mediaurl; else hotelFallback">
                   <img
-                    [src]="baseUrl+hotel?.media[0].mediaurl"
-                    [alt]="hotel?.name"
+                    [src]="baseUrl+hotel.media[0].mediaurl"
+                    [alt]="hotel?.name || 'Accommodation'"
                     class="w-full h-full object-cover"
                     (error)="imageService.handleImageError($event)"
                     loading="lazy"
@@ -51,7 +51,7 @@
                 </ng-template>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div class="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 class="text-lg font-semibold text-white">{{ hotel?.name }}</h3>
+                  <h3 class="text-lg font-semibold text-white">{{ hotel?.name || 'Accommodation' }}</h3>
                 </div>
               </div>
 
@@ -60,7 +60,7 @@
                 <div class="gap-2 mb-4 justify-between grid grid-cols-1 min-h-20 max-h-20">
                   <div class="flex items-start gap-2">
                     <i class="fas fa-map-marker-alt text-primary-500 mt-0.5 w-5 text-center flex-shrink-0"></i>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ hotel?.landmark }}</p>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ hotel?.landmark || 'Location not specified' }}</p>
                   </div>
                   <div class="flex items-start gap-2" *ngIf="hotel?.phone"> 
                     <i class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center flex-shrink-0" aria-hidden="true"></i>
@@ -104,8 +104,8 @@
               <div class="relative h-44 overflow-hidden">
                 <ng-container *ngIf="eatery?.media?.length > 0 && eatery.media[0]?.mediaurl; else eateryFallback">
                   <img
-                    [src]="baseUrl+eatery?.media[0].mediaurl"
-                    [alt]="eatery.name"
+                    [src]="baseUrl+eatery.media[0].mediaurl"
+                    [alt]="eatery?.name || 'Restaurant'"
                     class="w-full h-full object-cover"
                     (error)="imageService.handleImageError($event)"
                     loading="lazy"
@@ -118,7 +118,7 @@
                 </ng-template>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div class="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 class="text-lg font-semibold text-white">{{ eatery?.name }}</h3>
+                  <h3 class="text-lg font-semibold text-white">{{ eatery?.name || 'Restaurant' }}</h3>
                 </div>
               </div>
 
@@ -127,7 +127,7 @@
                 <div class="gap-2 mb-4 h-24 justify-between grid grid-cols-1 min-h-20 max-h-20">
                   <div class="flex items-start gap-2">
                     <i class="fas fa-map-marker-alt text-primary-500 mt-1 w-5 text-center"></i>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ eatery?.landmark }}</p>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ eatery?.landmark || 'Location not specified' }}</p>
                   </div>
                   <div class="flex items-start gap-2" *ngIf="eatery?.phone">
                     <i class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center" aria-hidden="true"></i>
@@ -166,7 +166,20 @@
       <div class="relative">
         <!-- Hotel image as background -->
         <div class="absolute inset-0 z-0">
-          <img loading="lazy" [src]="baseUrl+selectedHotel?.media[0]?.mediaurl" [alt]="selectedHotel?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
+          <ng-container *ngIf="selectedHotel?.media?.length > 0 && selectedHotel.media[0]?.mediaurl; else hotelModalFallback">
+            <img 
+              loading="lazy" 
+              [src]="baseUrl+selectedHotel.media[0].mediaurl" 
+              [alt]="selectedHotel?.name || 'Accommodation'" 
+              class="w-full h-full object-cover opacity-30 dark:opacity-20"
+              (error)="imageService.handleImageError($event)"
+            />
+          </ng-container>
+          <ng-template #hotelModalFallback>
+            <div class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+              <i class="fas fa-hotel text-6xl text-gray-400 dark:text-gray-500"></i>
+            </div>
+          </ng-template>
           <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
         </div>
         
@@ -237,7 +250,20 @@
       <div class="relative">
         <!-- Eatery image as background -->
         <div class="absolute inset-0 z-0">
-          <img loading="lazy" [src]="baseUrl+selectedEatery?.media[0]?.mediaurl" [alt]="selectedEatery?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
+          <ng-container *ngIf="selectedEatery?.media?.length > 0 && selectedEatery.media[0]?.mediaurl; else eateryModalFallback">
+            <img 
+              loading="lazy" 
+              [src]="baseUrl+selectedEatery.media[0].mediaurl" 
+              [alt]="selectedEatery?.name || 'Restaurant'" 
+              class="w-full h-full object-cover opacity-30 dark:opacity-20"
+              (error)="imageService.handleImageError($event)"
+            />
+          </ng-container>
+          <ng-template #eateryModalFallback>
+            <div class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+              <i class="fas fa-utensils text-6xl text-gray-400 dark:text-gray-500"></i>
+            </div>
+          </ng-template>
           <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
         </div>
         
