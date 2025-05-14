@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface SearchFilters {
   districtid: string;
@@ -74,6 +74,9 @@ export class SearchService {
     this.UpdatePayload();
   }
 
+  getFilters(): Observable<SearchFilters> {
+    return this.filtersSubject.asObservable();
+  }
 
   UpdatePayload(): any {
     const payload: any = {};

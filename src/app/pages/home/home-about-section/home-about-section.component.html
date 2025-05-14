@@ -46,14 +46,15 @@
 
             <div 
              
-              (click)="setFilter(option.experienceid)"
+              (click)="setFilter(option?.destinationtypeid)"
               class="flex cursor-pointer items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:bg-primary-50 dark:hover:bg-primary-900/20 border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-700"
             >
               <i
-                class="fa-solid fa-map-location-dot text-primary-600 dark:text-primary-300"
+                [class]="option?.icon"
+                class="text-primary-600 dark:text-primary-300"
               ></i>
               <span class="text-sm font-medium line-clamp-1 text-gray-700 dark:text-gray-300">
-                <span>{{ (option?.experiencename ?? '').split(' ')[0] }}</span>
+                <span>{{ (option?.destinationtypename ?? '').split(' ')[0] }}</span>
               </span>
               
             </div>

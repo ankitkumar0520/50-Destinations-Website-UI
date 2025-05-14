@@ -39,8 +39,8 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
   snowflakes: Array<{ style: string }> = [];
 
   heroData = {
-    title: "An Adventurer's Paradise",
-    subtitle: "Eco-friendly tourism that preserves the pristine beauty and cultural heritage of Sikkim, one adventure at a time."
+    title: "Where Nature Embraces with a Smile",
+    subtitle: "Promoting tourism that respects and protects Sikkim’s nature and cultural heritage"
   };
   
 

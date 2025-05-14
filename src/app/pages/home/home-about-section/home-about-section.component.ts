@@ -58,11 +58,12 @@ export class HomeAboutSectionComponent implements OnInit {
      this.getDestinationCategories();
   }
 
-  setFilter(categorie: any) {
+  setFilter(categorie:string) {
+    const destinationtypeids: string[] = [categorie];
     this.searchService.updateFilters({
-     // experienceids: categorie,
+     destinationtypeids: destinationtypeids,
     });
-    //this.navigateToSearch();
+    this.navigateToSearch();
   }
 
   navigateToSearch() {
@@ -117,7 +118,7 @@ export class HomeAboutSectionComponent implements OnInit {
 
   getDestinationCategories() {
     this.apiService
-      .get('Master/GetAllExpeiences')
+      .get('Master/GetAllDestinationTypes')
       .subscribe(({
         next:(res:any)=>{
           if(res){

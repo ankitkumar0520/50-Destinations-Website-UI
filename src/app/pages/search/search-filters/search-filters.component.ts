@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../../services/search.service';
@@ -40,7 +40,7 @@ interface Season {
   templateUrl: './search-filters.component.html',
   styleUrl: './search-filters.component.css',
 })
-export class SearchFiltersComponent implements OnInit {
+export class SearchFiltersComponent implements OnInit, OnDestroy {
  
   private apiService = inject(ApiService);
 
@@ -88,16 +88,15 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   ngOnInit() {
- 
 
-    this.searchService.resetFilters(); //reset filters when component is initialized
-    
+    this.searchService.getFilters().subscribe((filters: any) => {
+      this.selectedTags = filters?.destinationtypeids;
+    });
 
     this.getDestinationTags();
     this.getExperienceTags();
     this.getDistricts();
     this.getSeasons();
-      
   }
 
   setDistrictWithUrl(){
@@ -245,6 +244,10 @@ export class SearchFiltersComponent implements OnInit {
       max_durationinhrs: selected?.max ?? 9999
     });
 
+  }
+
+  ngOnDestroy(){
+    this.searchService.resetFilters(); //reset filters when component is destroyed
   }
 
 }

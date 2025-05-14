@@ -66,8 +66,7 @@
             <div
               class="w-full h-36 relative flex-shrink-0 overflow-hidden bg-gray-100 dark:bg-gray-700"
             >
-              <img
-                [src]="baseUrl+result?.media[0]?.mediaurl"
+              <img *ngIf="result?.media?.length > 0" [src]="result.media[0].mediaurl" 
                 [alt]="result?.destinationname"
                 class="w-full h-full object-cover"
                 (error)="imageService.handleImageError($event)"
@@ -88,7 +87,7 @@
                 class="absolute bottom-2 left-2 bg-white/90 dark:bg-accent-800/90 backdrop-blur-sm rounded-full px-2 py-0.5 text-xs font-medium text-accent-900 dark:text-accent-100 flex items-center shadow-sm"
               >
                 <i class="fas fa-clock mr-1"></i>
-                 1 - {{ result?.duration }} 
+                 0 - {{ result?.duration }} 
               </div>
             </div>
 

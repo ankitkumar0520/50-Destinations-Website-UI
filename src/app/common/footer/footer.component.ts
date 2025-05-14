@@ -65,7 +65,7 @@ export class FooterComponent {
   };
 
   contactInfo = {
-    address: 'Paryatan Bhawan, Tadong, Gangtok, Sikkim 737101',
+    address: 'Paryatan Bhawan, Tadong, Gangtok, Sikkim 737102',
     phone: '03592-232218 , 03592-209090',
     email: 'secy_tourism@yahoo.com'
   };
