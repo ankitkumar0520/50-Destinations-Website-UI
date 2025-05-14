@@ -1,4 +1,4 @@
-<section class="w-full py-6 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="about-section">
+<section  class="w-full py-6 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="about-section">
   <!-- Description Section - Full Width -->
   <div class="w-full py-8 max-w-7xl mx-auto px-6 md:px-16 2xl:px-0">
     <div class="">
@@ -43,13 +43,18 @@
 
     <!-- Gallery Carousel -->
     <div class="destination-gallery-grid py-4">
+      <div *ngIf="!destination?.media || destination.media.length === 0" class="text-center py-8">
+        <i class="fas fa-images text-4xl text-gray-400 mb-4"></i>
+        <p class="text-gray-600 dark:text-gray-400">No images available for this destination</p>
+      </div>
       <div *ngFor="let image of destination?.media; let i = index"
         class="gallery-item relative group cursor-pointer rounded-lg overflow-hidden shadow-md"
         (click)="showGalleria(i)">
-        <img [src]="baseUrl+image?.mediaurl" [alt]="destination?.destinationname" 
-        loading="lazy" 
-        (error)="imageService.handleImageError($event)"
-          class="w-full h-full aspect-[4/3] object-cover rounded-lg transition-all duration-300 group-hover:scale-105" />
+        <img [src]="image?.mediaurl ? baseUrl+image.mediaurl : 'assets/images/placeholder.jpg'" 
+             [alt]="destination?.destinationname || 'Destination image'" 
+             loading="lazy" 
+             (error)="imageService.handleImageError($event)"
+             class="w-full h-full aspect-[4/3] object-cover rounded-lg transition-all duration-300 group-hover:scale-105" />
         <!-- Always visible minimal title -->
         <div class="absolute bottom-0 left-0 right-0 p-2 bg-black/30 backdrop-blur-sm">
         </div>
@@ -57,7 +62,7 @@
     </div>
 
     <!-- Galleria Modal -->
-    <div *ngIf="displayGalleria" class="fixed inset-0 bg-black/95 z-2000 flex items-center justify-center p-4"
+    <div *ngIf="displayGalleria && destination?.media && destination.media.length > 0" class="fixed inset-0 bg-black/95 z-2000 flex items-center justify-center p-4"
       (click)="displayGalleria = false">
       <div class="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-xl shadow-2xl"
         (click)="$event.stopPropagation()">
@@ -89,8 +94,9 @@
         <div class="flex flex-col h-full bg-gray-900">
           <!-- Main Image -->
           <div class="flex-1 flex items-center justify-center p-4 md:p-6 min-h-[50vh] md:min-h-[60vh]">
-            <img [src]="baseUrl+destination?.media[activeIndex]?.mediaurl" [alt]="destination?.destinationname"
-              class="max-w-full h-[50vh] md:h-[65vh] object-contain rounded-lg shadow-lg" />
+            <img [src]="destination?.media[activeIndex]?.mediaurl ? baseUrl+destination.media[activeIndex].mediaurl : 'assets/images/placeholder.jpg'" 
+                 [alt]="destination?.destinationname || 'Destination image'"
+                 class="max-w-full h-[50vh] md:h-[65vh] object-contain rounded-lg shadow-lg" />
           </div>
 
           <!-- Image Info -->
@@ -106,8 +112,9 @@
                   class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-300"
                   [class.border-primary-500]="i === activeIndex" [class.border-transparent]="i !== activeIndex"
                   (click)="activeIndex = i">
-                  <img [src]="baseUrl+image?.mediaurl" [alt]="destination?.destinationname"
-                    class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+                  <img [src]="image?.mediaurl ? baseUrl+image.mediaurl : 'assets/images/placeholder.jpg'" 
+                       [alt]="destination?.destinationname || 'Destination image'"
+                       class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
                 </div>
               </div>
             </div>

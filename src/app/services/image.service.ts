@@ -29,4 +29,5 @@ export class ImageService {
       target.src = this.SQUARE;
     }
   }
+
 }
