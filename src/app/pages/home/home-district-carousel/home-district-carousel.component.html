@@ -17,16 +17,10 @@
       <div class="owl-carousel owl-theme district-carousel">
         <div
           class="item p-2 relative"
-          *ngFor="
-            let district of districts;
-            let i = index;
-            trackBy: trackBy"
+          *ngFor="let district of districts; let i = index; trackBy: trackBy"
         >
           <div
-            class="bg-white dark:bg-gray-800 rounded-xl shadow-lg
-             dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl 
-             dark:hover:shadow-gray-900/70 transition-all duration-300 
-             cursor-pointer transform hover:-translate-y-1 w-full min-h-[400px] h-[420px] max-h-[450px]"
+            class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 cursor-pointer transform hover:-translate-y-1 w-full min-h-[400px] h-[420px] max-h-[450px]"
           >
             <div class="flip-card" [class.flipped]="isQRVisibleMap[i]">
               <div class="flip-card-inner">
@@ -36,7 +30,9 @@
                     <!-- QR Toggle Button -->
                     <div
                       (click)="switchQR(i)"
-                      [ngClass]="'border-' + (district.districtname | lowercase)"
+                      [ngClass]="
+                        'border-' + (district.districtname | lowercase)
+                      "
                       class="w-8 h-8 border-1 bg-white absolute top-4 left-4 z-20 p-1 rounded cursor-pointer"
                     >
                       <i class="fas fa-qrcode"></i>
@@ -91,27 +87,26 @@
                           Popular Places
                         </h4>
                         <div class="grid grid-cols-2 gap-1.5">
+                          <!-- Popular Places -->
 
-                                    <!-- Popular Places -->
-
-                                    <ng-container *ngFor="let place of getTopDestinationsForDistrictFiltered(district.districtid)">
-                                      <span
-                                        class="focus:bg-primary-50 focus:text-primary-600 dark:focus:text-primary-400 
-                                        cursor-pointer hover:bg-primary-50 hover:text-primary-600 dark:hover:text-primary-400  
-                                        inline-flex items-center px-2 py-1 bg-gray-50 dark:bg-gray-900/50
-                                        text-gray-600 dark:text-gray-300 
-                                        rounded-lg text-xs font-medium whitespace-nowrap overflow-hidden"
-                                      >
-                                        <i class="fas fa-map-marker-alt mr-1"></i>
-                                        <span class="truncate">{{ place.destinationname }}</span>
-                                      </span>
-                                    </ng-container>
-                                    
-                          
-
+                          <ng-container
+                            *ngFor="
+                              let place of getTopDestinationsForDistrictFiltered(
+                                district.districtid
+                              )
+                            "
+                          >
+                            <span
+                              class="focus:bg-primary-50 focus:text-primary-600 dark:focus:text-primary-400 cursor-pointer hover:bg-primary-50 hover:text-primary-600 dark:hover:text-primary-400 inline-flex items-center px-2 py-1 bg-gray-50 dark:bg-gray-900/50 text-gray-600 dark:text-gray-300 rounded-lg text-xs font-medium whitespace-nowrap overflow-hidden"
+                            >
+                              <i class="fas fa-map-marker-alt mr-1"></i>
+                              <span class="truncate">{{
+                                place.destinationname
+                              }}</span>
+                            </span>
+                          </ng-container>
+                        </div>
                       </div>
-                      </div>
-
 
                       <!-- <div
                         class="pt-3 border-t border-gray-100 dark:border-gray-700"
@@ -127,8 +122,6 @@
                           <i class="fas fa-arrow-right"></i>
                         </button>
                       </div> -->
-
-                      
                     </div>
                   </div>
                 </div>
@@ -145,11 +138,16 @@
                   </div>
                   <div class="qr-container flex justify-center mb-4">
                     <qrcode
-                    [qrdata]="shareUrl + '/destinations/' + (district?.districtname?.toLowerCase() || '')"
-                    [width]="140"
-                    [errorCorrectionLevel]="'M'"
-                    [margin]="1"
-                  ></qrcode>
+                      *ngIf="isBrowser()"
+                      [qrdata]="
+                        shareUrl +
+                        '/destinations/' +
+                        (district?.districtname?.toLowerCase() || '')
+                      "
+                      [width]="140"
+                      [errorCorrectionLevel]="'M'"
+                      [margin]="1"
+                    ></qrcode>
                   </div>
                   <h3
                     class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2"
@@ -187,9 +185,3 @@
     </div>
   </div>
 </section>
-
-
-
-
-
-

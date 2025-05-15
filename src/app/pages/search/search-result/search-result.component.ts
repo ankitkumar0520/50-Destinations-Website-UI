@@ -41,6 +41,9 @@ interface SearchResult {
   styleUrl: './search-result.component.css',
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
+  isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
   private searchService = inject(SearchService);
   private router = inject(Router);
   imageService = inject(ImageService);

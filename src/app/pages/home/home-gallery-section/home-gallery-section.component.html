@@ -8,38 +8,34 @@
       [titleLeft]="'Unveiling Sikkim\'s'"
       [titleMiddleHighlighted]="'Most Visited'"
       [titleRight]="'Wonders'"
-      [description]="'Explore Sikkim\'s breathtaking landscapes - from towering mountains to serene lakes and ancient monasteries. Discover the top destinations that capture the heart and soul of Sikkim.'"
+      [description]="
+        'Explore Sikkim\'s breathtaking landscapes - from towering mountains to serene lakes and ancient monasteries. Discover the top destinations that capture the heart and soul of Sikkim.'
+      "
       [features]="[
         { icon: 'fas fa-map-marked-alt', text: 'Top Destinations' },
         { icon: 'fas fa-mountain', text: 'Majestic Mountains' },
         { icon: 'fas fa-water', text: 'Sacred Lakes' },
         { icon: 'fas fa-spa', text: 'Cultural Heritage' }
       ]"
-    
     ></app-section-header>
 
     <!-- Gallery Grid -->
     <div class="max-w-[1400px] mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mx-2">
         <!-- Destination Cards -->
-        <div *ngFor="let dest of destinations | slice:0:5; let i = index"
-        class="mx-1 relative shadow-lg dark:shadow-gray-900/50 hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 overflow-visible">
-   
-       
-        <!-- District Name Label -->
-              <span
-              class="absolute top-1/2 left-[-2.8rem] -translate-y-1/2 -rotate-90 
-                    text-xs text-white rounded-t-lg px-3 py-0.5  whitespace-nowrap shadow-sm
-                    bg-gradient-to-r from-primary-700 to-accent-600 
-                    dark:from-purple-600 dark:to-fuchsia-600"
-              >
-              {{ dest.districtname }}
-                </span>
+        <div
+          *ngFor="let dest of destinations | slice : 0 : 5; let i = index"
+          class="mx-1 relative shadow-lg dark:shadow-gray-900/50 hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 overflow-visible"
+        >
+          <!-- District Name Label -->
+          <span
+            class="absolute top-1/2 left-[-2.8rem] -translate-y-1/2 -rotate-90 text-xs text-white rounded-t-lg px-3 py-0.5 whitespace-nowrap shadow-sm bg-gradient-to-r from-primary-700 to-accent-600 dark:from-purple-600 dark:to-fuchsia-600"
+          >
+            {{ dest.districtname }}
+          </span>
 
           <div
-            class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 
-            overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all 
-            duration-300 group h-[340px] md:h-[220px]"
+            class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 group h-[340px] md:h-[220px]"
           >
             <div class="flip-card" [class.flipped]="isQRVisibleMap[i]">
               <div class="flip-card-inner">
@@ -59,7 +55,7 @@
                       class="h-64 md:h-full md:w-2/5 relative overflow-hidden"
                     >
                       <img
-                        [src]="baseUrl+dest?.media[0]?.mediaurl"
+                        [src]="baseUrl + dest?.media[0]?.mediaurl"
                         [alt]="dest?.destinationname"
                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                         (error)="imageService.handleImageError($event)"
@@ -91,9 +87,8 @@
                             {{ dest?.destinationname }}
                           </h3>
                           <!-- Explore Button - Compact Icon Text Version -->
-                          <a 
+                          <a
                             [routerLink]="['/destination', dest?.slug]"
-
                             class="bg-blue-100 cursor-pointer py-1.5 px-3 rounded-lg text-gray-500 hover:text-primary font-semibold transition-colors duration-300 flex items-center justify-center gap-2 group text-xs"
                           >
                             <span>Explore</span>
@@ -104,7 +99,9 @@
                         </span>
 
                         <!-- Description - Added back in compact format -->
-                        <p class="text-gray-600 dark:text-gray-300 h-16 text-xs mt-1 line-clamp-4">
+                        <p
+                          class="text-gray-600 dark:text-gray-300 h-16 text-xs mt-1 line-clamp-4"
+                        >
                           {{ dest?.destinationdescription }}
                         </p>
 
@@ -114,7 +111,7 @@
                             class="flex flex-wrap gap-1 overflow-hidden max-h-[28px]"
                           >
                             <span
-                                *ngFor="let tag of dest?.tags|slice:0:4"
+                              *ngFor="let tag of dest?.tags | slice : 0 : 4"
                               class="px-1.5 py-0.5 bg-gray-50 dark:bg-gray-900/50 text-gray-600 dark:text-gray-300 rounded-full text-[10px] whitespace-nowrap max-w-fit"
                             >
                               {{ tag?.tagname }}
@@ -145,11 +142,13 @@
                               Best Time
                             </p>
 
-                         <p class="truncate">
-                                     {{ dest?.seasons?.length ? dest?.seasons[0]?.seasonmonth : 'N/A' }}
-                           </p>
-
-                                                
+                            <p class="truncate">
+                              {{
+                                dest?.seasons?.length
+                                  ? dest?.seasons[0]?.seasonmonth
+                                  : "N/A"
+                              }}
+                            </p>
                           </div>
                           <div>
                             <p
@@ -157,7 +156,9 @@
                             >
                               Duration
                             </p>
-                              <p class="truncate">{{ dest?.duration || 'N/A'}}</p>
+                            <p class="truncate">
+                              {{ dest?.duration || "N/A" }}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -166,7 +167,9 @@
                 </div>
 
                 <!-- Back of the card -->
-                <div class="flip-card-back bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200">
+                <div
+                  class="flip-card-back bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+                >
                   <div
                     class="back-button text-gray-600 dark:text-gray-400 cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 absolute top-2 left-2"
                     (click)="switchQR(i)"
@@ -179,6 +182,7 @@
                     <div class="qr-left-section">
                       <div class="qr-container">
                         <qrcode
+                          *ngIf="isBrowser()"
                           [qrdata]="shareUrl + '/destination/' + dest.slug"
                           [width]="140"
                           [errorCorrectionLevel]="'M'"
@@ -186,29 +190,36 @@
                         ></qrcode>
                       </div>
                       <!-- Only visible on mobile -->
-                      <p class="text-sm text-gray-600 dark:text-gray-400 mb-2 md:hidden">
+                      <p
+                        class="text-sm text-gray-600 dark:text-gray-400 mb-2 md:hidden"
+                      >
                         Scan to explore
                       </p>
                     </div>
-                    
+
                     <!-- Right section for title and buttons -->
                     <div class="qr-right-section">
-                      <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">
+                      <h3
+                        class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2"
+                      >
                         {{ dest?.destinationname }}
                       </h3>
-                      
+
                       <!-- Only visible on desktop -->
-                      <p class="hidden md:block text-sm text-gray-600 dark:text-gray-400 mb-2">
-                        Scan to explore {{ dest?.destinationname }} and discover its beautiful attractions and unique experiences.
+                      <p
+                        class="hidden md:block text-sm text-gray-600 dark:text-gray-400 mb-2"
+                      >
+                        Scan to explore {{ dest?.destinationname }} and discover
+                        its beautiful attractions and unique experiences.
                       </p>
-                      
+
                       <div class="button-group">
                         <button
                           class="px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors duration-300 flex items-center gap-1.5 text-sm"
                           (click)="shareQR(dest)"
                         >
                           <i class="fas fa-share-alt"></i>
-                          Share 
+                          Share
                         </button>
                         <button
                           class="px-3 py-2 bg-secondary-600 hover:bg-secondary-700 text-white rounded-lg transition-colors duration-300 flex items-center gap-1.5 text-sm"

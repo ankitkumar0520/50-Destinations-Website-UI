@@ -1,43 +1,74 @@
+<input
+  type="text"
+  [(ngModel)]="destination"
+  placeholder="Enter Destination"
+  class="mt-20 mb-4 w-full max-w-md mx-auto block px-4 py-2 rounded-xl border border-sky-300 shadow-sm bg-white text-sky-800 placeholder-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 transition"
+/>
 
-<input 
-type="text" 
-[(ngModel)]="destination" 
-placeholder="Enter Destination" 
-class="mt-20 mb-4 w-full max-w-md mx-auto block px-4 py-2 rounded-xl border border-sky-300 shadow-sm bg-white text-sky-800 placeholder-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 transition"
+<div
+  class="flex justify-center items-center min-h-[60vh] py-6 bg-gradient-to-b from-sky-50 to-white"
 >
-
-<div class="flex justify-center items-center min-h-[60vh] py-6 bg-gradient-to-b from-sky-50  to-white">
-
-
-
-
-  <div class="bg-white p-6 rounded-2xl shadow-xl border border-sky-200 w-full max-w-md mx-4">
-
+  <div
+    class="bg-white p-6 rounded-2xl shadow-xl border border-sky-200 w-full max-w-md mx-4"
+  >
     <!-- Destination Header -->
     <div class="text-center mb-4">
-      <h2 class="text-2xl font-bold text-sky-700 mb-1 bg-sky-100/50 px-4 py-2 rounded-lg">
-        {{destination}}
+      <h2
+        class="text-2xl font-bold text-sky-700 mb-1 bg-sky-100/50 px-4 py-2 rounded-lg"
+      >
+        {{ destination }}
       </h2>
-      <p class="text-sm font-medium text-sky-500 mt-2 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+      <p
+        class="text-sm font-medium text-sky-500 mt-2 flex items-center justify-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4 mr-1"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+          />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+          />
         </svg>
         Sikkim Darshan - QR Tourist Guide
       </p>
     </div>
 
     <!-- Logos row -->
-    <div class="flex justify-center items-center mb-5 space-x-6 py-3 rounded-lg">
-      <img src="assets/Images/logo/gos.webp" alt="Government Logo" class="h-10 w-auto object-contain">
+    <div
+      class="flex justify-center items-center mb-5 space-x-6 py-3 rounded-lg"
+    >
+      <img
+        src="assets/Images/logo/gos.webp"
+        alt="Government Logo"
+        class="h-10 w-auto object-contain"
+      />
       <div class="h-8 w-px bg-sky-200"></div>
-      <img src="assets/Images/logo/statehood.png" alt="Tourism Logo" class="h-10 w-auto object-contain">
+      <img
+        src="assets/Images/logo/statehood.png"
+        alt="Tourism Logo"
+        class="h-10 w-auto object-contain"
+      />
     </div>
 
     <!-- QR Code Box -->
-    <div class="bg-gradient-to-br from-sky-50 to-white p-4 rounded-xl border-2 border-sky-100 shadow-inner mb-5">
+    <div
+      class="bg-gradient-to-br from-sky-50 to-white p-4 rounded-xl border-2 border-sky-100 shadow-inner mb-5"
+    >
       <div class="flex justify-center">
         <qrcode
+          *ngIf="isBrowser()"
           [qrdata]="url"
           [width]="200"
           [errorCorrectionLevel]="'H'"
@@ -49,20 +80,20 @@ class="mt-20 mb-4 w-full max-w-md mx-auto block px-4 py-2 rounded-xl border bord
       </div>
     </div>
 
-<!-- Visual URL Display -->
-<div class="text-center mt-4">
-  <p class="text-xs text-sky-500 mb-1">Scan to explore more or</p>
+    <!-- Visual URL Display -->
+    <div class="text-center mt-4">
+      <p class="text-xs text-sky-500 mb-1">Scan to explore more or</p>
 
-  <p class="mt-2 text-xs text-sky-500">
-     Visit this link:
-    <a href="https://sikkimdarshan.com" 
-       target="_blank" 
-       class="text-sky-700 font-medium underline hover:text-sky-900 transition">
-      https://sikkimdarshan.com/destination/{{destination | slugify}}
-    </a>
-  </p>
-</div>
-
-
+      <p class="mt-2 text-xs text-sky-500">
+        Visit this link:
+        <a
+          href="https://sikkimdarshan.com"
+          target="_blank"
+          class="text-sky-700 font-medium underline hover:text-sky-900 transition"
+        >
+          https://sikkimdarshan.com/destination/{{ destination | slugify }}
+        </a>
+      </p>
+    </div>
   </div>
 </div>

@@ -607,128 +607,169 @@
   <div
     class="absolute inset-0 bg-gradient-to-r from-black/80 to-black/10 dark:from-black/70 dark:via-black/50 dark:to-black/70"
   ></div>
-
-  <!-- Content -->
   <div
-    class="flex flex-row flex-wrap justify-center sm:justify-between items-center min-h-screen relative max-w-7xl mx-auto px-6 pt-[84px] pb-8 md:px-16 2xl:px-0"
+    class="flex flex-col justify-center min-h-screen max-w-7xl mx-auto px-6 pt-[84px] pb-8 md:px-16 2xl:px-0 relative"
   >
-    <div class="text-white max-w-2xl flex flex-row relative z-10">
-      <div>
-        <div class="py-8">
-          <div
-            class="p-2 sm:p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-4 sm:mb-6 shadow-md dark:shadow-lg bg-white/20 dark:bg-gray-800/50 backdrop-blur-xs dark:border-gray-700 w-fit"
-          >
-            <h1
-              class="text-gray-900 dark:text-white text-3xl sm:text-3xl lg:text-5xl font-extrabold tracking-wide capitalize leading-snug drop-shadow-xl relative w-full text-left"
-            >
-              <span
-                class="whitespace-nowrap bg-gradient-to-r from-primary-500 via-secondary-400 to-accent-600 dark:from-primary-400 dark:via-secondary-400 dark:to-accent-400 bg-clip-text text-transparent font-bold animate-gradient-move"
-              >
-                {{ destination?.destinationname }}
-              </span>
-            </h1>
+    <!-- Main Flex Row -->
+    <div
+      class="flex flex-col lg:grid lg:grid-cols-12 items-start lg:items-center gap-8 lg:gap-16 w-full"
+    >
+      <!-- Main Content Card -->
+      <div
+        class="relative col-span-9 flex flex-col md:flex-row gap-8 p-8 bg-gray-500/20 dark:shadow-lg dark:bg-gray-800/50 dark:border-gray-700 rounded-xl shadow-xl backdrop-blur-sm border border-white/20 w-full"
+      >
+        <!-- Desktop QR Code - Shows on left for larger screens -->
+        <div class="hidden md:flex flex-shrink-0 max-w-[180px] sm:max-w-sm">
+          <div class="flex flex-col items-center gap-4">
+            <div class="bg-white/10 p-4 rounded-xl shadow-md max-w-[200px]">
+              <qrcode
+                *ngIf="isBrowser()"
+                class="aspect-square w-full h-full"
+                [qrdata]="shareUrl + '/destination/' + destination?.slug"
+                [width]="160"
+                [margin]="1"
+                [errorCorrectionLevel]="'M'"
+                [cssClass]="
+                  'flex justify-center items-center rounded-xl overflow-hidden'
+                "
+              ></qrcode>
+              <div class="text-white/95 text-center space-y-2">
+                <h2 class="text-xl font-bold mt-2">Scan & Explore</h2>
+                <p class="text-sm text-gray-100/90">
+                  Share
+                  <span class="text-gray-300 font-semibold">{{
+                    destination?.destinationname
+                  }}</span>
+                  with friends!
+                </p>
+              </div>
+              <div class="flex flex-col items-center gap-2 mt-2">
+                <button
+                  (click)="shareQR()"
+                  class="cursor-pointer w-full bg-gray-500/20 hover:bg-primary-500/70 text-white/95 px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow"
+                >
+                  <i class="fas fa-share-alt mr-2 text-xs"></i>
+                  <span class="text-sm">Share</span>
+                </button>
+                <button
+                  (click)="downloadQR()"
+                  class="cursor-pointer w-full bg-gray-500/20 hover:bg-green-500/50 text-white/95 px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow"
+                >
+                  <i class="fas fa-download mr-2 text-xs"></i>
+                  <span class="text-sm">Download</span>
+                </button>
+              </div>
+            </div>
           </div>
+        </div>
 
+        <!-- Content Section -->
+        <div class="flex-grow justify-center flex flex-col gap-4">
+          <!-- Title -->
+          <h1
+            class="text-gray-900 dark:text-white text-4xl sm:text-5xl font-extrabold tracking-wide capitalize leading-snug"
+          >
+            <span
+              class="bg-gradient-to-r from-primary-500 via-secondary-400 to-accent-600 bg-clip-text text-transparent font-bold"
+            >
+              {{ destination?.destinationname }}
+            </span>
+          </h1>
+
+          <!-- Description -->
           <p
-            class="text-sm text-justify sm:text-base line-clamp-4 lg:text-lg leading-normal sm:mb-4 text-white dark:text-gray-200/90 max-w-2xl p-4 rounded-xl"
+            class="text-sm sm:text-base lg:text-lg leading-normal text-white dark:text-gray-200/90 max-w-2xl"
           >
             {{ destination?.destinationdescription }}
           </p>
+
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-2 max-w-3xl">
+            <span
+              *ngFor="let tag of destination?.tags"
+              class="px-4 py-1 backdrop-blur-sm bg-white/10 dark:bg-gray-800/70 rounded-full text-gray-100 dark:text-white/80 font-medium text-sm"
+            >
+              {{ tag?.tagname }}
+            </span>
+          </div>
         </div>
 
-        <div class="flex flex-row gap-3 sm:gap-4 mb-6 sm:mb-8 max-w-3xl px-4">
-          <span
-            *ngFor="let tag of destination?.tags"
-            class="px-4 py-1 cursor-pointer backdrop-blur-sm bg-white/10 dark:bg-gray-800/70 rounded-full text-gray-100 dark:text-white/80 font-medium text-sm flex items-center justify-center transition-all duration-300 group border border-white/20 dark:border-gray-600/40 hover:border-white/30 dark:hover:border-gray-500/40 shadow-lg hover:shadow-xl"
+        <!-- Mobile QR Code - Shows at top on mobile -->
+        <div class="md:hidden flex justify-center w-full mb-4">
+          <div
+            class="flex flex-col items-center gap-4 p-4 bg-white/10 rounded-xl shadow-md w-full md:max-w-[200px]"
           >
-            {{ tag?.tagname }}
-          </span>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 px-4">
-          <button
-            (click)="scrollTo('about-section')"
-            class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-primary-600/90 to-primary-500/90 hover:from-primary-500/90 hover:to-primary-400/90 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl backdrop-blur-sm border border-primary-300/30 hover:border-primary-200/40"
-          >
-            <i class="fas fa-file-alt mr-2 sm:mr-3"></i>
-            <span>Explore More</span>
-          </button>
-          <button
-            (click)="showModelVoiceModel()"
-            class="cursor-pointer w-full sm:w-auto bg-blue-600/70 dark:bg-blue-500/70 hover:bg-blue-500/70 dark:hover:bg-blue-400/70 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl backdrop-blur-sm border border-white/20 dark:border-gray-600/40 hover:border-white/30 dark:hover:border-gray-500/40"
-          >
-            <i class="fas fa-volume-up mr-2 sm:mr-3"></i>
-            <span>Audio Guide</span>
-          </button>
-          <button
-            (click)="scrollTo('guide-map-section')"
-            class="cursor-pointer w-full sm:w-auto bg-emerald-600/70 dark:bg-emerald-500/70 hover:bg-emerald-500/70 dark:hover:bg-emerald-400/70 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl backdrop-blur-sm border border-white/20 dark:border-gray-600/40 hover:border-white/30 dark:hover:border-gray-500/40"
-          >
-            <i class="fas fa-map-marker-alt mr-2 sm:mr-3"></i>
-            <span>Navigate Now</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="mt-6 sm:mt-8 lg:mt-10 bg-gray-500/20 p-3 sm:p-4 lg:p-5 rounded-xl shadow-xl hover:shadow-2xl backdrop-blur-lg border border-white/20 w-full max-w-[280px] sm:max-w-sm md:max-w-md hover:bg-indigo-500/10 transition-all duration-300 ease-in-out"
-    >
-      <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-5">
-        <!-- QR Code Container -->
-        <div
-          class="shrink-0 bg-white/10 p-1.5 sm:p-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
-        >
-          <qrcode
-            *ngIf="isBrowser()"
-            class="aspect-square w-full h-full"
-            [qrdata]="shareUrl + '/destination/' + destination?.slug"
-            [width]="100"
-            [margin]="1"
-            [cssClass]="'qr-code'"
-            [errorCorrectionLevel]="'M'"
-          >
-          </qrcode>
-        </div>
-
-        <!-- Text Content -->
-        <div
-          class="text-white/95 text-center sm:text-left flex-1 space-y-1.5 sm:space-y-2"
-        >
-          <h2 class="text-lg sm:text-xl md:text-2xl font-bold leading-tight">
-            Scan & Explore
-          </h2>
-          <p
-            class="text-xs sm:text-sm md:text-base text-gray-100/90 leading-snug sm:leading-normal"
-          >
-            Share
-            <span class="text-gray-300 font-semibold">{{
-              destination?.destinationname
-            }}</span>
-            with friends!
-          </p>
+            <div
+              class="flex flex-row flex-wrap text-center md:text-start justify-center md:justify-start md:flex-col md:flex-nowrap gap-4 md:gap-0"
+            >
+              <qrcode
+                *ngIf="isBrowser()"
+                class="max-h-[160px]"
+                [qrdata]="shareUrl + '/destination/' + destination?.slug"
+                [width]="160"
+                [margin]="1"
+                [errorCorrectionLevel]="'M'"
+                [cssClass]="
+                  'flex justify-center items-center rounded-xl overflow-hidden'
+                "
+              ></qrcode>
+              <div
+                class="text-white/95 space-y-2 flex flex-col justify-center min-w-[120px] md:w-full"
+              >
+                <h2 class="text-xl font-bold mt-2">Scan & Explore</h2>
+                <p class="text-sm text-gray-100/90">
+                  Share
+                  <span class="text-gray-300 font-semibold">{{
+                    destination?.destinationname
+                  }}</span>
+                  with friends!
+                </p>
+              </div>
+            </div>
+            <div class="flex flex-col items-center gap-2 mt-2 w-full">
+              <button
+                (click)="shareQR()"
+                class="cursor-pointer w-full bg-gray-500/20 hover:bg-primary-500/70 text-white/95 px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow"
+              >
+                <i class="fas fa-share-alt mr-2 text-xs"></i>
+                <span class="text-sm">Share</span>
+              </button>
+              <button
+                (click)="downloadQR()"
+                class="cursor-pointer w-full bg-gray-500/20 hover:bg-green-500/50 text-white/95 px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow"
+              >
+                <i class="fas fa-download mr-2 text-xs"></i>
+                <span class="text-sm">Download</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Buttons -->
-      <div class="grid grid-cols-2 gap-2 sm:gap-3 mt-3 sm:mt-4">
+      <div
+        class="col-span-3 flex flex-col gap-4 w-full lg:w-auto items-stretch lg:items-center"
+      >
         <button
-          (click)="downloadQR()"
-          class="cursor-pointer w-full bg-gray-500/20 hover:border-green-500/70 hover:bg-green-500/50 text-white/95 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow hover:shadow-md border border-white/10 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+          (click)="scrollTo('about-section')"
+          class="cursor-pointer w-full sm:w-auto bg-gradient-to-r from-primary-600/70 to-primary-500/70 hover:from-primary-500/70 hover:to-primary-400/70 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl backdrop-blur-sm border border-primary-300/30 hover:border-primary-200/40"
         >
-          <i
-            class="fas fa-download mr-1.5 sm:mr-2 text-gray-300 text-xs sm:text-sm"
-          ></i>
-          <span class="text-xs sm:text-sm">Download</span>
+          <i class="fas fa-file-alt mr-2 sm:mr-3"></i>
+          <span>Explore More</span>
         </button>
         <button
-          (click)="shareQR()"
-          class="cursor-pointer w-full bg-gray-500/20 hover:border-primary-500/70 hover:bg-primary-500/70 text-white/95 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow hover:shadow-md border border-white/10 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+          (click)="showModelVoiceModel()"
+          class="cursor-pointer w-full sm:w-auto bg-blue-600/70 dark:bg-blue-500/70 hover:bg-blue-500/70 dark:hover:bg-blue-400/70 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl backdrop-blur-sm border border-white/20 dark:border-gray-600/40 hover:border-white/30 dark:hover:border-gray-500/40"
         >
-          <i
-            class="fas fa-share-alt mr-1.5 sm:mr-2 text-gray-300 text-xs sm:text-sm"
-          ></i>
-          <span class="text-xs sm:text-sm">Share</span>
+          <i class="fas fa-volume-up mr-2 sm:mr-3"></i>
+          <span>Audio Guide</span>
+        </button>
+        <button
+          (click)="scrollTo('guide-map-section')"
+          class="cursor-pointer w-full sm:w-auto bg-emerald-600/70 dark:bg-emerald-500/70 hover:bg-emerald-500/70 dark:hover:bg-emerald-400/70 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl backdrop-blur-sm border border-white/20 dark:border-gray-600/40 hover:border-white/30 dark:hover:border-gray-500/40"
+        >
+          <i class="fas fa-map-marker-alt mr-2 sm:mr-3"></i>
+          <span>Navigate Now</span>
         </button>
       </div>
     </div>

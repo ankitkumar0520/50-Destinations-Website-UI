@@ -10,21 +10,24 @@ import { EventsComponent } from './pages/events/events.component';
 import { HeritageWalkComponent } from './pages/heritage-walk/heritage-walk.component';
 import { ViewPdfComponent } from './pages/events/view-pdf/view-pdf.component';
 import { QrGeneratorComponent } from './qr-generator/qr-generator.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+
 export const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch:'full' },
-  {
-    path: 'destinations/:district',
-    component: SearchMainComponent
-  },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+
+  // Destination routes
   {
     path: 'destinations',
-    component: SearchMainComponent
-  }
-,  
+    children: [
+      { path: '', component: SearchMainComponent },
+      { path: ':district', component: SearchMainComponent },
+    ],
+  },
+  { path: 'destination/:slug', component: DestinationMainComponent },
+  { path: 'destination', redirectTo: 'destinations', pathMatch: 'full' },
 
-{ path: 'destination', redirectTo: '/destinations', pathMatch: 'full' },
-{ path: 'destination/:slug', component: DestinationMainComponent },
-
+  // Other pages
   { path: 'about', component: AboutComponent },
   { path: 'faqs', component: FaqsComponent },
   { path: 'events', component: EventsComponent },
@@ -33,4 +36,7 @@ export const routes: Routes = [
   { path: 'heritage-walk', component: HeritageWalkComponent },
   { path: 'view-pdf', component: ViewPdfComponent },
   { path: 'qr-generator', component: QrGeneratorComponent },
+
+  // Wildcard route for 404 page
+  { path: '**', component: NotFoundComponent }, // Recommended to add
 ];

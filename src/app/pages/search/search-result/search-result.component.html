@@ -30,9 +30,7 @@
       <div>
         <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300">
           Search Results:
-          <span class="block md:inline"
-            >Found {{ totalItems }} items</span
-          >
+          <span class="block md:inline">Found {{ totalItems }} items</span>
         </h2>
       </div>
       <!-- Right: Flip All Button -->
@@ -162,6 +160,7 @@
             <div class="qr-container flex justify-center mb-2">
               <div [id]="'qr-' + i">
                 <qrcode
+                  *ngIf="isBrowser()"
                   [qrdata]="siteUrl + '/destination/' + result.slug"
                   [width]="200"
                   [errorCorrectionLevel]="'M'"
