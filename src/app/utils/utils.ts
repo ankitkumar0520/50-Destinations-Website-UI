@@ -100,7 +100,7 @@ export function downloadQRCode(
 export function getGradientClasses(district: string): string[] {
   const lowerDistrict = district.toLowerCase();
   const classes: { [key: string]: string[] } = {
-    gangtok: ['from-gangtok-500', 'to-gangtok-300'],
+    gangtok: ['from-gangtok-500', 'to-gangtok-400'],
     mangan: ['from-mangan-500', 'to-mangan-300'],
     geyzing: ['from-geyzing-500', 'to-geyzing-300'],
     gyalshing: ['from-geyzing-500', 'to-geyzing-300'],
@@ -111,8 +111,6 @@ export function getGradientClasses(district: string): string[] {
   };
   return classes[lowerDistrict] || [];
 }
-
-
 
 // utils/image-preloader
 type Callback = () => void;
@@ -156,8 +154,7 @@ export function slugify(text: string): string {
     .toString()
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, '')    // Remove non-word characters
-    .replace(/\s+/g, '-')        // Replace spaces with dashes
-    .replace(/--+/g, '-');       // Replace multiple dashes with a single dash
+    .replace(/[^\w\s-]/g, '') // Remove non-word characters
+    .replace(/\s+/g, '-') // Replace spaces with dashes
+    .replace(/--+/g, '-'); // Replace multiple dashes with a single dash
 }
-

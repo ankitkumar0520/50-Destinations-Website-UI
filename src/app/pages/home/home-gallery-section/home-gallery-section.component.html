@@ -29,7 +29,8 @@
         >
           <!-- District Name Label -->
           <span
-            class="absolute top-1/2 left-[-2.8rem] -translate-y-1/2 -rotate-90 text-xs text-white rounded-t-lg px-3 py-0.5 whitespace-nowrap shadow-sm bg-gradient-to-r from-primary-700 to-accent-600 dark:from-purple-600 dark:to-fuchsia-600"
+            class="absolute top-1/2 left-[-2.8rem] -translate-y-1/2 -rotate-90 text-xs text-white font-medium rounded-t-lg px-3 py-0.5 whitespace-nowrap shadow-sm bg-gradient-to-r"
+            [ngClass]="getGradientClasses(dest.districtname)"
           >
             {{ dest.districtname }}
           </span>
