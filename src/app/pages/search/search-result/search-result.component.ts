@@ -19,6 +19,8 @@ import { shareQRCode } from '../../../utils/utils';
 import { ApiService } from '../../../services/api.service';
 import { finalize } from 'rxjs';
 import { LoaderComponent } from '../../../common/loader/loader.component';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 interface Tag {
   tagname: string;
@@ -45,6 +47,15 @@ interface SearchResult {
   ],
   templateUrl: './search-result.component.html',
   styleUrl: './search-result.component.css',
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('100ms ease-out', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [animate('500ms ease-in', style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
   isBrowser(): boolean {

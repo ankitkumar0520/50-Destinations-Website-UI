@@ -7,6 +7,8 @@
   ></div> -->
 
   <div
+    [@fadeInOut]
+    *ngIf="isLoading"
     class="absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center"
   >
     <app-loader></app-loader>
