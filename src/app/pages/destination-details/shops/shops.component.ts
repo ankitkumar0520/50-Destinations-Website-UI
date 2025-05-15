@@ -33,6 +33,11 @@ export class ShopsComponent implements OnDestroy, OnInit {
   isModalOpen = false;
   private carouselInitialized = false;
 
+  // Image loading states
+  imageLoaded = false;
+  modalImageLoaded = false;
+  productImageLoaded = false;
+
   constructor() {}
   
   ngOnInit(): void {

@@ -28,14 +28,18 @@
             <!-- Shop Image -->
             <div class="relative h-40 overflow-hidden">
               <img
-                [src]="shop?.media[0]?.mediaurl"
-                [alt]="shop?.name"
-                class="w-full h-full object-cover"
-                (error)="imageService.handleImageError($event)"             
-                 />
+                [src]="shop?.media?.[0]?.mediaurl || imageService.LANDSCAPE"
+                [alt]="shop?.name || 'Shop Image'"
+                class="w-full h-full object-cover transition-opacity duration-300"
+                [class.opacity-0]="!imageLoaded"
+                [class.opacity-100]="imageLoaded"
+                (load)="imageLoaded = true"
+                (error)="imageService.handleImageError($event)"
+                loading="lazy"
+              />
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <div class="absolute bottom-0 left-0 right-0 p-4">
-                <h3 class="text-lg font-semibold text-white">{{ shop?.name }}</h3>
+                <h3 class="text-lg font-semibold text-white">{{ shop?.name || 'Shop Name' }}</h3>
               </div>
             </div>
 
@@ -74,7 +78,16 @@
         <div class="relative">
           <!-- Shop image as background -->
           <div class="absolute inset-0 z-0">
-              <img loading="lazy" [src]="selectedShop?.media[0]?.mediaurl" [alt]="selectedShop?.name" class="w-full h-full object-cover opacity-30 dark:opacity-20" />
+              <img 
+                loading="lazy" 
+                [src]="selectedShop?.media?.[0]?.mediaurl || imageService.LANDSCAPE" 
+                [alt]="selectedShop?.name || 'Shop Image'" 
+                class="w-full h-full object-cover opacity-30 dark:opacity-20 transition-opacity duration-300"
+                [class.opacity-0]="!modalImageLoaded"
+                [class.opacity-100]="modalImageLoaded"
+                (load)="modalImageLoaded = true"
+                (error)="imageService.handleImageError($event)"
+              />
             <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
           </div>
           
@@ -113,11 +126,13 @@
               class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer border border-gray-100 dark:border-gray-700"
             >
               <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
-
                 <img
-                  [src]="apiBaseUrl1+product?.media[0]?.mediaurl"
-                  [alt]="product?.productname"
-                  class="w-full h-full object-cover"
+                  [src]="apiBaseUrl1 + (product?.media?.[0]?.mediaurl || '') || imageService.SQUARE"
+                  [alt]="product?.productname || 'Product Image'"
+                  class="w-full h-full object-cover transition-opacity duration-300"
+                  [class.opacity-0]="!productImageLoaded"
+                  [class.opacity-100]="productImageLoaded"
+                  (load)="productImageLoaded = true"
                   (error)="imageService.handleImageError($event)"
                   loading="lazy"
                 />
@@ -133,7 +148,6 @@
             </div>
           </div>
         </div>
-
 
       </div>
     </div>
