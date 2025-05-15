@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 export interface SearchFilters {
   districtid: string;
@@ -13,8 +14,6 @@ export interface SearchFilters {
   pageSize: number;
   pageNumber: number;
 }
-
-
 
 export const DEFAULT_FILTERS: SearchFilters = {
   districtid: '',
@@ -32,99 +31,105 @@ export const DEFAULT_FILTERS: SearchFilters = {
 @Injectable({
   providedIn: 'root',
 })
-export class SearchService {
-  private filtersSubject = new BehaviorSubject<SearchFilters>({ ...DEFAULT_FILTERS });
+export class SearchService implements OnDestroy {
+  private destroy$ = new Subject<void>();
+  private filtersSubject = new BehaviorSubject<SearchFilters>({
+    ...DEFAULT_FILTERS,
+  });
   private payloadSubject = new BehaviorSubject<any>({});
-  payload$ = this.payloadSubject.asObservable();
 
-  filteredResults: any;
+  // Public observables
+  payload$ = this.payloadSubject.asObservable();
+  filters$ = this.filtersSubject.asObservable();
+
+  // Store filtered results as observable if needed by multiple components
+  private filteredResultsSubject = new BehaviorSubject<any>(null);
+  filteredResults$ = this.filteredResultsSubject.asObservable();
 
   constructor() {
-    this.UpdatePayload();
+    // Automatically update payload when filters change
+    this.filtersSubject.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.updatePayload();
+    });
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
-
-  updateFilters(updated: Partial<SearchFilters>) {
+  updateFilters(updated: Partial<SearchFilters>): void {
     const current = this.filtersSubject.value;
     const merged: SearchFilters = {
       ...current,
       ...updated,
-      destinationtypeids: updated.destinationtypeids ?? current.destinationtypeids,
+      destinationtypeids:
+        updated.destinationtypeids ?? current.destinationtypeids,
       seasonids: updated.seasonids ?? current.seasonids,
       min_durationinhrs: updated.min_durationinhrs ?? current.min_durationinhrs,
       max_durationinhrs: updated.max_durationinhrs ?? current.max_durationinhrs,
       pageSize: updated.pageSize ?? current.pageSize,
       pageNumber: updated.pageNumber ?? current.pageNumber,
       sortby: updated.sortby ?? current.sortby,
-
-
     };
     this.filtersSubject.next(merged);
-
-    this.UpdatePayload();
   }
 
-  setFilters(newFilters: SearchFilters) {
+  setFilters(newFilters: SearchFilters): void {
     this.filtersSubject.next({ ...newFilters });
   }
 
-  resetFilters() {
+  resetFilters(): void {
     this.filtersSubject.next({ ...DEFAULT_FILTERS });
-    this.UpdatePayload();
   }
 
-  getFilters(): Observable<SearchFilters> {
-    return this.filtersSubject.asObservable();
+  getCurrentFilters(): SearchFilters {
+    return this.filtersSubject.value;
   }
 
-  UpdatePayload(): any {
-    const payload: any = {};
+  setFilteredResults(results: any): void {
+    this.filteredResultsSubject.next(results);
+  }
+
+  private updatePayload(): void {
     const filters = this.filtersSubject.value;
-   
-    if(filters.destinationtypeids?.length){
-      //map destinationtypeids to string separated by comma
+    const payload: any = {};
+
+    if (filters.destinationtypeids?.length) {
       payload.destinationtypeids = filters.destinationtypeids.join(',');
     }
-
 
     if (filters.districtid) {
       payload.districtid = filters.districtid;
     }
 
-     payload.min_durationinhrs = filters.min_durationinhrs;
-     payload.max_durationinhrs = filters.max_durationinhrs;
-  
+    payload.min_durationinhrs = filters.min_durationinhrs;
+    payload.max_durationinhrs = filters.max_durationinhrs;
+
     if (filters.seasonids?.length) {
-      //map seasonids to string separated by comma
       payload.seasonids = filters.seasonids.join(',');
     }
-  
-    if (filters?.experienceids) {
+
+    if (filters.experienceids) {
       payload.experienceids = filters.experienceids;
     }
-  
+
     if (filters.searchtext) {
       payload.searchtext = filters.searchtext;
     }
-  
+
     if (filters.sortby) {
       payload.sortby = filters.sortby;
     }
-  
+
     if (filters.pageSize) {
       payload.pageSize = filters.pageSize;
     }
-  
+
     if (filters.pageNumber) {
       payload.pageNumber = filters.pageNumber;
     }
 
     this.payloadSubject.next(payload);
-    return payload;
   }
-  
-
-
-
 }

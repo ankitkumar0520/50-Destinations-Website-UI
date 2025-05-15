@@ -8,11 +8,11 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
-import { SearchService } from '../../../services/search.service';
+import { SearchFilters, SearchService } from '../../../services/search.service';
 import { DURATIONS, SORT_OPTIONS } from '../../../../enums/search-filters.enum';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 
 interface DestinationType {
   id: string;
@@ -108,15 +108,21 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.searchService.getFilters().subscribe((filters: any) => {
-      this.selectedTags = filters?.destinationtypeids || [];
-    });
+    this.searchService.filters$
+      .pipe(
+        takeUntil(this.destroy$) // Don't forget to manage subscription cleanup
+      )
+      .subscribe((filters: SearchFilters) => {
+        this.selectedTags = filters.destinationtypeids || [];
+      });
 
     this.getDestinationTags();
     this.getExperienceTags();
     this.getDistricts();
     this.getSeasons();
   }
+
+  private destroy$ = new Subject<void>();
 
   setDistrictWithUrl() {
     // In your component.ts
@@ -271,5 +277,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     // Clear all filters when component is destroyed
     this.searchService.resetFilters();
     this.searchSubject.complete();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

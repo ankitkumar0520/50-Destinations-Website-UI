@@ -1,59 +1,59 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable, OnDestroy } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  http = inject(HttpClient);
-
-  constructor() {}
+  private destroyRef = inject(DestroyRef);
+  private http = inject(HttpClient);
+  private readonly baseUrl = environment.apiBaseUrl;
 
   get<T>(url: string): Observable<T> {
     return this.http
-      .get<T>(`${environment.apiBaseUrl}/${url}`)
-      .pipe(catchError(this.handleError));
+      .get<T>(`${this.baseUrl}/${url}`)
+      .pipe(takeUntilDestroyed(this.destroyRef), catchError(this.handleError));
   }
 
   post<T>(url: string, body: unknown): Observable<T> {
     return this.http
-      .post<T>(`${environment.apiBaseUrl}/${url}`, body)
-      .pipe(catchError(this.handleError));
+      .post<T>(`${this.baseUrl}/${url}`, body)
+      .pipe(takeUntilDestroyed(this.destroyRef), catchError(this.handleError));
   }
 
   put<T>(url: string, body: unknown): Observable<T> {
     return this.http
-      .put<T>(`${environment.apiBaseUrl}/${url}`, body)
-      .pipe(catchError(this.handleError));
+      .put<T>(`${this.baseUrl}/${url}`, body)
+      .pipe(takeUntilDestroyed(this.destroyRef), catchError(this.handleError));
   }
 
   delete<T>(url: string): Observable<T> {
     return this.http
-      .delete<T>(`${environment.apiBaseUrl}/${url}`)
-      .pipe(catchError(this.handleError));
+      .delete<T>(`${this.baseUrl}/${url}`)
+      .pipe(takeUntilDestroyed(this.destroyRef), catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred!';
 
-    if (error.error && typeof error.error === 'string') {
-      errorMessage = error.error;
-    } else if (error.message) {
-      errorMessage = `Server Error: ${error.message}`;
-    } else if (error.status) {
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = `Client-side error: ${error.error.message}`;
+      console.error('Client-side API Error:', error.error);
+    } else {
+      // Server-side error
       errorMessage = this.getServerErrorMessage(error);
+      console.error('Server-side API Error:', {
+        status: error.status,
+        statusText: error.statusText,
+        url: error.url,
+        message: error.message,
+        error: error.error,
+      });
     }
-
-    // Log full error in SSR
-    console.error('API Error (SSR or Browser):', {
-      status: error.status,
-      statusText: error.statusText,
-      url: error.url,
-      message: error.message,
-      error: error.error,
-    });
 
     return throwError(() => new Error(errorMessage));
   }
@@ -71,7 +71,9 @@ export class ApiService {
       case 500:
         return 'Internal Server Error: Please try again later.';
       default:
-        return `Error ${error.status}: ${error.message}`;
+        return `Server Error: ${error.status} - ${
+          error.statusText || error.message
+        }`;
     }
   }
 }

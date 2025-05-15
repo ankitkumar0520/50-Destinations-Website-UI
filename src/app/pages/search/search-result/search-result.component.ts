@@ -1,5 +1,6 @@
 import {
   Component,
+  Inject,
   inject,
   OnDestroy,
   OnInit,
@@ -58,20 +59,26 @@ interface SearchResult {
   ],
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private searchService: SearchService,
+    private apiService: ApiService,
+    private router: Router,
+    public imageService: ImageService
+  ) {
+    this.siteUrl = isPlatformBrowser(this.platformId)
+      ? window.location.origin
+      : '';
+  }
+
   isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
-  private searchService = inject(SearchService);
-  private router = inject(Router);
-  imageService = inject(ImageService);
-  private apiService = inject(ApiService);
+
   baseUrl = '';
   @ViewChildren('qrCanvas') qrCanvases!: QueryList<ElementRef>;
 
-  private platformId = inject(PLATFORM_ID);
-  siteUrl: string = isPlatformBrowser(this.platformId)
-    ? window.location.origin
-    : '';
+  siteUrl: string;
 
   payload: any;
   filteredResults: SearchResult[] = [];
@@ -87,7 +94,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     this.searchService.payload$.subscribe({
       next: (payload) => {
         this.payload = payload;
-        console.log('payload', this.payload);
         this.getSearchResults();
         this.currentPage = payload.pageNumber;
         this.itemsPerPage = payload.pageSize;
