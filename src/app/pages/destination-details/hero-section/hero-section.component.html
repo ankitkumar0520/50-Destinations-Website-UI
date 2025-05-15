@@ -620,10 +620,15 @@
       >
         <!-- Desktop QR Code - Shows on left for larger screens -->
         <div class="hidden md:flex flex-shrink-0 max-w-[180px] sm:max-w-sm">
-          <div class="flex flex-col items-center gap-4">
-            <div class="bg-white/10 p-4 rounded-xl shadow-md max-w-[200px]">
+          <div class="flex flex-col items-center gap-4 w-full">
+            <div class="bg-white/10 p-4 rounded-xl shadow-md w-full">
+              <!-- QR Code Skeleton -->
+              <div
+                *ngIf="loadingDetails"
+                class="aspect-square w-full h-40 bg-gray-300/20 dark:bg-gray-700/50 rounded-xl animate-pulse"
+              ></div>
               <qrcode
-                *ngIf="isBrowser()"
+                *ngIf="isBrowser() && !loadingDetails"
                 class="aspect-square w-full h-full"
                 [qrdata]="shareUrl + '/destination/' + destination?.slug"
                 [width]="160"
@@ -633,7 +638,27 @@
                   'flex justify-center items-center rounded-xl overflow-hidden'
                 "
               ></qrcode>
-              <div class="text-white/95 text-center space-y-2">
+
+              <!-- Text Skeleton -->
+              <div
+                *ngIf="loadingDetails"
+                class="text-white/95 text-center space-y-2 mt-4"
+              >
+                <div
+                  class="h-6 w-3/4 mx-auto bg-gray-300/20 dark:bg-gray-700/50 rounded animate-pulse"
+                ></div>
+                <div
+                  class="h-4 w-full bg-gray-300/20 dark:bg-gray-700/50 rounded animate-pulse"
+                ></div>
+                <div
+                  class="h-4 w-5/6 bg-gray-300/20 dark:bg-gray-700/50 rounded animate-pulse"
+                ></div>
+              </div>
+
+              <div
+                *ngIf="!loadingDetails"
+                class="text-white/95 text-center space-y-2"
+              >
                 <h2 class="text-xl font-bold mt-2">Scan & Explore</h2>
                 <p class="text-sm text-gray-100/90">
                   Share
@@ -643,7 +668,24 @@
                   with friends!
                 </p>
               </div>
-              <div class="flex flex-col items-center gap-2 mt-2">
+
+              <!-- Button Skeletons -->
+              <div
+                *ngIf="loadingDetails"
+                class="flex flex-col items-center gap-2 mt-4"
+              >
+                <div
+                  class="h-10 w-full bg-gray-300/20 dark:bg-gray-700/50 rounded-xl animate-pulse"
+                ></div>
+                <div
+                  class="h-10 w-full bg-gray-300/20 dark:bg-gray-700/50 rounded-xl animate-pulse"
+                ></div>
+              </div>
+
+              <div
+                *ngIf="!loadingDetails"
+                class="flex flex-col items-center gap-2 mt-2"
+              >
                 <button
                   (click)="shareQR()"
                   class="cursor-pointer w-full bg-gray-500/20 hover:bg-primary-500/70 text-white/95 px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow"
@@ -665,8 +707,14 @@
 
         <!-- Content Section -->
         <div class="flex-grow justify-center flex flex-col gap-4">
-          <!-- Title -->
+          <!-- Title Skeleton -->
+          <div
+            *ngIf="loadingDetails"
+            class="h-12 w-3/4 bg-gray-300/20 dark:bg-gray-700/50 rounded-xl animate-pulse"
+          ></div>
+
           <h1
+            *ngIf="!loadingDetails"
             class="text-gray-900 dark:text-white text-4xl sm:text-5xl font-extrabold tracking-wide capitalize leading-snug"
           >
             <span
@@ -676,15 +724,43 @@
             </span>
           </h1>
 
-          <!-- Description -->
+          <!-- Description Skeleton -->
+          <div *ngIf="loadingDetails" class="space-y-2">
+            <div
+              class="h-4 w-full bg-gray-300/20 dark:bg-gray-700/50 rounded animate-pulse"
+            ></div>
+            <div
+              class="h-4 w-5/6 bg-gray-300/20 dark:bg-gray-700/50 rounded animate-pulse"
+            ></div>
+            <div
+              class="h-4 w-4/6 bg-gray-300/20 dark:bg-gray-700/50 rounded animate-pulse"
+            ></div>
+            <div
+              class="h-4 w-3/4 bg-gray-300/20 dark:bg-gray-700/50 rounded animate-pulse"
+            ></div>
+          </div>
+
           <p
+            *ngIf="!loadingDetails"
             class="text-sm sm:text-base lg:text-lg leading-normal text-white dark:text-gray-200/90 max-w-2xl"
           >
             {{ destination?.destinationdescription }}
           </p>
 
-          <!-- Tags -->
-          <div class="flex flex-wrap gap-2 max-w-3xl">
+          <!-- Tags Skeleton -->
+          <div *ngIf="loadingDetails" class="flex flex-wrap gap-2 max-w-3xl">
+            <span
+              class="px-4 py-1 backdrop-blur-sm bg-gray-300/20 dark:bg-gray-700/50 rounded-full animate-pulse w-16"
+            ></span>
+            <span
+              class="px-4 py-1 backdrop-blur-sm bg-gray-300/20 dark:bg-gray-700/50 rounded-full animate-pulse w-20"
+            ></span>
+            <span
+              class="px-4 py-1 backdrop-blur-sm bg-gray-300/20 dark:bg-gray-700/50 rounded-full animate-pulse w-24"
+            ></span>
+          </div>
+
+          <div *ngIf="!loadingDetails" class="flex flex-wrap gap-2 max-w-3xl">
             <span
               *ngFor="let tag of destination?.tags"
               class="px-4 py-1 backdrop-blur-sm bg-white/10 dark:bg-gray-800/70 rounded-full text-gray-100 dark:text-white/80 font-medium text-sm"
@@ -699,7 +775,29 @@
           <div
             class="flex flex-col items-center gap-4 p-4 bg-white/10 rounded-xl shadow-md w-full md:max-w-[200px]"
           >
+            <!-- QR Code Skeleton for Mobile -->
             <div
+              *ngIf="loadingDetails"
+              class="flex flex-row flex-wrap justify-center gap-4 w-full"
+            >
+              <div
+                class="h-40 w-40 bg-gray-300/20 dark:bg-gray-700/50 rounded-xl animate-pulse"
+              ></div>
+              <div class="flex-1 min-w-[120px] space-y-2">
+                <div
+                  class="h-6 w-3/4 bg-gray-300/20 dark:bg-gray-700/50 rounded animate-pulse"
+                ></div>
+                <div
+                  class="h-4 w-full bg-gray-300/20 dark:bg-gray-700/50 rounded animate-pulse"
+                ></div>
+                <div
+                  class="h-4 w-5/6 bg-gray-300/20 dark:bg-gray-700/50 rounded animate-pulse"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              *ngIf="!loadingDetails"
               class="flex flex-row flex-wrap text-center md:text-start justify-center md:justify-start md:flex-col md:flex-nowrap gap-4 md:gap-0"
             >
               <qrcode
@@ -726,7 +824,24 @@
                 </p>
               </div>
             </div>
-            <div class="flex flex-col items-center gap-2 mt-2 w-full">
+
+            <!-- Button Skeletons for Mobile -->
+            <div
+              *ngIf="loadingDetails"
+              class="flex flex-col items-center gap-2 mt-2 w-full"
+            >
+              <div
+                class="h-10 w-full bg-gray-300/20 dark:bg-gray-700/50 rounded-xl animate-pulse"
+              ></div>
+              <div
+                class="h-10 w-full bg-gray-300/20 dark:bg-gray-700/50 rounded-xl animate-pulse"
+              ></div>
+            </div>
+
+            <div
+              *ngIf="!loadingDetails"
+              class="flex flex-col items-center gap-2 mt-2 w-full"
+            >
               <button
                 (click)="shareQR()"
                 class="cursor-pointer w-full bg-gray-500/20 hover:bg-primary-500/70 text-white/95 px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center justify-center shadow"

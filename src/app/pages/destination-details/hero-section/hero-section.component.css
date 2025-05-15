@@ -1,159 +1,191 @@
-.bg-trans-white{
-    background-color: #e3e3e345;
+.bg-trans-white {
+  background-color: #e3e3e345;
 }
 
 .hero-overlay {
-    background: linear-gradient(to bottom, 
-        rgba(0, 0, 0, 0.7) 0%,
-        rgba(0, 0, 0, 0.5) 50%,
-        rgba(0, 0, 0, 0.3) 100%
-    );
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
 }
 
 .qr-code {
-    width: 100% !important;
-    height: 100% !important;
-    padding: 8px;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 8px;
 }
 
 .qr-code canvas {
-    width: 100% !important;
-    height: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
-
 @keyframes cloudsDrift {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 0%; }
+  0% {
+    background-position: 0% 0%;
   }
+  100% {
+    background-position: 100% 0%;
+  }
+}
 
-  
-  @keyframes flagsWave {
-    0%, 100% {
-      transform: rotate(0deg) translateY(0);
-    }
-    25% {
-      transform: rotate(1deg) translateY(-5px);
-    }
-    50% {
-      transform: rotate(0deg) translateY(0);
-    }
-    75% {
-      transform: rotate(-1deg) translateY(5px);
-    }
+@keyframes flagsWave {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
   }
-  
-  @keyframes flagFlutter {
-    0%, 100% {
-      transform: skewY(0deg);
-    }
-    25% {
-      transform: skewY(1deg);
-    }
-    75% {
-      transform: skewY(-1deg);
-    }
+  25% {
+    transform: rotate(1deg) translateY(-5px);
   }
-  
-  .wave-animation {
-    animation: flagsWave 10s ease-in-out infinite;
-    transform-origin: top left;
+  50% {
+    transform: rotate(0deg) translateY(0);
   }
-  
-  .flutter-animation {
-    animation: flagFlutter 5s ease-in-out infinite;
+  75% {
+    transform: rotate(-1deg) translateY(5px);
   }
-  
-  .flag-line {
-    position: relative;
-    height: 3px;
-    background-color: #666;
-    width: 100%;
-    margin-top: 8px;
-  }
+}
 
+@keyframes flagFlutter {
+  0%,
+  100% {
+    transform: skewY(0deg);
+  }
+  25% {
+    transform: skewY(1deg);
+  }
+  75% {
+    transform: skewY(-1deg);
+  }
+}
+
+.wave-animation {
+  animation: flagsWave 10s ease-in-out infinite;
+  transform-origin: top left;
+}
+
+.flutter-animation {
+  animation: flagFlutter 5s ease-in-out infinite;
+}
+
+.flag-line {
+  position: relative;
+  height: 3px;
+  background-color: #666;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.symbol {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 768px) {
   .symbol {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
   }
-  
-  @media (max-width: 768px) {
-    .symbol {
-      width: 20px;
-      height: 20px;
-    }
-  }
+}
 
-  @media (max-width: 365px) {
-    .symbol {
-      width: 15px;
-      height: 15px;
-    }
-   
+@media (max-width: 365px) {
+  .symbol {
+    width: 15px;
+    height: 15px;
   }
+}
 
-  @keyframes slowRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+@keyframes slowRotate {
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
 
-  @keyframes float-slow {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+@keyframes drift-1 {
+  0% {
+    transform: translateX(-150px);
   }
+  100% {
+    transform: translateX(100vw);
+  }
+}
 
+@keyframes drift-2 {
+  0% {
+    transform: translateX(-200px);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
 
+@keyframes drift-3 {
+  0% {
+    transform: translateX(-180px);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
 
-  @keyframes drift-1 {
-    0% { transform: translateX(-150px); }
-    100% { transform: translateX(100vw); }
+@keyframes float-up-down-1 {
+  0%,
+  100% {
+    transform: translateY(0);
   }
-  
-  @keyframes drift-2 {
-    0% { transform: translateX(-200px); }
-    100% { transform: translateX(100vw); }
+  50% {
+    transform: translateY(-15px);
   }
-  
-  @keyframes drift-3 {
-    0% { transform: translateX(-180px); }
-    100% { transform: translateX(100vw); }
+}
+
+@keyframes float-up-down-2 {
+  0%,
+  100% {
+    transform: translateY(0);
   }
-  
-  @keyframes float-up-down-1 {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+  50% {
+    transform: translateY(-20px);
   }
-  
-  @keyframes float-up-down-2 {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-  }
-  
-  .drift-1 {
-    animation: drift-1 45s linear infinite;
-  }
-  
-  .drift-2 {
-    animation: drift-2 65s linear infinite;
-  }
-  
-  .drift-3 {
-    animation: drift-3 55s linear infinite;
-  }
-  
-  .float-1 {
-    animation: float-up-down-1 8s ease-in-out infinite;
-  }
-  
-  .float-2 {
-    animation: float-up-down-2 10s ease-in-out infinite;
-  }
-  
-  .cloud {
-    filter: blur(4px);
-  }
+}
+
+.drift-1 {
+  animation: drift-1 45s linear infinite;
+}
+
+.drift-2 {
+  animation: drift-2 65s linear infinite;
+}
+
+.drift-3 {
+  animation: drift-3 55s linear infinite;
+}
+
+.float-1 {
+  animation: float-up-down-1 8s ease-in-out infinite;
+}
+
+.float-2 {
+  animation: float-up-down-2 10s ease-in-out infinite;
+}
+
+.cloud {
+  filter: blur(4px);
+}

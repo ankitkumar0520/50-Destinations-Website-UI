@@ -1,5 +1,12 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, inject, Inject, PLATFORM_ID, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  Inject,
+  PLATFORM_ID,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DestinationService } from '../../../services/destination.service';
 import { QRCodeComponent } from 'angularx-qrcode';
@@ -11,19 +18,15 @@ import { ImageService } from '../../../services/image.service';
   standalone: true,
   templateUrl: './hero-section.component.html',
   styleUrls: ['./hero-section.component.css'],
-  imports: [
-    CommonModule,
-    FontAwesomeModule,
-    QRCodeComponent,
-  ],
+  imports: [CommonModule, FontAwesomeModule, QRCodeComponent],
 })
 export class HeroSectionComponent implements OnInit {
   private destinationService = inject(DestinationService);
   imageService = inject(ImageService);
 
   private voiceModeService = inject(VoiceModelService);
-  destination:any;
-    baseUrl = '';
+  destination: any;
+  baseUrl = '';
   shareUrl: string;
   isMenuOpen = false;
   activeSection: string = 'points-of-interest';
@@ -31,19 +34,27 @@ export class HeroSectionComponent implements OnInit {
   isImageLoaded = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.loadingDetails = true;
+    this.destination = [];
     this.shareUrl = isPlatformBrowser(this.platformId)
       ? window.location.origin
       : '';
   }
-  
+
+  loadingDetails = true;
   ngOnInit(): void {
-    this.destinationService.destination$.subscribe(dest => {
+    // Subscribe to destination
+    this.destinationService.destination$.subscribe((dest) => {
       if (dest) {
         this.destination = dest;
       }
     });
-  }
 
+    // Subscribe to loading state
+    this.destinationService.loading$.subscribe((loading) => {
+      this.loadingDetails = loading;
+    });
+  }
 
   onImageLoad() {
     this.isImageLoaded = true;
@@ -77,7 +88,7 @@ export class HeroSectionComponent implements OnInit {
     return isPlatformBrowser(this.platformId);
   }
 
-  showModelVoiceModel(){
+  showModelVoiceModel() {
     this.voiceModeService.showModel();
   }
 }
