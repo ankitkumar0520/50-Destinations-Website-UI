@@ -1,4 +1,11 @@
-import { Component, HostListener, Inject, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+  inject,
+} from '@angular/core';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
 import { GalleryDescriptionComponent } from './gallery-description/gallery-description.component';
 import { PointsOfInterestComponent } from './points-of-interest/points-of-interest.component';
@@ -37,12 +44,28 @@ export class DestinationMainComponent implements OnInit {
   menuItems = [
     { id: 'about-section', name: 'About', icon: 'info-circle' },
     { id: 'galleries-section', name: 'Galleries', icon: 'images' },
-    { id: 'points-of-interest-section', name: 'Point of Interest', icon: 'map-marker-alt' },
-    { id: 'facilities-services-section', name: 'Facilities & Services', icon: 'concierge-bell' },
-    { id: 'safety-emergency-section', name: 'Safety & Emergency', icon: 'shield-alt' },
+    {
+      id: 'points-of-interest-section',
+      name: 'Point of Interest',
+      icon: 'map-marker-alt',
+    },
+    {
+      id: 'facilities-services-section',
+      name: 'Facilities & Services',
+      icon: 'concierge-bell',
+    },
+    {
+      id: 'safety-emergency-section',
+      name: 'Safety & Emergency',
+      icon: 'shield-alt',
+    },
     { id: 'shops-section', name: 'Shops', icon: 'shopping-bag' },
-    { id: 'accommodation-eatery-section', name: 'Accommodation & Eatery', icon: 'bed' },
-    { id: 'guide-map-section', name: 'Guide & Map', icon: 'map' }
+    {
+      id: 'accommodation-eatery-section',
+      name: 'Accommodation & Eatery',
+      icon: 'bed',
+    },
+    { id: 'guide-map-section', name: 'Guide & Map', icon: 'map' },
   ];
   navbarHeight = 70; // Fixed navbar height
   activeSection: string = 'points-of-interest';
@@ -57,15 +80,13 @@ export class DestinationMainComponent implements OnInit {
       this.checkActiveSection();
     }
 
-    //get destination by slug from url, just call this function in ngoninit , then subscribe to the destination service varible as destination$   , if slug is not found then redirect to home 
-    this.route.params.subscribe(params => {
-      if(params['slug']){
+    //get destination by slug from url, just call this function in ngoninit , then subscribe to the destination service varible as destination$   , if slug is not found then redirect to home
+    this.route.params.subscribe((params) => {
+      if (params['slug']) {
         const slug = params['slug'];
         this.destinationService.getDestinationbySlug(slug);
       }
     });
-
-
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -78,25 +99,32 @@ export class DestinationMainComponent implements OnInit {
   checkActiveSection() {
     // Ensure this function is running only on the client-side (browser)
     if (typeof window === 'undefined' || !this.isBrowser) return;
-  
+
     try {
-      const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-  
+      const scrollPosition =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop ||
+        0;
+
       // Safeguard against undefined or empty menuItems
       if (!Array.isArray(this.menuItems) || this.menuItems.length === 0) return;
-  
+
       for (const item of this.menuItems) {
         if (!item.id) continue; // Skip items without an id
-  
+
         const element = document.getElementById(item.id);
-  
+
         // Ensure the element exists before accessing its properties
         if (element) {
           const offsetTop = element.offsetTop;
           const offsetHeight = element.offsetHeight;
-  
+
           // Check if the scroll position is within the element's range
-          if (scrollPosition >= offsetTop - this.navbarHeight && scrollPosition < offsetTop + offsetHeight - this.navbarHeight) {
+          if (
+            scrollPosition >= offsetTop - this.navbarHeight &&
+            scrollPosition < offsetTop + offsetHeight - this.navbarHeight
+          ) {
             this.activeSection = item.id;
             break;
           }
@@ -106,7 +134,6 @@ export class DestinationMainComponent implements OnInit {
       console.error('Error in checkActiveSection:', error);
     }
   }
-  
 
   scrollTo(id: string) {
     if (!this.isBrowser) return;
@@ -118,6 +145,4 @@ export class DestinationMainComponent implements OnInit {
       this.activeSection = id;
     }
   }
-
-
 }

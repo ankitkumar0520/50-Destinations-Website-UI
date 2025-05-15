@@ -1,43 +1,50 @@
-<section *ngIf="accomodation.length>0 || eatery.length>0"
+<section
+  *ngIf="accomodation.length > 0 || eatery.length > 0"
   class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
   id="accommodation-eatery-section"
 >
   <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-4">
     <app-section-header
-      [badgeText]="'Stay & Dine'"
-      [titleLeft]="'Accommodation &'"
-      [titleMiddleHighlighted]="'Eateries'"
-      [description]="
-        'Discover the best places to stay and dine in Rumtek. Experience the perfect blend of comfort and culinary delight in Rumtek. From cozy guest houses to authentic Tibetan restaurants, we\'ve curated the best options for your stay and dining experience.'
-      "
-      [features]="[
-        { icon: 'fas fa-hotel', text: 'Quality Stays' },
-        { icon: 'fas fa-utensils', text: 'Local Cuisines' },
-        { icon: 'fas fa-map-marker-alt', text: 'Convenient Locations' }
-      ]"
-    >
-    </app-section-header>
+      [badgeText]="sectionHeaderData.badgeText"
+      [titleLeft]="sectionHeaderData.titleLeft"
+      [titleMiddleHighlighted]="sectionHeaderData.titleMiddleHighlighted"
+      [description]="sectionHeaderData.description"
+      [features]="sectionHeaderData.features"
+    ></app-section-header>
 
     <!-- ACCOMMODATIONS SECTION -->
-    <div *ngIf="accomodation.length>0" class="py-4">
-      <h2 class=" text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6
-       flex items-center gap-3 mt-2">
-        <span class="flex items-center justify-center bg-primary-600 rounded-full w-9 h-9 text-white">
+    <div *ngIf="accomodation.length > 0" class="py-4">
+      <h2
+        class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3 mt-2"
+      >
+        <span
+          class="flex items-center justify-center bg-primary-600 rounded-full w-9 h-9 text-white"
+        >
           <i class="fas fa-hotel text-base"></i>
         </span>
         Places to Stay
       </h2>
-      
+
       <!-- Hotels Carousel -->
       <div #hotelsCarousel class="hotels-carousel owl-carousel owl-theme">
         <ng-container *ngIf="accomodation && accomodation.length > 0">
-          <div class="item" *ngFor="let hotel of accomodation; trackBy: trackByHotelId">
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
+          <div
+            class="item"
+            *ngFor="let hotel of accomodation; trackBy: trackByHotelId"
+          >
+            <div
+              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full"
+            >
               <!-- Hotel Image -->
               <div class="relative h-44 overflow-hidden">
-                <ng-container *ngIf="hotel?.media?.length > 0 && hotel.media[0]?.mediaurl; else hotelFallback">
+                <ng-container
+                  *ngIf="
+                    hotel?.media?.length > 0 && hotel.media[0]?.mediaurl;
+                    else hotelFallback
+                  "
+                >
                   <img
-                    [src]="baseUrl+hotel.media[0].mediaurl"
+                    [src]="baseUrl + hotel.media[0].mediaurl"
                     [alt]="hotel?.name || 'Accommodation'"
                     class="w-full h-full object-cover"
                     (error)="imageService.handleImageError($event)"
@@ -45,34 +52,54 @@
                   />
                 </ng-container>
                 <ng-template #hotelFallback>
-                  <div class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-                    <i class="fas fa-hotel text-4xl text-gray-400 dark:text-gray-500"></i>
+                  <div
+                    class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center"
+                  >
+                    <i
+                      class="fas fa-hotel text-4xl text-gray-400 dark:text-gray-500"
+                    ></i>
                   </div>
                 </ng-template>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                ></div>
                 <div class="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 class="text-lg font-semibold text-white">{{ hotel?.name || 'Accommodation' }}</h3>
+                  <h3 class="text-lg font-semibold text-white">
+                    {{ hotel?.name || "Accommodation" }}
+                  </h3>
                 </div>
               </div>
 
               <!-- Hotel Details -->
               <div class="p-4 flex flex-col">
-                <div class="gap-2 mb-4 justify-between grid grid-cols-1 min-h-20 max-h-20">
+                <div
+                  class="gap-2 mb-4 justify-between grid grid-cols-1 min-h-20 max-h-20"
+                >
                   <div class="flex items-start gap-2">
-                    <i class="fas fa-map-marker-alt text-primary-500 mt-0.5 w-5 text-center flex-shrink-0"></i>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ hotel?.landmark || 'Location not specified' }}</p>
+                    <i
+                      class="fas fa-map-marker-alt text-primary-500 mt-0.5 w-5 text-center flex-shrink-0"
+                    ></i>
+                    <p
+                      class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2"
+                    >
+                      {{ hotel?.landmark || "Location not specified" }}
+                    </p>
                   </div>
-                  <div class="flex items-start gap-2" *ngIf="hotel?.phone"> 
-                    <i class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center flex-shrink-0" aria-hidden="true"></i>
-                    <a [href]="'tel:' + hotel?.phone" class="hover:underline">{{ hotel?.phone }}</a>
+                  <div class="flex items-start gap-2" *ngIf="hotel?.phone">
+                    <i
+                      class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center flex-shrink-0"
+                      aria-hidden="true"
+                    ></i>
+                    <a [href]="'tel:' + hotel?.phone" class="hover:underline">{{
+                      hotel?.phone
+                    }}</a>
                   </div>
                 </div>
 
                 <!-- Action Button -->
                 <button
                   (click)="openHotelModal(hotel)"
-                  class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md]
-                   transition flex items-center justify-center gap-2 mt-auto"
+                  class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md] transition flex items-center justify-center gap-2 mt-auto"
                 >
                   <i class="fas fa-info-circle text-xs"></i>
                   View Details
@@ -81,30 +108,42 @@
             </div>
           </div>
         </ng-container>
-
-       
       </div>
     </div>
 
     <!-- EATERIES SECTION -->
-    <div *ngIf="eatery.length>0" class="py-4" id="eateries">
-      <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3 mt-4">
-        <span class="flex items-center justify-center bg-primary-600 rounded-full w-9 h-9 text-white">
+    <div *ngIf="eatery.length > 0" class="py-4" id="eateries">
+      <h2
+        class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3 mt-4"
+      >
+        <span
+          class="flex items-center justify-center bg-primary-600 rounded-full w-9 h-9 text-white"
+        >
           <i class="fas fa-utensils text-base"></i>
         </span>
         Places to Eat
       </h2>
-      
+
       <!-- Eateries Carousel -->
       <div #eateriesCarousel class="eateries-carousel owl-carousel owl-theme">
         <ng-container *ngIf="eatery && eatery.length > 0">
-          <div class="item" *ngFor="let eatery of eatery; trackBy: trackByEateryId">
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
+          <div
+            class="item"
+            *ngFor="let eatery of eatery; trackBy: trackByEateryId"
+          >
+            <div
+              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full"
+            >
               <!-- Eatery Image -->
               <div class="relative h-44 overflow-hidden">
-                <ng-container *ngIf="eatery?.media?.length > 0 && eatery.media[0]?.mediaurl; else eateryFallback">
+                <ng-container
+                  *ngIf="
+                    eatery?.media?.length > 0 && eatery.media[0]?.mediaurl;
+                    else eateryFallback
+                  "
+                >
                   <img
-                    [src]="baseUrl+eatery.media[0].mediaurl"
+                    [src]="baseUrl + eatery.media[0].mediaurl"
                     [alt]="eatery?.name || 'Restaurant'"
                     class="w-full h-full object-cover"
                     (error)="imageService.handleImageError($event)"
@@ -112,29 +151,52 @@
                   />
                 </ng-container>
                 <ng-template #eateryFallback>
-                  <div class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-                    <i class="fas fa-utensils text-4xl text-gray-400 dark:text-gray-500"></i>
+                  <div
+                    class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center"
+                  >
+                    <i
+                      class="fas fa-utensils text-4xl text-gray-400 dark:text-gray-500"
+                    ></i>
                   </div>
                 </ng-template>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                ></div>
                 <div class="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 class="text-lg font-semibold text-white">{{ eatery?.name || 'Restaurant' }}</h3>
+                  <h3 class="text-lg font-semibold text-white">
+                    {{ eatery?.name || "Restaurant" }}
+                  </h3>
                 </div>
               </div>
 
               <!-- Eatery Details -->
               <div class="p-4 flex flex-col">
-                <div class="gap-2 mb-4 h-24 justify-between grid grid-cols-1 min-h-20 max-h-20">
+                <div
+                  class="gap-2 mb-4 h-24 justify-between grid grid-cols-1 min-h-20 max-h-20"
+                >
                   <div class="flex items-start gap-2">
-                    <i class="fas fa-map-marker-alt text-primary-500 mt-1 w-5 text-center"></i>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ eatery?.landmark || 'Location not specified' }}</p>
+                    <i
+                      class="fas fa-map-marker-alt text-primary-500 mt-1 w-5 text-center"
+                    ></i>
+                    <p
+                      class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2"
+                    >
+                      {{ eatery?.landmark || "Location not specified" }}
+                    </p>
                   </div>
                   <div class="flex items-start gap-2" *ngIf="eatery?.phone">
-                    <i class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center" aria-hidden="true"></i>
-                    <a [href]="'tel:' + eatery?.phone" class="hover:underline">{{ eatery?.phone }}</a>
+                    <i
+                      class="fas fa-phone-alt text-primary-500 mt-1 w-5 text-center"
+                      aria-hidden="true"
+                    ></i>
+                    <a
+                      [href]="'tel:' + eatery?.phone"
+                      class="hover:underline"
+                      >{{ eatery?.phone }}</a
+                    >
                   </div>
                 </div>
-                
+
                 <!-- Action Button -->
                 <button
                   (click)="openEateryModal(eatery)"
@@ -147,7 +209,6 @@
             </div>
           </div>
         </ng-container>
-       
       </div>
     </div>
   </div>
@@ -156,33 +217,51 @@
   <div
     *ngIf="isHotelModalOpen && selectedHotel"
     class="fixed inset-0 z-100 flex items-center justify-center"
-    [@modalAnimation]>
+    [@modalAnimation]
+  >
     <!-- Background overlay -->
-    <div class="fixed inset-0 bg-gray-800/80 backdrop-blur-sm cursor-pointer" (click)="closeHotelModal()"></div>
+    <div
+      class="fixed inset-0 bg-gray-800/80 backdrop-blur-sm cursor-pointer"
+      (click)="closeHotelModal()"
+    ></div>
 
     <!-- Modal panel -->
-    <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4 overflow-hidden">
+    <div
+      class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4 overflow-hidden"
+    >
       <!-- Modal header with hotel info -->
       <div class="relative">
         <!-- Hotel image as background -->
         <div class="absolute inset-0 z-0">
-          <ng-container *ngIf="selectedHotel?.media?.length > 0 && selectedHotel.media[0]?.mediaurl; else hotelModalFallback">
-            <img 
-              loading="lazy" 
-              [src]="baseUrl+selectedHotel.media[0].mediaurl" 
-              [alt]="selectedHotel?.name || 'Accommodation'" 
+          <ng-container
+            *ngIf="
+              selectedHotel?.media?.length > 0 &&
+                selectedHotel.media[0]?.mediaurl;
+              else hotelModalFallback
+            "
+          >
+            <img
+              loading="lazy"
+              [src]="baseUrl + selectedHotel.media[0].mediaurl"
+              [alt]="selectedHotel?.name || 'Accommodation'"
               class="w-full h-full object-cover opacity-30 dark:opacity-20"
               (error)="imageService.handleImageError($event)"
             />
           </ng-container>
           <ng-template #hotelModalFallback>
-            <div class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-              <i class="fas fa-hotel text-6xl text-gray-400 dark:text-gray-500"></i>
+            <div
+              class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center"
+            >
+              <i
+                class="fas fa-hotel text-6xl text-gray-400 dark:text-gray-500"
+              ></i>
             </div>
           </ng-template>
-          <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
+          <div
+            class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"
+          ></div>
         </div>
-        
+
         <!-- Hotel info -->
         <div class="relative z-10 p-6 text-white">
           <div class="flex items-start justify-between">
@@ -216,18 +295,31 @@
               {{ selectedHotel?.description || 'A comfortable hotel offering great amenities for travelers. Enjoy your stay in this well-located accommodation with friendly staff and clean rooms.' }}
             </p>
           </div> -->
-          
+
           <!-- Amenities -->
           <div>
-            <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
+            <h4
+              class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2"
+            >
               <i class="fas fa-concierge-bell text-primary-500"></i>
               Amenities
             </h4>
             <div class="grid grid-cols-2 gap-2">
-              <div *ngFor="let amenity of selectedHotel?.tags || ['Wi-Fi', 'Parking', 'Restaurant', 'Room Service']" 
-                  class="flex items-center gap-2 p-2 bg-primary-50 dark:bg-primary-900/20 rounded-md">
+              <div
+                *ngFor="
+                  let amenity of selectedHotel?.tags || [
+                    'Wi-Fi',
+                    'Parking',
+                    'Restaurant',
+                    'Room Service'
+                  ]
+                "
+                class="flex items-center gap-2 p-2 bg-primary-50 dark:bg-primary-900/20 rounded-md"
+              >
                 <i class="fas fa-check text-primary-500"></i>
-                <span class="text-gray-800 dark:text-gray-200">{{ amenity.tagname }}</span>
+                <span class="text-gray-800 dark:text-gray-200">{{
+                  amenity.tagname
+                }}</span>
               </div>
             </div>
           </div>
@@ -240,38 +332,58 @@
   <div
     *ngIf="isEateryModalOpen && selectedEatery"
     class="fixed inset-0 z-100 flex items-center justify-center"
-    [@modalAnimation]>
+    [@modalAnimation]
+  >
     <!-- Background overlay -->
-    <div class="fixed inset-0 bg-gray-800/80 backdrop-blur-sm cursor-pointer" (click)="closeEateryModal()"></div>
+    <div
+      class="fixed inset-0 bg-gray-800/80 backdrop-blur-sm cursor-pointer"
+      (click)="closeEateryModal()"
+    ></div>
 
     <!-- Modal panel -->
-    <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4 overflow-hidden">
+    <div
+      class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4 overflow-hidden"
+    >
       <!-- Modal header with eatery info -->
       <div class="relative">
         <!-- Eatery image as background -->
         <div class="absolute inset-0 z-0">
-          <ng-container *ngIf="selectedEatery?.media?.length > 0 && selectedEatery.media[0]?.mediaurl; else eateryModalFallback">
-            <img 
-              loading="lazy" 
-              [src]="baseUrl+selectedEatery.media[0].mediaurl" 
-              [alt]="selectedEatery?.name || 'Restaurant'" 
+          <ng-container
+            *ngIf="
+              selectedEatery?.media?.length > 0 &&
+                selectedEatery.media[0]?.mediaurl;
+              else eateryModalFallback
+            "
+          >
+            <img
+              loading="lazy"
+              [src]="baseUrl + selectedEatery.media[0].mediaurl"
+              [alt]="selectedEatery?.name || 'Restaurant'"
               class="w-full h-full object-cover opacity-30 dark:opacity-20"
               (error)="imageService.handleImageError($event)"
             />
           </ng-container>
           <ng-template #eateryModalFallback>
-            <div class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-              <i class="fas fa-utensils text-6xl text-gray-400 dark:text-gray-500"></i>
+            <div
+              class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center"
+            >
+              <i
+                class="fas fa-utensils text-6xl text-gray-400 dark:text-gray-500"
+              ></i>
             </div>
           </ng-template>
-          <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
+          <div
+            class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"
+          ></div>
         </div>
-        
+
         <!-- Eatery info -->
         <div class="relative z-10 p-6 text-white">
           <div class="flex items-start justify-between">
             <div>
-              <h3 class="text-2xl font-bold mb-1">{{ selectedEatery?.name }}</h3>
+              <h3 class="text-2xl font-bold mb-1">
+                {{ selectedEatery?.name }}
+              </h3>
               <p class="text-white/80 flex items-center gap-2">
                 <i class="fas fa-map-marker-alt"></i>
                 {{ selectedEatery?.landmark }}
@@ -300,19 +412,30 @@
               {{ selectedEatery?.description || 'A delightful restaurant serving authentic local cuisine. Experience the flavors of the region in a comfortable and welcoming atmosphere.' }}
             </p>
           </div> -->
-          
 
           <!-- Cuisine Types -->
           <div>
-            <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
+            <h4
+              class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2"
+            >
               <i class="fas fa-utensils text-primary-500"></i>
               Facilities
             </h4>
             <div class="grid grid-cols-2 gap-2">
-              <div *ngFor="let amenities of selectedEatery?.tags || ['Local', 'Traditional', 'Vegetarian']" 
-                  class="flex items-center gap-2 p-2 bg-primary-50 dark:bg-primary-900/20 rounded-md">
+              <div
+                *ngFor="
+                  let amenities of selectedEatery?.tags || [
+                    'Local',
+                    'Traditional',
+                    'Vegetarian'
+                  ]
+                "
+                class="flex items-center gap-2 p-2 bg-primary-50 dark:bg-primary-900/20 rounded-md"
+              >
                 <i class="fas fa-check text-primary-500"></i>
-                <span class="text-gray-800 dark:text-gray-200">{{ amenities?.tagname }}</span>
+                <span class="text-gray-800 dark:text-gray-200">{{
+                  amenities?.tagname
+                }}</span>
               </div>
             </div>
           </div>

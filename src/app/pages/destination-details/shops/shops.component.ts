@@ -1,9 +1,24 @@
-import { Component, inject, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnDestroy,
+  ChangeDetectorRef,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
-import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils';
+import {
+  initializeOwlCarousel,
+  destroyOwlInstance,
+} from '../../../utils/utils';
 import { ImageService } from '../../../services/image.service';
 
 @Component({
@@ -16,18 +31,15 @@ import { ImageService } from '../../../services/image.service';
     trigger('modalAnimation', [
       state('void', style({ opacity: 0, transform: 'scale(0.95)' })),
       state('*', style({ opacity: 1, transform: 'scale(1)' })),
-      transition('void <=> *', [
-        animate('200ms ease-out')
-      ])
-    ])
-  ]
+      transition('void <=> *', [animate('200ms ease-out')]),
+    ]),
+  ],
 })
 export class ShopsComponent implements OnDestroy, OnInit {
-  
   apiBaseUrl1 = (window as any)['apiBaseUrl1'];
   private destinationService = inject(DestinationService);
   private cdr = inject(ChangeDetectorRef);
-   imageService = inject(ImageService);
+  imageService = inject(ImageService);
   shops: any;
   selectedShop: any = null;
   isModalOpen = false;
@@ -39,45 +51,49 @@ export class ShopsComponent implements OnDestroy, OnInit {
   productImageLoaded = false;
 
   constructor() {}
-  
+
   ngOnInit(): void {
-    const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, ' ').trim();
+    const normalize = (str: string) =>
+      str.toLowerCase().replace(/\s+/g, ' ').trim();
 
-    this.destinationService.destination$.subscribe(dest => {
+    this.destinationService.destination$.subscribe((dest) => {
+      if (dest?.entities) {
+        this.shops = dest.entities.filter((entity: any) => {
+          if (!entity) return false; // Skip if entity is null or undefined
 
-      if(dest?.entities){
-      this.shops = dest.entities.filter((entity: any) => {
-        if (!entity) return false; // Skip if entity is null or undefined
-    
-        // Normalize sectorName, check case insensitively
-        const name = (normalize(entity.sectorName || '')).toLowerCase();
-    
-        // Check if sectorId is 4 or if sectorName matches 'Shops' case-insensitively
-        return entity.sectorId === 4 || name === 'shops';
-      });
+          // Normalize sectorName, check case insensitively
+          const name = normalize(entity.sectorName || '').toLowerCase();
 
-      setTimeout(() => {
-        this.initCarousel();
-      }, 300);
-    }
+          // Check if sectorId is 4 or if sectorName matches 'Shops' case-insensitively
+          return entity.sectorId === 4 || name === 'shops';
+        });
 
+        setTimeout(() => {
+          this.initCarousel();
+        }, 300);
+      }
     });
-
   }
 
   initCarousel(): void {
     if (!this.carouselInitialized) {
-      setTimeout(() => {   
-        initializeOwlCarousel('.shops-carousel', false, true, 16, false, 
+      setTimeout(() => {
+        initializeOwlCarousel(
+          '.shops-carousel',
+          false,
+          true,
+          16,
+          false,
           [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
-          true);
-        
+          true
+        );
+
         this.carouselInitialized = true;
         this.cdr.detectChanges();
       }, 300);
     }
   }
-  
+
   openModal(shop: any) {
     this.selectedShop = shop;
     this.isModalOpen = true;
@@ -91,11 +107,11 @@ export class ShopsComponent implements OnDestroy, OnInit {
     document.body.style.overflow = 'auto';
     this.cdr.detectChanges();
   }
-  
+
   trackByShopId(index: number, shop: any): number {
     return shop.id || index;
   }
-  
+
   ngOnDestroy(): void {
     destroyOwlInstance('.shops-carousel');
   }

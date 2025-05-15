@@ -1,10 +1,27 @@
-import { Component, inject, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
-import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils';
+import {
+  initializeOwlCarousel,
+  destroyOwlInstance,
+} from '../../../utils/utils';
 
 @Component({
   selector: 'app-accomodation-eatery',
@@ -16,11 +33,9 @@ import { initializeOwlCarousel, destroyOwlInstance } from '../../../utils/utils'
     trigger('modalAnimation', [
       state('void', style({ opacity: 0, transform: 'scale(0.95)' })),
       state('*', style({ opacity: 1, transform: 'scale(1)' })),
-      transition('void <=> *', [
-        animate('200ms ease-out')
-      ])
-    ])
-  ]
+      transition('void <=> *', [animate('200ms ease-out')]),
+    ]),
+  ],
 })
 export class AccomodationEateryComponent implements OnDestroy, OnInit {
   selectedHotel: any = null;
@@ -40,66 +55,72 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
   baseUrl = '';
   imageService = inject(ImageService);
   private cdr = inject(ChangeDetectorRef);
-
+  destinationInfo: any;
   constructor() {}
-  
+
+  sectionHeaderData = {
+    badgeText: 'Stay & Dine',
+    titleLeft: 'Accommodation &',
+    titleMiddleHighlighted: 'Eateries',
+    description:
+      "Discover the best places to stay and dine. Experience the perfect blend of comfort and culinary delight. From cozy guest houses to authentic local eateries, we've curated the top options for your stay and dining experience.",
+    features: [
+      { icon: 'fas fa-hotel', text: 'Quality Stays' },
+      { icon: 'fas fa-utensils', text: 'Local Cuisines' },
+      { icon: 'fas fa-map-marker-alt', text: 'Convenient Locations' },
+    ],
+  };
+
   ngOnInit(): void {
-    const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, ' ').trim();
+    const normalize = (str: string) =>
+      str.toLowerCase().replace(/\s+/g, ' ').trim();
 
-
-    
     this.destinationService.destination$.subscribe({
       next: (dest) => {
-
-        
         if (!dest || !dest.entities) {
           console.warn('No destination data available');
           return;
         }
 
-
-
-        // Filter accommodation
-      this.accomodation = dest.entities.filter((entity: any) => {
+        this.accomodation = dest.entities.filter((entity: any) => {
           if (!entity) return false;
-        const name = (normalize(entity.sectorName || '')).toLowerCase();
-          const isMatch = entity.sectorId === 5 || name === 'accommodation & eatery - accommodation';
+          const name = normalize(entity.sectorName || '').toLowerCase();
+          const isMatch =
+            entity.sectorId === 5 ||
+            name === 'accommodation & eatery - accommodation';
 
           return isMatch;
         });
-
-
 
         // Filter eatery
-      this.eatery = dest.entities.filter((entity: any) => {
+        this.eatery = dest.entities.filter((entity: any) => {
           if (!entity) return false;
-        const name = (normalize(entity.sectorName || '')).toLowerCase();
-          const isMatch = entity.sectorId === 7 || name === 'accommodation & eatery - eatery';
+          const name = normalize(entity.sectorName || '').toLowerCase();
+          const isMatch =
+            entity.sectorId === 7 || name === 'accommodation & eatery - eatery';
 
           return isMatch;
         });
-
 
         // Force change detection
         this.cdr.detectChanges();
 
         // Initialize carousel after data is loaded and DOM is updated
         if (this.accomodation.length > 0 || this.eatery.length > 0) {
-
           // Use setTimeout to ensure DOM is updated
-       setTimeout(() => {
-        this.initCarousel();
-          }, 0);
+          setTimeout(() => {
+            this.initCarousel();
+          }, 100);
         } else {
           console.log('No data to initialize carousel');
         }
       },
       error: (error) => {
         console.error('Error in destination subscription:', error);
-      }
+      },
     });
   }
-  
+
   initCarousel(): void {
     if (this.carouselsInitialized) {
       console.log('Carousels already initialized');
@@ -114,7 +135,6 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
       if (this.eateryCarouselInstance) {
         destroyOwlInstance('.eateries-carousel');
       }
-
 
       if (this.accomodation.length > 0) {
         this.hotelCarouselInstance = initializeOwlCarousel(
@@ -140,60 +160,64 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
         );
       }
 
-        this.setupCarouselEventListeners();
-        this.carouselsInitialized = true;
-
+      this.setupCarouselEventListeners();
+      this.carouselsInitialized = true;
     } catch (error) {
       console.error('Error initializing carousels:', error);
-      }
+    }
   }
 
   private setupCarouselEventListeners() {
     try {
-    // Hotel carousel event listener
+      // Hotel carousel event listener
       const hotelCarouselElement = this.hotelsCarousel?.nativeElement;
       if (hotelCarouselElement) {
-    hotelCarouselElement.addEventListener('click', (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      const button = target.closest('button');
-      
-      if (button) {
-        const item = button.closest('.item');
-        if (item) {
-          const index = Array.from(item.parentElement!.children).indexOf(item);
-          const originalIndex = index % this.accomodation.length;
-          const originalHotel = this.accomodation[originalIndex];
-          this.openHotelModal(originalHotel);
-        }
-      }
-    });
+        hotelCarouselElement.addEventListener('click', (event: MouseEvent) => {
+          const target = event.target as HTMLElement;
+          const button = target.closest('button');
+
+          if (button) {
+            const item = button.closest('.item');
+            if (item) {
+              const index = Array.from(item.parentElement!.children).indexOf(
+                item
+              );
+              const originalIndex = index % this.accomodation.length;
+              const originalHotel = this.accomodation[originalIndex];
+              this.openHotelModal(originalHotel);
+            }
+          }
+        });
       }
 
-    // Eatery carousel event listener
+      // Eatery carousel event listener
       const eateryCarouselElement = this.eateriesCarousel?.nativeElement;
       if (eateryCarouselElement) {
-    eateryCarouselElement.addEventListener('click', (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      const button = target.closest('button');
-      
-      if (button) {
-        const item = button.closest('.item');
-        if (item) {
-          const index = Array.from(item.parentElement!.children).indexOf(item);
-          const originalIndex = index % this.eatery.length;
-          const originalEatery = this.eatery[originalIndex];
-          this.openEateryModal(originalEatery);
-        }
-      }
-    });
+        eateryCarouselElement.addEventListener('click', (event: MouseEvent) => {
+          const target = event.target as HTMLElement;
+          const button = target.closest('button');
+
+          if (button) {
+            const item = button.closest('.item');
+            if (item) {
+              const index = Array.from(item.parentElement!.children).indexOf(
+                item
+              );
+              const originalIndex = index % this.eatery.length;
+              const originalEatery = this.eatery[originalIndex];
+              this.openEateryModal(originalEatery);
+            }
+          }
+        });
       }
     } catch (error) {
       console.error('Error setting up carousel event listeners:', error);
     }
   }
-  
+
   openHotelModal(hotel: any) {
-    const originalHotel = this.accomodation.find((h: { id: number }) => h.id === hotel.id) || hotel;
+    const originalHotel =
+      this.accomodation.find((h: { id: number }) => h.id === hotel.id) || hotel;
     this.selectedHotel = originalHotel;
     this.isHotelModalOpen = true;
     document.body.style.overflow = 'hidden';
@@ -208,7 +232,8 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
   }
 
   openEateryModal(eatery: any) {
-    const originalEatery = this.eatery.find((e: { id: number }) => e.id === eatery.id) || eatery;
+    const originalEatery =
+      this.eatery.find((e: { id: number }) => e.id === eatery.id) || eatery;
     this.selectedEatery = originalEatery;
     this.isEateryModalOpen = true;
     document.body.style.overflow = 'hidden';
@@ -229,7 +254,7 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
   trackByEateryId(index: number, eatery: any): number {
     return eatery.id || index;
   }
-  
+
   ngOnDestroy(): void {
     if (this.hotelCarouselInstance) {
       destroyOwlInstance('.hotels-carousel');
