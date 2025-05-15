@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, PLATFORM_ID, OnDestroy } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  PLATFORM_ID,
+  OnDestroy,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../../services/search.service';
-import {
-  DURATIONS,
-  SORT_OPTIONS,
-} from '../../../../enums/search-filters.enum';
+import { DURATIONS, SORT_OPTIONS } from '../../../../enums/search-filters.enum';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 interface DestinationType {
   id: string;
@@ -41,7 +45,6 @@ interface Season {
   styleUrl: './search-filters.component.css',
 })
 export class SearchFiltersComponent implements OnInit, OnDestroy {
- 
   private apiService = inject(ApiService);
 
   showFilters = false;
@@ -63,6 +66,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   selectedDistrict: string = '';
   selectedExperience: string = '';
   searchQuery: string = '';
+  private searchSubject = new Subject<string>();
   selectedTags: string[] = [];
   selectedSeasons: string[] = [];
   selectedDurationId: string = ''; // id from durations array
@@ -85,6 +89,24 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
           this.isDarkMode = e.matches;
         });
     }
+
+    this.searchSubject
+      .pipe(debounceTime(1000), distinctUntilChanged())
+      .subscribe((query) => {
+        if (!this.enterPressed) {
+          this.applyFilters();
+        }
+        this.enterPressed = false;
+      });
+  }
+
+  private enterPressed = false;
+  onEnterPress() {
+    this.enterPressed = true;
+    this.applyFilters(); // Trigger search immediately
+  }
+  onSearchChange(query: string) {
+    this.searchSubject.next(query);
   }
 
   ngOnInit() {
@@ -98,17 +120,19 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     this.getSeasons();
   }
 
-  setDistrictWithUrl(){
-     // In your component.ts
-     this.route.paramMap.subscribe((params) => {
+  setDistrictWithUrl() {
+    // In your component.ts
+    this.route.paramMap.subscribe((params) => {
       const districtParam = params.get('district');
       if (districtParam) {
-        const matchedDistrict = this.districts.find(d => d.value.toLowerCase() === districtParam.toLowerCase());
-        
+        const matchedDistrict = this.districts.find(
+          (d) => d.value.toLowerCase() === districtParam.toLowerCase()
+        );
+
         if (matchedDistrict) {
           this.selectedDistrict = matchedDistrict.id; // or districtParam
           this.searchService.updateFilters({
-            districtid: matchedDistrict.id
+            districtid: matchedDistrict.id,
           });
         } else {
           console.warn('District not found in list:', districtParam);
@@ -117,38 +141,37 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
-  getDestinationTags(){
+
+  getDestinationTags() {
     this.apiService.get('Master/GetAllDestinationTypes').subscribe({
       next: (response: any) => {
         this.destinationTags = response.map((tag: any) => ({
           id: tag.destinationtypeid,
           name: tag.destinationtypename,
-          icon: tag.icon
+          icon: tag.icon,
         }));
       },
       error: (error) => {
         console.error('Error fetching destination tags:', error);
-      }
+      },
     });
   }
 
-  getExperienceTags(){
+  getExperienceTags() {
     this.apiService.get('Master/GetAllExpeiences').subscribe({
       next: (response: any) => {
         this.experiences = response.map((experience: any) => ({
           id: experience.experienceid,
-          value: experience.experiencename
+          value: experience.experiencename,
         }));
-
       },
       error: (error) => {
         console.error('Error fetching experience tags:', error);
-      }
+      },
     });
   }
 
-  getDistricts(){
+  getDistricts() {
     this.apiService.get('Master/GetAllDistricts').subscribe({
       next: (response: any) => {
         this.districts = response.map((district: any) => ({
@@ -159,24 +182,23 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error fetching districts:', error);
-      }
+      },
     });
   }
 
-
-  getSeasons(){
+  getSeasons() {
     this.apiService.get('Master/GetAllSeasons').subscribe({
       next: (response: any) => {
         this.seasons = response.map((season: any) => ({
           id: season.seasonid,
           seasonicon: season.icon,
           name: season.seasonname,
-          month: season.seasonmonth
+          month: season.seasonmonth,
         }));
       },
       error: (error) => {
         console.error('Error fetching seasons:', error);
-      }
+      },
     });
   }
 
@@ -185,27 +207,29 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   toggleTag(tagId: string) {
-
     if (this.selectedTags.includes(tagId)) {
-      this.selectedTags = this.selectedTags.filter(tag => tag !== tagId);
+      this.selectedTags = this.selectedTags.filter((tag) => tag !== tagId);
     } else {
       this.selectedTags.push(tagId);
     }
+
+    this.applyFilters();
   }
 
   toggleSeason(seasonId: string) {
     if (this.selectedSeasons.includes(seasonId)) {
-      this.selectedSeasons = this.selectedSeasons.filter(season => season !== seasonId);
+      this.selectedSeasons = this.selectedSeasons.filter(
+        (season) => season !== seasonId
+      );
     } else {
       this.selectedSeasons.push(seasonId);
     }
   }
 
-    selectDuration(durationId: string) {
-    this.selectedDurationId = this.selectedDurationId === durationId ? '' : durationId;
-  
-    }
-  
+  selectDuration(durationId: string) {
+    this.selectedDurationId =
+      this.selectedDurationId === durationId ? '' : durationId;
+  }
 
   clearFilters() {
     this.selectedSort = '';
@@ -219,7 +243,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     this.selectedDistrict = '';
     this.selectedExperience = '';
     this.searchQuery = '';
-    this.selectedTags  = [];
+    this.selectedTags = [];
     this.applyFilters();
     this.clearFilters();
   }
@@ -229,8 +253,9 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   applyFilters() {
-    this.selectedDurationId = this.selectedDurationId === '' ? '' : this.selectedDurationId;
-    const selected = DURATIONS.find(d => d.name === this.selectedDurationId);
+    this.selectedDurationId =
+      this.selectedDurationId === '' ? '' : this.selectedDurationId;
+    const selected = DURATIONS.find((d) => d.name === this.selectedDurationId);
 
     this.searchService.updateFilters({
       districtid: this.selectedDistrict,
@@ -240,14 +265,13 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
       sortby: this.selectedSort,
       seasonids: this.selectedSeasons,
       min_durationinhrs: selected?.min ?? 0,
-      max_durationinhrs: selected?.max ?? 9999
+      max_durationinhrs: selected?.max ?? 9999,
     });
-
   }
 
   ngOnDestroy() {
     // Clear all filters when component is destroyed
     this.searchService.resetFilters();
+    this.searchSubject.complete();
   }
-
 }
