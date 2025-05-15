@@ -1,181 +1,227 @@
-<link rel="preload" as="image" href="assets/Images/website-images/landing-hero-bg.webp" /> <!--------hero background image------->
+<link
+  rel="preload"
+  as="image"
+  href="assets/Images/website-images/landing-hero-bg.webp"
+/>
+<!--------hero background image------->
 
 <!-- Hero Section -->
 
 <section
   class="relative min-h-screen pt-[70px] w-full overflow-hidden flex flex-wrap items-stretch justify-center"
 >
-
-<!-- Heritage Walk Section - Top Right -->
-<div 
-  class="absolute top-24 right-6 sm:right-8 lg:right-12 z-[4] group cursor-pointer animate-slide-fade-in"
-  (click)="navigateToHeritageWalk()"
->
-  <div class="animate-bounce flex items-center gap-2 sm:gap-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-full px-4 py-2 border border-gray-200/40 dark:border-gray-600/40 hover:shadow-lg hover:shadow-primary-400/30 dark:hover:shadow-primary-400/30 transition-all duration-300">
-    
-    <!-- Heritage Walk Icon -->
-    <div class="relative">
-      <svg 
-        class="w-5 h-5 sm:w-6 sm:h-6 text-primary-600 dark:text-primary-300 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        stroke-width="1.5"
-      >
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 15v3" />
-        <path d="M12 9v3" />
-        <path d="M9 12h6" />
-      </svg>
-
-      <!-- Pulsing Border -->
-      <div class="absolute inset-0 rounded-full border border-primary-400/40 dark:border-primary-300/30 animate-pulse"></div>
-    </div>
-
-    <span class="text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold group-hover:text-primary-500 dark:group-hover:text-primary-300 transition-colors duration-300">
-      Heritage Walk
-    </span>
-  </div>
-</div>
-
-<!-- Install App Button - Top Left -->
-<div *ngIf="deferredPrompt"
-  class="absolute top-24 left-6 sm:left-8 lg:left-12 z-[4] group cursor-pointer animate-slide-fade-in"
-  (click)="installApp()"
->
-  <div class="animate-bounce flex items-center gap-2 sm:gap-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-full px-4 py-2 border border-gray-200/40 dark:border-gray-600/40 hover:shadow-lg hover:shadow-secondary-400/30 dark:hover:shadow-secondary-400/30 transition-all duration-300">
-    
-    <!-- Install App Icon -->
-    <div class="relative">
-      <svg 
-        class="w-5 h-5 sm:w-6 sm:h-6 text-secondary-600 dark:text-secondary-300 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
-        xmlns="http://www.w3.org/2000/svg" 
-        fill="none" 
-        viewBox="0 0 24 24" 
-        stroke="currentColor" 
-        stroke-width="1.5"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-      </svg>
-
-      <!-- Pulsing Border -->
-      <div class="absolute inset-0 rounded-full border border-secondary-400/40 dark:border-secondary-300/30 animate-pulse"></div>
-    </div>
-
-    <span class="text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold group-hover:text-secondary-500 dark:group-hover:text-secondary-300 transition-colors duration-300">
-      Install App
-    </span>
-
-     <!-- Close Button -->
-     <button
-     (click)="deferredPrompt = null"
-     class="ml-auto text-gray-500 cursor-pointer hover:text-red-500 text-xl leading-none"
-     aria-label="Close"
-   >
-     &times;
-   </button>
-
-
-  </div>
-</div>
-
-
-<!-- Install App Prompt for iOS - Top Left -->
-<div
-  *ngIf="showInstallPopupIos"
-  class="absolute top-40 lg:top-24 left-4 sm:left-8 lg:left-12 z-10 animate-slide-fade-in"
->
+  <!-- Heritage Walk Section - Top Right -->
   <div
-    class="flex items-start sm:items-center gap-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-md dark:shadow-lg rounded-full px-5 py-3 transition-all duration-300 max-w-xs sm:max-w-sm animate-bounce group"
+    class="absolute top-24 right-6 sm:right-8 lg:right-12 z-[4] group cursor-pointer animate-slide-fade-in"
+    (click)="navigateToHeritageWalk()"
   >
-    <!-- Animated Icon with Pulsing Border -->
-    <div class="relative flex-shrink-0 mt-1 sm:mt-0">
-      <svg
-        class="w-6 h-6 text-secondary-600 dark:text-secondary-300 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        viewBox="0 0 24 24"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-      </svg>
-      <div class="absolute inset-0 rounded-full border border-secondary-400/40 dark:border-secondary-300/30 animate-pulse"></div>
-    </div>
-
-    <!-- Text Content -->
-    <div class="flex flex-col text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold">
-      <p>Install this app for better experience - </p>
-      <p class="text-sm font-normal text-gray-600 dark:text-gray-300">
-        Tap <span class="font-bold">Share
-          <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          class="w-5 h-5 inline-block align-text-bottom text-blue-500 ml-1" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor" 
-          stroke-width="2"
+    <div
+      class="animate-bounce flex items-center gap-2 sm:gap-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-full px-4 py-2 border border-gray-200/40 dark:border-gray-600/40 hover:shadow-lg hover:shadow-primary-400/30 dark:hover:shadow-primary-400/30 transition-all duration-300"
+    >
+      <!-- Heritage Walk Icon -->
+      <div class="relative">
+        <svg
+          class="w-5 h-5 sm:w-6 sm:h-6 text-primary-600 dark:text-primary-300 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
         >
-          <path 
-            stroke-linecap="round" 
-            stroke-linejoin="round" 
-            d="M12 4v12m0-12l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" 
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 15v3" />
+          <path d="M12 9v3" />
+          <path d="M9 12h6" />
+        </svg>
+
+        <!-- Pulsing Border -->
+        <div
+          class="absolute inset-0 rounded-full border border-primary-400/40 dark:border-primary-300/30 animate-pulse"
+        ></div>
+      </div>
+
+      <span
+        class="text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold group-hover:text-primary-500 dark:group-hover:text-primary-300 transition-colors duration-300"
+      >
+        Heritage Walk
+      </span>
+    </div>
+  </div>
+
+  <!-- Install App Button - Top Left -->
+  <div
+    *ngIf="deferredPrompt"
+    class="absolute top-24 left-6 sm:left-8 lg:left-12 z-[4] group cursor-pointer animate-slide-fade-in"
+    (click)="installApp()"
+  >
+    <div
+      class="animate-bounce flex items-center gap-2 sm:gap-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-full px-4 py-2 border border-gray-200/40 dark:border-gray-600/40 hover:shadow-lg hover:shadow-secondary-400/30 dark:hover:shadow-secondary-400/30 transition-all duration-300"
+    >
+      <!-- Install App Icon -->
+      <div class="relative">
+        <svg
+          class="w-5 h-5 sm:w-6 sm:h-6 text-secondary-600 dark:text-secondary-300 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.5"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
           />
         </svg>
-        </span>, then <span class="font-bold">“Add to Home Screen”</span>.
-      </p>
+
+        <!-- Pulsing Border -->
+        <div
+          class="absolute inset-0 rounded-full border border-secondary-400/40 dark:border-secondary-300/30 animate-pulse"
+        ></div>
+      </div>
+
+      <span
+        class="text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold group-hover:text-secondary-500 dark:group-hover:text-secondary-300 transition-colors duration-300"
+      >
+        Install App
+      </span>
+
+      <!-- Close Button -->
+      <button
+        (click)="deferredPrompt = null"
+        class="ml-auto text-gray-500 cursor-pointer hover:text-red-500 text-xl leading-none"
+        aria-label="Close"
+      >
+        &times;
+      </button>
     </div>
-
-    <!-- Close Button -->
-    <button
-      (click)="showInstallPopupIos = false"
-      class="ml-auto text-gray-500 cursor-pointer hover:text-red-500 text-xl leading-none"
-      aria-label="Close"
-    >
-      &times;
-    </button>
   </div>
-</div>
 
+  <!-- Install App Prompt for iOS - Top Left -->
+  <div
+    *ngIf="showInstallPopupIos"
+    class="absolute top-40 lg:top-24 left-4 sm:left-8 lg:left-12 z-10 animate-slide-fade-in"
+  >
+    <div
+      class="flex items-start sm:items-center gap-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 shadow-md dark:shadow-lg rounded-full px-5 py-3 transition-all duration-300 max-w-xs sm:max-w-sm animate-bounce group"
+    >
+      <!-- Animated Icon with Pulsing Border -->
+      <div class="relative flex-shrink-0 mt-1 sm:mt-0">
+        <svg
+          class="w-6 h-6 text-secondary-600 dark:text-secondary-300 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 4v16m8-8H4"
+          />
+        </svg>
+        <div
+          class="absolute inset-0 rounded-full border border-secondary-400/40 dark:border-secondary-300/30 animate-pulse"
+        ></div>
+      </div>
 
+      <!-- Text Content -->
+      <div
+        class="flex flex-col text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold"
+      >
+        <p>Install this app for better experience -</p>
+        <p class="text-sm font-normal text-gray-600 dark:text-gray-300">
+          Tap
+          <span class="font-bold"
+            >Share
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 inline-block align-text-bottom text-blue-500 ml-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4v12m0-12l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"
+              />
+            </svg> </span
+          >, then <span class="font-bold">“Add to Home Screen”</span>.
+        </p>
+      </div>
 
-
-
+      <!-- Close Button -->
+      <button
+        (click)="showInstallPopupIos = false"
+        class="ml-auto text-gray-500 cursor-pointer hover:text-red-500 text-xl leading-none"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+    </div>
+  </div>
 
   <!-- Snow Effect -->
-  <div class="snowflakes ">
-    <div *ngFor="let flake of snowflakes" class="snowflake" [style]="flake.style"></div>
+  <div class="snowflakes">
+    <div
+      *ngFor="let flake of snowflakes"
+      class="snowflake"
+      [style]="flake.style"
+    ></div>
   </div>
 
   <!-- Decorative Icons -->
   <div class="absolute inset-0 z-[2] pointer-events-none">
-    
     <!-- Camera Icon (Bottom Left) -->
-    <svg class="absolute bottom-8 left-8 w-16 h-16 text-white/20 dark:text-white/10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+    <svg
+      class="absolute bottom-8 left-8 w-16 h-16 text-white/20 dark:text-white/10"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+    >
+      <path
+        d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+      />
       <circle cx="12" cy="13" r="4" />
     </svg>
 
     <!-- Map Pin Icon (Bottom Right) -->
-    <svg class="absolute bottom-8 right-8 w-16 h-16 text-white/20 dark:text-white/10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <svg
+      class="absolute bottom-8 right-8 w-16 h-16 text-white/20 dark:text-white/10"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+    >
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
       <circle cx="12" cy="10" r="3" />
     </svg>
 
     <!-- Adventure Icon (Center) -->
-    <svg class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 text-white/10 dark:text-white/5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <svg
+      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 text-white/10 dark:text-white/5"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+    >
       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
     </svg>
   </div>
 
   <img
-  src="assets/Images/website-images/landing-hero-bg.webp"
-  class="absolute inset-0 w-full h-full object-cover"
-  alt="Hero Background"
-/>
+    src="assets/Images/website-images/landing-hero-bg.webp"
+    class="absolute inset-0 w-full h-full object-cover"
+    alt="Hero Background"
+  />
   <!-- Black Gradient Overlay -->
-  <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50 dark:from-black/70 dark:via-black/50 dark:to-black/70"></div>
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50 dark:from-black/70 dark:via-black/50 dark:to-black/70"
+  ></div>
 
   <!-- Content -->
   <div
@@ -185,10 +231,12 @@
     <h1
       class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4 dark:text-gray-100 leading-tight max-w-4xl"
     >
-    <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500 font-bold tracking-wide drop-shadow-lg animate-gradient-move">
-      Explore Sikkim :
-    </span>      
-    {{ heroData.title }}
+      <span
+        class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-secondary-300 to-accent-500 font-bold tracking-wide drop-shadow-lg animate-gradient-move"
+      >
+        Explore Sikkim :
+      </span>
+      {{ heroData.title }}
     </h1>
 
     <!-- Subheading -->
@@ -226,7 +274,7 @@
           (click)="onDestinationClick(destination.slug)"
         >
           <img
-            [src]="baseUrl+destination.image"
+            [src]="baseUrl + destination.image"
             alt="{{ destination.name }}"
             class="w-12 h-12 rounded object-cover"
             loading="lazy"
@@ -240,12 +288,7 @@
     </div>
   </div>
 
- 
-  
-  <div class="relative w-full"  >
+  <div class="relative w-full">
     <app-home-minister-profile></app-home-minister-profile>
   </div>
-  
-
-
 </section>

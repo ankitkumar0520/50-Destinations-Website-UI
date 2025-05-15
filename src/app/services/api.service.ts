@@ -1,9 +1,5 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
-} from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -11,7 +7,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  http = inject(HttpClient);
+
+  constructor() {}
 
   get<T>(url: string): Observable<T> {
     return this.http

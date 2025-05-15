@@ -45,8 +45,6 @@ interface Season {
   styleUrl: './search-filters.component.css',
 })
 export class SearchFiltersComponent implements OnInit, OnDestroy {
-  private apiService = inject(ApiService);
-
   showFilters = false;
   isDarkMode = false;
 
@@ -78,7 +76,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private platformId = inject(PLATFORM_ID);
 
-  constructor() {
+  constructor(private apiService: ApiService) {
     if (isPlatformBrowser(this.platformId)) {
       this.isDarkMode = window.matchMedia(
         '(prefers-color-scheme: dark)'

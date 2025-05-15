@@ -38,8 +38,6 @@
   overflow: hidden;
 }
 
-
-
 .snowflake {
   position: absolute;
   background: white;
@@ -57,24 +55,6 @@
     transform: translateY(100vh) rotate(360deg);
     opacity: 0;
   }
-}
-
-
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animate-gradient-move {
-  background-size: 200% 200%;
-  animation: gradientMove 4s ease infinite;
 }
 
 /* Heritage Walk Animation */
