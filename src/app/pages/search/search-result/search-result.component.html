@@ -1,26 +1,15 @@
 <!-- Search Results Grid -->
 <div class="max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 mt-8 relative">
   <!-- Loading Spinner with Blurred Background -->
-  <div
+  <!-- <div
     *ngIf="isLoading"
     class="absolute inset-0 bg-white/40 backdrop-blur-sm z-50 flex items-center justify-center"
+  ></div> -->
+
+  <div
+    class="absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center"
   >
-    <div class="relative w-16 h-16">
-      <!-- Outer Ring -->
-      <div
-        class="absolute inset-0 rounded-full border-4 border-t-transparent border-blue-500 animate-spin"
-      ></div>
-
-      <!-- Inner Ring -->
-      <div
-        class="absolute inset-2 rounded-full border-4 border-b-transparent border-indigo-400 animate-spin-reverse"
-      ></div>
-
-      <!-- Glowing Dot -->
-      <div
-        class="absolute top-0 left-1/2 w-2 h-2 bg-blue-500 rounded-full shadow-md animate-ping"
-      ></div>
-    </div>
+    <app-loader></app-loader>
   </div>
 
   <!-- Search Results Header -->

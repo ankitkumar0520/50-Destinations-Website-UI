@@ -18,6 +18,7 @@ import { ImageService } from '../../../services/image.service';
 import { shareQRCode } from '../../../utils/utils';
 import { ApiService } from '../../../services/api.service';
 import { finalize } from 'rxjs';
+import { LoaderComponent } from '../../../common/loader/loader.component';
 
 interface Tag {
   tagname: string;
@@ -36,7 +37,12 @@ interface SearchResult {
 @Component({
   selector: 'app-search-result',
   standalone: true,
-  imports: [CommonModule, NgxPaginationModule, QRCodeComponent],
+  imports: [
+    CommonModule,
+    NgxPaginationModule,
+    QRCodeComponent,
+    LoaderComponent,
+  ],
   templateUrl: './search-result.component.html',
   styleUrl: './search-result.component.css',
 })
