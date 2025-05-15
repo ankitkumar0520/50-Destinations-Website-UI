@@ -51,15 +51,17 @@
               </div>
             </div>
             <!-- Content Box -->
-            <div class="flex flex-col p-5 ">
+            <div class="flex flex-col p-5">
               <!-- Title -->
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
                 {{ point?.name }}
               </h3>
               <!-- Description -->
-              <p class="text-sm  text-justify text-gray-600 dark:text-gray-300 line-clamp-5 flex-grow">
-                {{ point?.description }}
-              </p>
+              <div class="description-scroll">
+                <p class="text-sm text-justify text-gray-600 dark:text-gray-300">
+                  {{ point?.description }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -70,19 +72,15 @@
 
 <!-- Layout for UP TO 2 items: FLEX ROW -->
 <div *ngIf="pointsOfInterest.length <= 2" class="flex flex-wrap justify-center -mx-3">
-
-
   <div class="w-full sm:w-1/2 px-3 mb-6" *ngFor="let point of pointsOfInterest; let i = index">
     <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 group sm:h-[280px] h-auto">
-      
-
-
       <div class="flex flex-col sm:flex-row sm:h-full">
         <!-- Image Section with Owl Carousel -->
         <div class="sm:w-2/4 w-full h-56 sm:h-full flex-shrink-0 relative overflow-hidden">
           <div [id]="'point-image-carousel-flex-' + i" class="owl-carousel owl-theme point-image-carousel h-full">
             <div *ngIf="!point?.media || point.media.length === 0" class="item h-full">
               <img 
+                src="assets/placeholders/landscape.webp"
                 (error)="imageService.handleImageError($event)"
                 [alt]="point?.name || 'Point of interest'"
                 class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
@@ -101,17 +99,18 @@
         </div>
 
         <!-- Content Section - Centered Vertically -->
-        <div class="sm:w-3/5 w-full p-6 flex flex-col justify-center sm:justify-center">
-        
+        <div class="sm:w-3/5 w-full p-6 flex flex-col justify-center">
           <!-- Title -->
           <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-2">
             {{ point?.name }}
           </h3>
 
-          <!-- Description -->
-          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-            {{ point?.description }}
-          </p>
+          <!-- Description with Scroll -->
+          <div class="description-scroll">
+            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+              {{ point?.description }}
+            </p>
+          </div>
         </div>
       </div>
     </div>

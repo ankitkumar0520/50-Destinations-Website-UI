@@ -11,3 +11,41 @@
   object-fit: cover;
   display: block;
 }
+
+/* Scrollable description styles */
+.description-scroll {
+  max-height: 120px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+.description-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.description-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.description-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5);
+  border-radius: 20px;
+}
+
+.description-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(156, 163, 175, 0.7);
+}
+
+/* Dark mode scrollbar */
+:host-context(.dark) .description-scroll {
+  scrollbar-color: rgba(75, 85, 99, 0.5) transparent;
+}
+
+:host-context(.dark) .description-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(75, 85, 99, 0.5);
+}
+
+:host-context(.dark) .description-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(75, 85, 99, 0.7);
+}
