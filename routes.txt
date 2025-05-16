@@ -1,0 +1,10 @@
+/
+/home
+/about
+/faqs
+/events
+/privacy-policy
+/terms-of-service
+/heritage-walk
+/view-pdf
+/qr-generator

@@ -39,12 +39,15 @@ export class ApiService {
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred!';
 
-    if (error.error instanceof ErrorEvent) {
-      // Client-side error
+    const isBrowserError =
+      typeof ErrorEvent !== 'undefined' && error.error instanceof ErrorEvent;
+
+    if (isBrowserError) {
+      // Client-side error (browser environment only)
       errorMessage = `Client-side error: ${error.error.message}`;
       console.error('Client-side API Error:', error.error);
     } else {
-      // Server-side error
+      // Server-side error (SSR or backend)
       errorMessage = this.getServerErrorMessage(error);
       console.error('Server-side API Error:', {
         status: error.status,
