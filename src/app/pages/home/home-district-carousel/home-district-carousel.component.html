@@ -14,10 +14,23 @@
     ></app-section-header>
 
     <div class="max-w-[1400px] mx-auto">
-      <div class="owl-carousel owl-theme district-carousel">
-        <div
-          class="item p-2 relative"
+      <swiper-container
+        class="district-carousel"
+        slides-per-view="1"
+        space-between="24"
+        [navigation]="false"
+        [pagination]="false"
+        [breakpoints]="{
+          '640': { slidesPerView: 2 },
+          '1024': { slidesPerView: 3 },
+          '1280': { slidesPerView: 4 }
+        }"
+        navigation="true"
+        pagination="true"
+      >
+        <swiper-slide
           *ngFor="let district of districts; let i = index; trackBy: trackBy"
+          class="p-2"
         >
           <div
             class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/70 transition-all duration-300 cursor-pointer transform hover:-translate-y-1 w-full min-h-[400px] h-[420px] max-h-[450px]"
@@ -29,7 +42,7 @@
                   <div class="relative h-44 overflow-hidden group">
                     <!-- QR Toggle Button -->
                     <div
-                      (click)="switchQR(i)"
+                      (click)="switchQR(i); $event.stopPropagation()"
                       [ngClass]="
                         'border-' + (district.districtname | lowercase)
                       "
@@ -54,8 +67,7 @@
                     <span
                       class="absolute top-0 left-0 inline-block bg-gradient-to-r w-full h-0.5"
                       [ngClass]="getGradientClasses(district.districtname)"
-                    >
-                    </span>
+                    ></span>
                     <div class="my-3">
                       <h3
                         class="text-lg font-bold text-black dark:text-white mb-1 line-clamp-1"
@@ -87,8 +99,6 @@
                           Popular Places
                         </h4>
                         <div class="grid grid-cols-2 gap-1.5">
-                          <!-- Popular Places -->
-
                           <ng-container
                             *ngFor="
                               let place of getTopDestinationsForDistrictFiltered(
@@ -97,7 +107,7 @@
                             "
                           >
                             <span
-                              class="focus:bg-primary-50 focus:text-primary-600 dark:focus:text-primary-400 cursor-pointer hover:bg-primary-50 hover:text-primary-600 dark:hover:text-primary-400 inline-flex items-center px-2 py-1 bg-gray-50 dark:bg-gray-900/50 text-gray-600 dark:text-gray-300 rounded-lg text-xs font-medium whitespace-nowrap overflow-hidden"
+                              class="focus:bg-primary-50 focus:text-primary-600 dark:focus:text-primary-400 cursor-pointer hover:bg-primary-50 dark:hover:bg-gray-900 hover:text-primary-600 dark:hover:text-primary-400 inline-flex items-center px-2 py-1 bg-gray-50 dark:bg-gray-900/50 text-gray-600 dark:text-gray-300 rounded-lg text-xs font-medium whitespace-nowrap overflow-hidden"
                             >
                               <i class="fas fa-map-marker-alt mr-1"></i>
                               <span class="truncate">{{
@@ -107,21 +117,6 @@
                           </ng-container>
                         </div>
                       </div>
-
-                      <!-- <div
-                        class="pt-3 border-t border-gray-100 dark:border-gray-700"
-                      >
-                        <button
-                          [routerLink]="['/destinations', district.value]"
-                          class="w-full px-3 py-1.5 rounded-lg transition-colors duration-300 flex items-center justify-center gap-1.5 text-sm cursor-pointer text-gray-500"
-                          [ngClass]="
-                            'hover:text-' + (district.name | lowercase) + '-600'
-                          "
-                        >
-                          <span>Explore {{ district.name }}</span>
-                          <i class="fas fa-arrow-right"></i>
-                        </button>
-                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -132,7 +127,7 @@
                 >
                   <div
                     class="back-button text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer mb-4"
-                    (click)="switchQR(i)"
+                    (click)="switchQR(i); $event.stopPropagation()"
                   >
                     <i class="fas fa-arrow-left"></i>
                   </div>
@@ -163,14 +158,14 @@
                   <div class="action-buttons flex gap-2">
                     <button
                       class="action-button share-button px-3 py-1.5 bg-primary-600 dark:bg-primary-500 text-white rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors duration-300 flex items-center gap-1.5 text-sm"
-                      (click)="shareQR(district)"
+                      (click)="shareQR(district); $event.stopPropagation()"
                     >
                       <i class="fas fa-share-alt"></i>
                       <span>Share</span>
                     </button>
                     <button
                       class="action-button download-button px-3 py-1.5 bg-secondary-600 dark:bg-secondary-500 text-white rounded-lg hover:bg-secondary-700 dark:hover:bg-secondary-600 transition-colors duration-300 flex items-center gap-1.5 text-sm"
-                      (click)="downloadQR(district)"
+                      (click)="downloadQR(district); $event.stopPropagation()"
                     >
                       <i class="fas fa-download"></i>
                       <span>Download</span>
@@ -180,8 +175,8 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </swiper-slide>
+      </swiper-container>
     </div>
   </div>
 </section>

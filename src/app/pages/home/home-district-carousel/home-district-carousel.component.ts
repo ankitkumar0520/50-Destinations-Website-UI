@@ -4,13 +4,12 @@ import {
   OnDestroy,
   inject,
   PLATFORM_ID,
+  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { QRCodeComponent } from 'angularx-qrcode';
 
 import {
-  destroyOwlInstance,
-  initializeOwlCarousel,
   shareQRCode,
   downloadQRCode,
   getGradientClasses,
@@ -26,8 +25,9 @@ import { Router } from '@angular/router';
   imports: [CommonModule, SectionHeaderComponent, QRCodeComponent],
   templateUrl: './home-district-carousel.component.html',
   styleUrl: './home-district-carousel.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class HomeDistrictCarouselComponent implements OnInit, OnDestroy {
+export class HomeDistrictCarouselComponent implements OnInit {
   isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
@@ -260,24 +260,6 @@ export class HomeDistrictCarouselComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //this.getDistricts();
     //this.getPoularDestinationofDistrict();
-  }
-
-  ngAfterViewInit() {
-    // Remove alert after testing
-    setTimeout(() => {
-      initializeOwlCarousel(
-        '.district-carousel',
-        false,
-        true,
-        0,
-        false,
-        [1, 3, 4]
-      );
-    }, 300);
-  }
-
-  ngOnDestroy(): void {
-    destroyOwlInstance('.district-carousel');
   }
 
   getDistricts() {

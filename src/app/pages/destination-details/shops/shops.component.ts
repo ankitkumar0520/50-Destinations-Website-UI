@@ -4,6 +4,7 @@ import {
   OnDestroy,
   ChangeDetectorRef,
   OnInit,
+  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -15,11 +16,8 @@ import {
 } from '@angular/animations';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
-import {
-  initializeOwlCarousel,
-  destroyOwlInstance,
-} from '../../../utils/utils';
 import { ImageService } from '../../../services/image.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-shops',
@@ -27,6 +25,7 @@ import { ImageService } from '../../../services/image.service';
   imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './shops.component.html',
   styleUrl: './shops.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   animations: [
     trigger('modalAnimation', [
       state('void', style({ opacity: 0, transform: 'scale(0.95)' })),
@@ -35,8 +34,8 @@ import { ImageService } from '../../../services/image.service';
     ]),
   ],
 })
-export class ShopsComponent implements OnDestroy, OnInit {
-  apiBaseUrl1 = (window as any)['apiBaseUrl1'];
+export class ShopsComponent implements OnInit {
+  apiUploadUrl = environment.apiUploadUrl;
   private destinationService = inject(DestinationService);
   private cdr = inject(ChangeDetectorRef);
   imageService = inject(ImageService);
@@ -67,31 +66,8 @@ export class ShopsComponent implements OnDestroy, OnInit {
           // Check if sectorId is 4 or if sectorName matches 'Shops' case-insensitively
           return entity.sectorId === 4 || name === 'shops';
         });
-
-        setTimeout(() => {
-          this.initCarousel();
-        }, 300);
       }
     });
-  }
-
-  initCarousel(): void {
-    if (!this.carouselInitialized) {
-      setTimeout(() => {
-        initializeOwlCarousel(
-          '.shops-carousel',
-          false,
-          true,
-          16,
-          false,
-          [1, 2, 3], // Items to show at different breakpoints: mobile, tablet, desktop
-          true
-        );
-
-        this.carouselInitialized = true;
-        this.cdr.detectChanges();
-      }, 300);
-    }
   }
 
   openModal(shop: any) {
@@ -110,9 +86,5 @@ export class ShopsComponent implements OnDestroy, OnInit {
 
   trackByShopId(index: number, shop: any): number {
     return shop.id || index;
-  }
-
-  ngOnDestroy(): void {
-    destroyOwlInstance('.shops-carousel');
   }
 }

@@ -1,24 +1,34 @@
 <!-- Minister Profile Section - Redesigned -->
-<div class="relative w-full  h-full minister-profile mt-2">
+<div class="relative w-full h-full minister-profile mt-2">
   <!-- Vignette Overlay -->
   <div
     class="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black/70 to-transparent z-10"
   ></div>
 
   <!-- Minister Carousel -->
-  <div class="relative z-20 max-w-7xl mx-auto px-6 md:px-16 2xl:px-0">
-    <div class="owl-carousel minister-carousel owl-theme" (click)="handleCarouselClick($event)">
-      <div class="item max-w-fit" *ngFor="let minister of ministers">
+  <div class="relative z-20 max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 pb-8">
+    <swiper-container
+      [navigation]="false"
+      class="minister-carousel w-full"
+      slides-per-view="1"
+      margin="30"
+      [breakpoints]="{
+        '640': { slidesPerView: 3 },
+        '1024': { slidesPerView: 3 }
+      }"
+      navigation="true"
+    >
+      <swiper-slide *ngFor="let minister of ministers" class="max-w-fit">
         <!-- Compact Minister Profile -->
-        <div class="flex flex-col items-center text-white p-4">
+        <div class="flex flex-col items-center text-white p-4 h-full">
           <!-- Circular Profile Image -->
           <div
             class="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-white/70 shadow-xl ring-2 ring-primary-400/40 dark:ring-primary-300/30 transition-transform hover:scale-105 duration-300 mb-4"
           >
             <img
-              [src]="baseUrl+minister?.media[0]?.mediaurl"
+              [src]="baseUrl + minister?.media[0]?.mediaurl"
               [alt]="minister?.name || 'Minister profile'"
-              class="w-full h-full object-cover object-top"
+              class="w-full h-full object-cover object-top transition-opacity duration-300"
               (error)="imageService.handleImageError($event)"
               loading="lazy"
             />
@@ -27,48 +37,72 @@
           <!-- Minister Details -->
           <div class="text-center max-w-md">
             <h3 class="text-lg font-semibold mb-1">{{ minister?.name }}</h3>
-            <p class="text-sm text-white/80 mb-3">{{ minister?.designation }}</p>
-            <p class="text-sm italic text-white/90 line-clamp-4 leading-relaxed">
-              "{{ minister?.fullMessage }}"
-             
+            <p class="text-sm text-white/80 mb-3">
+              {{ minister?.designation }}
             </p>
-            <button 
-            class="cursor-pointer text-xs read-more-btn text-primary-400 hover:text-primary-300 transition-colors"
-            [attr.data-id]="minister?.name"
-          >
-            ..Read More
-          </button>
+            <p
+              class="text-sm italic text-white/90 line-clamp-4 leading-relaxed"
+            >
+              "{{ minister?.fullMessage }}"
+            </p>
+            <button
+              (click)="openModal(minister)"
+              class="cursor-pointer text-xs read-more-btn text-primary-400 hover:text-primary-300 transition-colors"
+              [attr.data-id]="minister?.name"
+            >
+              ..Read More
+            </button>
           </div>
         </div>
-      </div>
-    </div>
+      </swiper-slide>
+    </swiper-container>
   </div>
 </div>
 
 <!-- Minister Profile Modal - Full Page -->
 <div *ngIf="showModal" class="fixed inset-0 z-[100] overflow-y-auto">
   <!-- Background overlay -->
-  <div class="fixed inset-0 bg-black/75 dark:bg-black/90 transition-opacity" aria-hidden="true"></div>
+  <div
+    class="fixed inset-0 bg-black/75 dark:bg-black/90 transition-opacity animate-fade-in"
+    aria-hidden="true"
+  ></div>
 
   <!-- Modal panel -->
-  <div class="relative min-h-screen flex items-center justify-center p-4">
-    <div class="relative bg-white dark:bg-gray-800 rounded-lg w-full max-w-3xl mx-auto shadow-2xl transform transition-all duration-300 ease-in-out max-h-[90vh] flex flex-col">
+  <div
+    @modalAnimation
+    class="relative min-h-screen flex items-center justify-center p-4"
+  >
+    <div
+      class="relative bg-white dark:bg-gray-800 rounded-lg w-full max-w-3xl mx-auto shadow-2xl transform transition-all duration-300 ease-in-out max-h-[90vh] flex flex-col"
+    >
       <!-- Close button -->
       <button
         (click)="closeModal()"
         class="cursor-pointer absolute top-4 right-4 text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-200 focus:outline-none transition-colors duration-200 z-10"
       >
-        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
         </svg>
       </button>
 
       <div class="p-6 sm:p-8 overflow-y-auto">
         <div class="flex flex-col items-center space-y-6">
           <!-- Minister Image -->
-          <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-primary-400 dark:border-primary-300 shadow-lg transition-transform hover:scale-105 duration-300">
+          <div
+            class="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-primary-400 dark:border-primary-300 shadow-lg transition-transform hover:scale-105 duration-300"
+          >
             <img
-              [src]="baseUrl+selectedMinister?.media[0]?.mediaurl"
+              [src]="baseUrl + selectedMinister?.media[0]?.mediaurl"
               [alt]="selectedMinister?.name"
               class="w-full h-full object-cover object-top"
               (error)="imageService.handleImageError($event)"
@@ -77,25 +111,34 @@
           </div>
 
           <!-- Horizontal Line -->
-          <div class="w-24 sm:w-32 h-1 bg-primary-400 dark:bg-primary-300 rounded-full"></div>
+          <div
+            class="w-24 sm:w-32 h-1 bg-primary-400 dark:bg-primary-300 rounded-full"
+          ></div>
 
           <!-- Minister Message -->
           <div class="w-full px-4 sm:px-6">
-            <p class="text-gray-700 dark:text-gray-200 leading-relaxed text-center text-sm sm:text-base md:text-lg">
+            <p
+              class="text-gray-700 dark:text-gray-200 leading-relaxed text-center text-sm sm:text-base md:text-lg"
+            >
               {{ selectedMinister?.fullMessage }}
             </p>
           </div>
 
           <!-- Minister Details - Right Aligned -->
           <div class="w-full text-right pr-4 sm:pr-6">
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1">{{ selectedMinister?.name }}</h3>
-            <p class="text-sm sm:text-base text-primary-600 dark:text-primary-400 italic">{{ selectedMinister?.designation }}</p>
+            <h3
+              class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1"
+            >
+              {{ selectedMinister?.name }}
+            </h3>
+            <p
+              class="text-sm sm:text-base text-primary-600 dark:text-primary-400 italic"
+            >
+              {{ selectedMinister?.designation }}
+            </p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-

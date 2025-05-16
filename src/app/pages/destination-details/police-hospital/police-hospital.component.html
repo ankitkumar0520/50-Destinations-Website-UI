@@ -1,4 +1,5 @@
-<section *ngIf="police.length>0 || hospital.length>0"
+<section
+  *ngIf="police.length > 0 || hospital.length > 0"
   class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
   id="safety-emergency-section"
 >
@@ -15,172 +16,263 @@
     </app-section-header>
 
     <div class="w-full h-full flex flex-col gap-8 mt-8">
-<!-- Police Services Section -->
-<div *ngIf="police.length>0">
-  <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3">
-    <span class="flex items-center justify-center bg-amber-500 rounded-full w-9 h-9 text-white">
-      <i class="fas fa-shield-alt text-base"></i>
-    </span>
-    Police & Emergency Services
-  </h2>
-
-  <div class="grid grid-cols-1 gap-6 lg:gap-8 xl:gap-10" id="police-services">
-    <div
-      *ngFor="let security of police"
-      class="relative p-6 lg:p-8 xl:p-10 rounded-2xl bg-white dark:bg-gray-900 
-      shadow-lg border-b-1 border-b-blue-500 border border-gray-200 dark:border-gray-700"
-    >
-      <!-- Soft radial background -->
-      <div class="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-transparent dark:from-amber-900/30 dark:via-amber-800/20 blur-3xl opacity-25 rounded-2xl -z-10"></div>
-
-      <!-- Flex container -->
-      <div class="flex flex-col md:flex-row gap-6 lg:gap-10 xl:gap-12 items-start">
-        
-        <!-- Image with badge -->
-        <div class="relative w-full md:w-48 lg:w-56 xl:w-64 shrink-0">
-          <ng-container *ngIf="security?.media?.length > 0 && security.media[0]?.mediaurl; else fallbackIcon">
-            <img
-              [src]="baseUrl+security.media[0].mediaurl"
-              [alt]="security?.name || 'Security Service'"
-              class="w-full aspect-square object-cover rounded-xl shadow"
-              loading="lazy"
-              (error)="imageService.handleImageError($event)"
-            />
-          </ng-container>
-          
-          <ng-template #fallbackIcon>
-            <div class="w-full aspect-square flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-xl shadow">
-              <!-- Police Station SVG Icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M4 10v10a1 1 0 001 1h3a1 1 0 001-1V14h6v6a1 1 0 001 1h3a1 1 0 001-1V10M4 10l8-6 8 6" />
-              </svg>
-            </div>
-          </ng-template>
-          
-
+      <!-- Police Services Section -->
+      <div *ngIf="police.length > 0">
+        <h2
+          class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3"
+        >
           <span
-            *ngIf="security?.tags?.length > 0 && security.tags[0]?.tagname"
-            class="absolute top-2 right-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full text-xs font-medium shadow"
-          >        
-            {{ security.tags[0].tagname }}
-          </span>
-        </div>
-
-        <!-- Details section -->
-        <div class="flex flex-col flex-1">
-          <h3 class="text-lg lg:text-xl font-semibold text-primary-700 dark:text-primary-400 mb-2">
-              {{ security?.name || 'Security Service' }}
-          </h3>
-
-          <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-            {{ security?.description || 'No description available' }}
-          </p>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4 text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4">
-            <div class="flex items-center gap-2">
-              <i class="fas fa-map-marker-alt text-amber-500 dark:text-amber-400"></i>
-              <span>{{ security?.distance || 'Distance not available' }} from destination</span>
-            </div>
-            <div class="flex items-center gap-2" *ngIf="security?.phone">
-              <i class="fas fa-phone text-amber-500 dark:text-amber-400"></i>
-              <span>{{ security?.phone }}</span>
-            </div>
-            <div class="flex items-center gap-2 md:col-span-2">
-              <i class="fas fa-location-arrow text-amber-500 dark:text-amber-400"></i>
-              <span>{{ security?.landmark || 'Location not specified' }}</span>
-            </div>
-          </div>
-
-          <a
-            [href]="security?.latitude && security?.longitude ? 'https://www.google.com/maps?q=' + security?.latitude + ',' + security?.longitude : '#' + security?.id"
-            *ngIf="security?.latitude && security?.longitude"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="self-start inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2 rounded-md text-sm font-medium shadow transition"
+            class="flex items-center justify-center bg-amber-500 rounded-full w-9 h-9 text-white"
           >
-            <i class="fas fa-map-marker-alt text-sm"></i>
-            Locate Emergency Station
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+            <i class="fas fa-shield-alt text-base"></i>
+          </span>
+          Police & Emergency Services
+        </h2>
 
-<!-- Healthcare Services Section -->
-<div *ngIf="hospital.length>0" class="mt-8" id="hospital-services">
-  <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3">
-    <span class="flex items-center justify-center bg-red-500 rounded-full w-9 h-9 text-white">
-      <i class="fas fa-heartbeat text-base"></i>
-    </span>
-    Healthcare Facilities
-  </h2>
-
-  <div class="grid grid-cols-1 gap-6 lg:gap-8 xl:gap-10">
-    <div
-      *ngFor="let medical of hospital"
-      class="relative p-6 lg:p-8 xl:p-10 rounded-2xl 
-      shadow-lg bg-white dark:bg-gray-900 font-sans 
-      border border-gray-100 dark:border-gray-700 border-b-1 border-b-blue-400"
-    >
-      <div
-        class="absolute top-0 left-0 w-80 h-80 bg-gradient-to-tr from-red-100 via-red-50 to-transparent dark:from-red-900/20 dark:via-red-800/10 dark:to-transparent rounded-full filter blur-3xl opacity-30 -z-10"
-      ></div>
-
-      <div class="grid md:grid-cols-[25%_75%] gap-6 lg:gap-10 xl:gap-12 items-start">
-        <div class="relative">
-          <div class="w-full aspect-square max-h-[180px] md:max-h-[200px] lg:max-h-[220px] xl:max-h-[240px] bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
-            <ng-container *ngIf="medical?.media?.length > 0 && medical.media[0]?.mediaurl; else fallbackHospitalIcon">
+        <div
+          class="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3 lg:gap-8"
+          id="police-services"
+        >
+          <div
+            *ngFor="let security of police"
+            class="relative w-full h-64 sm:h-80 rounded-xl overflow-hidden group"
+          >
+            <!-- Background Image -->
+            <ng-container
+              *ngIf="
+                security?.media?.length > 0 && security.media[0]?.mediaurl;
+                else fallbackImage
+              "
+            >
               <img
-                [src]="baseUrl+medical.media[0].mediaurl"
-                [alt]="medical?.name || 'Healthcare Facility'"
-                class="w-full h-full object-cover"
-                (error)="imageService.handleImageError($event)"
+                [src]="baseUrl + security.media[0].mediaurl"
+                [alt]="security?.name || 'Security Service'"
+                class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
                 loading="lazy"
+                (error)="imageService.handleImageError($event)"
               />
             </ng-container>
-            <ng-template #fallbackHospitalIcon>
-              <div class="w-full h-full flex items-center justify-center">
-                <i class="fas fa-hospital text-4xl text-gray-400 dark:text-gray-600"></i>
+
+            <ng-template #fallbackImage>
+              <div
+                class="w-full h-full bg-gray-200 dark:bg-gray-800 rounded-xl flex items-center justify-center"
+              >
+                <i
+                  class="fas fa-building text-5xl text-gray-500 dark:text-gray-400"
+                ></i>
               </div>
             </ng-template>
-          </div>
-        </div>
 
-        <div class="flex flex-col">
-          <h3 class="text-lg lg:text-xl font-bold text-primary-700 dark:text-primary-400 mb-2">
-            {{ medical?.name || 'Healthcare Facility' }}
-          </h3>
+            <!-- Dark gradient overlay -->
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent rounded-xl"
+            ></div>
 
-          <p class="text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-            {{ medical?.description || 'No description available' }}
-          </p>
+            <!-- Content -->
+            <div class="absolute inset-0 p-4 sm:p-6 text-white">
+              <div class="flex flex-col h-full justify-end">
+                <!-- Top Section (Title + Tag) -->
+                <div class="flex justify-between items-start">
+                  <h3
+                    class="text-xl sm:text-2xl font-bold drop-shadow-md max-w-[70%]"
+                  >
+                    {{ security?.name || "Security Service" }}
+                  </h3>
+                </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 mb-4 text-sm lg:text-base text-gray-600 dark:text-gray-300">
-            <div class="flex items-center gap-2">
-              <i class="fas fa-map-marker-alt text-red-500 dark:text-red-400 w-5 text-center"></i>
-              <span>{{ medical?.landmark || 'Location not specified' }}</span>
+                <!-- Middle Section (Details) -->
+                <div class="grid grid-cols-1 gap-2 sm:text-base mt-2">
+                  <div class="flex items-center gap-2">
+                    <i class="fas fa-location-arrow text-amber-400"></i>
+                    <span class="text-sm">{{
+                      security?.distance || "Distance not available"
+                    }}</span>
+                  </div>
+
+                  <div class="flex items-center gap-2">
+                    <i class="fas fa-map-marker-alt text-amber-400"></i>
+                    <span class="text-sm">{{
+                      security?.landmark || "Location not specified"
+                    }}</span>
+                  </div>
+
+                  <div class="flex flex-row">
+                    <div
+                      class="flex flex-1 items-center gap-2 mr-4 overflow-y-auto flex-nowrap"
+                    >
+                      <span
+                        *ngIf="
+                          security?.tags?.length > 0 &&
+                          security.tags[0]?.tagname
+                        "
+                        class="px-4 py-1 backdrop-blur-sm bg-gray-800/70 rounded-full text-gray-100 font-medium text-xs"
+                      >
+                        {{ security.tags[0].tagname }}
+                      </span>
+                    </div>
+
+                    <!-- Bottom Section (Buttons) -->
+                    <div
+                      class="flex flex-row gap-2 text-xs items-end mb-auto ml-auto"
+                    >
+                      <a
+                        *ngIf="security?.latitude && security?.longitude"
+                        [href]="
+                          'https://www.google.com/maps?q=' +
+                          security.latitude +
+                          ',' +
+                          security.longitude
+                        "
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-gray-800 px-2 py-1.5 rounded-md font-medium shadow transition-all hover:shadow-lg"
+                      >
+                        <i class="fas fa-map-marker-alt"></i>
+                        View Map
+                      </a>
+
+                      <a
+                        *ngIf="security?.phone"
+                        href="tel:{{ security.phone }}"
+                        class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-2 py-1.5 rounded-md font-medium shadow transition-all hover:shadow-lg"
+                      >
+                        <i class="fas fa-phone"></i>
+                        Call Now
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="flex items-center gap-2" *ngIf="medical?.phone">
-              <i class="fas fa-phone text-red-500 dark:text-red-400 w-5 text-center"></i>
-              <span>{{ medical?.phone }}</span>
-            </div>
-          </div>
-
-          <div class="flex flex-wrap gap-2 mt-2">
-            <span *ngFor="let tag of medical?.tags || []" 
-                  class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium">
-              {{ tag?.tagname || 'Service' }}
-            </span>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
+      <!-- Healthcare Services Section -->
+      <div *ngIf="hospital.length > 0" class="mt-8" id="hospital-services">
+        <h2
+          class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="flex items-center justify-center bg-red-500 rounded-full w-9 h-9 text-white"
+          >
+            <i class="fas fa-heartbeat text-base"></i>
+          </span>
+          Healthcare Facilities
+        </h2>
 
+        <div class="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+          <div
+            *ngFor="let medical of hospital"
+            class="relative w-full h-64 sm:h-80 rounded-xl overflow-hidden group"
+          >
+            <!-- Background Image -->
+            <ng-container
+              *ngIf="
+                medical?.media?.length > 0 && medical.media[0]?.mediaurl;
+                else fallbackImage
+              "
+            >
+              <img
+                [src]="baseUrl + medical.media[0].mediaurl"
+                [alt]="medical?.name || 'Healthcare Facility'"
+                class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+                (error)="imageService.handleImageError($event)"
+              />
+            </ng-container>
 
+            <ng-template #fallbackImage>
+              <div
+                class="w-full h-full bg-gray-200 dark:bg-gray-800 rounded-xl flex items-center justify-center"
+              >
+                <i
+                  class="fas fa-hospital text-5xl text-gray-500 dark:text-gray-400"
+                ></i>
+              </div>
+            </ng-template>
+
+            <!-- Dark gradient overlay -->
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent rounded-xl"
+            ></div>
+
+            <!-- Content -->
+            <div class="absolute inset-0 p-4 sm:p-6 text-white">
+              <div class="flex flex-col h-full justify-end">
+                <!-- Top Section (Title + Tag) -->
+                <div class="flex justify-between items-start">
+                  <h3
+                    class="text-xl sm:text-2xl font-bold drop-shadow-md max-w-[70%]"
+                  >
+                    {{ medical?.name || "Healthcare Facility" }}
+                  </h3>
+                </div>
+
+                <!-- Middle Section (Details) -->
+                <div class="grid grid-cols-1 gap-2 sm:text-base mt-2">
+                  <div class="flex items-center gap-2">
+                    <i class="fas fa-location-arrow text-red-400"></i>
+                    <span class="text-sm">{{
+                      medical?.distance || "Distance not available"
+                    }}</span>
+                  </div>
+
+                  <div class="flex items-center gap-2">
+                    <i class="fas fa-map-marker-alt text-red-400"></i>
+                    <span class="text-sm">{{
+                      medical?.landmark || "Location not specified"
+                    }}</span>
+                  </div>
+
+                  <div class="flex flex-row">
+                    <div
+                      class="flex flex-1 items-center gap-2 mr-4 overflow-y-auto flex-nowrap"
+                    >
+                      <span
+                        *ngFor="let tag of medical?.tags || []"
+                        class="px-4 py-1 backdrop-blur-sm bg-gray-800/70 rounded-full text-gray-100 font-medium text-xs"
+                      >
+                        {{ tag?.tagname || "Service" }}
+                      </span>
+                    </div>
+
+                    <!-- Bottom Section (Buttons) -->
+                    <div
+                      class="flex flex-row gap-2 text-xs items-end mb-auto ml-auto"
+                    >
+                      <a
+                        *ngIf="medical?.latitude && medical?.longitude"
+                        [href]="
+                          'https://www.google.com/maps?q=' +
+                          medical.latitude +
+                          ',' +
+                          medical.longitude
+                        "
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-gray-800 px-2 py-1.5 rounded-md font-medium shadow transition-all hover:shadow-lg"
+                      >
+                        <i class="fas fa-map-marker-alt"></i>
+                        View Map
+                      </a>
+
+                      <a
+                        *ngIf="medical?.phone"
+                        href="tel:{{ medical.phone }}"
+                        class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-2 py-1.5 rounded-md font-medium shadow transition-all hover:shadow-lg"
+                      >
+                        <i class="fas fa-phone"></i>
+                        Call Now
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

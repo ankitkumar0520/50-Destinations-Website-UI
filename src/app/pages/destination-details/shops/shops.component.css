@@ -1,9 +1,3 @@
-::ng-deep .shops-carousel .owl-stage-outer,
-::ng-deep .shops-carousel .owl-stage,
-::ng-deep .shops-carousel .owl-item {
-  height: 100%;
-}
-
 ::ng-deep .shops-carousel .item {
   height: 100%;
   padding: 8px 4px;

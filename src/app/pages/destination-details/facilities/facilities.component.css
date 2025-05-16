@@ -1,1 +1,65 @@
 /* Custom styles removed in favor of Tailwind CSS */
+/* Horizontal fade effect */
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 20px,
+    black calc(100% - 20px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 20px,
+    black calc(100% - 20px),
+    transparent 100%
+  );
+}
+
+/* Dark mode fade effect */
+.dark .mask-fade-x {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    white 20px,
+    white calc(100% - 20px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    white 20px,
+    white calc(100% - 20px),
+    transparent 100%
+  );
+}
+
+/* Stylish thin scrollbar */
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  height: 4px; /* Thin horizontal scrollbar */
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 0 20px; /* Match fade area */
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+}
+
+/* Dark mode scrollbar */
+.dark .thin-scrollbar {
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.dark .thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+}

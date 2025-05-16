@@ -1,53 +1,76 @@
 <!-- Overlay -->
-<div class="fixed inset-0 bg-black/30 z-50 flex items-center justify-center backdrop-blur-sm">
-    <!-- Modal -->
-    <div class="bg-white w-full max-w-md rounded-xl p-6 shadow-2xl animate-fade-in-up relative mx-4">
-      <!-- Close Button -->
-      <button (click)="closeModal()" class="cursor-pointer absolute top-3 right-3 text-gray-500 hover:text-black transition text-xl">
-        <fa-icon [icon]="times"></fa-icon>
-      </button>
-  
-      <!-- Title -->
-      <h2 class="text-black text-2xl font-semibold mb-3 text-center">Share This Destination</h2>
-  
-      <!-- QR Code -->
-      <div class="flex justify-center mb-4">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=this is sample link" alt="QR Code" class="w-28 h-28 shadow rounded" />
-      </div>
-  
-     <!-- Link copy area -->
-<div class="bg-gray-100 rounded-lg flex items-center overflow-hidden mb-4 border border-gray-300">
-    <input
-      type="text"
-      [value]="shareLink"
-      readonly
-      class="flex-1 px-3 py-2 text-sm bg-transparent text-gray-700 outline-none"
-    />
+<div
+  class="fixed inset-0 bg-black/30 z-50 flex items-center justify-center backdrop-blur-sm"
+>
+  <!-- Modal -->
+  <div
+    class="bg-white w-full max-w-md rounded-xl p-6 shadow-2xl animate-fade-and-zoom-in-up relative mx-4"
+  >
+    <!-- Close Button -->
     <button
-      (click)="copyLink()"
-      class="cursor-pointer flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 text-sm transition relative"
+      (click)="closeModal()"
+      class="cursor-pointer absolute top-3 right-3 text-gray-500 hover:text-black transition text-xl"
     >
-      <span *ngIf="!copied; else copiedLabel">
-        <fa-icon [icon]="copy"></fa-icon> Copy
-      </span>
-      <ng-template #copiedLabel>
-        <fa-icon [icon]="checkCircle" class="text-green-300"></fa-icon> Copied
-      </ng-template>
+      <fa-icon [icon]="times"></fa-icon>
     </button>
-  </div>
-  
-  
-      <!-- Share via -->
-      <div class="text-center">
-        <p class="text-sm text-gray-500 mb-2">Share via</p>
-        <div class="flex justify-center gap-5 text-2xl">
-          <a href="#" class="text-blue-600 hover:scale-110 transition"><fa-icon [icon]="facebookF"></fa-icon></a>
-          <a href="#" class="text-blue-400 hover:scale-110 transition"><fa-icon [icon]="twitter"></fa-icon></a>
-          <a href="#" class="text-green-500 hover:scale-110 transition"><fa-icon [icon]="whatsapp"></fa-icon></a>
-          <a href="#" class="text-pink-500 hover:scale-110 transition"><fa-icon [icon]="instagram"></fa-icon></a>
-          <a href="#" class="text-gray-700 hover:scale-110 transition"><fa-icon [icon]="envelope"></fa-icon></a>
-        </div>
+
+    <!-- Title -->
+    <h2 class="text-black text-2xl font-semibold mb-3 text-center">
+      Share This Destination
+    </h2>
+
+    <!-- QR Code -->
+    <div class="flex justify-center mb-4">
+      <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=this is sample link"
+        alt="QR Code"
+        class="w-28 h-28 shadow rounded"
+      />
+    </div>
+
+    <!-- Link copy area -->
+    <div
+      class="bg-gray-100 rounded-lg flex items-center overflow-hidden mb-4 border border-gray-300"
+    >
+      <input
+        type="text"
+        [value]="shareLink"
+        readonly
+        class="flex-1 px-3 py-2 text-sm bg-transparent text-gray-700 outline-none"
+      />
+      <button
+        (click)="copyLink()"
+        class="cursor-pointer flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 text-sm transition relative"
+      >
+        <span *ngIf="!copied; else copiedLabel">
+          <fa-icon [icon]="copy"></fa-icon> Copy
+        </span>
+        <ng-template #copiedLabel>
+          <fa-icon [icon]="checkCircle" class="text-green-300"></fa-icon> Copied
+        </ng-template>
+      </button>
+    </div>
+
+    <!-- Share via -->
+    <div class="text-center">
+      <p class="text-sm text-gray-500 mb-2">Share via</p>
+      <div class="flex justify-center gap-5 text-2xl">
+        <a href="#" class="text-blue-600 hover:scale-110 transition"
+          ><fa-icon [icon]="facebookF"></fa-icon
+        ></a>
+        <a href="#" class="text-blue-400 hover:scale-110 transition"
+          ><fa-icon [icon]="twitter"></fa-icon
+        ></a>
+        <a href="#" class="text-green-500 hover:scale-110 transition"
+          ><fa-icon [icon]="whatsapp"></fa-icon
+        ></a>
+        <a href="#" class="text-pink-500 hover:scale-110 transition"
+          ><fa-icon [icon]="instagram"></fa-icon
+        ></a>
+        <a href="#" class="text-gray-700 hover:scale-110 transition"
+          ><fa-icon [icon]="envelope"></fa-icon
+        ></a>
       </div>
     </div>
   </div>
-  
+</div>

@@ -1,6 +1,5 @@
 export const environment = {
-  production: false,
- // apiBaseUrl: 'https://147.93.98.211:5000/api',
- apiBaseUrl: 'https://api.sikkimdarshan.com/api',
-  //apiBaseUrl: 'https://localhost:44321/api', //for development
+  production: true,
+  apiBaseUrl: 'https://api.sikkimdarshan.com/api',
+  apiUploadUrl: 'https://api.sikkimdarshan.com/Uploads',
 };

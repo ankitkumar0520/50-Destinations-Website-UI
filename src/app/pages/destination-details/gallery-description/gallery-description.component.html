@@ -1,41 +1,65 @@
-<section  class="w-full py-6 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="about-section">
+<section
+  class="w-full py-6 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
+  id="about-section"
+>
   <!-- Description Section - Full Width -->
   <div class="w-full py-8 max-w-7xl mx-auto px-6 md:px-16 2xl:px-0">
     <div class="">
       <!-- Header Section -->
       <div class="mb-6">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">{{destination?.tagline}}</h1>
-        <div class="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 text-sm md:text-base">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+          {{ destination?.tagline }}
+        </h1>
+        <div
+          class="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 text-sm md:text-base"
+        >
           <div class="flex items-center gap-2">
-            <i class="fas fa-map-marker-alt text-primary-600 dark:text-primary-400"></i>
-            <span class="text-gray-600 dark:text-gray-400">{{destination?.landmark}}, {{destination?.districtname}}</span>
+            <i
+              class="fas fa-map-marker-alt text-primary-600 dark:text-primary-400"
+            ></i>
+            <span class="text-gray-600 dark:text-gray-400"
+              >{{ destination?.landmark }},
+              {{ destination?.districtname }}</span
+            >
           </div>
           <div *ngIf="destination?.distance" class="flex items-center gap-2">
-            <i class="fas fa-route text-secondary-700 dark:text-secondary-400"></i>
-            <span class="text-gray-600 dark:text-gray-400">{{destination?.distance}}</span>
+            <i
+              class="fas fa-route text-secondary-700 dark:text-secondary-400"
+            ></i>
+            <span class="text-gray-600 dark:text-gray-400">{{
+              destination?.distance
+            }}</span>
           </div>
         </div>
       </div>
 
       <!-- Description Section -->
-      <div class="bg-gray-50 dark:bg-gray-800 p-6 text-justify rounded-lg border border-gray-200 dark:border-gray-700">
-        <p [innerHTML]="destination?.about"
-          class="text-gray-700 dark:text-gray-300 leading-relaxed text-sm md:text-base"></p>
+      <div
+        class="bg-gray-50 dark:bg-gray-800 p-6 text-justify rounded-lg border border-gray-200 dark:border-gray-700"
+      >
+        <p
+          [innerHTML]="destination?.about"
+          class="text-gray-700 dark:text-gray-300 leading-relaxed text-sm md:text-base"
+        ></p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="min-h-screen flex items-center py-4 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="galleries-section">
+<section
+  class="min-h-screen flex items-center py-4 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
+  id="galleries-section"
+>
   <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-6">
-    <app-section-header 
+    <app-section-header
       [badgeText]="'Gallery'"
       [titleLeft]="'Explore'"
       [titleMiddleHighlighted]="destination?.destinationname + ' Gallery'"
-      [description]="'Discover the beauty, culture, and unique charm of this destination through our curated collection of images. From iconic landmarks to hidden gems, each photograph highlights the essence and atmosphere that make this place truly special'"
-      [features]="
-      [
-        { icon: 'fas fa-images', text: destination?.media?.length+ ' Images' },
+      [description]="
+        'Discover the beauty, culture, and unique charm of this destination through our curated collection of images. From iconic landmarks to hidden gems, each photograph highlights the essence and atmosphere that make this place truly special'
+      "
+      [features]="[
+        { icon: 'fas fa-images', text: destination?.media?.length + ' Images' },
         { icon: 'fas fa-map-marker-alt', text: 'Location Highlights' },
         { icon: 'fas fa-camera', text: 'Photographic Excellence' }
       ]"
@@ -43,78 +67,160 @@
 
     <!-- Gallery Carousel -->
     <div class="destination-gallery-grid py-4">
-      <div *ngIf="!destination?.media || destination.media.length === 0" class="text-center py-8">
+      <div
+        *ngIf="!destination?.media || destination.media.length === 0"
+        class="text-center py-8"
+      >
         <i class="fas fa-images text-4xl text-gray-400 mb-4"></i>
-        <p class="text-gray-600 dark:text-gray-400">No images available for this destination</p>
+        <p class="text-gray-600 dark:text-gray-400">
+          No images available for this destination
+        </p>
       </div>
-      <div *ngFor="let image of destination?.media; let i = index"
+      <div
+        *ngFor="let image of destination?.media; let i = index"
         class="gallery-item relative group cursor-pointer rounded-lg overflow-hidden shadow-md"
-        (click)="showGalleria(i)">
-        <img [src]="image?.mediaurl ? baseUrl+image.mediaurl : 'assets/images/placeholder.jpg'" 
-             [alt]="destination?.destinationname || 'Destination image'" 
-             loading="lazy" 
-             (error)="imageService.handleImageError($event)"
-             class="w-full h-full aspect-[4/3] object-cover rounded-lg transition-all duration-300 group-hover:scale-105" />
+        (click)="showGalleria(i)"
+      >
+        <img
+          [src]="
+            image?.mediaurl
+              ? baseUrl + image.mediaurl
+              : 'assets/images/placeholder.jpg'
+          "
+          [alt]="destination?.destinationname || 'Destination image'"
+          loading="lazy"
+          (error)="imageService.handleImageError($event)"
+          class="w-full h-full aspect-[4/3] object-cover rounded-lg transition-all duration-300 group-hover:scale-105"
+        />
         <!-- Always visible minimal title -->
-        <div class="absolute bottom-0 left-0 right-0 p-2 bg-black/30 backdrop-blur-sm">
-        </div>
+        <div
+          class="absolute bottom-0 left-0 right-0 p-2 bg-black/30 backdrop-blur-sm"
+        ></div>
       </div>
     </div>
 
     <!-- Galleria Modal -->
-    <div *ngIf="displayGalleria && destination?.media && destination.media.length > 0" class="fixed inset-0 bg-black/95 z-2000 flex items-center justify-center p-4"
-      (click)="displayGalleria = false">
-      <div class="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-xl shadow-2xl"
-        (click)="$event.stopPropagation()">
+    <div
+      *ngIf="
+        displayGalleria && destination?.media && destination.media.length > 0
+      "
+      class="fixed inset-0 bg-black/95 z-2000 flex items-center justify-center p-4 animate-fade-in"
+      (click)="displayGalleria = false"
+    >
+      <div
+        [@modalAnimation]
+        class="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-xl shadow-2xl"
+        (click)="$event.stopPropagation()"
+      >
         <!-- Close Button -->
         <button
           class="cursor-pointer absolute top-4 right-4 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
-          (click)="displayGalleria = false"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700 hover:text-red-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          (click)="displayGalleria = false"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-6 h-6 text-gray-700 hover:text-red-600 cursor-pointer"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
-          </button>
+        </button>
 
         <!-- Navigation Buttons -->
         <button
           class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
-          (click)="navigatePrevious(); $event.stopPropagation()">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700 hover:text-blue-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>          
+          (click)="navigatePrevious(); $event.stopPropagation()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-6 h-6 text-gray-700 hover:text-blue-600 cursor-pointer"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
         </button>
         <button
           class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
-          (click)="navigateNext(); $event.stopPropagation()">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700 hover:text-blue-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>          
+          (click)="navigateNext(); $event.stopPropagation()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-6 h-6 text-gray-700 hover:text-blue-600 cursor-pointer"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
         </button>
 
         <!-- Main Image Container -->
         <div class="flex flex-col h-full bg-gray-900">
           <!-- Main Image -->
-          <div class="flex-1 flex items-center justify-center p-4 md:p-6 min-h-[50vh] md:min-h-[60vh]">
-            <img [src]="destination?.media[activeIndex]?.mediaurl ? baseUrl+destination.media[activeIndex].mediaurl : 'assets/images/placeholder.jpg'" 
-                 [alt]="destination?.destinationname || 'Destination image'"
-                 class="max-w-full h-[50vh] md:h-[65vh] object-contain rounded-lg shadow-lg" />
+          <div
+            class="flex-1 flex items-center justify-center p-4 md:p-6 min-h-[50vh] md:min-h-[60vh]"
+          >
+            <img
+              [src]="
+                destination?.media[activeIndex]?.mediaurl
+                  ? baseUrl + destination.media[activeIndex].mediaurl
+                  : 'assets/images/placeholder.jpg'
+              "
+              [alt]="destination?.destinationname || 'Destination image'"
+              class="max-w-full h-[50vh] md:h-[65vh] object-contain rounded-lg shadow-lg"
+            />
           </div>
 
           <!-- Image Info -->
           <div class="text-center p-2 text-white border-t border-gray-700">
-            <p class="text-gray-300 text-xs md:text-sm">Image {{activeIndex + 1}} of {{imageCount}}</p>
+            <p class="text-gray-300 text-xs md:text-sm">
+              Image {{ activeIndex + 1 }} of {{ imageCount }}
+            </p>
           </div>
 
           <!-- Thumbnail Navigation -->
-          <div class="bg-black/50 backdrop-blur-sm py-2 border-t border-gray-700">
+          <div
+            class="bg-black/50 backdrop-blur-sm py-2 border-t border-gray-700"
+          >
             <div class="container mx-auto px-2 md:px-4">
-              <div class="flex justify-center gap-1 md:gap-2 overflow-x-auto scrollbar-hide">
-                <div *ngFor="let image of destination?.media; let i = index"
+              <div
+                class="flex justify-center gap-1 md:gap-2 overflow-x-auto scrollbar-hide"
+              >
+                <div
+                  *ngFor="let image of destination?.media; let i = index"
                   class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-300"
-                  [class.border-primary-500]="i === activeIndex" [class.border-transparent]="i !== activeIndex"
-                  (click)="activeIndex = i">
-                  <img [src]="image?.mediaurl ? baseUrl+image.mediaurl : 'assets/images/placeholder.jpg'" 
-                       [alt]="destination?.destinationname || 'Destination image'"
-                       class="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+                  [class.border-primary-500]="i === activeIndex"
+                  [class.border-transparent]="i !== activeIndex"
+                  (click)="activeIndex = i"
+                >
+                  <img
+                    [src]="
+                      image?.mediaurl
+                        ? baseUrl + image.mediaurl
+                        : 'assets/images/placeholder.jpg'
+                    "
+                    [alt]="destination?.destinationname || 'Destination image'"
+                    class="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                  />
                 </div>
               </div>
             </div>

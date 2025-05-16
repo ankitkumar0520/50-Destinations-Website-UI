@@ -90,7 +90,7 @@
                           <!-- Explore Button - Compact Icon Text Version -->
                           <a
                             [routerLink]="['/destination', dest?.slug]"
-                            class="bg-blue-100 cursor-pointer py-1.5 px-3 rounded-lg text-gray-500 hover:text-primary font-semibold transition-colors duration-300 flex items-center justify-center gap-2 group text-xs"
+                            class="bg-blue-100 dark:bg-gray-900 cursor-pointer py-1.5 px-3 rounded-lg text-gray-500 hover:text-primary font-semibold transition-colors duration-300 flex items-center justify-center gap-2 group text-xs"
                           >
                             <span>Explore</span>
                             <i
@@ -216,14 +216,14 @@
 
                       <div class="button-group">
                         <button
-                          class="px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors duration-300 flex items-center gap-1.5 text-sm"
+                          class="px-3 py-2 bg-primary-500 hover:bg-primary-700 text-white rounded-lg transition-colors duration-300 flex items-center gap-1.5 text-sm"
                           (click)="shareQR(dest)"
                         >
                           <i class="fas fa-share-alt"></i>
                           Share
                         </button>
                         <button
-                          class="px-3 py-2 bg-secondary-600 hover:bg-secondary-700 text-white rounded-lg transition-colors duration-300 flex items-center gap-1.5 text-sm"
+                          class="px-3 py-2 bg-secondary-700 hover:bg-secondary-800 text-white rounded-lg transition-colors duration-300 flex items-center gap-1.5 text-sm"
                           (click)="downloadQR(dest)"
                         >
                           <i class="fas fa-download"></i>

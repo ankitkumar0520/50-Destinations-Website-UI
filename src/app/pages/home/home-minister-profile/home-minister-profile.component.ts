@@ -1,26 +1,26 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
   inject,
+  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  destroyOwlInstance,
-  initializeOwlCarousel,
-} from '../../../utils/utils';
 import { ApiService } from '../../../services/api.service';
 import { ImageService } from '../../../services/image.service';
-
-
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 
 interface Official {
   name: string;
   designation: string;
   fullMessage: string;
-    media:any
+  media: any;
 }
-
 
 @Component({
   selector: 'app-home-minister-profile',
@@ -28,28 +28,27 @@ interface Official {
   imports: [CommonModule],
   templateUrl: './home-minister-profile.component.html',
   styleUrl: './home-minister-profile.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  animations: [
+    trigger('modalAnimation', [
+      state('void', style({ opacity: 0, transform: 'scale(0.95)' })),
+      state('*', style({ opacity: 1, transform: 'scale(1)' })),
+      transition('void <=> *', [animate('200ms ease-out')]),
+    ]),
+  ],
 })
-export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
-
+export class HomeMinisterProfileComponent implements OnInit {
   imageService = inject(ImageService);
   selectedMinister: any = null;
   showModal: boolean = false;
-  baseUrl ='';
+  baseUrl = '';
 
   ministers: Official[] = [];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    
     this.getTestimonials();
-
-  }
-
-
-
-  ngOnDestroy() {
-    destroyOwlInstance('.minister-carousel');
   }
 
   openModal(minister: any) {
@@ -68,29 +67,14 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
   getTestimonials() {
     this.apiService.get('LandingPage/GetAllTestimonials').subscribe({
       next: (response: any) => {
-        if(response.data.length>0){
-
-
-        this.ministers = response.data.map((min: any) => ({
-          ...min,
-          name:min.name,
-          designation:min.designation,
-          fullMessage:min.description,
-          media:min.media
-        }));
-
-
-      
-        setTimeout(() => {
-          initializeOwlCarousel(
-            '.minister-carousel',
-            true,
-            true,
-            0,
-            false,
-            [1, 2, 3]
-          );
-        }, 200);
+        if (response.data.length > 0) {
+          this.ministers = response.data.map((min: any) => ({
+            ...min,
+            name: min.name,
+            designation: min.designation,
+            fullMessage: min.description,
+            media: min.media,
+          }));
         }
       },
       error: (error: any) => {
@@ -101,23 +85,23 @@ export class HomeMinisterProfileComponent implements OnInit, OnDestroy {
 
   handleCarouselClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
-  
+
     // Check if the clicked element is a 'Read More' button
     if (target && target.classList.contains('read-more-btn')) {
       // Get the 'data-id' attribute (minister's name)
       const ministerName = target.getAttribute('data-id');
-      
+
       if (ministerName) {
         // Find the minister object from the list of ministers using the name
-        const minister = this.ministers.find((min: any) => min.name === ministerName);
-    
+        const minister = this.ministers.find(
+          (min: any) => min.name === ministerName
+        );
+
         if (minister) {
           // Pass the whole minister object to the modal
           this.openModal(minister);
         }
       }
     }
-  }  
-  
-
+  }
 }

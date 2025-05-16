@@ -1,101 +1,146 @@
-<section *ngIf="shops?.length > 0" class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800" id="shops-section">
+<section
+  *ngIf="shops?.length > 0"
+  class="min-h-screen py-8 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
+  id="shops-section"
+>
   <div class="w-full max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-8">
-    <app-section-header 
+    <app-section-header
       [badgeText]="'Local Shopping'"
       [titleLeft]="'Explore'"
       [titleMiddleHighlighted]="'Artisan Shops'"
-      [description]="'Discover unique handcrafted treasures from your local community, reflecting the rich cultural heritage of the region.'"
+      [description]="
+        'Discover unique handcrafted treasures from your local community, reflecting the rich cultural heritage of the region.'
+      "
       [features]="[
         { icon: 'fas fa-store', text: 'Local Stores' },
         { icon: 'fas fa-gift', text: 'Handcrafted Items' },
         { icon: 'fas fa-map-marker-alt', text: 'Nearby Locations' }
-      ]">
+      ]"
+    >
     </app-section-header>
 
     <!-- Section Title -->
-    <h2 class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3 mt-8">
-      <span class="flex items-center justify-center bg-blue-500 rounded-full w-9 h-9 text-white">
+    <h2
+      class="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-6 flex items-center gap-3 mt-8"
+    >
+      <span
+        class="flex items-center justify-center bg-blue-500 rounded-full w-9 h-9 text-white"
+      >
         <i class="fas fa-store text-base"></i>
       </span>
       Local Shops & Artisans
     </h2>
 
     <!-- Shops Carousel -->
-    <div class="shops-carousel owl-carousel owl-theme">
-      <ng-container *ngFor="let shop of shops; trackBy: trackByShopId">
-        <div class="item">
-          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full">
-            <!-- Shop Image -->
-            <div class="relative h-40 overflow-hidden">
-              <img
-                [src]="shop?.media?.[0]?.mediaurl || imageService.LANDSCAPE"
-                [alt]="shop?.name || 'Shop Image'"
-                class="w-full h-full object-cover transition-opacity duration-300"
-                [class.opacity-0]="!imageLoaded"
-                [class.opacity-100]="imageLoaded"
-                (load)="imageLoaded = true"
-                (error)="imageService.handleImageError($event)"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div class="absolute bottom-0 left-0 right-0 p-4">
-                <h3 class="text-lg font-semibold text-white">{{ shop?.name || 'Shop Name' }}</h3>
-              </div>
-            </div>
+    <swiper-container
+      class="w-full"
+      slides-per-view="1"
+      space-between="24"
+      [breakpoints]="{
+        '640': { slidesPerView: 2 },
+        '1024': { slidesPerView: 3 },
+        '1280': { slidesPerView: 4 }
+      }"
+      pagination="true"
+    >
+      <swiper-slide
+        *ngFor="let shop of shops; trackBy: trackByShopId"
+        class="pb-10"
+      >
+        <!-- Shop Card Structure -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden h-full flex flex-col group"
+        >
+          <!-- Shop Image -->
+          <div class="relative h-40 overflow-hidden">
+            <img
+              [src]="shop?.media?.[0]?.mediaurl || imageService.LANDSCAPE"
+              [alt]="shop?.name || 'Shop Image'"
+              class="w-full h-full object-cover transition-opacity duration-300"
+              [class.opacity-0]="!imageLoaded"
+              [class.opacity-100]="imageLoaded"
+              (load)="imageLoaded = true"
+              (error)="imageService.handleImageError($event)"
+              loading="lazy"
+            />
 
-            <!-- Shop Details -->
-            <div class="p-4 flex flex-col">
-              <div class="flex items-start gap-2 mb-4 h-16">
-                <i class="fas fa-map-marker-alt text-blue-500 mt-0.5 w-5 text-center flex-shrink-0"></i>
-                <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{{ shop?.landmark }}</p>
-              </div>
-
-              <!-- Action Button -->
-              <button
-                (click)="openModal(shop)"
-                class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md transition flex items-center justify-center gap-2 mt-auto"
-              >
-                <i class="fas fa-box-open text-xs"></i>
-                View Products
-              </button>
+            <!-- Gradient Overlay -->
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4">
+              <h3 class="text-lg font-semibold text-white">
+                {{ shop?.name || "Shop Name" }}
+              </h3>
             </div>
           </div>
-        </div>
-      </ng-container>
-    </div>
 
+          <!-- Shop Details -->
+          <div class="p-4 flex flex-col flex-1">
+            <div class="flex items-start gap-2 mb-4 h-16">
+              <i
+                class="fas fa-map-marker-alt text-blue-500 mt-0.5 w-5 text-center flex-shrink-0"
+              ></i>
+              <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">
+                {{ shop?.landmark }}
+              </p>
+            </div>
+
+            <!-- Action Button -->
+            <button
+              (click)="openModal(shop)"
+              class="cursor-pointer w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-3 rounded-md transition flex items-center justify-center gap-2 mt-auto"
+            >
+              <i class="fas fa-box-open text-xs"></i>
+              View Products
+            </button>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
     <!-- Products Modal -->
     <div
       *ngIf="isModalOpen && selectedShop"
       class="fixed inset-0 z-100 flex items-center justify-center"
-      [@modalAnimation]>
+    >
       <!-- Background overlay -->
-      <div class="fixed inset-0 bg-gray-800/80 backdrop-blur-sm cursor-pointer" (click)="closeModal()"></div>
+      <div
+        class="fixed inset-0 bg-gray-800/80 backdrop-blur-sm cursor-pointer animate-fade-in"
+        (click)="closeModal()"
+      ></div>
 
       <!-- Modal panel -->
-      <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4 overflow-hidden">
+      <div
+        *ngIf="isModalOpen && selectedShop"
+        [@modalAnimation]
+        class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4 overflow-hidden"
+      >
         <!-- Modal header with shop info -->
         <div class="relative">
           <!-- Shop image as background -->
           <div class="absolute inset-0 z-0">
-              <img 
-                loading="lazy" 
-                [src]="selectedShop?.media?.[0]?.mediaurl || imageService.LANDSCAPE" 
-                [alt]="selectedShop?.name || 'Shop Image'" 
-                class="w-full h-full object-cover opacity-30 dark:opacity-20 transition-opacity duration-300"
-                [class.opacity-0]="!modalImageLoaded"
-                [class.opacity-100]="modalImageLoaded"
-                (load)="modalImageLoaded = true"
-                (error)="imageService.handleImageError($event)"
-              />
-            <div class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"></div>
+            <img
+              loading="lazy"
+              [src]="selectedShop?.media?.[0]?.mediaurl || imageService.LANDSCAPE"
+              [alt]="selectedShop?.name || 'Shop Image'"
+              class="w-full h-full object-cover opacity-30 dark:opacity-20 transition-opacity duration-300"
+              [class.opacity-0]="!modalImageLoaded"
+              [class.opacity-100]="modalImageLoaded"
+              (load)="modalImageLoaded = true"
+              (error)="imageService.handleImageError($event)"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"
+            ></div>
           </div>
-          
+
           <!-- Shop info -->
           <div class="relative z-10 p-6 text-white">
             <div class="flex items-start justify-between">
               <div>
-                <h3 class="text-2xl font-bold mb-1">{{ selectedShop?.name }}</h3>
+                <h3 class="text-2xl font-bold mb-1">
+                  {{ selectedShop?.name }}
+                </h3>
                 <p class="text-white/80 flex items-center gap-2">
                   <i class="fas fa-map-marker-alt"></i>
                   {{ selectedShop?.landmark }}
@@ -111,23 +156,35 @@
           </div>
         </div>
 
-        <p *ngIf="selectedShop?.products?.length == 0" class="text-center text-gray-500 py-6">No products information available for this shop</p>
+        <p
+          *ngIf="selectedShop?.products?.length == 0"
+          class="text-center text-gray-500 py-6"
+        >
+          No products information available for this shop
+        </p>
 
         <!-- Products grid -->
-        <div *ngIf="selectedShop?.products?.length >= 0" class="bg-white dark:bg-gray-800 p-6">
-          <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+        <div
+          *ngIf="selectedShop?.products?.length >= 0"
+          class="bg-white dark:bg-gray-800 p-6"
+        >
+          <h4
+            class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2"
+          >
             <i class="fas fa-shopping-bag text-primary-500"></i>
             Available Products
           </h4>
-          
+
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div
               *ngFor="let product of selectedShop?.products"
               class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer border border-gray-100 dark:border-gray-700"
             >
-              <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
+              <div
+                class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 shadow-sm"
+              >
                 <img
-                  [src]="apiBaseUrl1 + (product?.media?.[0]?.mediaurl || '') || imageService.SQUARE"
+                  [src]="apiUploadUrl + (product?.media?.[0]?.mediaurl || '') || imageService.SQUARE"
                   [alt]="product?.productname || 'Product Image'"
                   class="w-full h-full object-cover transition-opacity duration-300"
                   [class.opacity-0]="!productImageLoaded"
@@ -138,9 +195,15 @@
                 />
               </div>
               <div class="flex-1 min-w-0">
-                <h4 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-1">{{ product?.productname }}</h4>
+                <h4
+                  class="text-base font-medium text-gray-900 dark:text-gray-100 mb-1"
+                >
+                  {{ product?.productname }}
+                </h4>
                 <div class="flex items-center gap-2">
-                  <span class="bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs px-2 py-0.5 rounded-full">
+                  <span
+                    class="bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs px-2 py-0.5 rounded-full"
+                  >
                     {{ product?.productcategoryname }}
                   </span>
                 </div>
@@ -148,10 +211,7 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </section>
-
-

@@ -14,12 +14,20 @@ import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { filter } from 'rxjs';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { register } from 'swiper/element/bundle';
 
+register();
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, FontAwesomeModule, CommonModule],
+  imports: [
+    RouterOutlet,
+    NavbarComponent,
+    FooterComponent,
+    FontAwesomeModule,
+    CommonModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -32,8 +40,6 @@ export class AppComponent implements OnInit {
 
   // Show welcome message
   showWelcomeMessage = false;
-
-
 
   constructor(
     private router: Router,
@@ -71,22 +77,15 @@ export class AppComponent implements OnInit {
     }
   }
 
-
-
   ngOnInit() {
-    if(isPlatformBrowser(this.platformId)){
-    // Check if app is in standalone mode (installed as PWA)
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      if (!localStorage.getItem('pwaFirstVisit')) {
-        this.showWelcomeMessage = true;
-        localStorage.setItem('pwaFirstVisit', 'true');
+    if (isPlatformBrowser(this.platformId)) {
+      // Check if app is in standalone mode (installed as PWA)
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        if (!localStorage.getItem('pwaFirstVisit')) {
+          this.showWelcomeMessage = true;
+          localStorage.setItem('pwaFirstVisit', 'true');
+        }
       }
     }
   }
-  }
-
-
-
-
-
 }

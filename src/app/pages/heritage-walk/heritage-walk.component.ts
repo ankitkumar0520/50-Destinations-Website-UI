@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { initializeOwlCarousel } from '../../utils/utils';
 
 interface HeritageWalkSection {
   title: string;
@@ -10,7 +9,6 @@ interface HeritageWalkSection {
   images: string[];
   map: SafeResourceUrl; // sanitized embed url
   zoomLevel: number;
-  carouselClass: string;
   timing?: string;
   phone?: string;
   fee?: string;
@@ -21,9 +19,9 @@ interface HeritageWalkSection {
   templateUrl: './heritage-walk.component.html',
   styleUrls: ['./heritage-walk.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
-export class HeritageWalkComponent implements OnInit, AfterViewInit {
+export class HeritageWalkComponent implements OnInit {
   walks: HeritageWalkSection[] = [];
 
   minZoom = 0.5;
@@ -40,9 +38,8 @@ export class HeritageWalkComponent implements OnInit, AfterViewInit {
   modalOpen = false;
   modalImages: string[] = [];
   modalIndex = 0;
-  modalCarouselClass = 'modal-owl-carousel';
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
     this.walks = [
@@ -52,14 +49,15 @@ export class HeritageWalkComponent implements OnInit, AfterViewInit {
         description: `This captivating heritage walk begins at the historic Secretariat that served as Sikkim's first British administrative center. The trail then winds through Ridge Park, Gangtok's floral heart with stunning Himalayan views, before ascending to the sacred Enchey Monastery (1889), one of Sikkim's most important Buddhist sites. Along the way, discover hidden colonial architecture, vibrant prayer flags, and panoramic mountain vistas that define Gangtok's unique character.`,
         images: [
           'assets/Images/heritage-walk/gangtok1.jpeg',
-          'assets/Images/heritage-walk/gangtok2.jpeg'
+          'assets/Images/heritage-walk/gangtok2.jpeg',
         ],
-        map: this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7089.246945641959!2d88.60509467770999!3d27.324970199999985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e6a51351971001%3A0xdac7186d57236d94!2sTashiling%20Secretariat!5e0!3m2!1sen!2sin!4v1746599954758!5m2!1sen!2sin'),
+        map: this.sanitizer.bypassSecurityTrustResourceUrl(
+          'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7089.246945641959!2d88.60509467770999!3d27.324970199999985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e6a51351971001%3A0xdac7186d57236d94!2sTashiling%20Secretariat!5e0!3m2!1sen!2sin!4v1746599954758!5m2!1sen!2sin'
+        ),
         zoomLevel: 1,
-        carouselClass: 'owl-carousel-gangtok',
         timing: '9:00 AM ',
         phone: '03592-209090, 03592-209090',
-        fee: '₹300 per person'
+        fee: '₹300 per person',
       },
       {
         title: 'Namchi Heritage Walk',
@@ -69,12 +67,13 @@ export class HeritageWalkComponent implements OnInit, AfterViewInit {
           'assets/Images/heritage-walk/namchi1.jpeg',
           'assets/Images/heritage-walk/namchi2.jpeg',
         ],
-        map: this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3549.3406051158604!2d88.4070602079263!3d27.17702970398128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e69e0f4ab7b47f%3A0x7257e1650d90a30a!2sPerbing%2C%20Sikkim%20737126!5e0!3m2!1sen!2sin!4v1746600642311!5m2!1sen!2sin'),
+        map: this.sanitizer.bypassSecurityTrustResourceUrl(
+          'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3549.3406051158604!2d88.4070602079263!3d27.17702970398128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e69e0f4ab7b47f%3A0x7257e1650d90a30a!2sPerbing%2C%20Sikkim%20737126!5e0!3m2!1sen!2sin!4v1746600642311!5m2!1sen!2sin'
+        ),
         zoomLevel: 1,
-        carouselClass: 'owl-carousel-west',
         timing: '10:00 AM',
         phone: '7908688470 , 95473-3456',
-        fee: '₹300 per person'
+        fee: '₹300 per person',
       },
       {
         title: 'Gyalshing Heritage Walk',
@@ -90,37 +89,34 @@ export class HeritageWalkComponent implements OnInit, AfterViewInit {
           'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28362.504256472566!2d88.23311632875216!3d27.303390175331796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e6842d294c8d71%3A0x5ff926244a424543!2sPemayangtse%20Monastery%2C%20Sikkim%20737111!5e0!3m2!1sen!2sin!4v1746600720295!5m2!1sen!2sin'
         ),
         zoomLevel: 1,
-        carouselClass: 'owl-carousel-south',
         timing: '11:00 AM',
         phone: '7797887401, 58978-55257',
-        fee: '₹300 per person'
-      }
+        fee: '₹300 per person',
+      },
     ];
-  }
-
-  ngAfterViewInit() {
-    // Initialize all carousels after view is ready
-    setTimeout(() => {
-      this.walks.forEach(walk => {
-        initializeOwlCarousel('.' + walk.carouselClass, true, true, 0, false, [1, 1, 1]);
-      });
-      // Modal carousel
-      initializeOwlCarousel('.' + this.modalCarouselClass, true, true, 0, false, [1, 1, 1]);
-    }, 300);
   }
 
   handleZoom(event: WheelEvent, idx: number) {
     event.preventDefault();
     const delta = event.deltaY > 0 ? -0.1 : 0.1;
-    this.walks[idx].zoomLevel = Math.min(Math.max(this.walks[idx].zoomLevel + delta, this.minZoom), this.maxZoom);
+    this.walks[idx].zoomLevel = Math.min(
+      Math.max(this.walks[idx].zoomLevel + delta, this.minZoom),
+      this.maxZoom
+    );
   }
 
   zoomIn(idx: number) {
-    this.walks[idx].zoomLevel = Math.min(this.walks[idx].zoomLevel + 0.1, this.maxZoom);
+    this.walks[idx].zoomLevel = Math.min(
+      this.walks[idx].zoomLevel + 0.1,
+      this.maxZoom
+    );
   }
 
   zoomOut(idx: number) {
-    this.walks[idx].zoomLevel = Math.max(this.walks[idx].zoomLevel - 0.1, this.minZoom);
+    this.walks[idx].zoomLevel = Math.max(
+      this.walks[idx].zoomLevel - 0.1,
+      this.minZoom
+    );
   }
 
   resetZoom(idx: number) {
@@ -132,9 +128,6 @@ export class HeritageWalkComponent implements OnInit, AfterViewInit {
     this.modalImages = images;
     this.modalIndex = index;
     this.modalOpen = true;
-    setTimeout(() => {
-      initializeOwlCarousel('.' + this.modalCarouselClass, false, true, index, false, [1, 1, 1]);
-    }, 100);
   }
 
   closeModal() {

@@ -6,6 +6,7 @@ import {
   ElementRef,
   ChangeDetectorRef,
   OnInit,
+  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -18,10 +19,6 @@ import {
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
 import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
-import {
-  initializeOwlCarousel,
-  destroyOwlInstance,
-} from '../../../utils/utils';
 
 @Component({
   selector: 'app-accomodation-eatery',
@@ -29,6 +26,7 @@ import {
   imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './accomodation-eatery.component.html',
   styleUrl: './accomodation-eatery.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   animations: [
     trigger('modalAnimation', [
       state('void', style({ opacity: 0, transform: 'scale(0.95)' })),
@@ -37,7 +35,7 @@ import {
     ]),
   ],
 })
-export class AccomodationEateryComponent implements OnDestroy, OnInit {
+export class AccomodationEateryComponent implements OnInit {
   selectedHotel: any = null;
   selectedEatery: any = null;
   isHotelModalOpen = false;
@@ -104,67 +102,11 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
 
         // Force change detection
         this.cdr.detectChanges();
-
-        // Initialize carousel after data is loaded and DOM is updated
-        if (this.accomodation.length > 0 || this.eatery.length > 0) {
-          // Use setTimeout to ensure DOM is updated
-          setTimeout(() => {
-            this.initCarousel();
-          }, 100);
-        } else {
-          console.log('No data to initialize carousel');
-        }
       },
       error: (error) => {
         console.error('Error in destination subscription:', error);
       },
     });
-  }
-
-  initCarousel(): void {
-    if (this.carouselsInitialized) {
-      console.log('Carousels already initialized');
-      return;
-    }
-
-    try {
-      // Destroy any existing instances first
-      if (this.hotelCarouselInstance) {
-        destroyOwlInstance('.hotels-carousel');
-      }
-      if (this.eateryCarouselInstance) {
-        destroyOwlInstance('.eateries-carousel');
-      }
-
-      if (this.accomodation.length > 0) {
-        this.hotelCarouselInstance = initializeOwlCarousel(
-          '.hotels-carousel',
-          false,
-          true,
-          16,
-          false,
-          [1, 2, 3],
-          true
-        );
-      }
-
-      if (this.eatery.length > 0) {
-        this.eateryCarouselInstance = initializeOwlCarousel(
-          '.eateries-carousel',
-          false,
-          true,
-          16,
-          false,
-          [1, 2, 3],
-          true
-        );
-      }
-
-      this.setupCarouselEventListeners();
-      this.carouselsInitialized = true;
-    } catch (error) {
-      console.error('Error initializing carousels:', error);
-    }
   }
 
   private setupCarouselEventListeners() {
@@ -253,14 +195,5 @@ export class AccomodationEateryComponent implements OnDestroy, OnInit {
 
   trackByEateryId(index: number, eatery: any): number {
     return eatery.id || index;
-  }
-
-  ngOnDestroy(): void {
-    if (this.hotelCarouselInstance) {
-      destroyOwlInstance('.hotels-carousel');
-    }
-    if (this.eateryCarouselInstance) {
-      destroyOwlInstance('.eateries-carousel');
-    }
   }
 }

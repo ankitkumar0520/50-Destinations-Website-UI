@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { DestroyRef, inject, Injectable, OnDestroy } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -48,7 +48,8 @@ export class ApiService {
       console.error('Client-side API Error:', error.error);
     } else {
       // Server-side error (SSR or backend)
-      errorMessage = this.getServerErrorMessage(error);
+      errorMessage =
+        this.getServerErrorMessage(error)! ?? 'An unknown error occurred!';
       console.error('Server-side API Error:', {
         status: error.status,
         statusText: error.statusText,
@@ -61,7 +62,7 @@ export class ApiService {
     return throwError(() => new Error(errorMessage));
   }
 
-  private getServerErrorMessage(error: HttpErrorResponse): string {
+  private getServerErrorMessage(error: HttpErrorResponse): string | undefined {
     switch (error.status) {
       case 400:
         return 'Bad Request: The server cannot process the request.';
