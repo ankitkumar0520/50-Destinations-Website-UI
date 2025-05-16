@@ -5,6 +5,7 @@ import {
   OnDestroy,
   inject,
   PLATFORM_ID,
+  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
@@ -17,6 +18,7 @@ import { ImageService } from '../../../services/image.service';
   imports: [CommonModule, SectionHeaderComponent],
   templateUrl: './facilities.component.html',
   styleUrls: ['./facilities.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FacilitiesComponent implements OnInit {
   private destinationService = inject(DestinationService);

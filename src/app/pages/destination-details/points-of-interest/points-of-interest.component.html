@@ -31,14 +31,14 @@
       >
         <swiper-slide
           *ngFor="let point of pointsOfInterest; let cardIndex = index"
-          class="pb-10"
+          class="pb-16"
         >
           <!-- Card Structure -->
           <div
             class="group bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-lg dark:shadow-gray-900/50 dark:hover:shadow-gray-900/70 transition-all duration-300 h-full flex flex-col min-h-[320px]"
           >
             <!-- Image Swiper Container -->
-            <div class="relative h-48 overflow-hidden rounded-t-xl">
+            <div class="relative h-48 overflow-hidden rounded-t-xl group">
               <swiper-container
                 #imageSwiper
                 class="h-full"
@@ -79,12 +79,12 @@
               <!-- Navigation Arrows -->
               <div
                 *ngIf="point?.media && point.media.length > 1"
-                class="absolute inset-0 flex items-center justify-between p-2 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"
+                class="absolute inset-0 flex items-center justify-between p-2 z-10 pointer-events-none transition-opacity duration-300"
               >
                 <button
                   (click)="prevImage(cardIndex)"
                   [class.invisible]="currentImageIndices[cardIndex] === 0"
-                  class="pointer-events-auto w-8 h-8 rounded-full bg-white/80 dark:bg-gray-700/80 text-gray-800 dark:text-white flex items-center justify-center shadow-md transition-all"
+                  class="pointer-events-auto cursor-pointer w-6 h-6 rounded-full bg-white/80 dark:bg-gray-700/80 text-gray-800 dark:text-white flex items-center justify-center shadow-md transition-all"
                 >
                   <i class="fas fa-chevron-left"></i>
                 </button>
@@ -93,7 +93,7 @@
                   [class.invisible]="
                     currentImageIndices[cardIndex] === point.media.length - 1
                   "
-                  class="pointer-events-auto w-8 h-8 rounded-full bg-white/80 dark:bg-gray-700/80 text-gray-800 dark:text-white flex items-center justify-center shadow-md transition-all"
+                  class="pointer-events-auto cursor-pointer w-6 h-6 rounded-full bg-white/80 dark:bg-gray-700/80 text-gray-800 dark:text-white flex items-center justify-center shadow-md transition-all"
                 >
                   <i class="fas fa-chevron-right"></i>
                 </button>
@@ -125,7 +125,7 @@
                 {{ point?.name }}
               </h3>
               <p
-                class="text-sm line-clamp-3 flex-1 text-gray-700 dark:text-gray-200"
+                class="text-sm line-clamp-3 flex-1 text-gray-700 dark:text-gray-200 overflow-y-auto"
               >
                 {{ point?.description }}
               </p>
