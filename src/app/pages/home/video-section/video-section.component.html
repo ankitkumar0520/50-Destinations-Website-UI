@@ -42,10 +42,11 @@
           </div>
         </div>
 
-                <!-- Loader while video is loading -->
-          <div *ngIf="!isVideoLoaded && !showBanner" class="absolute top-0 left-0 w-full h-full bg-white z-10 flex items-center justify-center">
-            <div class="loader"></div> <!-- Customize this with your own spinner or text -->
-          </div>
+              <!-- Video Loading Spinner Overlay -->
+      <div *ngIf="isVideoLoaded && !showBanner" class="absolute inset-0 bg-white bg-opacity-80 z-10 flex items-center justify-center">
+        <div class="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+
 
           <!-- Video Player -->
           <ng-container *ngIf="!showBanner">
@@ -54,7 +55,7 @@
               [src]="safeVideoUrl"
               frameborder="0"
               loading="lazy"
-              (load)="onVideoLoad()"
+              (canplaythrough)="onVideoLoad()"
               allowfullscreen
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
             </iframe>
