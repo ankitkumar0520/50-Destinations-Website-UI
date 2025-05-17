@@ -28,6 +28,7 @@ export class VideoSectionComponent {
   }
 
   isVideoLoaded = false;
+  isBuffering = false;
   showBanner = true;
   isThumbnailLoaded = false;
   thumbnailUrl = 'assets/Images/website-images/srtm-banner.png';
@@ -36,16 +37,28 @@ export class VideoSectionComponent {
     this.isThumbnailLoaded = true;
   }
   
+  onPlayClick() {
+    this.showBanner = false;
+    this.isVideoLoaded = false;
+    this.isBuffering = true;
+  }
 
-  
+  onBuffering() {
+    this.isBuffering = true;
+  }
+
+  onPlaying() {
+    this.isBuffering = false;
+    this.isVideoLoaded = true;
+  }
+
+  onCanPlay() {
+    this.isBuffering = false;
+    this.isVideoLoaded = true;
+  }
+
   showPdf(pdfUrl: string) {
     this.eventService.setPdfUrl(pdfUrl);
     this.router.navigate(['/view-pdf']);
   }
-
-
-
-    onVideoLoad() {
-      this.isVideoLoaded = true;
-    }
 }
