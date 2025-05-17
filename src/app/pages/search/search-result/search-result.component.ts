@@ -1,8 +1,6 @@
 import {
   Component,
   Inject,
-  inject,
-  OnDestroy,
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
@@ -21,7 +19,6 @@ import { ApiService } from '../../../services/api.service';
 import { finalize } from 'rxjs';
 import { LoaderComponent } from '../../../common/loader/loader.component';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 interface Tag {
   tagname: string;
@@ -58,7 +55,7 @@ interface SearchResult {
     ]),
   ],
 })
-export class SearchResultComponent implements OnInit, OnDestroy {
+export class SearchResultComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private searchService: SearchService,
@@ -203,9 +200,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     this.currentPage = page;
   }
 
-  ngOnDestroy(): void {
-    this.searchService.resetFilters();
-  }
 
   getImageUrl(result: any): string {
     return result?.media?.[0]?.mediaurl

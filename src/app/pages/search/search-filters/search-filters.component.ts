@@ -274,8 +274,8 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Clear all filters when component is destroyed
-    this.searchService.resetFilters();
+    // Reset only tag filters when component is destroyed
+    this.searchService.resetTagFilters();
     this.searchSubject.complete();
     this.destroy$.next();
     this.destroy$.complete();

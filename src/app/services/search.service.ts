@@ -56,6 +56,16 @@ export class SearchService implements OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    this.resetFilters(); // Reset filters when service is destroyed
+  }
+
+  // Add new method to reset only tag filters
+  resetTagFilters(): void {
+    const current = this.filtersSubject.value;
+    this.filtersSubject.next({
+      ...current,
+      destinationtypeids: [],
+    });
   }
 
   updateFilters(updated: Partial<SearchFilters>): void {
