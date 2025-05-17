@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { DestroyRef, inject, Injectable, OnDestroy } from '@angular/core';
+import { DestroyRef, inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { environment } from '../../environments/environment';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,8 @@ export class ApiService {
   private destroyRef = inject(DestroyRef);
   private http = inject(HttpClient);
   private readonly baseUrl = environment.apiBaseUrl;
+  private platformId = inject(PLATFORM_ID);
+
 
   get<T>(url: string): Observable<T> {
     return this.http
@@ -48,8 +51,13 @@ export class ApiService {
       console.error('Client-side API Error:', error.error);
     } else {
       // Server-side error (SSR or backend)
-      errorMessage =
-        this.getServerErrorMessage(error)! ?? 'An unknown error occurred!';
+      if(isPlatformBrowser(this.platformId)){
+        errorMessage =
+          this.getServerErrorMessage(error)! ?? 'An unknown error occurred!';
+      }
+      else{
+        errorMessage = 'An unknown error occurred!';
+      }
       console.error('Server-side API Error:', {
         status: error.status,
         statusText: error.statusText,
