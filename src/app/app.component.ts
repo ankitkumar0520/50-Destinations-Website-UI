@@ -16,6 +16,7 @@ import { filter } from 'rxjs';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { register } from 'swiper/element/bundle';
 
+
 register();
 
 @Component({

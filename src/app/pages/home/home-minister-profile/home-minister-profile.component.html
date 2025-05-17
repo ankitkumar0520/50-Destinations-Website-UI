@@ -1,5 +1,5 @@
 <!-- Minister Profile Section - Redesigned -->
-<div class="relative w-full h-full minister-profile mt-2">
+<div class="relative w-full h-full minister-profile mt-4">
   <!-- Vignette Overlay -->
   <div
     class="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black/70 to-transparent z-10"
@@ -16,9 +16,15 @@
         '640': { slidesPerView: 3 },
         '1024': { slidesPerView: 3 }
       }"
-      pagination="true"
+      loop="true"
+      autoplay="true"
+      autoplay-delay="3000"
+      autoplay-disable-on-interaction="false"
+      autoplay-stop-on-mouse-enter="true"
     >
-      <swiper-slide *ngFor="let minister of ministers" class="max-w-fit pb-16">
+      <swiper-slide *ngFor="let minister of ministers"
+
+       class="max-w-fit pb-6">
         <!-- Compact Minister Profile -->
         <div class="flex flex-col items-center text-white p-4 h-full">
           <!-- Circular Profile Image -->
