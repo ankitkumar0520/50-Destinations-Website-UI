@@ -43,6 +43,16 @@ export class MapComponent implements OnInit {
       'Sikkim is well accessible by road from nearby towns and cities in West Bengal like Siliguri, Darjeeling, and Kalimpong. The journey to Gangtok, the capital of Sikkim, is scenic and popular among travelers. Regular private taxis, shared jeeps, and Sikkim Nationalised Transport (SNT) buses operate between Siliguri/NJP and Gangtok, making road travel a convenient and flexible option.',
   };
 
+  overlayVisible = true;
+
+  hideOverlay() {
+    this.overlayVisible = false;
+  }
+
+  toggleOverlay() {
+    this.overlayVisible = !this.overlayVisible;
+  }
+
   mapLayers = [
     {
       name: 'OpenStreetMap',
@@ -231,20 +241,23 @@ export class MapComponent implements OnInit {
           throw new Error('Invalid or empty Sikkim boundary GeoJSON data.');
         }
         const sikkimInfo = `
-          <div style="min-width:220px;max-width:320px;">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-              <img src='assets/Images/logo/marker-tourism.png' alt='Sikkim' style='width:32px;height:32px;border-radius:50%;box-shadow:0 2px 6px #1976d2;'>
-              <span style='font-size:1.1em;font-weight:bold;color:#1976d2;'>Sikkim State Boundary</span>
-            </div>
-            <div style='font-size:0.98em;color:#333;line-height:1.5;'>
-              <b>Capital:</b> Gangtok<br>
-              <b>Area:</b> 7,096 km²<br>
-              <b>Population:</b> ~670,000<br>
-              <b>Known for:</b> Himalayas, biodiversity, culture, organic farming, and eco-tourism.<br>
-              <b>Fun fact:</b> Sikkim is India's first fully organic state!
-            </div>
-          </div>
-        `;
+  <div style="overflow:auto ;min-width:220px;max-width:320px;background:#fff;padding:12px 14px;border-radius:10px;
+              box-shadow:0 2px 8px rgba(25,118,210,0.3);font-family:sans-serif;color:#333;font-size:0.95em;
+              line-height:1.5;z-index:9999;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <img src='assets/Images/logo/marker-tourism.png' alt='Sikkim' 
+           style='width:32px;height:32px;border-radius:50%;box-shadow:0 2px 6px #1976d2;'>
+      <span style='font-size:1.1em;font-weight:bold;color:#1976d2;'>Sikkim State Boundary</span>
+    </div>
+    <div>
+      <b>Capital:</b> Gangtok<br>
+      <b>Area:</b> 7,096 km²<br>
+      <b>Population:</b> ~670,000<br>
+      <b>Known for:</b> Himalayas, biodiversity, culture, organic farming, and eco-tourism.<br>
+      <b>Fun fact:</b> Sikkim is India's first fully organic state!
+    </div>
+  </div> 
+                `;
         const boundaryLayer = L.geoJSON(geojson, {
           style: {
             color: '#1976d2',

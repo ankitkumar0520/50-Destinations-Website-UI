@@ -55,10 +55,27 @@
           <div
             id="map"
             #mapContainer
-            class="w-full h-full"
+            class="w-full h-full z-1"
           ></div>
 
-          
+                  <!-- Overlay: Lock/Unlock Map -->
+          <div 
+          (dblclick)="hideOverlay()" 
+          *ngIf="overlayVisible" 
+          class="absolute inset-0 flex items-center justify-center z-2 bg-transparent rounded-xl select-none"
+          >
+          <div class="flex flex-col items-center">
+            <div class="mb-4 group focus:outline-none">
+              <div class="text-white text-base sm:text-lg font-medium px-5 py-3 rounded-lg bg-black/50 border border-white/10 shadow-lg backdrop-blur-sm">
+                Map is <span class="font-semibold text-blue-300">locked</span><br>
+                <span class="text-sm font-normal text-gray-200">Double-click anywhere to unlock</span>
+              </div>
+            </div>
+          </div>
+          </div>
+
+         
+
           <!-- Loading Overlay -->
           <div 
           *ngIf="isLoading"
@@ -82,10 +99,6 @@
             <p class="text-gray-700 dark:text-gray-300 text-base font-semibold tracking-wide">Loading Map...</p>
           </div>
         </div>
-        
-
-
-
         </div>
         <!-- Layer Control -->
         <div class="absolute right-4 top-4 z-[10]">
@@ -111,6 +124,22 @@
             >
               <i class="fab fa-google text-gray-700 dark:text-gray-300"></i>
             </button>
+
+            <button 
+            (click)="toggleOverlay()" 
+            [ngClass]="{
+              'bg-red-100 text-red-700 animate-pulse': overlayVisible,
+              'bg-green-100 text-green-700': !overlayVisible
+            }"
+            class="w-10 h-10 dark:bg-gray-800 dark:text-gray-300 flex items-center justify-center rounded-lg shadow-md transition-all hover:scale-105 cursor-pointer"
+            [title]="overlayVisible ? 'Unlock Map' : 'Lock Map'"
+          >
+            <i 
+              [ngClass]="overlayVisible ? 'fas fa-lock text-lg' : 'fas fa-lock-open text-lg'"
+              class="transition-all"
+            ></i>
+          </button>
+          
           </div>
         </div>
       </div>
