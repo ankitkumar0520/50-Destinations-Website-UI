@@ -20,32 +20,34 @@
         </p>
       </div>
     </div>
+
     <div class="absolute -bottom-6 left-0 right-0 flex justify-center">
       <div
-        class="bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-full px-6 py-3 flex items-center space-x-4 backdrop-blur-sm"
+        class="sm:grid sm:grid-cols-3 gap-2 bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-2xl px-1.5 py-1.5 items-center border border-gray-200 dark:border-gray-700 max-w-full 
+               flex sm:block overflow-x-auto no-scrollbar whitespace-nowrap"
+        style="min-width: 0;"
       >
-        <div class="flex items-center text-primary-500 dark:text-primary-400">
-          <i class="fas fa-question-circle mr-2"></i>
-          <span class="font-medium">General FAQ</span>
-        </div>
-        <div class="h-4 border-r border-gray-200 dark:border-gray-600"></div>
-        <div
-          class="flex items-center text-secondary-500 dark:text-secondary-400"
-        >
-          <i class="fas fa-route mr-2"></i>
-          <span class="font-medium">Travel Info</span>
-        </div>
-        <div
-          class="h-4 border-r border-gray-200 dark:border-gray-600 hidden md:block"
-        ></div>
-        <div
-          class="hidden md:flex items-center text-accent-500 dark:text-accent-400"
-        >
-          <i class="fas fa-concierge-bell mr-2"></i>
-          <span class="font-medium">Facilities</span>
-        </div>
+        <ng-container *ngFor="let category of faqCategories">
+          <button
+            (click)="toggleAccordion(category.id)"
+            class="inline-flex shadow-lg cursor-pointer items-center px-3 sm:px-3 py-2 sm:py-2 mx-1 rounded-full font-semibold 
+            text-base sm:text-lg transition-all duration-200 focus:outline-none focus:ring-2
+             focus:ring-primary-400 border-gray-300 border hover:scale-[1.04] active:scale-100"
+            [ngClass]="activeAccordion === category.id
+              ? 'bg-primary-500 text-white dark:bg-primary-700 dark:text-white border-primary-500 dark:border-primary-400 shadow-lg'
+              : 'bg-white text-primary-600 dark:bg-gray-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-800 border-gray-200 dark:border-gray-700'"
+            style="transition: box-shadow 0.2s, background 0.2s, color 0.2s, border 0.2s, transform 0.15s;"
+          >
+            <i class="fas mr-2 text-lg sm:text-xl" [ngClass]="getFaIconClass(category.id)"></i>
+            <span>{{ category.title }}</span>
+          </button>
+        </ng-container>
       </div>
     </div>
+    
+   
+
+
   </div>
 
   <!-- Main Content -->
@@ -152,55 +154,6 @@
       >
         Clear search
       </button>
-    </div>
-
-    <!-- Category Cards (shown when not searching) -->
-    <div
-      *ngIf="!isSearching"
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6"
-    >
-      <!-- Dynamic Card for each category -->
-      <div
-        *ngFor="let category of faqCategories"
-        class="rounded-lg p-4 sm:p-6 cursor-pointer shadow-lg drop-shadow-lg hover:shadow-md transition-shadow duration-200"
-        [ngClass]="
-          activeAccordion == category.id
-            ? 'pointer-events-none bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-700'
-            : 'bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700'
-        "
-        (click)="toggleAccordion(category.id)"
-      >
-        <div class="flex flex-col items-center">
-          <div
-            class="mb-3 sm:mb-4 text-3xl sm:text-4xl text-primary-500 dark:text-primary-400"
-          >
-            <i class="fas" [ngClass]="getFaIconClass(category.id)"></i>
-          </div>
-          <div class="text-center">
-            <div
-              *ngIf="category.badge"
-              class="text-accent-600 dark:text-accent-400 font-semibold text-xs sm:text-sm mb-1"
-            >
-              {{ category.badge }}
-            </div>
-            <h3
-              class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2"
-            >
-              {{ category.title }}
-            </h3>
-            <p
-              class="text-gray-600 dark:text-gray-300 text-xs sm:text-sm mb-3 line-clamp-2"
-            >
-              {{ category.description }}
-            </p>
-            <div
-              class="text-secondary-600 dark:text-secondary-400 font-medium text-xs sm:text-sm"
-            >
-              {{ category.items.length }} articles in this collection
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Questions Section (Shows when a card is clicked and not searching) -->
