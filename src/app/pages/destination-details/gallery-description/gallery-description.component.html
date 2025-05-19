@@ -1,4 +1,4 @@
-<section
+b<section
   class="w-full py-6 bg-gradient-to-b from-white to-primary-50 dark:from-gray-900 dark:to-gray-800"
   id="about-section"
 >
@@ -100,7 +100,7 @@
       *ngIf="
         displayGalleria && destination?.media && destination.media.length > 0
       "
-      class="fixed inset-0 bg-black/95 z-2000 flex items-center justify-center p-4 animate-fade-in"
+      class="fixed inset-0 bg-gray-100/95 dark:bg-gray-900/95 z-2000 flex items-center justify-center p-4 animate-fade-in"
       (click)="displayGalleria = false"
     >
       <div
@@ -110,12 +110,12 @@
       >
         <!-- Close Button -->
         <button
-          class="cursor-pointer absolute top-4 right-4 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+          class="cursor-pointer absolute top-4 right-4 text-gray-600 dark:text-gray-200 text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-gray-50/80 dark:bg-gray-800/80 rounded-full w-10 h-10 flex items-center justify-center backdrop-blur-sm"
           (click)="displayGalleria = false"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="w-6 h-6 text-gray-700 hover:text-red-600 cursor-pointer"
+            class="w-6 h-6 text-gray-600 dark:text-gray-200 hover:text-red-500 cursor-pointer"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -131,12 +131,12 @@
 
         <!-- Navigation Buttons -->
         <button
-          class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+          class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-200 text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-gray-50/80 dark:bg-gray-800/80 rounded-full w-10 h-10 flex items-center justify-center backdrop-blur-sm"
           (click)="navigatePrevious(); $event.stopPropagation()"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="w-6 h-6 text-gray-700 hover:text-blue-600 cursor-pointer"
+            class="w-6 h-6 text-gray-600 dark:text-gray-200 hover:text-blue-500 cursor-pointer"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -150,12 +150,12 @@
           </svg>
         </button>
         <button
-          class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+          class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-200 text-3xl z-10 hover:text-primary-400 transition-colors duration-300 bg-gray-50/80 dark:bg-gray-800/80 rounded-full w-10 h-10 flex items-center justify-center backdrop-blur-sm"
           (click)="navigateNext(); $event.stopPropagation()"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="w-6 h-6 text-gray-700 hover:text-blue-600 cursor-pointer"
+            class="w-6 h-6 text-gray-600 dark:text-gray-200 hover:text-blue-500 cursor-pointer"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -170,7 +170,7 @@
         </button>
 
         <!-- Main Image Container -->
-        <div class="flex flex-col h-full bg-gray-900">
+        <div class="flex flex-col h-full bg-gray-50 dark:bg-gray-800">
           <!-- Main Image -->
           <div
             class="flex-1 flex items-center justify-center p-4 md:p-6 min-h-[50vh] md:min-h-[60vh]"
@@ -187,15 +187,15 @@
           </div>
 
           <!-- Image Info -->
-          <div class="text-center p-2 text-white border-t border-gray-700">
-            <p class="text-gray-300 text-xs md:text-sm">
+          <div class="text-center p-2 text-gray-600 dark:text-gray-300 border-t border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <p class="text-gray-600 dark:text-gray-300 text-xs md:text-sm">
               Image {{ activeIndex + 1 }} of {{ imageCount }}
             </p>
           </div>
 
           <!-- Thumbnail Navigation -->
           <div
-            class="bg-black/50 backdrop-blur-sm py-2 border-t border-gray-700"
+            class="bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur-sm py-2 border-t border-gray-200 dark:border-gray-700"
           >
             <div class="container mx-auto px-2 md:px-4">
               <div
@@ -224,5 +224,8 @@
         </div>
       </div>
     </div>
+
+
+    
   </div>
 </section>
