@@ -87,12 +87,12 @@ export class ShopsComponent implements OnInit {
 
   getShopImageUrl(shop: any): string {
     if (!shop?.media?.[0]?.mediaurl) {
-      console.log('No media URL for shop:', shop?.name);
+
       return this.defaultShopImage;
     }
     
     const mediaUrl = shop.media[0].mediaurl;
-    console.log('Shop media URL:', mediaUrl);
+
     
     if (mediaUrl.startsWith('http')) {
       return mediaUrl;
@@ -103,18 +103,18 @@ export class ShopsComponent implements OnInit {
     const mediaPath = mediaUrl.startsWith('/') ? mediaUrl.substring(1) : mediaUrl;
     const fullUrl = baseUrl + mediaPath;
     
-    console.log('Constructed shop URL:', fullUrl);
+
     return fullUrl;
   }
 
   getProductImageUrl(product: any): string {
     if (!product?.media?.[0]?.mediaurl) {
-      console.log('No media URL for product:', product?.productname);
+
       return this.defaultProductImage;
     }
     
     const mediaUrl = product.media[0].mediaurl;
-    console.log('Product media URL:', mediaUrl);
+
     
     if (mediaUrl.startsWith('http')) {
       return mediaUrl;
@@ -125,24 +125,24 @@ export class ShopsComponent implements OnInit {
     const mediaPath = mediaUrl.startsWith('/') ? mediaUrl.substring(1) : mediaUrl;
     const fullUrl = baseUrl + mediaPath;
     
-    console.log('Constructed product URL:', fullUrl);
+  
     return fullUrl;
   }
 
   onImageLoad(shopId: string) {
-    console.log('Shop image loaded:', shopId);
+
     this.imageStates[shopId] = 'loaded';
     this.cdr.detectChanges();
   }
 
   onModalImageLoad() {
-    console.log('Modal image loaded');
+
     this.modalImageState = 'loaded';
     this.cdr.detectChanges();
   }
 
   onProductImageLoad(productId: string) {
-    console.log('Product image loaded:', productId);
+
     this.productImageStates[productId] = 'loaded';
     this.cdr.detectChanges();
   }
@@ -166,7 +166,7 @@ export class ShopsComponent implements OnInit {
   }
 
   openModal(shop: any) {
-    console.log('Opening modal for shop:', shop);
+
     this.selectedShop = shop;
     this.isModalOpen = true;
     this.modalImageState = 'loading';

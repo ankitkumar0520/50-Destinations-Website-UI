@@ -14,7 +14,9 @@
       [features]="[]"
     ></app-section-header>
 
-    <div class="max-w-[1400px] mx-auto py-8 px-4">
+
+
+    <div class="max-w-[1400px] mx-auto pt-8 pb-4 px-4">
       <!-- Main Card Swiper -->
       <swiper-container
         #cardSwiper
@@ -31,11 +33,13 @@
       >
         <swiper-slide
           *ngFor="let point of pointsOfInterest; let cardIndex = index"
-          class="pb-16"
+          class="pb-8"
         >
           <!-- Card Structure -->
           <div
-            class="group bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-lg dark:shadow-gray-900/50 dark:hover:shadow-gray-900/70 transition-all duration-300 h-full flex flex-col min-h-[320px]"
+            class="group bg-white dark:bg-gray-900 
+            rounded-xl shadow-md hover:shadow-lg dark:shadow-gray-900/50 dark:hover:shadow-gray-900/70 transition-all duration-300
+             h-full flex flex-col min-h-[380px]"
           >
             <!-- Image Swiper Container -->
             <div class="relative h-48 overflow-hidden rounded-t-xl group">
@@ -120,16 +124,18 @@
             <!-- Card Content -->
             <div class="p-4 flex-1 flex flex-col">
               <h3
-                class="text-lg font-bold line-clamp-1 text-gray-800 dark:text-gray-100"
+                class="text-lg font-bold line-clamp-1 text-gray-800 dark:text-gray-100 mb-2"
               >
                 {{ point?.name }}
               </h3>
               <p
-                class="text-sm line-clamp-3 flex-1 text-gray-700 dark:text-gray-200 overflow-y-auto"
+                class="text-sm text-justify line-clamp-5 flex-1 text-gray-700 dark:text-gray-200 overflow-y-auto min-h-[120px] max-h-[160px] pr-2"
               >
                 {{ point?.description }}
+                
               </p>
             </div>
+
           </div>
         </swiper-slide>
       </swiper-container>

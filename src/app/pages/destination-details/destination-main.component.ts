@@ -16,8 +16,10 @@ import { AccomodationEateryComponent } from './accomodation-eatery/accomodation-
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MapComponent } from './map/map.component';
 import { AiAudioModelComponent } from './ai-audio-model/ai-audio-model.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DestinationService } from '../../services/destination.service';
+import { combineLatest, firstValueFrom } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 @Component({
   selector: 'app-destination-main',
   standalone: true,
@@ -71,7 +73,7 @@ export class DestinationMainComponent implements OnInit {
   activeSection: string = 'points-of-interest';
   isBrowser: boolean;
   showAside = false;
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
@@ -80,14 +82,26 @@ export class DestinationMainComponent implements OnInit {
       this.checkActiveSection();
     }
 
-    //get destination by slug from url, just call this function in ngoninit , then subscribe to the destination service varible as destination$   , if slug is not found then redirect to home
-    this.route.params.subscribe((params) => {
-      if (params['slug']) {
-        const slug = params['slug'];
-        this.destinationService.getDestinationbySlug(slug);
+    this.destinationService.getDestinationbySlug(this.route.snapshot.params['slug']); // get destination by slug from url
+
+   // check if destination is found and if not then redirect to home
+    combineLatest([
+      this.destinationService.destination$,
+      this.destinationService.loading$
+    ])
+    // check if destination is found and if not then redirect to home
+    .pipe(
+      filter(([destination, loading]) => !loading), // only check once loading is false
+      take(1)
+    )
+    // check if destination is found and if not then redirect to home
+    .subscribe(([destination]) => {
+      if (!destination || !destination.data.destinationId) {
+       this.router.navigate(['/not-found']);
       }
     });
   }
+
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
