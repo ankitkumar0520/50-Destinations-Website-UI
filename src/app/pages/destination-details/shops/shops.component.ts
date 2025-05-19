@@ -32,6 +32,13 @@ import { environment } from '../../../../environments/environment';
       state('*', style({ opacity: 1, transform: 'scale(1)' })),
       transition('void <=> *', [animate('200ms ease-out')]),
     ]),
+    trigger('imageAnimation', [
+      state('loading', style({ opacity: 0 })),
+      state('loaded', style({ opacity: 1 })),
+      state('error', style({ opacity: 1 })),
+      transition('loading => loaded', [animate('300ms ease-in')]),
+      transition('loading => error', [animate('300ms ease-in')]),
+    ]),
   ],
 })
 export class ShopsComponent implements OnInit {
@@ -45,9 +52,13 @@ export class ShopsComponent implements OnInit {
   private carouselInitialized = false;
 
   // Image loading states
-  imageLoaded = false;
-  modalImageLoaded = false;
-  productImageLoaded = false;
+  imageStates: { [key: string]: 'loading' | 'loaded' | 'error' } = {};
+  modalImageState: 'loading' | 'loaded' | 'error' = 'loading';
+  productImageStates: { [key: string]: 'loading' | 'loaded' | 'error' } = {};
+
+  // Default images
+  defaultShopImage = this.imageService.LANDSCAPE;
+  defaultProductImage = this.imageService.SQUARE;
 
   constructor() {}
 
@@ -58,21 +69,107 @@ export class ShopsComponent implements OnInit {
     this.destinationService.destination$.subscribe((dest) => {
       if (dest?.entities) {
         this.shops = dest.entities.filter((entity: any) => {
-          if (!entity) return false; // Skip if entity is null or undefined
+          if (!entity) return false;
 
-          // Normalize sectorName, check case insensitively
           const name = normalize(entity.sectorName || '').toLowerCase();
-
-          // Check if sectorId is 4 or if sectorName matches 'Shops' case-insensitively
           return entity.sectorId === 4 || name === 'shops';
+        });
+
+        // Initialize image states for all shops
+        this.shops?.forEach((shop: any) => {
+          if (shop?.id) {
+            this.imageStates[shop.id] = 'loading';
+          }
         });
       }
     });
   }
 
+  getShopImageUrl(shop: any): string {
+    if (!shop?.media?.[0]?.mediaurl) {
+      console.log('No media URL for shop:', shop?.name);
+      return this.defaultShopImage;
+    }
+    
+    const mediaUrl = shop.media[0].mediaurl;
+    console.log('Shop media URL:', mediaUrl);
+    
+    if (mediaUrl.startsWith('http')) {
+      return mediaUrl;
+    }
+    
+    // Ensure proper URL construction
+    const baseUrl = this.apiUploadUrl.endsWith('/') ? this.apiUploadUrl : this.apiUploadUrl + '/';
+    const mediaPath = mediaUrl.startsWith('/') ? mediaUrl.substring(1) : mediaUrl;
+    const fullUrl = baseUrl + mediaPath;
+    
+    console.log('Constructed shop URL:', fullUrl);
+    return fullUrl;
+  }
+
+  getProductImageUrl(product: any): string {
+    if (!product?.media?.[0]?.mediaurl) {
+      console.log('No media URL for product:', product?.productname);
+      return this.defaultProductImage;
+    }
+    
+    const mediaUrl = product.media[0].mediaurl;
+    console.log('Product media URL:', mediaUrl);
+    
+    if (mediaUrl.startsWith('http')) {
+      return mediaUrl;
+    }
+    
+    // Ensure proper URL construction
+    const baseUrl = this.apiUploadUrl.endsWith('/') ? this.apiUploadUrl : this.apiUploadUrl + '/';
+    const mediaPath = mediaUrl.startsWith('/') ? mediaUrl.substring(1) : mediaUrl;
+    const fullUrl = baseUrl + mediaPath;
+    
+    console.log('Constructed product URL:', fullUrl);
+    return fullUrl;
+  }
+
+  onImageLoad(shopId: string) {
+    console.log('Shop image loaded:', shopId);
+    this.imageStates[shopId] = 'loaded';
+    this.cdr.detectChanges();
+  }
+
+  onModalImageLoad() {
+    console.log('Modal image loaded');
+    this.modalImageState = 'loaded';
+    this.cdr.detectChanges();
+  }
+
+  onProductImageLoad(productId: string) {
+    console.log('Product image loaded:', productId);
+    this.productImageStates[productId] = 'loaded';
+    this.cdr.detectChanges();
+  }
+
+  onImageError(shopId: string, event: any) {
+    console.error('Shop image error:', shopId, event);
+    this.imageStates[shopId] = 'error';
+    this.cdr.detectChanges();
+  }
+
+  onModalImageError(event: any) {
+    console.error('Modal image error:', event);
+    this.modalImageState = 'error';
+    this.cdr.detectChanges();
+  }
+
+  onProductImageError(productId: string, event: any) {
+    console.error('Product image error:', productId, event);
+    this.productImageStates[productId] = 'error';
+    this.cdr.detectChanges();
+  }
+
   openModal(shop: any) {
+    console.log('Opening modal for shop:', shop);
     this.selectedShop = shop;
     this.isModalOpen = true;
+    this.modalImageState = 'loading';
     document.body.style.overflow = 'hidden';
     this.cdr.detectChanges();
   }
@@ -86,5 +183,9 @@ export class ShopsComponent implements OnInit {
 
   trackByShopId(index: number, shop: any): number {
     return shop.id || index;
+  }
+
+  trackByProductId(index: number, product: any): number {
+    return product.id || index;
   }
 }

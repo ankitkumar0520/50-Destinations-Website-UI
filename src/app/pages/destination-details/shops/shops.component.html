@@ -54,13 +54,12 @@
           <!-- Shop Image -->
           <div class="relative h-40 overflow-hidden">
             <img
-              [src]="shop?.media?.[0]?.mediaurl || imageService.LANDSCAPE"
+              [src]="getShopImageUrl(shop)"
               [alt]="shop?.name || 'Shop Image'"
-              class="w-full h-full object-cover transition-opacity duration-300"
-              [class.opacity-0]="!imageLoaded"
-              [class.opacity-100]="imageLoaded"
-              (load)="imageLoaded = true"
-              (error)="imageService.handleImageError($event)"
+              class="w-full h-full object-cover"
+              [@imageAnimation]="imageStates[shop?.id] || 'loading'"
+              (load)="onImageLoad(shop?.id)"
+              (error)="onImageError(shop?.id, $event)"
               loading="lazy"
             />
 
@@ -118,16 +117,16 @@
         <!-- Modal header with shop info -->
         <div class="relative">
           <!-- Shop image as background -->
+          
           <div class="absolute inset-0 z-0">
             <img
               loading="lazy"
-              [src]="selectedShop?.media?.[0]?.mediaurl || imageService.LANDSCAPE"
+              [src]="getShopImageUrl(selectedShop)"
               [alt]="selectedShop?.name || 'Shop Image'"
-              class="w-full h-full object-cover opacity-30 dark:opacity-20 transition-opacity duration-300"
-              [class.opacity-0]="!modalImageLoaded"
-              [class.opacity-100]="modalImageLoaded"
-              (load)="modalImageLoaded = true"
-              (error)="imageService.handleImageError($event)"
+              class="w-full h-full object-cover"
+              [@imageAnimation]="modalImageState"
+              (load)="onModalImageLoad()"
+              (error)="onModalImageError($event)"
             />
             <div
               class="absolute inset-0 bg-gradient-to-b from-primary-600/70 to-primary-900/70 dark:from-primary-800/80 dark:to-primary-900/80"
@@ -140,6 +139,7 @@
               <div>
                 <h3 class="text-2xl font-bold mb-1">
                   {{ selectedShop?.name }}
+                 
                 </h3>
                 <p class="text-white/80 flex items-center gap-2">
                   <i class="fas fa-map-marker-alt"></i>
@@ -177,20 +177,19 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div
-              *ngFor="let product of selectedShop?.products"
+              *ngFor="let product of selectedShop?.products; trackBy: trackByProductId"
               class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer border border-gray-100 dark:border-gray-700"
             >
               <div
                 class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 shadow-sm"
               >
                 <img
-                  [src]="apiUploadUrl + (product?.media?.[0]?.mediaurl || '') || imageService.SQUARE"
+                  [src]="getProductImageUrl(product)"
                   [alt]="product?.productname || 'Product Image'"
-                  class="w-full h-full object-cover transition-opacity duration-300"
-                  [class.opacity-0]="!productImageLoaded"
-                  [class.opacity-100]="productImageLoaded"
-                  (load)="productImageLoaded = true"
-                  (error)="imageService.handleImageError($event)"
+                  class="w-full h-full object-cover"
+                  [@imageAnimation]="productImageStates[product?.id] || 'loading'"
+                  (load)="onProductImageLoad(product?.id)"
+                  (error)="onProductImageError(product?.id, $event)"
                   loading="lazy"
                 />
               </div>
@@ -211,6 +210,8 @@
             </div>
           </div>
         </div>
+
+     
       </div>
     </div>
   </div>
