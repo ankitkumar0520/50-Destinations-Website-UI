@@ -13,8 +13,8 @@ import { QrGeneratorComponent } from './qr-generator/qr-generator.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: '',  component: HomeComponent },
+  { path: 'home', redirectTo: '', pathMatch: 'full' },
 
   // Destination routes
   {
