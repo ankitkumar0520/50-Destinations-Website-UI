@@ -198,8 +198,18 @@ export class SearchResultComponent implements OnInit {
   changePage(page: number) {
     this.searchService.updateFilters({ pageNumber: page });
     this.currentPage = page;
+    
+   
   }
 
+  scrollToTop() {
+    if (this.isBrowser()) {
+      window.scrollTo({
+        top: 150,
+        behavior: 'smooth'
+      });
+    }
+  }
 
   getImageUrl(result: any): string {
     return result?.media?.[0]?.mediaurl
