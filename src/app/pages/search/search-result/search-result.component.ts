@@ -216,4 +216,8 @@ export class SearchResultComponent implements OnInit {
       ? this.baseUrl + result.media[0].mediaurl
       : this.imageService.SQUARE;
   }
+
+  ngOnDestroy(): void {
+    this.searchService.updateFilters({ pageNumber: 1 });
+  }
 }
