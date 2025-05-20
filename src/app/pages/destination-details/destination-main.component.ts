@@ -5,6 +5,7 @@ import {
   OnInit,
   PLATFORM_ID,
   inject,
+  OnDestroy,
 } from '@angular/core';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
 import { GalleryDescriptionComponent } from './gallery-description/gallery-description.component';
@@ -18,8 +19,8 @@ import { MapComponent } from './map/map.component';
 import { AiAudioModelComponent } from './ai-audio-model/ai-audio-model.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DestinationService } from '../../services/destination.service';
-import { combineLatest, firstValueFrom } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil, filter } from 'rxjs/operators';
 @Component({
   selector: 'app-destination-main',
   standalone: true,
@@ -42,6 +43,7 @@ export class DestinationMainComponent implements OnInit {
   showModal = false;
   route = inject(ActivatedRoute);
   destinationService = inject(DestinationService);
+  private destroy$ = new Subject<void>();
 
   menuItems = [
     { id: 'about-section', name: 'About', icon: 'info-circle' },
@@ -69,12 +71,18 @@ export class DestinationMainComponent implements OnInit {
     },
     { id: 'guide-map-section', name: 'Guide & Map', icon: 'map' },
   ];
+
+  filteredMenuItems: any[] = [];
+  
   navbarHeight = 70; // Fixed navbar height
   activeSection: string = 'points-of-interest';
   isBrowser: boolean;
   showAside = false;
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+    // Initialize with all menu items
+    this.filteredMenuItems = [...this.menuItems];
   }
 
   ngOnInit() {
@@ -82,26 +90,92 @@ export class DestinationMainComponent implements OnInit {
       this.checkActiveSection();
     }
 
-    this.destinationService.getDestinationbySlug(this.route.snapshot.params['slug']); // get destination by slug from url
+    this.destinationService.getDestinationbySlug(this.route.snapshot.params['slug']);
 
-   // check if destination is found and if not then redirect to home
-    combineLatest([
-      this.destinationService.destination$,
-      this.destinationService.loading$
-    ])
-    // check if destination is found and if not then redirect to home
-    .pipe(
-      filter(([destination, loading]) => !loading), // only check once loading is false
-      take(1)
-    )
-    // check if destination is found and if not then redirect to home
-    .subscribe(([destination]) => {
-      if (!destination || !destination.data.destinationId) {
-       this.router.navigate(['/not-found']);
-      }
-    });
+    // Subscribe to destination updates
+    this.destinationService.destination$
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(destination => !!destination.data) // Only process when we have data
+      )
+      .subscribe(destination => {
+        this.updateMenuItems(destination);
+      });
   }
 
+
+  private updateMenuItems(destination: any) {
+    console.log('=== Starting Menu Items Update ===');
+    console.log('Destination Data:', destination?.data);
+    
+    const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, ' ').trim();
+    
+    this.filteredMenuItems = this.menuItems.filter(item => {
+      let result = false;
+
+      switch(item.id) {
+        case 'about-section':
+          result = true;
+          break;
+
+        case 'galleries-section':
+          const hasMedia = destination?.data?.media && destination.data.media.length > 0;
+          result = hasMedia;
+          break;
+
+        case 'points-of-interest-section':
+          const poiEntities = destination?.data?.entities?.filter((entity: any) => 
+            entity.sectorId === 3 || normalize(entity.sectorName || '') === 'point of interest'
+          );
+          result = !!poiEntities?.length;
+          break;
+
+        case 'facilities-services-section':
+          const facilityEntities = destination?.data?.entities?.filter((entity: any) => 
+            entity.sectorId === 2 || normalize(entity.sectorName || '') === 'facilities & services'
+          );
+          result = !!facilityEntities?.length;
+          break;
+
+        case 'safety-emergency-section':
+          const safetyEntities = destination?.data?.entities?.filter((entity: any) => 
+            entity.sectorId === 4 || normalize(entity.sectorName || '') === 'safety & emergency'
+          );
+          result = !!safetyEntities?.length;
+          break;
+
+        case 'shops-section':
+          const shopEntities = destination?.data?.entities?.filter((entity: any) => 
+            entity.sectorId === 6 || normalize(entity.sectorName || '') === 'shops'
+          );
+            result = !!shopEntities?.length;
+          break;
+
+        case 'accommodation-eatery-section':
+          const accommodationEntities = destination?.data?.entities?.filter((entity: any) => 
+            (entity.sectorId === 5 || normalize(entity.sectorName || '') === 'accommodation & eatery - accommodation') ||
+            (entity.sectorId === 7 || normalize(entity.sectorName || '') === 'accommodation & eatery - eatery')
+          );
+
+
+
+          result = !!accommodationEntities?.length;
+          break;
+
+        case 'guide-map-section':
+          result = true;
+          break;
+
+        default:
+          result = false;
+          break;
+      }
+      return result;
+    });
+
+    console.log('\n=== Final Filtered Menu Items ===');
+    console.log(this.filteredMenuItems);
+  }
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
@@ -159,4 +233,5 @@ export class DestinationMainComponent implements OnInit {
       this.activeSection = id;
     }
   }
+
 }

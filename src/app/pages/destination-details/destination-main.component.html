@@ -23,34 +23,37 @@ class="cursor-pointer hidden sm:block fixed top-1/2 transform -translate-y-1/2 z
 [class]="showAside ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'"
 class="hidden sm:block fixed right-0 top-1/2 transform -translate-y-1/2 z-40 mr-4 transition-all duration-300 ease-in-out">
 <nav class="flex flex-col space-y-2 p-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-lg shadow-2xl border border-white/30 dark:border-gray-700/50">
-<a 
-  *ngFor="let item of menuItems"
-  (click)="scrollTo(item.id)"
-  class="flex items-center p-3 rounded-md transition-all duration-300 hover:bg-emerald-50/80 dark:hover:bg-emerald-900/40 group cursor-pointer hover:shadow-md"
-  [ngClass]="{
-    'bg-emerald-100/70 dark:bg-emerald-900/30 shadow-md': activeSection === item.id
-  }"
-  [attr.aria-label]="item.name"
->
-  <div class="w-5 h-5 flex items-center justify-center">
-    <i 
-      [class]="'fas fa-' + item.icon + ' text-sm transition-all duration-300'"
-      [ngClass]="{
-        'text-emerald-600 dark:text-emerald-400 scale-110': activeSection === item.id,
-        'text-gray-600 dark:text-gray-300 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 group-hover:scale-110': activeSection !== item.id
-      }"></i>
-  </div>
-  <span 
-    class="ml-3 text-sm font-medium transition-all duration-300"
+ 
+
+  <a 
+    *ngFor="let item of filteredMenuItems"
+    (click)="scrollTo(item.id)"
+    class="flex items-center p-3 rounded-md transition-all duration-300 hover:bg-emerald-50/80 dark:hover:bg-emerald-900/40 group cursor-pointer hover:shadow-md"
     [ngClass]="{
-      'text-emerald-700 dark:text-emerald-300 font-semibold': activeSection === item.id,
-      'text-gray-600 dark:text-gray-300 group-hover:text-emerald-600 dark:group-hover:text-emerald-400': activeSection !== item.id
-    }">
-    {{ item.name }}
-  </span>
-</a>
+      'bg-emerald-100/70 dark:bg-emerald-900/30 shadow-md': activeSection === item.id
+    }"
+    [attr.aria-label]="item.name"
+  >
+    <div class="w-5 h-5 flex items-center justify-center">
+      <i 
+        [class]="'fas fa-' + item.icon + ' text-sm transition-all duration-300'"
+        [ngClass]="{
+          'text-emerald-600 dark:text-emerald-400 scale-110': activeSection === item.id,
+          'text-gray-600 dark:text-gray-300 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 group-hover:scale-110': activeSection !== item.id
+        }"></i>
+    </div>
+    <span 
+      class="ml-3 text-sm font-medium transition-all duration-300"
+      [ngClass]="{
+        'text-emerald-700 dark:text-emerald-300 font-semibold': activeSection === item.id,
+        'text-gray-600 dark:text-gray-300 group-hover:text-emerald-600 dark:group-hover:text-emerald-400': activeSection !== item.id
+      }">
+      {{ item.name }}
+    </span>
+  </a>
 </nav>
 </aside>
+
 
 
 <app-ai-audio-model></app-ai-audio-model>
