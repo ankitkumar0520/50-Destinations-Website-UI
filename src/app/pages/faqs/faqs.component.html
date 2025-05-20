@@ -30,7 +30,7 @@
         <ng-container *ngFor="let category of faqCategories">
           <button
             (click)="toggleAccordion(category.id)"
-            class="inline-flex shadow-lg cursor-pointer items-center px-3 sm:px-3 py-2 sm:py-2 mx-1 rounded-full font-semibold 
+            class="inline-flex shadow-lg cursor-pointer items-center px-3 sm:px-3 py-2 sm:py-1 mx-1 rounded-full font-semibold 
             text-base sm:text-lg transition-all duration-200 focus:outline-none focus:ring-2
              focus:ring-primary-400 border-gray-300 border hover:scale-[1.04] active:scale-100"
             [ngClass]="activeAccordion === category.id
@@ -55,14 +55,15 @@
     <!-- Search Bar -->
     <div class="max-w-3xl mx-auto mb-8 sm:mb-12">
       <div
-        class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-start sm:items-center p-1"
+        class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 
+        flex flex-col sm:flex-row items-start sm:items-center p-1"
       >
         <div class="flex-1 flex items-center px-4 w-full">
           <i class="fas fa-search text-gray-400 mr-3 flex-shrink-0"></i>
           <input
             type="search"
             placeholder="Have a question? Ask or enter a search term."
-            class="w-full py-3 outline-none bg-transparent focus:outline-none shadow-none text-gray-700 dark:text-gray-200"
+            class="w-full py-1.5 outline-none bg-transparent focus:outline-none shadow-none text-gray-700 dark:text-gray-200"
             [(ngModel)]="searchTerm"
             (input)="searchFaqs()"
           />

@@ -33,7 +33,7 @@
            flex sm:block overflow-x-auto no-scrollbar whitespace-nowrap" style="min-width: 0;">
         <ng-container *ngFor="let tab of aboutTabs">
           <button (click)="scrollToSection(tab.id)"
-            class="inline-flex shadow-lg cursor-pointer items-center px-3 sm:px-3 py-2 sm:py-2 mx-1 rounded-full font-semibold 
+            class="inline-flex shadow-lg cursor-pointer items-center px-3 sm:px-3 py-1 sm:py-1 mx-1 rounded-full font-semibold 
             text-base sm:text-lg transition-all duration-200 focus:outline-none focus:ring-2
             focus:ring-primary-400 border-gray-300 border hover:scale-[1.04] active:scale-100"
             [ngClass]="activeTab === tab.id
