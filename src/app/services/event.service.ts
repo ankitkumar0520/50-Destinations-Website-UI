@@ -7,6 +7,15 @@ interface Event {
   pdfUrl: string;
 }
 
+interface News {
+  id: number;
+  title: string;
+  date: Date;
+  content: string;
+  imageUrl?: string;
+  pdfUrl?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -333,6 +342,32 @@ export class EventService {
   pdfUrl: 'assets/PDF/Rock_climbing.pdf'
 }
     ]
+  }
+
+  getNews(): any[] {
+       // News related properties
+  return [
+    {
+      id: 1,
+      title: 'Online Payment System for Tourism Establishment.',
+      date: new Date('2024-05-16'),
+      content: `The online payment portal is accessible via the official website of the department at https://sikkimtourism.gov.in through the “Payment” section. The portal provides detailed guidelines, 
+      fee structures, and step-by-step instructions to ensure a smooth user experienceThe online payment portal is accessible via the official website of the department at https://sikkimtourism.gov.in through the “Payment” section. The portal provides detailed guidelines, 
+      fee structures, and step-by-step instructions to ensure a smooth user experienceThe online payment portal is accessible via the official website of the department at https://sikkimtourism.gov.in through the “Payment” section. The portal provides detailed guidelines, 
+      fee structures, and step-by-step instructions to ensure a smooth user experience.`,
+      imageUrl: 'assets/Images/Placeholder/news1.jpg',
+      pdfUrl: ''
+    },
+    {
+      id: 2,
+      title: 'Pelling Celebrates 50 Years of Statehood with Paragliding and Cultural Showcases',
+      date: new Date('2024-05-14'),
+      content: 'Pelling, a picturesque hill station in Sikkim, celebrated 50 years of statehood with a series of events including paragliding demonstrations and cultural showcases.',
+      imageUrl: 'assets/Images/Placeholder/news2.jpg',
+      pdfUrl: ''
+    },
+    // Add more news items as needed
+  ];
   }
   
   

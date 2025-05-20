@@ -6,56 +6,61 @@
     <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden backdrop-blur-lg bg-opacity-90 dark:bg-opacity-90 border border-[var(--color-primary-200)] dark:border-[var(--color-primary-800)]">
       <div class="p-4 sm:p-6">
         <ngx-extended-pdf-viewer 
-          #pdfViewer
-          [src]="pdfUrl"
-          [height]="'85vh'"
-          [textLayer]="true"
-          [showHandToolButton]="false"
-          [showFindButton]="true"
-          [showDownloadButton]="'always-visible'"
-          [showPrintButton]="true"
-          [showSecondaryToolbarButton]="false"
-          [showSidebarButton]="false"
-          [sidebarVisible]="false"
-          [showZoomButtons]="true"
-          [showPagingButtons]="true"
-          [showRotateButton]="false"
-          [showPresentationModeButton]="false"
-          [showOpenFileButton]="false"
-          [filenameForDownload]="'sikkimdarshan-'+pdfName"
-          [showTextEditor]="false"
-          [showDrawEditor]="false"
-          [showStampEditor]="false"
-          [showHighlightEditor]="false"
-          [forceUsingLegacyES5]="true"
-          (pdfLoadingStarts)="loading = true"
-          (pdfLoadingEnds)="loading = false"
-          (pdfLoadingFailed)="loadingFailed = true; loading = false"
-        ></ngx-extended-pdf-viewer>
+        #pdfViewer
+        [src]="'assets/PDF/BikeRide_Dokala.pdf'"
+        [height]="'85vh'"
+        [textLayer]="true"
+        [showHandToolButton]="false"
+        [showFindButton]="true"
+        [showDownloadButton]="'always-visible'"
+        [showPrintButton]="true"
+        [showSecondaryToolbarButton]="false"
+        [showSidebarButton]="false"
+        [sidebarVisible]="false"
+        [showZoomButtons]="true"
+        [showPagingButtons]="true"
+        [showRotateButton]="false"
+        [showPresentationModeButton]="false"
+        [showOpenFileButton]="false"
+        [filenameForDownload]="'sikkimdarshan-'+pdfName"
+        [showTextEditor]="false"
+        [showDrawEditor]="false"
+        [showStampEditor]="false"
+        [showHighlightEditor]="false"
+        [forceUsingLegacyES5]="true"
+        (pdfLoadingStarts)="loading = true"
+        (pdfLoadingEnds)="loading = false"
+        (pdfLoadingFailed)="loadingFailed = true; loading = false"
+      ></ngx-extended-pdf-viewer>
       </div>
 
+      
 
-      <!-- Loader Overlay -->
-      <div  *ngIf="!loading" class="absolute inset-0 flex flex-col items-center justify-center bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 z-50">
-        <!-- Spinner -->
-        <div class="h-12 w-12 border-4 border-blue-500 border-t-transparent border-dashed rounded-full animate-spin mb-4"></div>
-        <!-- Optional Text -->
-        <p class="text-sm font-medium text-gray-600 dark:text-gray-300">Loading PDF, please wait...</p>
+      <!-- Loading Overlay -->
+      <div class="loading-overlay" *ngIf="loading">
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <div class="loading-text">
+            <div>Loading PDF...</div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="loadingProgress"></div>
+            </div>
+            <div class="progress-text">{{ loadingProgress }}%</div>
+          </div>
+        </div>
       </div>
 
-
-            <!-- Error Overlay -->
-      <div *ngIf="loadingFailed" class="absolute inset-0 flex flex-col items-center justify-center bg-red-50 dark:bg-red-900 bg-opacity-90 z-50 text-center p-6">
-        <!-- Error Icon (Optional SVG) -->
-        <svg class="w-12 h-12 text-red-600 mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.054 0 1.918-.816 1.995-1.85L21 18V6a2 2 0 00-1.85-1.995L19 4H5a2 2 0 00-1.995 1.85L3 6v12a2 2 0 001.85 1.995L5 20z" />
-        </svg>
-        
-        <!-- Error Text -->
-        <h2 class="text-lg font-semibold text-red-700 dark:text-red-300">Failed to load PDF</h2>
-        <p class="text-sm text-red-600 dark:text-red-200 mt-1">Please check your connection or try again later.</p>
+      <!-- Error Overlay -->
+      <div class="error-overlay" *ngIf="loadingFailed">
+        <div class="error-message">
+          <h3>Failed to load PDF</h3>
+          <p *ngIf="retryCount > 0">Retry attempt {{ retryCount }} of {{ maxRetries }}</p>
+          <p *ngIf="retryCount === 0">Please try again</p>
+          <button (click)="retryLoading()" [disabled]="loading">
+            {{ loading ? 'Retrying...' : 'Retry' }}
+          </button>
+        </div>
       </div>
-
 
     </div>
   </div>

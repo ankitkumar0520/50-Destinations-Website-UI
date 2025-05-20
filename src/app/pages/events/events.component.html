@@ -12,25 +12,31 @@
       </div>
     </div>
 
-    <!-- Navigation Tabs -->
-    <div class="absolute -bottom-6 left-0 right-0 flex justify-center">
-      <div class="sm:grid sm:grid-cols-2 gap-2 bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-2xl px-1.5 py-1.5 items-center border border-gray-200 dark:border-gray-700 max-w-full 
-           flex sm:block overflow-x-auto no-scrollbar whitespace-nowrap" style="min-width: 0;">
-        <ng-container *ngFor="let tab of tabs">
-          <button (click)="switchTab(tab.id)"
-            class="inline-flex shadow-lg cursor-pointer items-center px-3 sm:px-3 py-2 sm:py-2 mx-1 rounded-full font-semibold 
-            text-base sm:text-lg transition-all duration-200 focus:outline-none focus:ring-2
-            focus:ring-primary-400 border-gray-300 border hover:scale-[1.04] active:scale-100"
-            [ngClass]="activeTab === tab.id
-              ? 'bg-primary-500 text-white dark:bg-primary-700 dark:text-white border-primary-500 dark:border-primary-400 shadow-lg'
-              : 'bg-white text-primary-600 dark:bg-gray-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-800 border-gray-200 dark:border-gray-700'"
-            style="transition: box-shadow 0.2s, background 0.2s, color 0.2s, border 0.2s, transform 0.15s;">
-            <i class="fas mr-2 text-lg sm:text-xl" [ngClass]="tab.icon"></i>
-            <span>{{ tab.title }}</span>
-          </button>
-        </ng-container>
-      </div>
-    </div>
+          <!-- Navigation Tabs -->
+        <div class="absolute -bottom-6 left-0 right-0 flex justify-center">
+          <div class="sm:grid sm:grid-cols-2 gap-2 bg-white/95 dark:bg-gray-800/95 shadow-lg
+          rounded-2xl px-1.5 py-1 items-center border border-gray-200 dark:border-gray-700 max-w-full 
+              flex overflow-x-auto no-scrollbar  whitespace-nowrap" style="min-width: 0;">
+            <ng-container *ngFor="let tab of tabs">
+              <button (click)="switchTab(tab.id)"
+                class="inline-flex shadow-lg cursor-pointer items-center px-3 sm:px-3
+                sm:py-2 mx-1 rounded-full font-semibold  
+                text-sm sm:text-base transition-all duration-200 focus:outline-none focus:ring-2
+                focus:ring-primary-400 border-gray-300 border hover:scale-[1.04] active:scale-100"
+                [ngClass]="activeTab === tab.id
+                  ? 'bg-primary-500 text-white dark:bg-primary-700 dark:text-white border-primary-500 dark:border-primary-400 shadow-lg'
+                  : 'bg-white text-primary-600 dark:bg-gray-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-800 border-gray-200 dark:border-gray-700'"
+                style="transition: box-shadow 0.2s, background 0.2s, color 0.2s, border 0.2s, transform 0.15s;">
+                <i class="fas mr-2 text-sm sm:text-base" [ngClass]="tab.icon"></i>
+                <span>{{ tab.title }}</span>
+              </button>
+            </ng-container>
+          </div>
+        </div>
+
+
+
+
   </div>
 
   <!-- Main Content -->
@@ -42,7 +48,7 @@
           <i class="fas fa-search text-gray-400 mr-3"></i>
           <input type="text" 
                  [placeholder]="activeTab === 'events' ? 'Search events by name, location or date...' : 'Search news by title or content...'" 
-                 class="w-full py-3 outline-none bg-transparent text-gray-700 dark:text-gray-200"
+                 class="w-full py-2 outline-none bg-transparent text-gray-700 dark:text-gray-200"
                  [(ngModel)]="searchTerm"
                  (keyup.enter)="search()">
         </div>
@@ -52,7 +58,7 @@
         </button>
         <button *ngIf="searchTerm" 
                 (click)="searchTerm = ''; search()"
-                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 px-4">
+                class="text-gray-400 cursor-pointer hover:text-gray-600 dark:hover:text-gray-200 px-4">
           <i class="fas fa-times"></i>
         </button>
       </div>
@@ -103,11 +109,11 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm">
                 <ng-container *ngIf="event.pdfUrl">
-                  <button (click)="viewEvent(event.pdfUrl)"
+                  <a [href]="event.pdfUrl" target="_blank"
                           class="inline-flex items-center text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300">
                     <i class="fas fa-file-pdf mr-1"></i>
                     View PDF
-                  </button>
+                  </a>
                 </ng-container>
                 <ng-container *ngIf="!event.pdfUrl">
                   <button (click)="viewEventDetails(event)" disabled="true"
@@ -121,49 +127,110 @@
           </tbody>
         </table>
       </div>
-      <div class="mt-4 flex justify-center">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      <div class="mt-4 flex justify-center" *ngIf="filteredEvents.length > 0">
+        <pagination-controls (pageChange)="p = $event; scrollToTop()"></pagination-controls>
       </div>
     </div>
 
     <!-- News Section -->
-    <div *ngIf="activeTab === 'news'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let item of filteredNews | paginate: { itemsPerPage: 9, currentPage: p }"
-           class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-        <div class="aspect-w-16 aspect-h-9 relative">
+    <div *ngIf="activeTab === 'news'" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div *ngFor="let item of filteredNews | paginate: { itemsPerPage: 12, currentPage: p }"
+           class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-
+            hover:shadow-lg transition-all duration-300 h-auto sm:h-[380px] flex flex-col mb-4 sm:mb-0">
+        <div class="aspect-w-16 aspect-h-9 relative h-44 ">
           <img [src]="item.imageUrl" 
                [alt]="item.title"
                loading="lazy"
                (error)="imageService.handleImageError($event)"
-               class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+               class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-        <div class="px-6 py-4">
-          <div class="text-sm text-gray-500 dark:text-gray-400 mb-2 flex items-center">
-            <i class="far fa-calendar-alt mr-2"></i>
-            {{ item.date | date:'longDate' }}
+        <div class="px-4 py-3 flex-grow flex flex-col">
+          <div class="text-xs text-gray-500 dark:text-gray-400 mb-1 flex items-center">
+            <i class="far fa-calendar-alt mr-1"></i>
+            {{ item.date | date:'mediumDate' }}
           </div>
-          <h3 class="text-xl text-justify font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2">
+          <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
             {{ item.title }}
           </h3>
-          <p class="text-gray-600 text-justify h-48 p-x-2 dark:text-gray-300 mb-4 custom-scrollbar overflow-y-auto">
+          <p class="text-sm text-gray-600 text-justify flex-grow line-clamp-3 dark:text-gray-300 mb-3 custom-scrollbar">
             {{ item.content }}
           </p>
-          <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
-            <ng-container *ngIf="item.pdfUrl">
-              <button (click)="viewEvent(item.pdfUrl)"
-                      class="inline-flex items-center text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300 font-medium transition-colors duration-200">
-                <i class="fas fa-file-pdf mr-2"></i>
-                Read More
-              </button>
-            </ng-container>
+          <div class="pt-2 border-t border-gray-200 dark:border-gray-700 mt-auto">
+            <button (click)="openNewsModal(item)"
+                    class="w-full cursor-pointer sm:w-auto inline-flex items-center justify-center text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300 text-sm font-medium transition-colors duration-200 py-2 px-4 rounded-md hover:bg-primary-50 dark:hover:bg-primary-900/20">
+              <i class="fas fa-book-open mr-1"></i>
+              Read More
+            </button>
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="activeTab === 'news'" class="mt-6 flex justify-center">
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <div *ngIf="activeTab === 'news' && filteredNews.length > 0" class="mt-6 flex justify-center" >
+      <pagination-controls (pageChange)="p = $event; scrollToTop()"></pagination-controls>
     </div>
+
+    <!-- News Modal -->
+    <div *ngIf="selectedNews" 
+         class="fixed inset-0 z-50 overflow-hidden transition-opacity duration-300"
+         [class.opacity-0]="!selectedNews"
+         [class.opacity-100]="selectedNews"
+         aria-labelledby="modal-title" 
+         role="dialog" 
+         aria-modal="true">
+      <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" 
+             (click)="closeNewsModal()"
+             aria-hidden="true"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div class="inline-block align-middle bg-white dark:bg-gray-800 rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full max-h-[85vh] flex flex-col">
+          <div class="relative flex flex-col h-full">
+          
+
+            <!-- Header Section -->
+            <div class="px-6 bg-white dark:bg-gray-800 pt-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-2 flex items-center">
+                <i class="far fa-calendar-alt mr-2"></i>
+                {{ selectedNews.date | date:'longDate' }}
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                {{ selectedNews.title }}
+              </h3>
+            </div>
+
+            <!-- Content Section -->
+            <div class="flex-1 max-h-56 overflow-y-auto custom-scrollbar bg-white dark:bg-gray-800">
+              <div class="px-6 py-4">
+                <p class="text-gray-600 dark:text-gray-300 text-base leading-relaxed whitespace-pre-line">
+                  {{ selectedNews.content }}
+                </p>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700/50 border-t border-gray-200 dark:border-gray-700">
+              <div class="flex justify-end space-x-4">
+                <button (click)="closeNewsModal()" 
+                        class="px-4 cursor-pointer py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors duration-200">
+                  Close
+                </button>
+                <a *ngIf="selectedNews.pdfUrl" 
+                   [href]="selectedNews.pdfUrl" 
+                   target="_blank"
+                   class="px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-md transition-colors duration-200">
+                  <i class="fas fa-file-pdf mr-2"></i>
+                  View PDF
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    
   </div>
 </div>
 

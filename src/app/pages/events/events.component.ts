@@ -31,7 +31,6 @@ interface News {
 })
 export class EventsComponent implements OnInit {
   eventService: EventService = inject(EventService);
-  router: Router = inject(Router);
   imageService: ImageService = inject(ImageService);
 
   // Tab related properties
@@ -47,30 +46,9 @@ export class EventsComponent implements OnInit {
   filteredEvents: Event[] = [];
   pdfUrl: string = '';
   events: any[] = this.eventService.getEvents();
+  news: any[] = this.eventService.getNews();
+  selectedNews: News | null = null;
 
-  // News related properties
-  news: News[] = [
-    {
-      id: 1,
-      title: 'Online Payment System for Tourism Establishment.',
-      date: new Date('2024-05-16'),
-      content: `The online payment portal is accessible via the official website of the department at https://sikkimtourism.gov.in through the “Payment” section. The portal provides detailed guidelines, 
-      fee structures, and step-by-step instructions to ensure a smooth user experienceThe online payment portal is accessible via the official website of the department at https://sikkimtourism.gov.in through the “Payment” section. The portal provides detailed guidelines, 
-      fee structures, and step-by-step instructions to ensure a smooth user experienceThe online payment portal is accessible via the official website of the department at https://sikkimtourism.gov.in through the “Payment” section. The portal provides detailed guidelines, 
-      fee structures, and step-by-step instructions to ensure a smooth user experience.`,
-      imageUrl: 'assets/Images/Placeholder/news1.jpg',
-      pdfUrl: ''
-    },
-    {
-      id: 2,
-      title: 'Pelling Celebrates 50 Years of Statehood with Paragliding and Cultural Showcases',
-      date: new Date('2024-05-14'),
-      content: 'Pelling, a picturesque hill station in Sikkim, celebrated 50 years of statehood with a series of events including paragliding demonstrations and cultural showcases.',
-      imageUrl: 'assets/Images/Placeholder/news2.jpg',
-      pdfUrl: ''
-    },
-    // Add more news items as needed
-  ];
   filteredNews: News[] = [];
 
   today = new Date();
@@ -164,11 +142,6 @@ export class EventsComponent implements OnInit {
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
 
-  // Common methods
-  viewEvent(pdfUrl: string): void {
-    this.eventService.setPdfUrl(pdfUrl);
-    this.router.navigate(['/view-pdf']);  
-  }
 
   isUpcomingEvent(eventDate: string | Date): boolean {
     return new Date(eventDate) > this.today;
@@ -202,5 +175,23 @@ export class EventsComponent implements OnInit {
   viewEventDetails(event: Event): void {
     // TODO: Implement event details view
    // console.log('Viewing event details:', event);
+  }
+
+  openNewsModal(news: News): void {
+    this.selectedNews = news;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeNewsModal(): void {
+    this.selectedNews = null;
+    document.body.style.overflow = 'auto';
+  }
+
+  scrollToTop(): void {
+    // Scroll to top smoothly
+    window.scrollTo({
+      top: 60,
+      behavior: 'smooth'
+    });
   }
 }
