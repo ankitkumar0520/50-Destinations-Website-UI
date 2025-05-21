@@ -27,7 +27,7 @@
 
       <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-1.5">
         <button
-          *ngFor="let tag of destinationTags"
+          *ngFor="let tag of destinationTags | slice:0:23"
           (click)="toggleTag(tag.id)"
           class="flex items-center gap-1 md:gap-1.5 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap overflow-hidden text-ellipsis max-w-full"
           [ngClass]="
