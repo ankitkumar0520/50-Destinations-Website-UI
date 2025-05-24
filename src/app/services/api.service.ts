@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { DestroyRef, inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { DestroyRef, inject, Injectable, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { environment } from '../../environments/environment';
@@ -12,8 +12,11 @@ export class ApiService {
   private destroyRef = inject(DestroyRef);
   private http = inject(HttpClient);
   private readonly baseUrl = environment.apiBaseUrl;
-  private platformId = inject(PLATFORM_ID);
+  private platformId: Object;
 
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.platformId = platformId;
+  }
 
   get<T>(url: string): Observable<T> {
     return this.http

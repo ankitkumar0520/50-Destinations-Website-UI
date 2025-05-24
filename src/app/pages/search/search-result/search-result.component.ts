@@ -56,16 +56,20 @@ interface SearchResult {
   ],
 })
 export class SearchResultComponent implements OnInit {
+  private platformId: Object;
+  siteUrl: string = '';
+
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) platformId: Object,
     private searchService: SearchService,
     private apiService: ApiService,
     private router: Router,
     public imageService: ImageService
   ) {
-    this.siteUrl = isPlatformBrowser(this.platformId)
-      ? window.location.origin
-      : '';
+    this.platformId = platformId;
+    if (isPlatformBrowser(this.platformId)) {
+      this.siteUrl = window.location.origin;
+    }
   }
 
   isBrowser(): boolean {
@@ -74,8 +78,6 @@ export class SearchResultComponent implements OnInit {
 
   baseUrl = '';
   @ViewChildren('qrCanvas') qrCanvases!: QueryList<ElementRef>;
-
-  siteUrl: string;
 
   payload: any;
   filteredResults: SearchResult[] = [];

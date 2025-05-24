@@ -5,6 +5,7 @@ import {
   OnInit,
   PLATFORM_ID,
   OnDestroy,
+  Inject,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
@@ -47,6 +48,7 @@ interface Season {
 export class SearchFiltersComponent implements OnInit, OnDestroy {
   showFilters = false;
   isDarkMode = false;
+  private platformId: Object;
 
   districts: DistrictType[] = [];
 
@@ -74,9 +76,12 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
 
   private searchService = inject(SearchService);
   private route = inject(ActivatedRoute);
-  private platformId = inject(PLATFORM_ID);
 
-  constructor(private apiService: ApiService) {
+  constructor(
+    private apiService: ApiService,
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+    this.platformId = platformId;
     if (isPlatformBrowser(this.platformId)) {
       this.isDarkMode = window.matchMedia(
         '(prefers-color-scheme: dark)'

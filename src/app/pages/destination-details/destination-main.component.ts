@@ -6,6 +6,7 @@ import {
   PLATFORM_ID,
   inject,
   OnDestroy,
+  AfterViewInit,
 } from '@angular/core';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
 import { GalleryDescriptionComponent } from './gallery-description/gallery-description.component';
@@ -19,8 +20,7 @@ import { MapComponent } from './map/map.component';
 import { AiAudioModelComponent } from './ai-audio-model/ai-audio-model.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DestinationService } from '../../services/destination.service';
-import { Subject } from 'rxjs';
-import { takeUntil, filter, take } from 'rxjs/operators';
+import { Subject, take, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-destination-main',
   standalone: true,
@@ -39,11 +39,10 @@ import { takeUntil, filter, take } from 'rxjs/operators';
     AiAudioModelComponent,
   ],
 })
-export class DestinationMainComponent implements OnInit {
+export class DestinationMainComponent implements OnInit, AfterViewInit {
   showModal = false;
   route = inject(ActivatedRoute);
   destinationService = inject(DestinationService);
-  private destroy$ = new Subject<void>();
 
   menuItems = [
     { id: 'about-section', name: 'About', icon: 'info-circle' },
@@ -90,29 +89,34 @@ export class DestinationMainComponent implements OnInit {
       this.checkActiveSection();
     }
 
-        // Start listening *before* calling API
-      this.destinationService.destination$.pipe(
-        filter(destination => !!destination?.data),
-        take(1) // complete after the first non-null valid data
-      ).subscribe(destination => {
-        this.updateMenuItems(destination.data);
-      });
-
-    // Now trigger the API call
-    this.destinationService.getDestinationbySlug(this.route.snapshot.params['slug']);
-
+    this.route.paramMap.subscribe((params) => {
+      const slug = params.get('slug');
+      if (slug) {
+        this.destinationService.getDestinationBySlug(slug);
+      }
+    });
+ 
   }
 
+  ngAfterViewInit() {
+    this.destinationService.destination$.pipe(take(1)).subscribe({
+      next: (destination: any) => {
+        if (!destination?.entities?.length) return;
+        this.updateMenuItems(destination);
+      },
+      error: (error: any) => {
+        console.error('Error fetching destination:', error);
+      }
+    });
+  }
+  
+  
   
   private updateMenuItems(destination: any) {
-    console.log('=== Starting Menu Items Update ===');
-    console.log('Destination Data:', destination?.data);
-  
     const normalize = (str: string): string =>
       str.toLowerCase().replace(/\s+/g, ' ').trim();
   
-    // Create quick lookup maps for entities
-    const entities = destination?.data?.entities || [];
+    const entities = destination?.entities || [];
     const sectorIdMap = new Map<number, any[]>();
     const sectorNameMap = new Map<string, any[]>();
   
@@ -131,7 +135,6 @@ export class DestinationMainComponent implements OnInit {
       }
     }
   
-    // Reusable function to check if any entities exist with given IDs or names
     const hasEntities = (sectorIds: number[], sectorNames: string[]): boolean => {
       for (const id of sectorIds) {
         if (sectorIdMap.has(id)) return true;
@@ -142,14 +145,14 @@ export class DestinationMainComponent implements OnInit {
       return false;
     };
   
-    // Filter menu items based on data availability
     this.filteredMenuItems = this.menuItems.filter(item => {
       switch (item.id) {
         case 'about-section':
+        case 'guide-map-section':
           return true;
   
         case 'galleries-section':
-          return destination?.data?.media?.length > 0;
+          return destination?.media?.length > 0;
   
         case 'points-of-interest-section':
           return hasEntities([3], ['point of interest']);
@@ -158,27 +161,24 @@ export class DestinationMainComponent implements OnInit {
           return hasEntities([2], ['facilities & services']);
   
         case 'safety-emergency-section':
-          return hasEntities([4], ['safety & emergency']);
+          return hasEntities([1, 6], [
+            'safety and emergency - healthcare service',
+            'safety and emergency-hospital'
+          ]);
   
         case 'shops-section':
-          return hasEntities([6], ['shops']);
+          return hasEntities([4], ['shops']);
   
         case 'accommodation-eatery-section':
-          return hasEntities(
-            [5, 7],
-            ['accommodation & eatery - accommodation', 'accommodation & eatery - eatery']
-          );
-  
-        case 'guide-map-section':
-          return true;
+          return hasEntities([5, 7], [
+            'accommodation & eatery - accommodation',
+            'accommodation & eatery - eatery'
+          ]);
   
         default:
           return false;
       }
     });
-  
-    console.log('\n=== Final Filtered Menu Items ===');
-    console.log(this.filteredMenuItems);
   }
   
 
@@ -238,5 +238,6 @@ export class DestinationMainComponent implements OnInit {
       this.activeSection = id;
     }
   }
+
 
 }
