@@ -189,6 +189,7 @@
     class="dark:bg-gray-800 dark:border-gray-700 w-screen -mx-[calc((100vw-100%)/2)] flex justify-center mt-6 rounded-xl"
   >
     <pagination-controls
+      [responsive]="true"
       class="mb-2 mt-4"
       (pageChange)="changePage($event); scrollToTop()"
     ></pagination-controls>

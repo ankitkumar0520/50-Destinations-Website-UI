@@ -14,7 +14,6 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { register } from 'swiper/element/bundle';
 
 interface Official {
   name: string;
@@ -77,7 +76,6 @@ export class HomeMinisterProfileComponent implements OnInit {
             fullMessage: min.description,
             media: min.media,
           }));
-          register(); // Register the swiper element
         }
       },
       error: (error: any) => {
