@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
   PLATFORM_ID,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
@@ -14,6 +13,9 @@ import { SectionHeaderComponent } from '../../../common/section-header/section-h
 import { DestinationService } from '../../../services/destination.service';
 import { ImageService } from '../../../services/image.service';
 import { SwiperContainer } from 'swiper/element/bundle';
+import { register } from 'swiper/element/bundle';
+
+register();
 
 @Component({
   selector: 'app-points-of-interest',
@@ -23,11 +25,27 @@ import { SwiperContainer } from 'swiper/element/bundle';
   styleUrls: ['./points-of-interest.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class PointsOfInterestComponent implements OnInit, OnDestroy {
+export class PointsOfInterestComponent implements OnInit {
   private destinationService = inject(DestinationService);
   imageService = inject(ImageService);
   pointsOfInterest: any[] = [];
   baseUrl = '';
+  swiperConfig = {
+    slidesPerView: 1,
+    spaceBetween: 24,
+    pagination: true,
+    breakpoints: {
+      640: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
+      1280: { slidesPerView: 4 },
+    },
+  };
+
+  imageSwiperConfig = {
+    noSwiping: true,
+    noSwipingClass: 'swiper-no-swiping',
+    allowTouchMove: false,
+  };
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.currentImageIndices = this.pointsOfInterest.map(() => 0);
   }
@@ -53,24 +71,7 @@ export class PointsOfInterestComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {}
 
-  swiperConfig = {
-    slidesPerView: 1,
-    spaceBetween: 24,
-    pagination: true,
-    breakpoints: {
-      640: { slidesPerView: 2 },
-      1024: { slidesPerView: 3 },
-      1280: { slidesPerView: 4 },
-    },
-  };
-
-  imageSwiperConfig = {
-    noSwiping: true,
-    noSwipingClass: 'swiper-no-swiping',
-    allowTouchMove: false,
-  };
 
   @ViewChildren('imageSwiper') imageSwipers!: QueryList<SwiperContainer | any>;
 
