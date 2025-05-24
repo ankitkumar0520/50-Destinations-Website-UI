@@ -1,60 +1,107 @@
 <div *ngIf="showModal" class="fixed inset-0 bg-black/40 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center z-51">
   <div class="relative bg-white dark:bg-gray-900 rounded-3xl p-4 w-[95%] max-w-sm shadow-2xl transition-all transform hover:scale-[1.01]">
-    <!-- Header with Close Button -->
+    <!-- Top-right Close Button -->
+    <button (click)="closeModal()" aria-label="Close"
+      class="absolute cursor-pointer z-[53] -top-3 -right-3 p-2 text-white bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:brightness-110">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Header with Title -->
     <div class="flex items-center justify-between mb-4">
       <div class="flex items-center gap-2">
         <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Audio Guide</h2>
 
-
         <!-- Animated Equalizer Playing Indicator -->
-      <div *ngIf="audioSettings.isPlaying" class="flex item s-center gap-1">
-        <div class="w-1.5 h-4 bg-indigo-500 rounded-sm animate-wave delay-0"></div>
-        <div class="w-1.5 h-3 bg-indigo-500 rounded-sm animate-wave delay-100"></div>
-        <div class="w-1.5 h-2 bg-indigo-500 rounded-sm animate-wave delay-200"></div>
-        <div class="w-1.5 h-4 bg-indigo-500 rounded-sm animate-wave delay-300"></div>
-        <div class="w-1.5 h-5 bg-indigo-500 rounded-sm animate-wave delay-100"></div>
+        <div *ngIf="audioSettings.isPlaying" class="flex items-center gap-1">
+          <div class="w-1.5 h-4 bg-indigo-500 rounded-sm animate-wave delay-0"></div>
+          <div class="w-1.5 h-3 bg-indigo-500 rounded-sm animate-wave delay-100"></div>
+          <div class="w-1.5 h-2 bg-indigo-500 rounded-sm animate-wave delay-200"></div>
+          <div class="w-1.5 h-4 bg-indigo-500 rounded-sm animate-wave delay-300"></div>
+          <div class="w-1.5 h-5 bg-indigo-500 rounded-sm animate-wave delay-100"></div>
+        </div>
       </div>
-
-        
-      </div>
-      <button (click)="closeModal()" aria-label="Close"
-        class="cursor-pointer p-2 text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
     </div>
 
     <!-- Main Content -->
     <div class="flex flex-col items-center">
       <!-- Album Art & Title -->
-      <div class="w-40 h-40 mb-6 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 flex items-center justify-center shadow-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-        </svg>
+      <div class="w-40 h-40 mb-6 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 flex items-center justify-center shadow-lg relative overflow-hidden group">
+        <!-- Water Fill Effect -->
+        <div class="absolute inset-0 overflow-hidden">
+          <!-- Base Layer (Unfilled) -->
+          <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/30 to-purple-600/30 dark:from-indigo-600/30 dark:to-purple-700/30 backdrop-blur-sm"></div>
+          
+          <!-- Water Fill Layer -->
+          <div class="absolute inset-x-0 bottom-0 transition-all duration-500 ease-out"
+               [style.height.%]="audioSettings.bufferedPercent"
+               [style.transform]="'translateY(' + (100 - audioSettings.bufferedPercent) + '%)'">
+            <!-- Wave Effect -->
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-600 to-purple-700 dark:from-indigo-700 dark:to-purple-800">
+              <!-- Wave Animation -->
+              <div class="absolute inset-0">
+                <div class="wave wave1"></div>
+                <div class="wave wave2"></div>
+                <div class="wave wave3"></div>
+              </div>
+              <!-- Shimmer Effect -->
+              <div class="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Music Icon with Glow Effect -->
+        <div class="relative z-10">
+          <div class="absolute inset-0 blur-lg bg-white/20 rounded-full transform scale-150"></div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-white relative" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+          </svg>
+        </div>
+
+        <!-- Loading Animation -->
+        <div *ngIf="audioSettings.showLoadingIndicator" 
+             class="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-20 transition-opacity duration-300">
+          <div class="flex space-x-2">
+            <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0ms"></div>
+            <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 150ms"></div>
+            <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 300ms"></div>
+          </div>
+        </div>
+
+        <!-- Hover Effect -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>
       
-      <!-- Track Info -->
+      <!-- Track Info with Enhanced Typography -->
       <div class="text-center mb-6">
-        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">{{ audioSettings.title }}</h3>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Audio Guide</p>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1 tracking-tight">{{ audioSettings.title }}</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Audio Guide</p>
       </div>
 
-      <!-- Progress Bar with Seek Slider -->
+      <!-- Progress Bar with Enhanced Seek Slider -->
       <div class="w-full mb-6">
-        <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
-          <span>{{ formatTime(audioSettings.currentTime) }}</span>
-          <span>{{ formatTime(audioSettings.duration) }}</span>
+        <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-2">
+          <span class="font-medium">{{ formatTime(audioSettings.currentTime) }}</span>
+          <span class="font-medium">{{ formatTime(audioSettings.duration) }}</span>
         </div>
-        <input type="range" min="0" [max]="audioSettings.duration || 1" [value]="audioSettings.currentTime" (input)="onSeek($event)"
-          class="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full appearance-none cursor-pointer accent-indigo-500">
+        <div class="relative">
+          <!-- Background Track -->
+          <div class="absolute inset-0 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+          <!-- Buffered Track -->
+          <div class="absolute h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full transition-all duration-300"
+               [style.width.%]="audioSettings.bufferedPercent"></div>
+          <!-- Progress Track -->
+          <input type="range" min="0" [max]="audioSettings.duration || 1" [value]="audioSettings.currentTime" (input)="onSeek($event)"
+            class="absolute inset-0 w-full h-1.5 appearance-none bg-transparent cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-indigo-500 [&::-webkit-slider-thumb]:hover:scale-125 [&::-webkit-slider-thumb]:transition-transform">
+        </div>
       </div>
 
-      <!-- Controls -->
+      <!-- Controls with Enhanced Buttons -->
       <div class="flex items-center justify-center gap-6 mb-6">
         <button (click)="skip(-10)" aria-label="Rewind 10 seconds"
-          class="p-2 text-gray-500 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 transition">
+          class="cursor-pointer p-2 text-gray-500 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 transition-all duration-300 hover:scale-110">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="11 19 2 12 11 5 11 19"></polygon>
             <polygon points="22 19 13 12 22 5 22 19"></polygon>
@@ -62,7 +109,7 @@
         </button>
 
         <button (click)="togglePlay()" aria-label="Play or Pause"
-          class="bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all transform hover:scale-110">
+          class="cursor-pointer  bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110 hover:shadow-xl hover:brightness-110">
           <svg *ngIf="!audioSettings.isPlaying" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="5 3 19 12 5 21 5 3"></polygon>
           </svg>
@@ -73,7 +120,7 @@
         </button>
 
         <button (click)="skip(10)" aria-label="Forward 10 seconds"
-          class="p-2 text-gray-500 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 transition">
+          class="cursor-pointer p-2 text-gray-500 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 transition-all duration-300 hover:scale-110">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="13 19 22 12 13 5 13 19"></polygon>
             <polygon points="2 19 11 12 2 5 2 19"></polygon>
@@ -81,34 +128,41 @@
         </button>
       </div>
 
-      <!-- Volume Control -->
+      <!-- Volume Control with Enhanced Slider -->
       <div class="flex items-center gap-3 w-full max-w-xs">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
           <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
         </svg>
-        <input type="range" min="0" max="1" step="0.01" [value]="audioSettings.volume" (input)="adjustVolume($event)"
-          class="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full appearance-none cursor-pointer accent-indigo-500">
+        <div class="relative flex-1">
+          <!-- Background Track -->
+          <div class="absolute inset-0 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+          <!-- Volume Track -->
+          <div class="absolute h-1.5 bg-indigo-500 rounded-full transition-all duration-300"
+               [style.width.%]="audioSettings.volume * 100"></div>
+          <input type="range" min="0" max="1" step="0.01" [value]="audioSettings.volume" (input)="adjustVolume($event)"
+            class="absolute inset-0 w-full h-1.5 appearance-none bg-transparent cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-indigo-500 [&::-webkit-slider-thumb]:hover:scale-125 [&::-webkit-slider-thumb]:transition-transform">
+        </div>
       </div>
 
-      <!-- Language Selector -->
+      <!-- Language Selector with Enhanced Styling -->
       <div class="mt-6 w-full max-w-xs">
-        <div class="relative">
+        <div class="relative group">
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-indigo-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
             </svg>
           </div>
 
           <select [(ngModel)]="audioSettings.selectedCode" (change)="handleAudio()"
-            class="w-full bg-gray-200 font-semibold dark:bg-gray-800 text-gray-900 dark:text-white border-0 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none">
+            class="w-full cursor-pointer bg-gray-200 font-semibold dark:bg-gray-800 text-gray-900 dark:text-white border-0 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none transition-all duration-300 hover:bg-gray-300 dark:hover:bg-gray-700">
             <option value="en">English</option>
             <option value="hi">Hindi</option>
             <option value="ne">Nepali</option>
           </select>
 
           <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 group-hover:text-indigo-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
@@ -116,7 +170,7 @@
       </div>
   
         <!-- Loading Indicator and Error Indicator -->
-        <div *ngIf="audioSettings.showLoadingIndicator || audioSettings.showError" class="fixed inset-0 bg-black/30 dark:bg-black/60 backdrop-blur-sm 
+        <div *ngIf="audioSettings.showLoadingIndicator || audioSettings.showError" class="absolute inset-0 bg-black/30 dark:bg-black/60 backdrop-blur-sm 
         flex items-center justify-center z-50 rounded-3xl">
           <div class="bg-white/90 dark:bg-gray-900/90 p-8 rounded-xl shadow-2xl">
             
@@ -141,8 +195,6 @@
 
           </div>
         </div>
-
-        
 
     </div>
   </div>

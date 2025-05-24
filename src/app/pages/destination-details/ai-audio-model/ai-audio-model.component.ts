@@ -54,6 +54,7 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
     showError: false,
     selectedCode: 'en',
     selectAudioSrc: '',
+    bufferedPercent: 0,
   };
 
   constructor() {}
@@ -78,14 +79,19 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
       .get(`LandingPage/GetAllAudioDetailsByDestinationSlug?slug=${this.slug}`)
       .subscribe({
         next: (res: any) => {
-          if (res) {
+          if (res && res.length > 0) {
             this.audioList = res.map((item: any) => ({
               languageCode: item.language,
               audiosrc: item.audio_file_path,
             }));
+          } else {
+            this.audioSettings.showError = true;
+            this.audioSettings.showLoadingIndicator = false;
           }
         },
         error: (err: any) => {
+          this.audioSettings.showError = true;
+          this.audioSettings.showLoadingIndicator = false;
           console.log(err);
         },
       });
@@ -96,6 +102,9 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
       (l) => l.languageCode == this.audioSettings.selectedCode
     )?.audiosrc;
     if (newLanguageSrc) {
+      // Reset buffering state
+      this.audioSettings.bufferedPercent = 0;
+      
       //set audio source
       this.audioSettings.selectAudioSrc = newLanguageSrc;
 
@@ -155,6 +164,9 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
 
     // Restore scroll in case modal was open
     document.body.style.overflow = 'auto';
+
+    // Close modal
+    this.showModal = false;
   }
 
   togglePlay() {
@@ -215,10 +227,11 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
       this.cdr.detectChanges();
     });
 
-    // When audio starts playing, update isPlaying flag
+    // When audio starts loading, reset buffer
     this.audio.addEventListener('loadstart', () => {
       console.log('Audio started loading');
       this.audioSettings.showLoadingIndicator = true;
+      this.audioSettings.bufferedPercent = 0;
       this.cdr.detectChanges();
     });
 
@@ -228,6 +241,7 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
       this.audioSettings.duration = this.audio.duration;
       this.audioSettings.showError = false;
       this.audioSettings.showLoadingIndicator = false;
+      this.audioSettings.bufferedPercent = 100;
       this.cdr.detectChanges();
     });
 
@@ -266,6 +280,33 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
         this.audioSettings.showLoadingIndicator = false;
         this.audioSettings.showError = true;
       }
+      this.cdr.detectChanges();
+    });
+
+    this.audio.addEventListener('progress', () => {
+      if (this.audio.buffered.length > 0) {
+        const bufferedEnd = this.audio.buffered.end(this.audio.buffered.length - 1);
+        const duration = this.audio.duration;
+    
+        if (duration > 0) {
+          const newBufferedPercent = (bufferedEnd / duration) * 100;
+          if (Math.abs(newBufferedPercent - this.audioSettings.bufferedPercent) > 1) {
+            this.audioSettings.bufferedPercent = newBufferedPercent;
+            this.cdr.detectChanges();
+          }
+        }
+      }
+    });
+
+    // Add waiting event listener
+    this.audio.addEventListener('waiting', () => {
+      this.audioSettings.showLoadingIndicator = true;
+      this.cdr.detectChanges();
+    });
+
+    // Add canplay event listener
+    this.audio.addEventListener('canplay', () => {
+      this.audioSettings.showLoadingIndicator = false;
       this.cdr.detectChanges();
     });
   }
