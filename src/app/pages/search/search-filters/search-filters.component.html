@@ -2,44 +2,104 @@
   <div
     class="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden border-2 border-gray-200 dark:border-gray-700"
   >
+
     <!-- Destination Tags at the top with Clear Button -->
-    <div class="p-3 border-b border-gray-100 dark:border-gray-700">
-      <div class="flex items-center gap-3 mb-2">
-        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">
-          Destinations
-        </h3>
-        <button
-          (click)="clearSearchSection()"
-          class="cursor-pointer text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 flex items-center gap-1.5 px-2.5 py-1 bg-gray-50 dark:bg-gray-900/20 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900/30 transition-colors"
-        >
-          <i class="fas fa-trash-alt w-4 h-4"></i>
-          Clear <span class="hidden md:block">All</span>
-        </button>
-        <!-- Filter Button -->
-        <button
-          (click)="showFilters = true"
-          class="cursor-pointer bg-gray-50 not-odd:ml-auto h-9 px-4 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-gray-400 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors shadow-sm flex items-center justify-center gap-1.5"
-        >
-          <i class="fas fa-filter w-4 h-4"></i>
-          Filter
-        </button>
+    <div class="p-3">
+      <!-- Top row with Applied Filters text and buttons -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-2 border-b border-gray-200 dark:border-gray-700 pb-2">
+        <!-- Applied Filters text -->
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <i class="fas fa-sliders-h text-accent-600 dark:text-accent-500"></i>
+          <span class="font-medium text-gray-700 dark:text-gray-300">Applied Filters</span>
+        </div>
+
+
+
+        <!-- Fixed Buttons Group -->
+        <div class="flex items-center gap-2 flex-shrink-0 ml-0 sm:ml-2">
+          <button
+            (click)="clearSearchSection()"
+            class="cursor-pointer text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 flex items-center gap-1.5 px-2.5 py-1 bg-gray-50 dark:bg-gray-900/20 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900/30 transition-colors h-8"
+          >
+            <i class="fas fa-trash-alt w-4 h-4"></i>
+            Clear All
+          </button>
+          <button
+            (click)="toggleFilters()"
+            class="cursor-pointer bg-gray-50 h-8 px-4 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-400 dark:border-gray-400 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors shadow-sm flex items-center justify-center gap-1.5"
+          >
+            <i class="fas fa-filter w-4 h-4"></i>
+            Show Filters
+          </button>
+        </div>
       </div>
 
-      <div class=" sm:flex hidden sm:flex-wrap gap-1.5">
-        <button
-          *ngFor="let tag of destinationTags | slice:0:23"
-          (click)="toggleTag(tag.id)"
-          class="flex items-center gap-1 md:gap-1.5 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap overflow-hidden text-ellipsis max-w-full"
-          [ngClass]="
-            selectedTags.includes(tag.id)
-              ? 'bg-accent-600 dark:bg-accent-500 text-white shadow-sm'
-              : 'cursor-pointer bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900/20'
-          "
-        >
-          <i [class]="'fas ' + tag.icon + ' w-3 h-3 mr-0.5'"> </i>
-          {{ tag.name.split(" ").slice(0, 3).join(" ") }}
-        </button>
+      <!-- Scrollable Filters Container - Now in its own row -->
+      <div *ngIf="selectedSort || selectedDurationId || selectedSeasons.length > 0 || (selectedTags.length > 0 && getTailwindBreakpoint() === 'sm')" 
+        class="overflow-x-auto w-full min-w-0 bg-gray-50 dark:bg-gray-900/20 rounded-xl custom-scrollbar p-2">
+        <div class="flex gap-2 h-8">
+          <!-- Sort By -->
+          <div *ngIf="selectedSort" 
+            class="group flex items-center gap-1.5 px-3 py-1 bg-white dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700 hover:border-accent-500 dark:hover:border-accent-500 transition-colors flex-shrink-0 h-full">
+            <i class="fas fa-sort text-accent-600 dark:text-accent-500 text-sm"></i>
+            <span class="text-gray-700 dark:text-gray-300 text-sm">{{getSortOptionName(selectedSort)}}</span>
+            <button (click)="selectedSort = ''; selectedSorttemp = ''; applyFilters()" class="ml-1 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300">
+              <i class="fas fa-times-circle text-sm"></i>
+            </button>
+          </div>
+
+          <!-- Duration -->
+          <div *ngIf="selectedDurationId" 
+            class="group flex items-center gap-1.5 px-3 py-1 bg-white dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700 hover:border-accent-500 dark:hover:border-accent-500 transition-colors flex-shrink-0 h-full">
+            <i class="fas fa-clock text-accent-600 dark:text-accent-500 text-sm"></i>
+            <span class="text-gray-700 dark:text-gray-300 text-sm">{{selectedDurationId}}</span>
+            <button (click)="selectedDurationId = ''; selectedDurationIdtemp = ''; applyFilters()" class="ml-1 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300">
+              <i class="fas fa-times-circle text-sm"></i>
+            </button>
+          </div>
+
+          <!-- Seasons -->
+          <div *ngFor="let seasonId of selectedSeasons" 
+            class="group flex items-center gap-1.5 px-3 py-1 bg-white dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700 hover:border-accent-500 dark:hover:border-accent-500 transition-colors flex-shrink-0 h-full">
+            <i class="fas fa-calendar-alt text-accent-600 dark:text-accent-500 text-sm"></i>
+            <span class="text-gray-700 dark:text-gray-300 text-sm">{{getSeasonName(seasonId)}}</span>
+            <button (click)="toggleSeason(seasonId); applyFilters()" class="ml-1 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300">
+              <i class="fas fa-times-circle text-sm"></i>
+            </button>
+          </div>
+
+          <!-- Destination Tags -->
+          <div *ngFor="let tagId of selectedTags" 
+            class="group items-center gap-1.5 px-3 py-1 bg-white  flex sm:hidden
+             dark:bg-gray-800 rounded-full border
+              border-gray-200 dark:border-gray-700 hover:border-accent-500
+               dark:hover:border-accent-500 transition-colors flex-shrink-0 h-full">
+            <i [class]="'fas ' + getTagIcon(tagId) + ' text-accent-600 dark:text-accent-500 text-sm'"></i>
+            <span class="text-gray-700 dark:text-gray-300 text-sm">{{getTagName(tagId)}}</span>
+            <button (click)="toggleTag(tagId); applyFilters()" class="ml-1 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300">
+              <i class="fas fa-times-circle text-sm"></i>
+            </button>
+          </div>
+
+
+        </div>
       </div>
+    </div>
+
+    <div class="sm:flex hidden sm:flex-wrap gap-1.5 pl-4" *ngIf="getTailwindBreakpoint() !== 'sm'">
+      <button
+        *ngFor="let tag of destinationTags | slice:0:23"
+        (click)="toggleTag(tag.id)"
+        class="flex items-center gap-1 md:gap-1.5 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap overflow-hidden text-ellipsis max-w-full"
+        [ngClass]="
+          selectedTags.includes(tag.id)
+            ? 'bg-accent-600 dark:bg-accent-500 text-white shadow-sm'
+            : 'cursor-pointer bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900/20'
+        "
+      >
+        <i [class]="'fas ' + tag.icon + ' w-3 h-3 mr-0.5'"> </i>
+        {{ tag.name.split(" ").slice(0, 3).join(" ") }}
+      </button>
     </div>
 
     <!-- Search Inputs -->
@@ -152,7 +212,7 @@
         Filters
       </h2>
       <button
-        (click)="showFilters = false"
+        (click)="toggleFilters()"
         class="cursor-pointer text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
         aria-label="Close Filter Modal"
       >
@@ -174,7 +234,7 @@
             </label>
           </div>
           <select
-            [(ngModel)]="selectedSort"
+            [(ngModel)]="selectedSorttemp"
             class="w-full h-10 px-3 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
           >
             <option value="" selected="true" disabled="">Select</option>
@@ -197,10 +257,10 @@
           <div class="grid grid-cols-1 gap-1.5">
             <button
               *ngFor="let season of seasons"
-              (click)="toggleSeason(season.id)"
+              (click)="toggleSeasontemp(season.id)"
               [class]="
                 'flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-all duration-200 ' +
-                (selectedSeasons.includes(season.id)
+                (selectedSeasonstemp.includes(season.id)
                   ? 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white ring-1 ring-gray-300 dark:ring-gray-600'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700')
               "
@@ -214,7 +274,7 @@
                 >
               </div>
               <i
-                *ngIf="selectedSeasons.includes(season.id)"
+                *ngIf="selectedSeasonstemp.includes(season.id)"
                 class="fas fa-check text-gray-600 dark:text-gray-300"
               ></i>
             </button>
@@ -234,10 +294,10 @@
           <div class="grid grid-cols-1 gap-1.5">
             <button
               *ngFor="let duration of durations"
-              (click)="selectDuration(duration.name)"
+              (click)="selectDurationtemp(duration.name)"
               [class]="
                 'flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-all duration-200 ' +
-                (selectedDurationId === duration.name
+                (selectedDurationIdtemp === duration.name
                   ? 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white ring-1 ring-gray-300 dark:ring-gray-600'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700')
               "
@@ -247,7 +307,7 @@
                 <span class="whitespace-nowrap">{{ duration.name }}</span>
               </div>
               <i
-                *ngIf="selectedDurationId === duration.name"
+                *ngIf="selectedDurationIdtemp === duration.name"
                 class="fas fa-check text-gray-600 dark:text-gray-300"
               ></i>
             </button>
@@ -256,7 +316,7 @@
       </div>
 
       <!-- Destination Tags -->
-      <div class="sm:hidden mt-6 bg-gray-50 dark:bg-gray-900/20 rounded-lg p-4">
+      <div class="sm:hidden mt-6 bg-gray-50 dark:bg-gray-900/20 rounded-lg p-4" *ngIf="getTailwindBreakpoint() === 'sm'">
         <div class="flex items-center gap-2 mb-4">
           <i class="fas fa-tags text-accent-600 dark:text-accent-500"></i>
           <label
@@ -295,7 +355,7 @@
         Clear Filters
       </button>
       <button
-        (click)="applyAllTagsfromFilterModal(); applyFilters();"
+        (click)="applyAllTagsfromFilterModal(); applyFiltersFromModal();"
         class="cursor-pointer h-10 px-5 bg-primary-700 dark:bg-primary-500 text-white rounded-md text-sm font-medium hover:bg-primary-800 dark:hover:bg-primary-600"
       >
         Apply Filters
@@ -303,3 +363,4 @@
     </div>
   </div>
 </div>
+
