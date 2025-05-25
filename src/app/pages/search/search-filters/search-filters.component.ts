@@ -68,6 +68,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   private searchSubject = new Subject<string>();
   selectedTags: string[] = [];
+  allTags: string[] = [];
   selectedSeasons: string[] = [];
   selectedDurationId: string = ''; // id from durations array
   minHours: number = 0;
@@ -223,6 +224,20 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     }
 
     this.applyFilters();
+  }
+
+  toggleAllTagsfromFilterModal(tagId: string) {
+     this.allTags=this.selectedTags;
+    if (this.allTags.includes(tagId)) {
+      this.allTags = this.allTags.filter((tag:any) => tag !== tagId);
+    } else {
+        this.allTags.push(tagId);
+    }
+  }
+
+  applyAllTagsfromFilterModal() {
+    this.showFilters = false; // Close the filter modal
+    this.selectedTags = this.allTags; // Apply all tags
   }
 
   toggleSeason(seasonId: string) {

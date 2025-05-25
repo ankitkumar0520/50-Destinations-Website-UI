@@ -25,7 +25,7 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-1.5">
+      <div class=" sm:flex hidden sm:flex-wrap gap-1.5">
         <button
           *ngFor="let tag of destinationTags | slice:0:23"
           (click)="toggleTag(tag.id)"
@@ -142,11 +142,11 @@
   class="fixed inset-0 bg-black/50 dark:bg-black/70 z-50 flex items-center justify-center px-4"
 >
   <div
-    class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col"
   >
-    <!-- Header -->
+    <!-- Header - Fixed -->
     <div
-      class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700"
+      class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0"
     >
       <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
         Filters
@@ -160,16 +160,19 @@
       </button>
     </div>
 
-    <!-- Body -->
-    <div class="p-6">
+    <!-- Body - Scrollable -->
+    <div class="p-6 overflow-y-auto flex-grow">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Sort By -->
-        <div class="space-y-2">
-          <label
-            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            Sort By
-          </label>
+        <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-4">
+            <i class="fas fa-sort text-accent-600 dark:text-accent-500"></i>
+            <label
+              class="text-base font-semibold text-gray-800 dark:text-gray-200"
+            >
+              Sort By
+            </label>
+          </div>
           <select
             [(ngModel)]="selectedSort"
             class="w-full h-10 px-3 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
@@ -182,12 +185,15 @@
         </div>
 
         <!-- Best Season -->
-        <div class="space-y-2">
-          <label
-            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            Best Season
-          </label>
+        <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-4">
+            <i class="fas fa-calendar-alt text-accent-600 dark:text-accent-500"></i>
+            <label
+              class="text-base font-semibold text-gray-800 dark:text-gray-200"
+            >
+              Best Season
+            </label>
+          </div>
           <div class="grid grid-cols-1 gap-1.5">
             <button
               *ngFor="let season of seasons"
@@ -216,12 +222,15 @@
         </div>
 
         <!-- Duration -->
-        <div class="space-y-2">
-          <label
-            class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            Duration
-          </label>
+        <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-4">
+            <i class="fas fa-clock text-accent-600 dark:text-accent-500"></i>
+            <label
+              class="text-base font-semibold text-gray-800 dark:text-gray-200"
+            >
+              Duration
+            </label>
+          </div>
           <div class="grid grid-cols-1 gap-1.5">
             <button
               *ngFor="let duration of durations"
@@ -245,11 +254,39 @@
           </div>
         </div>
       </div>
+
+      <!-- Destination Tags -->
+      <div class="sm:hidden mt-6 bg-gray-50 dark:bg-gray-900/20 rounded-lg p-4">
+        <div class="flex items-center gap-2 mb-4">
+          <i class="fas fa-tags text-accent-600 dark:text-accent-500"></i>
+          <label
+            class="text-base font-semibold text-gray-800 dark:text-gray-200"
+          >
+            Destination Tags
+          </label>
+        </div>
+
+        <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-1.5">
+          <button
+            *ngFor="let tag of destinationTags | slice:0:23"
+            (click)="toggleAllTagsfromFilterModal(tag.id)"
+            class="flex items-center gap-1 md:gap-1.5 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors whitespace-nowrap overflow-hidden text-ellipsis max-w-full"
+            [ngClass]="
+              selectedTags.includes(tag.id)
+                ? 'bg-accent-600 dark:bg-accent-500 text-white shadow-sm'
+                : 'cursor-pointer bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900/20'
+            "
+          >
+            <i [class]="'fas ' + tag.icon + ' w-3 h-3 mr-0.5'"> </i>
+            {{ tag.name.split(" ").slice(0, 3).join(" ") }}
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer - Fixed -->
     <div
-      class="flex justify-end items-center px-6 py-4 border-t border-gray-200 dark:border-gray-700 gap-3"
+      class="flex justify-end items-center px-6 py-4 border-t border-gray-200 dark:border-gray-700 gap-3 flex-shrink-0"
     >
       <button
         (click)="clearFilters()"
@@ -258,7 +295,7 @@
         Clear Filters
       </button>
       <button
-        (click)="applyFilters(); showFilters = false"
+        (click)="applyAllTagsfromFilterModal(); applyFilters();"
         class="cursor-pointer h-10 px-5 bg-primary-700 dark:bg-primary-500 text-white rounded-md text-sm font-medium hover:bg-primary-800 dark:hover:bg-primary-600"
       >
         Apply Filters
