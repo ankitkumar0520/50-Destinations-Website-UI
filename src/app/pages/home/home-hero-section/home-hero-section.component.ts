@@ -27,6 +27,7 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
   private handleAppInstalled: (() => void) | null = null;
   private cleanupTimeout: any;
   showInstallPopupIos=false;
+  noDestinationsFound = false;
 
   private searchTimeout: any;
 
@@ -129,6 +130,7 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
   }
 
   onSearchQueryChange() {
+    this.noDestinationsFound = false;
     // Clear previous timeout
     if (this.searchTimeout) {
       clearTimeout(this.searchTimeout);
@@ -144,23 +146,31 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
           )
           .subscribe({
             next: (response: any) => {
-              this.filteredDestinations = response.map((dest: any) => ({
-                name: dest.destinationname,
-                image:
+              if(response.length > 0){
+                this.filteredDestinations = response.map((dest: any) => ({
+                  name: dest.destinationname,
+                  image:
                   dest?.media[0]?.mediaurl,
                 slug: dest.slug,
               }));
-              this.showDropdown = this.filteredDestinations.length > 0;
+               this.showDropdown = true;
+              }else{
+                this.filteredDestinations = [];
+                this.showDropdown = false;
+                this.noDestinationsFound = true;
+              }
             },
             error: (error) => {
               console.error('Error fetching destinations:', error);
               this.filteredDestinations = [];
               this.showDropdown = false;
+              this.noDestinationsFound = true;
             },
           });
       } else {
         this.filteredDestinations = [];
         this.showDropdown = false;
+        this.noDestinationsFound = true;
       }
     }, 300); // 300ms debounce time
   }
