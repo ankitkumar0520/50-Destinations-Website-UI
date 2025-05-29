@@ -36,7 +36,7 @@ export class FaqsComponent implements OnInit {
     {
       id: 'general',
       title: 'General FAQ',
-      iconColor: 'text-amber-500',
+      iconColor: 'text-blue-500',
       description:
         'Frequently asked questions about destinations, districts, travel, and more.',
       items: [
@@ -72,13 +72,15 @@ export class FaqsComponent implements OnInit {
         },
         {
           id: 'general6',
-          question: 'Are children and elderly visitors advised to travel to high-altitude areas?',
+          question:
+            'Are children and elderly visitors advised to travel to high-altitude areas?',
           answer:
             'It’s recommended to consult a doctor before traveling to high-altitude areas like Gurudongmar or Nathula, especially for young children, elderly travelers, or those with health conditions due to risk of altitude sickness.',
         },
         {
           id: 'general7',
-          question: 'Can I explore destinations on my own or do I need a guide?',
+          question:
+            'Can I explore destinations on my own or do I need a guide?',
           answer:
             'While many destinations are self-explorable, for protected or remote areas, hiring a registered travel guide or agency is recommended or required.',
         },
@@ -99,7 +101,7 @@ export class FaqsComponent implements OnInit {
     {
       id: 'travel',
       title: 'Travel Information',
-      iconColor: 'text-blue-500',
+      iconColor: 'text-green-500',
       description:
         'Information about transportation, travel tips, and getting to destinations.',
       items: [
@@ -146,7 +148,7 @@ export class FaqsComponent implements OnInit {
           id: 'facilities2',
           question: 'Are there police stations near the destinations?',
           answer:
-            "Yes, most tourist destinations have police stations or booths nearby for security. You can find the contact details of the nearest police station on the destination page.",
+            'Yes, most tourist destinations have police stations or booths nearby for security. You can find the contact details of the nearest police station on the destination page.',
         },
         {
           id: 'facilities3',
@@ -168,7 +170,8 @@ export class FaqsComponent implements OnInit {
         },
         {
           id: 'facilities6',
-          question: 'Are first aid or emergency services available at tourist spots?',
+          question:
+            'Are first aid or emergency services available at tourist spots?',
           answer:
             'Basic healthcare or first-aid support is available in most districts. Emergency contact details are provided on each destination page where applicable.',
         },
@@ -187,7 +190,11 @@ export class FaqsComponent implements OnInit {
       ],
     },
   ];
-  
+
+  getColorClass(iconColor: string): string {
+    const match = iconColor.match(/text-([a-z]+)-/);
+    return match ? match[1] : 'primary';
+  }
 
   allFaqItems: FaqItem[] = [];
 

@@ -21,33 +21,39 @@
       </div>
     </div>
 
-    <div class="absolute -bottom-6 left-0 right-0 flex justify-center">
+    <div class="absolute -bottom-4 left-0 right-0 flex justify-center">
       <div
-        class="sm:grid sm:grid-cols-3 gap-2 bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-2xl px-1.5 py-1.5 items-center border border-gray-200 dark:border-gray-700 max-w-full 
-               flex sm:block overflow-x-auto no-scrollbar whitespace-nowrap"
-        style="min-width: 0;"
+        class="sm:grid sm:grid-cols-3 gap-0 bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-full items-center max-w-full flex overflow-x-auto no-scrollbar whitespace-nowrap backdrop-blur-sm"
+        style="min-width: 0"
       >
-        <ng-container *ngFor="let category of faqCategories">
+        <ng-container
+          *ngFor="let category of faqCategories; let i = index; let last = last"
+        >
           <button
             (click)="toggleAccordion(category.id)"
-            class="inline-flex shadow-lg cursor-pointer items-center px-3 sm:px-3 py-2 sm:py-1 mx-1 rounded-full font-semibold 
-            text-base sm:text-lg transition-all duration-200 focus:outline-none focus:ring-2
-             focus:ring-primary-400 border-gray-300 border hover:scale-[1.04] active:scale-100"
-            [ngClass]="activeAccordion === category.id
-              ? 'bg-primary-500 text-white dark:bg-primary-700 dark:text-white border-primary-500 dark:border-primary-400 shadow-lg'
-              : 'bg-white text-primary-600 dark:bg-gray-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-800 border-gray-200 dark:border-gray-700'"
-            style="transition: box-shadow 0.2s, background 0.2s, color 0.2s, border 0.2s, transform 0.15s;"
+            class="inline-flex items-center px-3 py-1 font-semibold text-sm sm:text-base transition-all duration-200 active:scale-95"
+            [ngClass]="[
+              activeAccordion === category.id
+                ? 'bg-' +
+                  getColorClass(category.iconColor) +
+                  '-500 text-white shadow-md pointer-events-none'
+                : 'text-' + getColorClass(category.iconColor) + '-500',
+              i === 0
+                ? 'rounded-l-full rounded-r-none'
+                : last
+                ? 'rounded-r-full rounded-l-none'
+                : 'rounded-none border-l-0'
+            ]"
           >
-            <i class="fas mr-2 text-lg sm:text-xl" [ngClass]="getFaIconClass(category.id)"></i>
+            <i
+              class="fas mr-2 text-sm sm:text-base"
+              [ngClass]="getFaIconClass(category.id)"
+            ></i>
             <span>{{ category.title }}</span>
           </button>
         </ng-container>
       </div>
     </div>
-    
-   
-
-
   </div>
 
   <!-- Main Content -->
@@ -55,8 +61,7 @@
     <!-- Search Bar -->
     <div class="max-w-3xl mx-auto mb-8 sm:mb-12">
       <div
-        class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 
-        flex flex-col sm:flex-row items-start sm:items-center p-1"
+        class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-start sm:items-center p-1"
       >
         <div class="flex-1 flex items-center px-4 w-full">
           <i class="fas fa-search text-gray-400 mr-3 flex-shrink-0"></i>
@@ -168,8 +173,11 @@
             class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center"
           >
             <i
-              class="fas mr-2 text-primary-500 dark:text-primary-400"
-              [ngClass]="getFaIconClass(category.id)"
+              class="fas mr-2"
+              [ngClass]="[
+                getFaIconClass(category.id),
+                'text-' + getColorClass(category.iconColor) + '-400'
+              ]"
             ></i>
             {{ category.title }}
           </h2>

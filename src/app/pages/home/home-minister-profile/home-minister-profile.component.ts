@@ -20,8 +20,8 @@ interface Official {
   designation: string;
   fullMessage: string;
   media: any;
+  imageLoaded?: boolean;
 }
-
 
 @Component({
   selector: 'app-home-minister-profile',
@@ -36,6 +36,11 @@ interface Official {
       state('*', style({ opacity: 1, transform: 'scale(1)' })),
       transition('void <=> *', [animate('200ms ease-out')]),
     ]),
+    trigger('fadeIn', [
+      state('false', style({ opacity: 0 })),
+      state('true', style({ opacity: 1 })),
+      transition('false => true', animate('500ms ease-in')),
+    ]),
   ],
 })
 export class HomeMinisterProfileComponent implements OnInit {
@@ -43,6 +48,8 @@ export class HomeMinisterProfileComponent implements OnInit {
   selectedMinister: any = null;
   showModal: boolean = false;
   baseUrl = '';
+  isLoading: boolean = true;
+  isSwiperReady: boolean = false;
 
   ministers: Official[] = [];
 
@@ -50,22 +57,26 @@ export class HomeMinisterProfileComponent implements OnInit {
 
   ngOnInit() {
     this.getTestimonials();
+    // Listen for when custom elements are defined
+    customElements.whenDefined('swiper-container').then(() => {
+      this.isSwiperReady = true;
+    });
   }
 
   openModal(minister: any) {
     this.selectedMinister = minister;
     this.showModal = true;
-    document.body.style.overflow = 'hidden'; // Disable scroll
+    document.body.style.overflow = 'hidden';
   }
 
   closeModal() {
     this.showModal = false;
     this.selectedMinister = null;
-    document.body.style.overflow = 'auto'; // Enable scroll
+    document.body.style.overflow = 'auto';
   }
 
-  // Commented out API method
   getTestimonials() {
+    this.isLoading = true;
     this.apiService.get('LandingPage/GetAllTestimonials').subscribe({
       next: (response: any) => {
         if (response.data.length > 0) {
@@ -77,32 +88,12 @@ export class HomeMinisterProfileComponent implements OnInit {
             media: min.media,
           }));
         }
+        this.isLoading = false;
       },
       error: (error: any) => {
         console.error('Error fetching testimonials:', error);
+        this.isLoading = false;
       },
     });
-  }
-
-  handleCarouselClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-
-    // Check if the clicked element is a 'Read More' button
-    if (target && target.classList.contains('read-more-btn')) {
-      // Get the 'data-id' attribute (minister's name)
-      const ministerName = target.getAttribute('data-id');
-
-      if (ministerName) {
-        // Find the minister object from the list of ministers using the name
-        const minister = this.ministers.find(
-          (min: any) => min.name === ministerName
-        );
-
-        if (minister) {
-          // Pass the whole minister object to the modal
-          this.openModal(minister);
-        }
-      }
-    }
   }
 }

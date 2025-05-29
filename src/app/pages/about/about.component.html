@@ -27,21 +27,38 @@
     </div>
 
     <!-- Navigation Tabs -->
-    <div class="absolute -bottom-6 left-0 right-0 flex justify-center">
-      <div class="sm:grid-cols-4 gap-y-4 bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-2xl
-       px-1.5 py-1.5 items-center border border-gray-200 dark:border-gray-700 max-w-full 
-           flex sm:block overflow-x-auto no-scrollbar whitespace-nowrap" style="min-width: 0;">
-        <ng-container *ngFor="let tab of aboutTabs">
-          <button (click)="scrollToSection(tab.id)"
-            class="inline-flex shadow-lg cursor-pointer items-center px-3 sm:px-3 py-1 sm:py-1 mx-1 rounded-full font-semibold 
-            text-base sm:text-lg transition-all duration-200 focus:outline-none focus:ring-2
-            focus:ring-primary-400 border-gray-300 border hover:scale-[1.04] active:scale-100"
-            [ngClass]="activeTab === tab.id
-              ? 'bg-primary-500 text-white dark:bg-primary-700 dark:text-white border-primary-500 dark:border-primary-400 shadow-lg'
-              : 'bg-white text-primary-600 dark:bg-gray-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-800 border-gray-200 dark:border-gray-700'"
-            style="transition: box-shadow 0.2s, background 0.2s, color 0.2s, border 0.2s, transform 0.15s;">
+    <div class="absolute -bottom-4 left-0 right-0 flex justify-center">
+      <div
+        class="sm:grid-cols-4 gap-0 bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-full items-center max-w-full flex sm:block overflow-x-auto no-scrollbar whitespace-nowrap"
+        style="min-width: 0"
+      >
+        <ng-container
+          *ngFor="let tab of aboutTabs; let i = index; let last = last"
+        >
+          <button
+            (click)="scrollToSection(tab.id)"
+            class="inline-flex shadow-lg cursor-pointer items-center px-3 sm:px-3 py-1 sm:py-1 rounded-full font-semibold text-base sm:text-lg transition-all duration-200"
+            [ngClass]="[
+              activeTab === tab.id
+                ? 'bg-' +
+                  tab.color +
+                  '-500 text-white shadow-md pointer-events-none'
+                : 'text-' + tab.color + '-500 opacity-90 hover:opacity-100',
+              i === 0 && !last
+                ? 'sm:rounded-l-xl rounded-r-none'
+                : last && i !== 0
+                ? 'sm:rounded-r-xl rounded-l-none'
+                : i === 0 && last
+                ? 'rounded-xl'
+                : 'rounded-none'
+            ]"
+            style="
+              transition: box-shadow 0.2s, background 0.2s, color 0.2s,
+                border 0.2s, transform 0.15s;
+            "
+          >
             <i class="fas mr-2 text-lg sm:text-xl" [ngClass]="tab.icon"></i>
-            <span>{{ tab.title }}</span>
+            <span class="text-sm sm:text-base">{{ tab.title }}</span>
           </button>
         </ng-container>
       </div>
@@ -135,13 +152,14 @@
                   class="p-1 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-secondary-50 dark:hover:bg-secondary-900/20 transition-all duration-300 group cursor-pointer"
                 >
                   <h3
-                    class="font-medium text-gray-800 dark:text-gray-100 group-hover:text-secondary-700
-                     dark:group-hover:text-secondary-300 flex items-center"
+                    class="font-medium text-gray-800 dark:text-gray-100 group-hover:text-secondary-700 dark:group-hover:text-secondary-300 flex items-center"
                   >
-                    <i class="fas fa-map-pin text-secondary-500 mr-2 text-sm"></i>
+                    <i
+                      class="fas fa-map-pin text-secondary-500 mr-2 text-sm"
+                    ></i>
                     {{ district.name }}
                   </h3>
-                  <p class="text-sm text-gray-600 dark:text-gray-300  ml-6">
+                  <p class="text-sm text-gray-600 dark:text-gray-300 ml-6">
                     {{ district.description }}
                   </p>
                 </div>

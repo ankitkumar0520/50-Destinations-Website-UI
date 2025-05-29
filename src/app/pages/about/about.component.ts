@@ -26,9 +26,24 @@ export class AboutComponent implements OnInit {
   navbarHeight = 70;
 
   aboutTabs = [
-    { id: 'features-section', title: 'Features', icon: 'fa-clipboard-list' },
-    { id: 'districts-section', title: 'Districts', icon: 'fa-map-marker-alt' },
-    { id: 'experience-section', title: 'Experience', icon: 'fa-star' }
+    {
+      id: 'features-section',
+      title: 'Features',
+      icon: 'fa-clipboard-list',
+      color: 'blue',
+    },
+    {
+      id: 'districts-section',
+      title: 'Districts',
+      icon: 'fa-map-marker-alt',
+      color: 'green',
+    },
+    {
+      id: 'experience-section',
+      title: 'Experience',
+      icon: 'fa-star',
+      color: 'amber',
+    },
   ];
 
   constructor() {}
@@ -39,16 +54,14 @@ export class AboutComponent implements OnInit {
   }
 
   getAboutPageDetails() {
-    this.apiService
-      .get('LandingPage/GetAboutPageDetails')
-      .subscribe({
-        next:(res:any)=>{
-          //handle response here
-        },
-        error:(err:any)=>{
-          console.log(err);
-        }
-      });
+    this.apiService.get('LandingPage/GetAboutPageDetails').subscribe({
+      next: (res: any) => {
+        //handle response here
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
   }
 
   private initializeData() {
@@ -58,58 +71,57 @@ export class AboutComponent implements OnInit {
       'Real-time updates and notifications',
       'User-friendly interface',
       'Offline access to essential information',
-      'Multilingual support'
+      'Multilingual support',
     ];
 
     this.districts = [
       {
         name: 'Gangtok District',
-        description: 'Capital city with vibrant urban culture'
+        description: 'Capital city with vibrant urban culture',
       },
       {
         name: 'Pakyong District',
-        description: 'Known for airport and scenic views'
+        description: 'Known for airport and scenic views',
       },
       {
         name: 'Namchi District',
-        description: 'Spiritual hub with famous religious sites'
+        description: 'Spiritual hub with famous religious sites',
       },
       {
         name: 'Gyalshing District',
-        description: 'Monasteries, trekking, and peaceful landscapes'
+        description: 'Monasteries, trekking, and peaceful landscapes',
       },
       {
         name: 'Mangan District',
-        description: 'Snowy mountains and high-altitude beauty'
+        description: 'Snowy mountains and high-altitude beauty',
       },
       {
         name: 'Soreng District',
-        description: 'New district with rural scenic charm'
-      }
+        description: 'New district with rural scenic charm',
+      },
     ];
-    
 
     this.features = [
       {
         title: 'Virtual Tours',
         description: 'Explore destinations through immersive 360° views',
-        iconClass: 'fa-vr-cardboard'
+        iconClass: 'fa-vr-cardboard',
       },
       {
         title: 'Local Guides',
         description: 'Connect with experienced local guides',
-        iconClass: 'fa-user-tie'
+        iconClass: 'fa-user-tie',
       },
       {
         title: 'Travel Tips',
         description: 'Get insider tips and recommendations',
-        iconClass: 'fa-lightbulb'
+        iconClass: 'fa-lightbulb',
       },
       {
         title: 'Weather Updates',
         description: 'Real-time weather information for planning',
-        iconClass: 'fa-cloud-sun'
-      }
+        iconClass: 'fa-cloud-sun',
+      },
     ];
   }
 
@@ -119,7 +131,11 @@ export class AboutComponent implements OnInit {
   }
 
   checkActiveSection() {
-    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const scrollPosition =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
 
     for (const tab of this.aboutTabs) {
       const element = document.getElementById(tab.id);
@@ -127,8 +143,10 @@ export class AboutComponent implements OnInit {
         const offsetTop = element.offsetTop;
         const offsetHeight = element.offsetHeight;
 
-        if (scrollPosition >= offsetTop - this.navbarHeight && 
-            scrollPosition < offsetTop + offsetHeight - this.navbarHeight) {
+        if (
+          scrollPosition >= offsetTop - this.navbarHeight &&
+          scrollPosition < offsetTop + offsetHeight - this.navbarHeight
+        ) {
           this.activeTab = tab.id;
           break;
         }

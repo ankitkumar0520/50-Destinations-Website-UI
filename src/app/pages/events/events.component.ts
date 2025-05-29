@@ -27,7 +27,7 @@ interface News {
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, NgxPaginationModule]
+  imports: [CommonModule, FormsModule, NgxPaginationModule],
 })
 export class EventsComponent implements OnInit {
   eventService: EventService = inject(EventService);
@@ -36,8 +36,8 @@ export class EventsComponent implements OnInit {
   // Tab related properties
   activeTab: string = 'events';
   tabs = [
-    { id: 'events', title: 'Events', icon: 'fa-calendar-alt' },
-    { id: 'news', title: 'News', icon: 'fa-newspaper' }
+    { id: 'events', title: 'Events', icon: 'fa-calendar-alt', color: 'green' },
+    { id: 'news', title: 'News', icon: 'fa-newspaper', color: 'red' },
   ];
 
   // Events related properties
@@ -72,23 +72,25 @@ export class EventsComponent implements OnInit {
   // Events related methods
   filterEvents(): void {
     this.p = 1;
-    
+
     if (!this.searchTerm) {
       this.filteredEvents = [...this.events];
       return;
     }
-  
+
     const searchLower = this.searchTerm.toLowerCase();
-  
-    this.filteredEvents = this.events.filter(event => {
-      const eventDateString = event.date.toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      }).toLowerCase();
+
+    this.filteredEvents = this.events.filter((event) => {
+      const eventDateString = event.date
+        .toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+        .toLowerCase();
       const eventLocationString = event.location.toLowerCase();
-  
+
       return (
         event.name.toLowerCase().includes(searchLower) ||
         eventLocationString.includes(searchLower) ||
@@ -99,7 +101,7 @@ export class EventsComponent implements OnInit {
 
   filterAndSortEvents(events: Event[]): Event[] {
     return events
-      .filter(event => {
+      .filter((event) => {
         const eventDate = new Date(event.date);
         return !isNaN(eventDate.getTime());
       })
@@ -109,22 +111,24 @@ export class EventsComponent implements OnInit {
   // News related methods
   filterNews(): void {
     this.p = 1;
-    
+
     if (!this.searchTerm) {
       this.filteredNews = [...this.news];
       return;
     }
-  
+
     const searchLower = this.searchTerm.toLowerCase();
-  
-    this.filteredNews = this.news.filter(news => {
-      const newsDateString = news.date.toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      }).toLowerCase();
-  
+
+    this.filteredNews = this.news.filter((news) => {
+      const newsDateString = news.date
+        .toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+        .toLowerCase();
+
       return (
         news.title.toLowerCase().includes(searchLower) ||
         news.content.toLowerCase().includes(searchLower) ||
@@ -135,13 +139,12 @@ export class EventsComponent implements OnInit {
 
   filterAndSortNews(news: News[]): News[] {
     return news
-      .filter(item => {
+      .filter((item) => {
         const newsDate = new Date(item.date);
         return !isNaN(newsDate.getTime());
       })
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
-
 
   isUpcomingEvent(eventDate: string | Date): boolean {
     return new Date(eventDate) > this.today;
@@ -162,10 +165,13 @@ export class EventsComponent implements OnInit {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    
+
     if (date > tomorrow) {
       return 'upcoming';
-    } else if (date <= today && date >= new Date(today.setDate(today.getDate() - 1))) {
+    } else if (
+      date <= today &&
+      date >= new Date(today.setDate(today.getDate() - 1))
+    ) {
       return 'ongoing';
     } else {
       return 'ended';
@@ -174,7 +180,7 @@ export class EventsComponent implements OnInit {
 
   viewEventDetails(event: Event): void {
     // TODO: Implement event details view
-   // console.log('Viewing event details:', event);
+    // console.log('Viewing event details:', event);
   }
 
   openNewsModal(news: News): void {
@@ -191,7 +197,7 @@ export class EventsComponent implements OnInit {
     // Scroll to top smoothly
     window.scrollTo({
       top: 60,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
 }

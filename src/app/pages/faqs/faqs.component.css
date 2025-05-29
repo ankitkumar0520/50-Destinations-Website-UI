@@ -73,10 +73,6 @@ button {
   transition: transform 0.1s ease;
 }
 
-button:hover {
-  transform: translateY(-1px);
-}
-
 /* Dark mode transitions */
 .dark {
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -101,8 +97,10 @@ html {
 }
 
 /* Clean box shadow */
-.shadow-md, .shadow-lg {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+.shadow-md,
+.shadow-lg {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 /* Animation for category icons */
@@ -127,6 +125,6 @@ html {
   display: none;
 }
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

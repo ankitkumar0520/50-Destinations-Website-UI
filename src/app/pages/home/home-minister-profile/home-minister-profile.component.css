@@ -1,3 +1,47 @@
 .minister-profile > * {
   z-index: 0 !important;
 }
+
+swiper-container:not(:defined) {
+  display: block;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+swiper-container {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+swiper-container.defined {
+  opacity: 1;
+  transition: 1s 0.3s ease forwards;
+}
+
+.minister-carousel {
+  min-height: 300px;
+}
+
+.read-more-btn {
+  position: relative;
+}
+
+.read-more-btn::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.read-more-btn:hover::after {
+  width: 100%;
+}
+
+.c-hidden {
+  opacity: 0;
+}
