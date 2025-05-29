@@ -366,6 +366,9 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
       this.selectedTags = [];
     }
     this.applyFilters();
+
+
+    this.toggleFilters();
   }
 
   /**
