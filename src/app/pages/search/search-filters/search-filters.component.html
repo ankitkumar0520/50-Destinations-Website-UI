@@ -338,8 +338,8 @@
             "
           >
             <i [class]="'fas ' + tag.icon + ' w-3 h-3 mr-0.5 flex-shrink-0'"> </i>
-            <div class="filter-modal-tag-marquee">
-              <span>{{ tag.name.split(" ").slice(0, 3).join(" ") }}</span>
+            <div class="marquee flex-1 min-w-0 max-w-full">
+              <span class="marquee-content">{{ tag.name.split(" ").slice(0, 3).join(" ") }}</span>
             </div>
           </button>
         </div>

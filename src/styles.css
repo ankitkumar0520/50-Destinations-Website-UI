@@ -280,3 +280,71 @@ body {
   display: none;
   pointer-events: none;
 }
+
+/* Responsive Marquee Effect */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+.marquee-content {
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+}
+
+/* Only apply animation when content overflows */
+.marquee-content.overflow {
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Pause animation on hover */
+.marquee:hover .marquee-content.overflow {
+  animation-play-state: paused;
+}
+
+/* Responsive breakpoints for marquee */
+@media (min-width: 640px) {
+  .sm\:marquee {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:marquee {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:marquee {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Utility class to check for overflow */
+.overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

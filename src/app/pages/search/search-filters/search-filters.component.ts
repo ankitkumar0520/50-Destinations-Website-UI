@@ -6,6 +6,9 @@ import {
   PLATFORM_ID,
   OnDestroy,
   Inject,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
@@ -50,7 +53,10 @@ interface Season {
   templateUrl: './search-filters.component.html',
   styleUrl: './search-filters.component.css',
 })
-export class SearchFiltersComponent implements OnInit, OnDestroy {
+export class SearchFiltersComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('marqueeContainer') marqueeContainer!: ElementRef;
+  @ViewChild('marqueeContent') marqueeContent!: ElementRef;
+
   // UI State Management
   showFilters = false;  // Controls visibility of filter modal
   isDarkMode = false;   // Tracks dark/light mode state
@@ -286,6 +292,11 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    */
   toggleFilters() {
     this.showFilters = !this.showFilters;
+    if (this.showFilters) {
+      setTimeout(() => {
+        this.checkOverflow();
+      });
+    }
     if(this.showFilters){
       document.body.style.overflow = 'hidden';
     }else{
@@ -415,6 +426,10 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
       min_durationinhrs: selected?.min ?? 0,
       max_durationinhrs: selected?.max ?? 9999,
     });
+
+    setTimeout(() => {
+      this.checkOverflow();
+    });
   }
 
   /**
@@ -506,5 +521,32 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       window.removeEventListener('resize', () => this.updateBreakpoint());
     }
+  }
+
+  ngAfterViewInit() {
+    // Check for overflow after view is initialized
+    setTimeout(() => {
+      this.checkOverflow();
+    });
+  }
+
+  checkOverflow() {
+    const containers = document.querySelectorAll('.marquee');
+    containers.forEach(container => {
+      const content = container.querySelector('.marquee-content');
+      if (content) {
+        // Remove overflow class first
+        content.classList.remove('overflow');
+        
+        // Get the computed width of the content and container
+        const contentWidth = content.getBoundingClientRect().width;
+        const containerWidth = container.getBoundingClientRect().width;
+        
+        // Add overflow class if content is wider than container
+        if (contentWidth > containerWidth) {
+          content.classList.add('overflow');
+        }
+      }
+    });
   }
 }
