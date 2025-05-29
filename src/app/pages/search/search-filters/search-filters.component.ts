@@ -60,7 +60,6 @@ export class SearchFiltersComponent implements OnInit, OnDestroy, AfterViewInit 
   // UI State Management
   showFilters = false;  // Controls visibility of filter modal
   isDarkMode = false;   // Tracks dark/light mode state
-  private platformId: Object;  // Platform identifier for SSR compatibility
   private currentBreakpoint: 'sm' | 'md' | 'lg' | 'xl' | '2xl' = 'lg';  // Current responsive breakpoint
 
   // Data Collections
@@ -92,16 +91,15 @@ export class SearchFiltersComponent implements OnInit, OnDestroy, AfterViewInit 
   // Service Injections
   private searchService = inject(SearchService);  // Search service for filter updates
   private route = inject(ActivatedRoute);  // Route service for URL parameters
-
+  private platformId = inject(PLATFORM_ID);  // Platform identifier for SSR compatibility
   /**
    * Constructor initializes the component with necessary services and sets up
    * dark mode detection and breakpoint tracking.
    */
   constructor(
-    private apiService: ApiService,
-    @Inject(PLATFORM_ID) platformId: Object
+      private apiService: ApiService,
   ) {
-    this.platformId = platformId;
+
     if (isPlatformBrowser(this.platformId)) {
       this.isDarkMode = window.matchMedia(
         '(prefers-color-scheme: dark)'
@@ -531,6 +529,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   checkOverflow() {
+    if (!isPlatformBrowser(this.platformId)) return;
     const containers = document.querySelectorAll('.marquee');
     containers.forEach(container => {
       const content = container.querySelector('.marquee-content');
