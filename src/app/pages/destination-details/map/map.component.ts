@@ -7,6 +7,7 @@ import {
   ViewChild,
   inject,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { DestinationService } from '../../../services/destination.service';
 import { SectionHeaderComponent } from '../../../common/section-header/section-header.component';
@@ -20,12 +21,13 @@ let L: any;
   standalone: true,
   imports: [CommonModule, SectionHeaderComponent],
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
   @ViewChild('mapContainer') mapContainer!: ElementRef;
   private map: L.Map | undefined;
   currentLayer: string = 'OpenStreetMap';
   private baseLayer: L.TileLayer | undefined;
   isLoading: boolean = true;
+  private leafletCssLoaded: boolean = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
@@ -77,6 +79,22 @@ export class MapComponent implements OnInit {
     },
   ];
 
+  private async loadLeafletCss(): Promise<void> {
+    if (!this.leafletCssLoaded && isPlatformBrowser(this.platformId)) {
+      return new Promise((resolve, reject) => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        link.onload = () => {
+          this.leafletCssLoaded = true;
+          resolve();
+        };
+        link.onerror = reject;
+        document.head.appendChild(link);
+      });
+    }
+  }
+
   ngOnInit(): void {
     this.destinationService.destination$.subscribe((dest) => {
       if (dest) {
@@ -84,6 +102,13 @@ export class MapComponent implements OnInit {
         this.initializeMap();
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.map) {
+      this.map.remove();
+      this.map = undefined;
+    }
   }
 
   openGoogleMaps(): void {
@@ -126,50 +151,47 @@ export class MapComponent implements OnInit {
     }, 500);
   }
 
-  initializeMap() {
+  async initializeMap() {
     if (isPlatformBrowser(this.platformId)) {
-      const lat = parseFloat(
-        this.destination?.latitude ?? this.fallback.latitude
-      );
-      const lng = parseFloat(
-        this.destination?.longitude ?? this.fallback.longitude
-      );
-      const isDataValid =
-        this.destination &&
-        !isNaN(lat) &&
-        Number.isFinite(lat) &&
-        !isNaN(lng) &&
-        Number.isFinite(lng);
+      try {
+        // Load Leaflet CSS first
+        await this.loadLeafletCss();
+        
+        // Then load Leaflet JS
+        const leaflet = await import('leaflet');
+        L = leaflet.default;
 
-      if (isDataValid) {
-        import('leaflet')
-          .then((leaflet) => {
-            L = leaflet.default;
-            try {
-              this.initMap(lat, lng);
-            } catch (mapError) {
-              console.error(
-                'MapComponent: Error during map initialization:',
-                mapError
-              );
-            }
-          })
-          .catch((err) => {
-            console.error('MapComponent: Error loading Leaflet:', err);
-            this.isLoading = false;
-          });
-      } else {
-        console.error(
-          'MapComponent: Map initialization skipped due to invalid or missing data.',
-          {
-            destinationExists: !!this.destination,
-            latitude: lat,
-            longitude: lng,
-            isLatFinite: Number.isFinite(lat),
-            isLngFinite: Number.isFinite(lng),
-            destinationData: this.destination,
-          }
+        const lat = parseFloat(
+          this.destination?.latitude ?? this.fallback.latitude
         );
+        const lng = parseFloat(
+          this.destination?.longitude ?? this.fallback.longitude
+        );
+        const isDataValid =
+          this.destination &&
+          !isNaN(lat) &&
+          Number.isFinite(lat) &&
+          !isNaN(lng) &&
+          Number.isFinite(lng);
+
+        if (isDataValid) {
+          this.initMap(lat, lng);
+        } else {
+          console.error(
+            'MapComponent: Map initialization skipped due to invalid or missing data.',
+            {
+              destinationExists: !!this.destination,
+              latitude: lat,
+              longitude: lng,
+              isLatFinite: Number.isFinite(lat),
+              isLngFinite: Number.isFinite(lng),
+              destinationData: this.destination,
+            }
+          );
+          this.isLoading = false;
+        }
+      } catch (err) {
+        console.error('MapComponent: Error loading Leaflet:', err);
         this.isLoading = false;
       }
     } else {

@@ -8,7 +8,6 @@ import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.co
 import { TermServicesComponent } from './pages/term-services/term-services.component';
 import { EventsComponent } from './pages/events/events.component';
 import { HeritageWalkComponent } from './pages/heritage-walk/heritage-walk.component';
-import { ViewPdfComponent } from './pages/events/view-pdf/view-pdf.component';
 import { QrGeneratorComponent } from './qr-generator/qr-generator.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
@@ -34,7 +33,6 @@ export const routes: Routes = [
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'terms-of-service', component: TermServicesComponent },
   { path: 'heritage-walk', component: HeritageWalkComponent },
-  { path: 'view-pdf', component: ViewPdfComponent },
   { path: 'qr-generator', component: QrGeneratorComponent },
 
   // Wildcard route for 404 page
