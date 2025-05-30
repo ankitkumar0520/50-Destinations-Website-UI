@@ -332,7 +332,7 @@
             (click)="toggleAllTagsfromFilterModal(tag.id)"
             class="flex items-center gap-1 md:gap-1.5 px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors"
             [ngClass]="
-              selectedTags.includes(tag.id)
+              allTags.includes(tag.id)
                 ? 'bg-accent-600 dark:bg-accent-500 text-white shadow-sm'
                 : 'cursor-pointer bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900/20'
             "

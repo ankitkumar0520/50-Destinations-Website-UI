@@ -291,6 +291,8 @@ export class SearchFiltersComponent implements OnInit, OnDestroy, AfterViewInit 
   toggleFilters() {
     this.showFilters = !this.showFilters;
     if (this.showFilters) {
+      // Initialize allTags only when opening the modal
+      this.allTags = [...this.selectedTags];
       setTimeout(() => {
         this.checkOverflow();
       });
@@ -312,7 +314,6 @@ export class SearchFiltersComponent implements OnInit, OnDestroy, AfterViewInit 
     } else {
       this.selectedTags.push(tagId);
     }
-
     this.applyFilters();
   }
 
@@ -320,12 +321,11 @@ export class SearchFiltersComponent implements OnInit, OnDestroy, AfterViewInit 
    * Toggles a tag selection in the filter modal
    * @param tagId The ID of the tag to toggle
    */
-  toggleAllTagsfromFilterModal(tagId: string) {
-     this.allTags=this.selectedTags;
-    if (this.allTags.includes(tagId)) {
+  toggleAllTagsfromFilterModal(tagId: string='') {
+    if (this.allTags.includes(tagId) && tagId!='') {
       this.allTags = this.allTags.filter((tag:any) => tag !== tagId);
-    } else {
-        this.allTags.push(tagId);
+    } else if(tagId!=='') {
+      this.allTags.push(tagId);
     }
   }
 
@@ -396,13 +396,6 @@ export class SearchFiltersComponent implements OnInit, OnDestroy, AfterViewInit 
     this.clearFilters();
     this.applyFilters();
 
-  }
-
-  /**
-   * Applies all current filter selections
-   */
-  onSearch() {
-    this.applyFilters();
   }
 
   /**
