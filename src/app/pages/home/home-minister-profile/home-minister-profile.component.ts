@@ -3,8 +3,10 @@ import {
   OnInit,
   inject,
   CUSTOM_ELEMENTS_SCHEMA,
+  Inject,
+  PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ApiService } from '../../../services/api.service';
 import { ImageService } from '../../../services/image.service';
 import {
@@ -53,16 +55,23 @@ export class HomeMinisterProfileComponent implements OnInit {
 
   ministers: Official[] = [];
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit() {
     this.getTestimonials();
-    // Listen for when custom elements are defined
-    customElements.whenDefined('swiper-container').then(() => {
-      this.isSwiperReady = true;
-    });
+    if (this.isBrowser()) {
+      customElements.whenDefined('swiper-container').then(() => {
+        this.isSwiperReady = true;
+      });
+    }
   }
 
+  isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
   openModal(minister: any) {
     this.selectedMinister = minister;
     this.showModal = true;

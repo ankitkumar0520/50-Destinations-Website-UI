@@ -29,8 +29,7 @@
     <!-- Navigation Tabs -->
     <div class="absolute -bottom-4 left-0 right-0 flex justify-center">
       <div
-        class="sm:grid-cols-4 gap-0 bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-full items-center max-w-full flex
-         sm:block overflow-x-auto no-scrollbar whitespace-nowrap"
+        class="sm:grid-cols-4 gap-0 bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-full items-center max-w-full flex sm:block overflow-x-auto no-scrollbar whitespace-nowrap"
         style="min-width: 0"
       >
         <ng-container
@@ -38,8 +37,7 @@
         >
           <button
             (click)="scrollToSection(tab.id)"
-            class="inline-flex shadow-lg cursor-pointer items-center px-3 
-            sm:px-3 py-2 sm:py-3 rounded-full font-semibold text-base sm:text-lg transition-all duration-200"
+            class="inline-flex shadow-lg cursor-pointer items-center px-3 py-1.5 rounded-full font-semibold text-base sm:text-lg transition-all duration-200"
             [ngClass]="[
               activeTab === tab.id
                 ? 'bg-' +
@@ -60,7 +58,9 @@
             "
           >
             <i class="fas mr-2 text-lg sm:text-xl" [ngClass]="tab.icon"></i>
-            <span class="text-lg py-1 sm:py-0 sm:text-base">{{ tab.title }}</span>
+            <span class="text-lg py-1 sm:py-0 sm:text-base">{{
+              tab.title
+            }}</span>
           </button>
         </ng-container>
       </div>

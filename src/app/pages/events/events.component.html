@@ -22,14 +22,13 @@
 
     <div class="absolute -bottom-4 left-0 right-0 flex justify-center">
       <div
-        class="sm:grid sm:grid-cols-2 gap-0 bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-full items-center 
-        max-w-full flex overflow-x-auto no-scrollbar whitespace-nowrap backdrop-blur-sm"
+        class="sm:grid sm:grid-cols-2 gap-0 bg-white/95 dark:bg-gray-800/95 shadow-lg rounded-full items-center max-w-full flex overflow-x-auto no-scrollbar whitespace-nowrap backdrop-blur-sm"
         style="min-width: 0"
       >
         <ng-container *ngFor="let tab of tabs; let i = index; let last = last">
           <button
             (click)="switchTab(tab.id)"
-            class="inline-flex items-center px-3 sm:py-3 py-2 font-semibold text-lg sm:text-base transition-all duration-200 active:scale-95"
+            class="inline-flex items-center px-3 py-1.5 font-semibold text-lg sm:text-base transition-all duration-200 active:scale-95"
             [ngClass]="[
               activeTab === tab.id
                 ? 'bg-' +
@@ -199,7 +198,7 @@
       </div>
       <div class="mt-4 flex justify-center" *ngIf="filteredEvents.length > 0">
         <pagination-controls
-           [responsive]="true"
+          [responsive]="true"
           (pageChange)="p = $event; scrollToTop()"
         ></pagination-controls>
       </div>

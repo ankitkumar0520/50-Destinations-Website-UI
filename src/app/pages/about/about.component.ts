@@ -22,7 +22,7 @@ export class AboutComponent implements OnInit {
   projectHighlights: string[] = [];
   districts: any[] = [];
   features: any[] = [];
-  activeTab: string = 'about-section';
+  activeTab: string = 'features-section';
   navbarHeight = 70;
 
   aboutTabs = [
@@ -30,19 +30,19 @@ export class AboutComponent implements OnInit {
       id: 'features-section',
       title: 'Features',
       icon: 'fa-clipboard-list',
-      color: 'blue',
+      color: 'primary',
     },
     {
       id: 'districts-section',
       title: 'Districts',
       icon: 'fa-map-marker-alt',
-      color: 'green',
+      color: 'emerald',
     },
     {
       id: 'experience-section',
       title: 'Experience',
       icon: 'fa-star',
-      color: 'amber',
+      color: 'accent',
     },
   ];
 
@@ -127,7 +127,7 @@ export class AboutComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
-    this.checkActiveSection();
+    // this.checkActiveSection();
   }
 
   checkActiveSection() {

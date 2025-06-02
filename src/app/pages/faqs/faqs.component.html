@@ -31,7 +31,7 @@
         >
           <button
             (click)="toggleAccordion(category.id)"
-            class="inline-flex items-center border-r border-gray-300 dark:border-gray-700 px-3 py-1 font-semibold text-sm sm:text-base transition-all duration-200 active:scale-95"
+            class="inline-flex items-center border-r border-gray-300 dark:border-gray-700 px-3 py-1.5 font-semibold text-sm sm:text-base transition-all duration-200 active:scale-95"
             [ngClass]="[
               activeAccordion === category.id
                 ? 'bg-' +
@@ -46,7 +46,7 @@
             ]"
           >
             <i
-              class="fas mr-2 text-2xl sm:py-3 py-2 sm:text-base"
+              class="fas mr-2 text-2xl sm:text-base"
               [ngClass]="getFaIconClass(category.id)"
             ></i>
             <span>{{ category.title }}</span>
