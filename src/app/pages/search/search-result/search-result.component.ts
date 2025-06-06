@@ -1,9 +1,4 @@
-import {
-  Component,
-  Inject,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import {
@@ -108,7 +103,7 @@ export class SearchResultComponent implements OnInit {
 
     this.apiService
       .post(
-        'LandingPage/GetAllDestinationsBasicDetailsWithSearchParams',
+        'LandingPage/GetAllActiveDestinationsBasicDetailsWithSearchParams',
         this.payload
       )
       .pipe(finalize(() => (this.isLoading = false)))
@@ -200,15 +195,13 @@ export class SearchResultComponent implements OnInit {
   changePage(page: number) {
     this.searchService.updateFilters({ pageNumber: page });
     this.currentPage = page;
-    
-   
   }
 
   scrollToTop() {
     if (this.isBrowser()) {
       window.scrollTo({
         top: 150,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   }
