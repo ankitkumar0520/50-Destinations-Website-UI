@@ -162,85 +162,107 @@
             </div>
           </div>
         </div>
-
-        <!-- Mobile menu -->
-        <div
-          #mobileMenuContainer
-          [@mobileMenuAnimation]="isMobileMenuOpen ? 'open' : 'closed'"
-          [class]="isMobileMenuOpen ? 'block md:hidden' : 'hidden'"
-          class="border-t border-gray-200 dark:border-gray-700 overflow-hidden max-h-[calc(100vh-70px)]"
-        >
-          <div class="px-8 pt-4 pb-3 space-y-1 flex flex-col items-center">
-            <!-- Mobile Logos -->
-            <div class="mb-3 flex items-center justify-center space-x-4">
-              <!-- Sikkim Gov Logo -->
-              <img
-                class="h-10 w-auto drop-shadow-lg dark:filter dark:grayscale dark:invert dark:brightness(1.5)"
-                src="assets/Images/logo/gos.webp"
-                alt="Government of Sikkim"
-              />
-              <!-- Sunawlo Sikkim Logo -->
-              <img
-                class="h-10 w-auto drop-shadow-lg dark:filter dark:brightness(1.5)"
-                src="assets/Images/logo/statehood.png"
-                alt="Statehood"
-              />
-            </div>
-            <!-- Divider -->
-            <hr class="w-full border-gray-200 dark:border-gray-600 my-2" />
-
-            <a
-              routerLink="/"
-              routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
-              [routerLinkActiveOptions]="{ exact: true }"
-              class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
-              (click)="toggleMobileMenu()"
-            >
-              <i class="fas fa-home w-6 text-center mr-3"></i> Home
-            </a>
-            <a
-              routerLink="/destinations"
-              routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
-              class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
-              (click)="toggleMobileMenu()"
-            >
-              <i class="fas fa-map-marked-alt w-6 text-center mr-3"></i>
-              Destinations
-            </a>
-
-            
-            
-            <a
-            routerLink="/events"
-            routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
-            class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
-            (click)="toggleMobileMenu()"
-            >
-            <i class="fas fa-calendar-alt w-6 text-center mr-3"></i> Updates
-          </a>
-          
-          <a
-            routerLink="/about"
-            routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
-            class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
-            (click)="toggleMobileMenu()"
-          >
-            <i class="fas fa-info-circle w-6 text-center mr-3"></i> About
-          </a>
-          
-          <a
-            routerLink="/faqs"
-            routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
-            class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
-            (click)="toggleMobileMenu()"
-          >
-            <i class="fas fa-question-circle w-6 text-center mr-3"></i> Faqs
-          </a>
-
-
-        </div>
-        </div>
       </div>
     </div>
   </div>
 </nav>
+
+<!-- Mobile Sidebar and Backdrop OUTSIDE nav for full viewport coverage -->
+<div
+  *ngIf="isMobileMenuOpen"
+  class="fixed inset-0 bg-transparent z-[60]"
+  (click)="toggleMobileMenu()"
+></div>
+<div
+  #mobileMenuContainer
+  [@mobileMenuAnimation]="isMobileMenuOpen ? 'open' : 'closed'"
+  class="fixed top-0 right-0 h-screen w-72 max-w-[90vw] bg-white/80 dark:bg-gray-900/80 shadow-2xl z-[70] transition-transform duration-300 rounded-l-3xl border-l border-gray-300 dark:border-gray-700 backdrop-blur-lg"
+  style="will-change: transform;"
+>
+  <div class="px-8 pt-4 pb-3 space-y-1 flex flex-col items-center">
+    <!-- Mobile Logos -->
+    <div class="mb-6 flex items-center justify-center space-x-6">
+      <!-- Sikkim Gov Logo -->
+      <img
+        class="h-14 w-auto drop-shadow-lg dark:filter dark:grayscale dark:invert dark:brightness(1.5)"
+        src="assets/Images/logo/gos.webp"
+        alt="Government of Sikkim"
+      />
+      <!-- Sunawlo Sikkim Logo -->
+      <img
+        class="h-14 w-auto drop-shadow-lg dark:filter dark:brightness(1.5)"
+        src="assets/Images/logo/statehood.png"
+        alt="Statehood"
+      />
+    </div>
+    <!-- X Button -->
+    <button (click)="toggleMobileMenu()" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 bg-white/70 dark:bg-gray-900/70 rounded-full shadow transition-all z-50" aria-label="Close sidebar">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <!-- Divider -->
+    <hr class="w-full border-gray-200 dark:border-gray-600 my-2" />
+    <div class="flex flex-col w-full space-y-4">
+      <a
+        routerLink="/"
+        routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
+        (click)="toggleMobileMenu()"
+      >
+        <i class="fas fa-home w-6 text-center mr-3"></i> Home
+      </a>
+      <a
+        routerLink="/destinations"
+        routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
+        class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
+        (click)="toggleMobileMenu()"
+      >
+        <i class="fas fa-map-marked-alt w-6 text-center mr-3"></i>
+        Destinations
+      </a>
+      <a
+        routerLink="/events"
+        class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
+        (click)="toggleMobileMenu()"
+      >
+        <i class="fas fa-calendar-alt w-6 text-center mr-3"></i> Updates
+      </a>
+      <a
+        routerLink="/about"
+        routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
+        class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
+        (click)="toggleMobileMenu()"
+      >
+        <i class="fas fa-info-circle w-6 text-center mr-3"></i> About
+      </a>
+      <a
+        routerLink="/faqs"
+        routerLinkActive="bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300 font-semibold"
+        class="flex items-center px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-300 text-left w-full rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
+        (click)="toggleMobileMenu()"
+      >
+        <i class="fas fa-question-circle w-6 text-center mr-3"></i> Faqs
+      </a>
+    </div>
+    <!-- Social Media Footer absolutely at bottom -->
+    <div class="absolute left-0 right-0 bottom-0 w-full px-4 pb-4 pt-3 border-t border-gray-200 dark:border-gray-700 bg-gradient-to-r from-white/70 via-gray-50/60 to-gray-100/70 dark:from-gray-900/90 dark:via-gray-800/80 dark:to-gray-900/90 rounded-bl-3xl flex flex-col items-center shadow-lg z-20" style="backdrop-filter: blur(6px);">
+      <span class="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2 tracking-wide">Connect with us</span>
+      <div class="flex flex-row items-center justify-center gap-5">
+        <a href="https://x.com/gtktourismdeptt" target="_blank" rel="noopener" class="hover:scale-125 transition-transform duration-200">
+          <i class="fab fa-twitter text-blue-500 text-2xl"></i>
+        </a>
+        <a href="https://www.youtube.com/@tourismcavdepartmentgovern1160" target="_blank" rel="noopener" class="hover:scale-125 transition-transform duration-200">
+          <i class="fab fa-youtube text-red-500 text-2xl"></i>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=100054563433882" target="_blank" rel="noopener" class="hover:scale-125 transition-transform duration-200">
+          <i class="fab fa-facebook text-blue-700 text-2xl"></i>
+        </a>
+        <a href="https://www.instagram.com/sikkim.tourism/?hl=en" target="_blank" rel="noopener" class="hover:scale-125 transition-transform duration-200">
+          <i class="fab fa-instagram text-pink-500 text-2xl"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

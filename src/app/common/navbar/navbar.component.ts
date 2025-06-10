@@ -19,21 +19,17 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   animations: [
     trigger('mobileMenuAnimation', [
       state('closed', style({
-        height: '0',
+        transform: 'translateX(100%)',
         opacity: 0,
-        overflow: 'hidden',
-        'padding-top': '0',
-        'padding-bottom': '0',
-        'margin-bottom': '0'
+        display: 'none',
       })),
       state('open', style({
-        height: '*',
+        transform: 'translateX(0)',
         opacity: 1,
-        'padding-top': '*',
-        'padding-bottom': '*'
+        display: 'block',
       })),
       transition('closed <=> open', [
-        animate('300ms ease-in-out')
+        animate('300ms cubic-bezier(0.4, 0, 0.2, 1)')
       ])
     ])
   ]
@@ -58,6 +54,13 @@ export class NavbarComponent {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
     if (this.isMobileMenuOpen) {
       this.isSearchOpen = false;
+      if (typeof document !== 'undefined') {
+        document.body.style.overflow = 'hidden';
+      }
+    } else {
+      if (typeof document !== 'undefined') {
+        document.body.style.overflow = 'auto';
+      }
     }
   }
 
