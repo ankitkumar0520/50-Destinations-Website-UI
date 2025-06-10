@@ -7,28 +7,7 @@
 <section
   class="relative min-h-screen pt-[70px] w-full overflow-hidden flex flex-wrap items-stretch justify-center"
 >
-  <div
-    class="absolute top-24 right-6 sm:right-8 lg:right-12 z-[4] group cursor-pointer animate-slide-fade-in"
-    (click)="navigateToHeritageWalk()"
-  >
-    <div
-      class="animate-bounce flex items-center gap-2 sm:gap-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-full px-4 py-2 border border-gray-200/40 dark:border-gray-600/40 hover:shadow-lg hover:shadow-primary-400/30 dark:hover:shadow-primary-400/30 transition-all duration-300"
-    >
-      <div class="relative">
-        <i
-          class="fas fa-map-marked-alt text-primary-600 dark:text-primary-300 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 text-xl"
-        ></i>
-        <div
-          class="absolute inset-0 rounded-full border border-primary-400/40 dark:border-primary-300/30 animate-pulse"
-        ></div>
-      </div>
-      <span
-        class="text-gray-800 dark:text-white/80 text-xs sm:text-sm font-semibold group-hover:text-primary-500 dark:group-hover:text-primary-300 transition-colors duration-300"
-      >
-        Heritage Walk
-      </span>
-    </div>
-  </div>
+
 
   <div
     *ngIf="deferredPrompt"

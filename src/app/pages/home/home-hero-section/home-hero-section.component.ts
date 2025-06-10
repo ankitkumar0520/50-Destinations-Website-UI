@@ -211,10 +211,6 @@ export class HomeHeroSectionComponent implements OnInit, OnDestroy {
     this.router.navigate(['/destinations']);
   }
 
-  navigateToHeritageWalk() {
-    this.router.navigate(['/heritage-walk']);
-  }
-
 
   installApp() {
     if (this.deferredPrompt) {
