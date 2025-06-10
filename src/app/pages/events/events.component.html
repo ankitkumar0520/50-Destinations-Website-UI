@@ -53,302 +53,463 @@
 
   <!-- Main Content -->
   <div class="max-w-7xl mx-auto px-6 md:px-16 2xl:px-0 py-8 mt-4">
-    <!-- Search Bar -->
-    <div class="max-w-3xl mx-auto mb-8">
-      <div
-        class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 flex items-center p-1"
-      >
-        <div class="flex-1 flex items-center px-4">
-          <i class="fas fa-search text-gray-400 mr-3"></i>
-          <input
-            type="text"
-            [placeholder]="
-              activeTab === 'events'
-                ? 'Search events by name, location or date...'
-                : 'Search news by title or content...'
-            "
-            class="w-full py-2 outline-none bg-transparent text-gray-700 dark:text-gray-200"
-            [(ngModel)]="searchTerm"
-            (keyup.enter)="search()"
-          />
+    <div *ngIf="isLoading" class="fixed inset-0 bg-opacity-50 z-50 flex items-center justify-center">
+      <app-loader></app-loader>
+    </div>
+    
+    <div>
+      <!-- Search Bar -->
+      <div class="max-w-3xl mx-auto mb-8">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 flex items-center p-1"
+        >
+          <div class="flex-1 flex items-center px-4">
+            <i class="fas fa-search text-gray-400 mr-3"></i>
+            <input
+              type="text"
+              [placeholder]="
+                activeTab === 'events'
+                  ? 'Search events by name, location or date...'
+                  : 'Search news by title or content...'
+              "
+              class="w-full py-2 outline-none bg-transparent text-gray-700 dark:text-gray-200"
+              [(ngModel)]="searchTerm"
+              (ngModelChange)="search()"
+            />
+          </div>
+          <button
+            (click)="search()"
+            class="px-4 py-2 text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+          <button
+            *ngIf="searchTerm"
+            (click)="searchTerm = ''; search()"
+            class="text-gray-400 cursor-pointer hover:text-gray-600 dark:hover:text-gray-200 px-4"
+          >
+            <i class="fas fa-times"></i>
+          </button>
         </div>
-        <button
-          (click)="search()"
-          class="px-4 py-2 text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300"
+      </div>
+
+      <!-- Events Section -->
+      <div
+        *ngIf="activeTab === 'events' && events.length>0"
+        class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+      >
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-800">
+              <tr>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                >
+                  Event Name
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                >
+                  Date
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                >
+                  Location
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                >
+                  Media
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider"
+                >
+                  Status
+                </th>
+               
+              </tr>
+            </thead>
+            <tbody
+              class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
+            >
+              <tr
+                *ngFor="
+                  let event of events
+                    | paginate : { currentPage: paginateConfig.pageNumber, itemsPerPage: paginateConfig.itemPerPage, totalItems: paginateConfig.totalItem }
+                "
+                class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200"
+              >
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm font-medium text-gray-900 dark:text-white line-clamp-1">
+                    {{ event.eventname }}
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-500 dark:text-gray-300">
+                    {{ event.eventdate | date : "longDate" }}
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-500 dark:text-gray-300">
+                    {{ event.eventlocation }}
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center space-x-3">
+                    <ng-container *ngIf="event.media && event.media.length > 0">
+                      <a [href]="event.media[0].mediaurl"
+                         target="_blank"
+                         class="inline-flex items-center text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300">
+                        <i class="fas fa-file-pdf mr-1"></i>
+                        View Media
+                      </a>
+                    </ng-container>
+                    <span *ngIf="!event.media || event.media.length === 0" class="text-sm text-gray-400">
+                      No media
+                    </span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <ng-container [ngSwitch]="getEventStatus(event.eventdate)">
+                    <span
+                      *ngSwitchCase="'upcoming'"
+                      class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                    >
+                      Upcoming
+                    </span>
+                    <span
+                      *ngSwitchCase="'ongoing'"
+                      class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                    >
+                      Ongoing
+                    </span>
+                    <span
+                      *ngSwitchCase="'ended'"
+                      class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+                    >
+                      Ended
+                    </span>
+                  </ng-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 flex justify-center" *ngIf="events.length > 0  && activeTab=='events'">
+          <pagination-controls
+            [responsive]="true"
+            (pageChange)="onPageChange($event); scrollToTop()"
+          ></pagination-controls>
+        </div>
+      </div>
+
+
+
+      <div *ngIf="events.length <= 0  && activeTab=='events'" class="flex flex-col items-center justify-center text-center py-12 text-gray-500 dark:text-gray-400">
+        <!-- Icon -->
+        <div class="text-primary-500 dark:text-primary-400 mb-4">
+          <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M8 7V3m8 4V3M5 11h14M5 17h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+      
+        <!-- Main Message -->
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">
+          No events found
+        </h3>
+      
+        <!-- Sub Message -->
+        <p class="text-sm mb-6" *ngIf="searchTerm">
+          We couldn’t find any events matching your search.
+        </p>
+      
+        <!-- Action Button -->
+        <button *ngIf="searchTerm"
+          (click)="clearSearch()"
+          class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-xl shadow-sm transition-all duration-200 cursor-pointer"
         >
-          <i class="fas fa-search"></i>
+          <i class="fas fa-undo-alt text-sm"></i>
+          Reset Search
         </button>
-        <button
-          *ngIf="searchTerm"
-          (click)="searchTerm = ''; search()"
-          class="text-gray-400 cursor-pointer hover:text-gray-600 dark:hover:text-gray-200 px-4"
-        >
-          <i class="fas fa-times"></i>
-        </button>
+      </div>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <!-- News Section -->
+<div
+*ngIf="activeTab === 'news'"
+class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-5 lg:gap-y-6"
+>
+<div
+  *ngFor="let item of newsList | paginate : { itemsPerPage: paginateConfig.itemPerPage, currentPage: paginateConfig.pageNumber }"
+  class="group bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-lg overflow-hidden flex flex-col h-full transition-all duration-300 border border-gray-100 dark:border-gray-700"
+>
+  <!-- Image -->
+  <div
+    class="relative w-full h-40 sm:h-48 lg:h-56 overflow-hidden"
+    (click)="getNewsImage(item) ? toogleImagePreview(getNewsImage(item)) : null"
+  >
+    <img
+      [src]="getNewsImage(item)"
+      [alt]="item.newstitle"
+      loading="lazy"
+      (error)="imageService.handleImageError($event)"
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-4 sm:p-5 flex flex-col flex-grow sm:space-y-2 space-y-0">
+    <!-- Date -->
+    <div class="flex items-center justify-between text-xs">
+      <div class="flex items-center text-primary-600 dark:text-primary-400 font-medium">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        {{ item.newsdate | date: "MMM d, y" }}
+      </div>
+      <div
+        *ngIf="item.updatedon"
+        class="text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 rounded-full text-xs font-medium"
+      >
+        Updated
       </div>
     </div>
 
-    <!-- Events Section -->
-    <div
-      *ngIf="activeTab === 'events'"
-      class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
-    >
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead class="bg-gray-50 dark:bg-gray-700">
-            <tr>
-              <th
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
-              >
-                Event Name
-              </th>
-              <th
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
-              >
-                Date
-              </th>
-              <th
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
-              >
-                Location
-              </th>
-              <th
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
-              >
-                Status
-              </th>
-              <th
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
-              >
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody
-            class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
-          >
-            <tr
-              *ngFor="
-                let event of filteredEvents
-                  | paginate : { itemsPerPage: 10, currentPage: p }
-              "
-              class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200"
-            >
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm font-medium text-gray-900 dark:text-white">
-                  {{ event.name }}
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-500 dark:text-gray-300">
-                  {{ event.date | date : "longDate" }}
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-500 dark:text-gray-300">
-                  {{ event.location }}
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <ng-container [ngSwitch]="getEventStatus(event.date)">
-                  <span
-                    *ngSwitchCase="'upcoming'"
-                    class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-                  >
-                    Upcoming
-                  </span>
-                  <span
-                    *ngSwitchCase="'ongoing'"
-                    class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-                  >
-                    Ongoing
-                  </span>
-                  <span
-                    *ngSwitchCase="'ended'"
-                    class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
-                  >
-                    Ended
-                  </span>
-                </ng-container>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm">
-                <ng-container *ngIf="event.pdfUrl">
-                  <a
-                    [href]="event.pdfUrl"
-                    target="_blank"
-                    class="inline-flex items-center text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300"
-                  >
-                    <i class="fas fa-file-pdf mr-1"></i>
-                    View PDF
-                  </a>
-                </ng-container>
-                <ng-container *ngIf="!event.pdfUrl">
-                  <button
-                    (click)="viewEventDetails(event)"
-                    disabled="true"
-                    class="inline-flex items-center text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300"
-                  >
-                    <i class="fas fa-info-circle mr-1"></i>
-                    Awaiting Details
-                  </button>
-                </ng-container>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="mt-4 flex justify-center" *ngIf="filteredEvents.length > 0">
-        <pagination-controls
+        <h3
+        class="block text-base sm:text-lg font-semibold text-gray-900 dark:text-white 
+              line-clamp-1 max-h-6 group-hover:text-primary-600 dark:group-hover:text-primary-400 
+              transition-colors w-full"
+        [title]="item.newstitle"
+      >
+        {{ item.newstitle }}
+      </h3>
+  
+
+        <!-- Description -->
+        <p
+        class="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 leading-relaxed w-full"
+        >
+        {{ item.newsdescription }}
+        </p>
+
+
+    <!-- Button -->
+    <div class="pt-3 mt-auto">
+      <button
+        (click)="toogleNewsModal(item); $event.stopPropagation()"
+        class="w-full cursor-pointer group/btn bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-medium py-2.5 px-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.97] shadow-md hover:shadow-lg"
+      >
+        <span class="flex items-center justify-center gap-2">
+          <svg class="w-4 h-4 transition-transform group-hover/btn:translate-x-1" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+          Read More
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+      <div
+        *ngIf="newsList.length > 0 && activeTab=='news'"
+        class="mt-6 flex justify-center"
+      >
+        <pagination-controls 
            [responsive]="true"
-          (pageChange)="p = $event; scrollToTop()"
+          (pageChange)="onPageChange($event); scrollToTop()"
         ></pagination-controls>
       </div>
+
+      <div  *ngIf="newsList.length<=0 && activeTab=='news'" class="flex flex-col items-center justify-center text-center py-16 text-gray-500 dark:text-gray-400">
+        <!-- Icon -->
+        <div class="text-primary-500 dark:text-primary-400 mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 20H5a2 2 0 01-2-2V7m16 13a2 2 0 002-2V7a2 2 0 00-2-2H5m14 0V5a2 2 0 00-2-2H7a2 2 0 00-2 2v2m0 0v11h14V7H5z" />
+          </svg>
+        </div>
+        <!-- Title -->
+        <h2 class="text-xl font-semibold mb-2 text-gray-700 dark:text-gray-200">
+          No News Found
+        </h2>
+      
+        <!-- Subtitle -->
+        <p class="text-sm max-w-md px-4" *ngIf="searchTerm">
+          We couldn't find any news articles matching your search or filters.
+          Try adjusting your keywords or check back later for updates.
+        </p>
+      
+        <!-- Optional Button -->
+        <button *ngIf="searchTerm"
+          class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline transition"
+          (click)="clearSearch()"
+        >
+          <i class="fas fa-sync-alt"></i>
+          Reset Search
+        </button>
+      </div>
+      
+
+
+
+    <!-- Enhanced News Modal -->
+<div
+  *ngIf="selectedNews"
+  class="fixed inset-0 z-[52] flex items-center justify-center p-4 overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-labelledby]="'modal-title-'"
+  (keydown.escape)="toogleNewsModal(null)"
+  cdkTrapFocus
+>
+  <!-- Backdrop -->
+  <div
+    class="fixed inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70 backdrop-blur-md transition-all duration-300"
+    (click)="toogleNewsModal(null)"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Modal Container -->
+  <div
+    class="relative w-full max-w-md mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow-2xl 
+           transform transition-all duration-300 scale-100 max-h-[90vh] flex flex-col
+           border border-gray-200/20 dark:border-gray-700/30"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Header Section -->
+    <div class="relative px-6 pt-6 pb-4 border-b border-gray-200
+     dark:border-gray-700 bg-gradient-to-r from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 rounded-t-2xl">
+
+
+      <!-- Date and Update Info -->
+      <div class="flex flex-col space-y-1 mb-2">
+        <div class="flex items-center text-sm text-primary-600 dark:text-primary-400 font-medium">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          {{ selectedNews.newsdate | date : "EEEE, MMMM d, y" }}
+        </div>
+        
+        <div 
+          *ngIf="selectedNews.updatedon" 
+          class="flex items-center text-xs text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 
+                  pb-1 rounded-full w-fit"
+        >
+          <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Updated: {{ selectedNews.updatedon | date : "MMM d, y 'at' h:mm a" }}
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h2 
+        class="text-2xl font-bold text-justify text-gray-900 dark:text-white leading-tight pr-8 break-words whitespace-normal"
+      >
+        {{ selectedNews.newstitle }}
+      </h2>
     </div>
 
-    <!-- News Section -->
-    <div
-      *ngIf="activeTab === 'news'"
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 rounded-2xl"
-    >
-      <div
-        *ngFor="
-          let item of filteredNews
-            | paginate : { itemsPerPage: 12, currentPage: p }
-        "
-        class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow- hover:shadow-lg transition-all duration-300 h-auto sm:h-[380px] flex flex-col mb-4 sm:mb-0"
+    <!-- Content Section -->
+    <div class="flex-1 overflow-y-auto custom-scrollbar">
+      <div 
+        class="h-full  px-6"
+        [style.max-height.px]="'calc(90vh - 200px)'"
       >
-        <div class="aspect-w-16 aspect-h-9 relative h-44">
-          <img
-            [src]="item.imageUrl"
-            [alt]="item.title"
-            loading="lazy"
-            (error)="imageService.handleImageError($event)"
-            class="w-full rounded-lg h-full object-cover transition-transform duration-300 hover:scale-105"
-          />
-          <div
-            class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"
-          ></div>
-        </div>
-        <div class="px-4 py-3 flex-grow flex flex-col">
-          <div
-            class="text-xs text-gray-500 dark:text-gray-400 mb-1 flex items-center"
+        <div class="prose prose-gray dark:prose-invert max-w-none">
+          <p 
+            class="text-gray-700 dark:text-gray-300 text-base leading-relaxed whitespace-pre-line 
+                   text-justify hyphens-auto"
+            [innerHTML]="selectedNews.newsdescription"
           >
-            <i class="far fa-calendar-alt mr-1"></i>
-            {{ item.date | date : "mediumDate" }}
-          </div>
-          <h3
-            class="text-base font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2"
-          >
-            {{ item.title }}
-          </h3>
-          <p
-            class="text-sm text-gray-600 text-justify flex-grow line-clamp-3 dark:text-gray-300 mb-3 custom-scrollbar"
-          >
-            {{ item.content }}
           </p>
-          <div
-            class="pt-2 border-t border-gray-200 dark:border-gray-700 mt-auto"
-          >
-            <button
-              (click)="openNewsModal(item)"
-              class="w-full cursor-pointer sm:w-auto inline-flex items-center justify-center text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300 text-sm font-medium transition-colors duration-200 py-2 px-4 rounded-md hover:bg-primary-50 dark:hover:bg-primary-900/20"
-            >
-              <i class="fas fa-book-open mr-1"></i>
-              Read More
-            </button>
-          </div>
         </div>
       </div>
     </div>
-    <div
-      *ngIf="activeTab === 'news' && filteredNews.length > 0"
-      class="mt-6 flex justify-center"
-    >
-      <pagination-controls
-        (pageChange)="p = $event; scrollToTop()"
-      ></pagination-controls>
-    </div>
 
-    <!-- News Modal -->
-    <div
-      *ngIf="selectedNews"
-      class="fixed inset-0 z-50 overflow-hidden transition-opacity duration-300"
-      [class.opacity-0]="!selectedNews"
-      [class.opacity-100]="selectedNews"
-      aria-labelledby="modal-title"
-      role="dialog"
-      aria-modal="true"
-    >
+    <!-- Action Footer -->
+    <div class="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700 rounded-b-2xl">
+      <div class="flex items-center justify-between">
+        <!-- Close Button -->
+        <button
+          (click)="toogleNewsModal(null)"
+          class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary-600 
+                 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 rounded-lg transition-all 
+                 duration-200 focus:outline-none dark:focus:ring-primary-800 shadow-lg hover:shadow-xl"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <!-- Image Preview Modal -->
       <div
-        class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0"
+        *ngIf="isImageModalOpen && selectedImage"
+        class="fixed inset-0 z-[52] overflow-y-auto p-2"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
       >
         <div
           class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
-          (click)="closeNewsModal()"
+          (click)="toogleImagePreview(null)"
           aria-hidden="true"
-        ></div>
-        <span
-          class="hidden sm:inline-block sm:align-middle sm:h-screen"
-          aria-hidden="true"
-          >&#8203;</span
         >
-        <div
-          class="inline-block align-middle bg-white dark:bg-gray-800 rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full max-h-[85vh] flex flex-col"
-        >
-          <div class="relative flex flex-col h-full">
-            <!-- Header Section -->
-            <div
-              class="px-6 bg-white dark:bg-gray-800 pt-6 pb-4 border-b border-gray-200 dark:border-gray-700"
-            >
-              <div
-                class="text-sm text-gray-500 dark:text-gray-400 mb-2 flex items-center"
+      </div>
+
+        <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+          <div
+            class="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all sm:my-8 w-full max-w-4xl mx-4"
+          >
+            <div class="relative">
+              <button
+                (click)="toogleImagePreview(null)"
+                class="absolute top-4 right-4 text-gray-400 bg-gray-100 p-2 cursor-pointer rounded-2xl hover:text-gray-500 focus:outline-none z-10"
               >
-                <i class="far fa-calendar-alt mr-2"></i>
-                {{ selectedNews.date | date : "longDate" }}
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-                {{ selectedNews.title }}
-              </h3>
-            </div>
-
-            <!-- Content Section -->
-            <div
-              class="flex-1 max-h-56 overflow-y-auto custom-scrollbar bg-white dark:bg-gray-800"
-            >
-              <div class="px-6 py-4">
-                <p
-                  class="text-gray-600 dark:text-gray-300 text-base leading-relaxed whitespace-pre-line"
-                >
-                  {{ selectedNews.content }}
-                </p>
-              </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div
-              class="px-6 py-4 bg-gray-50 dark:bg-gray-700/50 border-t border-gray-200 dark:border-gray-700"
-            >
-              <div class="flex justify-end space-x-4">
-                <button
-                  (click)="closeNewsModal()"
-                  class="px-4 cursor-pointer py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
-                >
-                  Close
-                </button>
-                <a
-                  *ngIf="selectedNews.pdfUrl"
-                  [href]="selectedNews.pdfUrl"
-                  target="_blank"
-                  class="px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-md transition-colors duration-200"
-                >
-                  <i class="fas fa-file-pdf mr-2"></i>
-                  View PDF
-                </a>
-              </div>
+                <i class="fas fa-times text-2xl"></i>
+              </button>
+              <img
+                [src]="selectedImage"
+                alt="Preview"
+                class="w-full h-auto max-h-[80vh] object-contain"
+              />
             </div>
           </div>
         </div>
       </div>
+    
+    
+    
+    
     </div>
   </div>
 </div>

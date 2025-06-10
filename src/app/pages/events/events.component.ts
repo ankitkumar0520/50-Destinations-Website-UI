@@ -2,16 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { EventService } from '../../services/event.service';
-import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 import { ImageService } from '../../services/image.service';
-interface Event {
-  id: number;
-  name: string;
-  date: Date;
-  location: string;
-  pdfUrl: string;
-}
+import { finalize } from 'rxjs';
+import { LoaderComponent } from '../../common/loader/loader.component';
 
 interface News {
   id: number;
@@ -20,6 +14,7 @@ interface News {
   content: string;
   imageUrl?: string;
   pdfUrl?: string;
+  updatedon?: Date;
 }
 
 @Component({
@@ -27,11 +22,16 @@ interface News {
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, NgxPaginationModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    NgxPaginationModule,
+    LoaderComponent
+  ],
 })
 export class EventsComponent implements OnInit {
-  eventService: EventService = inject(EventService);
   imageService: ImageService = inject(ImageService);
+  apiService = inject(ApiService);
 
   // Tab related properties
   activeTab: string = 'events';
@@ -40,127 +40,108 @@ export class EventsComponent implements OnInit {
     { id: 'news', title: 'News', icon: 'fa-newspaper', color: 'red' },
   ];
 
-  // Events related properties
-  p: number = 1;
+  paginateConfig = {
+    totalItem: 0,
+    pageNumber: 1,
+    itemPerPage: 12
+  };
+
+
+  isLoading = false;
   searchTerm: string = '';
-  filteredEvents: Event[] = [];
-  pdfUrl: string = '';
-  events: any[] = this.eventService.getEvents();
-  news: any[] = this.eventService.getNews();
-  selectedNews: News | null = null;
-
-  filteredNews: News[] = [];
-
+  events: any[] = [];
+  newsList: any[] = [];
   today = new Date();
+  selectedNews: any = null;
+  isNewsModalOpen: boolean = false;
+  selectedImage: string | null = null;
+  isImageModalOpen: boolean = false;
 
-  constructor() {
-    this.filteredEvents = [...this.events];
-    this.filteredNews = [...this.news];
-  }
 
   ngOnInit(): void {
-    this.filteredEvents = this.filterAndSortEvents(this.events);
-    this.filteredNews = this.filterAndSortNews(this.news);
+    this.search();
   }
 
-  // Tab switching method
+  getEventsPaginated() {  
+    this.isLoading = true;
+    this.apiService.get(
+      `LandingPage/GetAllEvents?pageNumber=${this.paginateConfig.pageNumber}&pageSize=${this.paginateConfig.itemPerPage}`
+    )
+    .pipe(
+      finalize(() => {
+        this.isLoading = false;
+      })
+    )
+    .subscribe({
+      next: (res: any) => {
+        try {
+          this.events = res.data || []
+          this.paginateConfig.totalItem = res.totalRecords || 0;
+          this.paginateConfig.pageNumber = res.pageNumber || 1;
+        } catch (error) {
+          console.error('Error processing events data:', error);
+          this.events = [];
+        }
+      },
+      error: (error: any) => {
+        console.error('API Error loading events:', error);
+        this.events = [];
+      }
+    });
+  }
+
+  onPageChange(page: number) {
+    this.paginateConfig.pageNumber = page;
+    if (this.activeTab === 'events') {
+      this.getEventsPaginated();
+    } else {
+      this.getNewsPaginated();
+    }
+  }
+
   switchTab(tabId: string): void {
     this.activeTab = tabId;
-    this.p = 1; // Reset pagination
-  }
-
-  // Events related methods
-  filterEvents(): void {
-    this.p = 1;
-
-    if (!this.searchTerm) {
-      this.filteredEvents = [...this.events];
-      return;
-    }
-
-    const searchLower = this.searchTerm.toLowerCase();
-
-    this.filteredEvents = this.events.filter((event) => {
-      const eventDateString = event.date
-        .toLocaleDateString('en-US', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })
-        .toLowerCase();
-      const eventLocationString = event.location.toLowerCase();
-
-      return (
-        event.name.toLowerCase().includes(searchLower) ||
-        eventLocationString.includes(searchLower) ||
-        eventDateString.includes(searchLower)
-      );
-    });
-  }
-
-  filterAndSortEvents(events: Event[]): Event[] {
-    return events
-      .filter((event) => {
-        const eventDate = new Date(event.date);
-        return !isNaN(eventDate.getTime());
-      })
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }
-
-  // News related methods
-  filterNews(): void {
-    this.p = 1;
-
-    if (!this.searchTerm) {
-      this.filteredNews = [...this.news];
-      return;
-    }
-
-    const searchLower = this.searchTerm.toLowerCase();
-
-    this.filteredNews = this.news.filter((news) => {
-      const newsDateString = news.date
-        .toLocaleDateString('en-US', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })
-        .toLowerCase();
-
-      return (
-        news.title.toLowerCase().includes(searchLower) ||
-        news.content.toLowerCase().includes(searchLower) ||
-        newsDateString.includes(searchLower)
-      );
-    });
-  }
-
-  filterAndSortNews(news: News[]): News[] {
-    return news
-      .filter((item) => {
-        const newsDate = new Date(item.date);
-        return !isNaN(newsDate.getTime());
-      })
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }
-
-  isUpcomingEvent(eventDate: string | Date): boolean {
-    return new Date(eventDate) > this.today;
-  }
-
-  // Search method that handles both events and news
-  search(): void {
-    if (this.activeTab === 'events') {
-      this.filterEvents();
+    this.searchTerm = '';
+    if (tabId === 'events') {
+      this.getEventsPaginated();
+      this.paginateConfig.pageNumber = 1;
     } else {
-      this.filterNews();
+      this.getNewsPaginated();
+      this.paginateConfig.pageNumber = 1;
     }
   }
 
-  // Event status methods
-  getEventStatus(eventDate: Date | string): 'upcoming' | 'ongoing' | 'ended' {
+  getNewsPaginated() {
+    this.isLoading = true;
+    this.apiService.get(
+      `CMS/GetNewsByPaginationAndSearchTerm?pageNumber=${this.paginateConfig.pageNumber}&pageSize=${this.paginateConfig.itemPerPage}&searchTerm=${this.searchTerm}`
+    )
+    .pipe(
+      finalize(() => {
+        this.isLoading = false;
+      })
+    )
+    .subscribe({
+      next: (res: any) => {
+        try {
+          this.newsList = res.data.data || [];
+          this.paginateConfig.totalItem = res.totalRecords || 0;
+          this.paginateConfig.pageNumber = res.pageNumber || 1;
+
+        } catch (error) {
+          console.error('Error processing news data:', error);
+          this.newsList = [];
+        }
+      },
+      error: (error: any) => {
+        console.error('API Error loading news:', error);
+        this.newsList = [];
+      }
+    });
+  }
+
+
+  getEventStatus(eventDate: string): 'upcoming' | 'ongoing' | 'ended' {
     const date = new Date(eventDate);
     const today = new Date();
     const tomorrow = new Date(today);
@@ -178,26 +159,63 @@ export class EventsComponent implements OnInit {
     }
   }
 
-  viewEventDetails(event: Event): void {
-    // TODO: Implement event details view
-    // console.log('Viewing event details:', event);
-  }
 
-  openNewsModal(news: News): void {
+  toogleNewsModal(news: News | null): void {
     this.selectedNews = news;
-    document.body.style.overflow = 'hidden';
+
+    this.isNewsModalOpen = !this.isNewsModalOpen;
+    if (this.isNewsModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   }
 
-  closeNewsModal(): void {
-    this.selectedNews = null;
-    document.body.style.overflow = 'auto';
+  toogleImagePreview(imageUrl: string |null): void {
+    this.selectedImage = imageUrl;
+    this.isImageModalOpen =! this. isImageModalOpen;
+    if(this.isImageModalOpen){
+      document.body.style.overflow = 'hidden';
+    }
+    else{
+      document.body.style.overflow = 'auto';
+    }
   }
+
 
   scrollToTop(): void {
-    // Scroll to top smoothly
     window.scrollTo({
       top: 60,
       behavior: 'smooth',
     });
+  }
+
+  search(): void {
+    setTimeout(()=>{
+    if (this.activeTab === 'events') {
+      //filter event to be added
+      this.getEventsPaginated();
+    } else {
+     this.getNewsPaginated();
+    }
+    },200)
+  }
+
+  getNewsImage(news: any): string {
+    if (news && news.media && news.media.length > 0) {
+      return news.media[0].mediaurl;
+    }
+    return '';
+  }
+  
+
+
+  clearSearch(): void {
+    this.searchTerm = '';
+    if (this.activeTab === 'events') {
+      this.getEventsPaginated();
+    } else {
+      this.getNewsPaginated();
+    }
   }
 }
