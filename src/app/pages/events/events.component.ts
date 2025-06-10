@@ -36,8 +36,13 @@ export class EventsComponent implements OnInit {
   // Tab related properties
   activeTab: string = 'events';
   tabs = [
-    { id: 'events', title: 'Events', icon: 'fa-calendar-alt', color: 'green' },
-    { id: 'news', title: 'News', icon: 'fa-newspaper', color: 'red' },
+    {
+      id: 'events',
+      title: 'Events',
+      icon: 'fa-calendar-alt',
+      color: 'primary',
+    },
+    { id: 'news', title: 'News', icon: 'fa-newspaper', color: 'emerald' },
   ];
 
   paginateConfig = {
