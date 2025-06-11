@@ -100,7 +100,6 @@ export class SearchResultComponent implements OnInit {
 
   getSearchResults() {
     this.isLoading = true;
-
     this.apiService
       .post(
         'LandingPage/GetAllActiveDestinationsBasicDetailsWithSearchParams',
