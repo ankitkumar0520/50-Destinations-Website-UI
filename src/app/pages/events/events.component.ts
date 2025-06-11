@@ -70,7 +70,7 @@ export class EventsComponent implements OnInit {
   getEventsPaginated() {  
     this.isLoading = true;
     this.apiService.get(
-      `LandingPage/GetAllEvents?pageNumber=${this.paginateConfig.pageNumber}&pageSize=${this.paginateConfig.itemPerPage}`
+      `LandingPage/GetAllEvents?pageNumber=${this.paginateConfig.pageNumber}&pageSize=${this.paginateConfig.itemPerPage}&searchTerm=${this.searchTerm}`
     )
     .pipe(
       finalize(() => {
@@ -198,7 +198,6 @@ export class EventsComponent implements OnInit {
   search(): void {
     setTimeout(()=>{
     if (this.activeTab === 'events') {
-      //filter event to be added
       this.getEventsPaginated();
     } else {
      this.getNewsPaginated();
