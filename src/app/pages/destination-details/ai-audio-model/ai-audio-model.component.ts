@@ -85,14 +85,18 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
               languageCode: item.language,
               audiosrc: item.audio_file_path,
             }));
+            this.audioSettings.audioNotFound = false;
           } else {
-            this.audioSettings.audioNotFound=true;
+            this.cdr.detectChanges();
+            this.audioSettings.audioNotFound = true;
             this.audioSettings.showLoadingIndicator = false;
+            this.audioSettings.showError = false;
           }
         },
         error: (err: any) => {
           this.audioSettings.showError = true;
           this.audioSettings.showLoadingIndicator = false;
+          this.audioSettings.audioNotFound = false;
           console.log(err);
         },
       });

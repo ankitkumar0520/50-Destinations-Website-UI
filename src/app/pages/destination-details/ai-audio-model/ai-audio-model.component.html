@@ -170,7 +170,7 @@
       </div>
   
         <!-- Loading Indicator and Error Indicator -->
-        <div *ngIf="audioSettings.showLoadingIndicator || audioSettings.showError" class="absolute inset-0 bg-black/30 dark:bg-black/60 backdrop-blur-sm 
+        <div *ngIf="audioSettings.showLoadingIndicator || audioSettings.showError || audioSettings.audioNotFound" class="absolute inset-0 bg-black/30 dark:bg-black/60 backdrop-blur-sm 
         flex items-center justify-center z-50 rounded-3xl">
           <div class="bg-white/90 dark:bg-gray-900/90 p-8 rounded-xl shadow-2xl">
             
@@ -184,7 +184,7 @@
             </div>
             
             <!-- Loading Text -->
-            <p *ngIf="!audioSettings.showError" class="text-center text-purple-600 dark:text-purple-300 font-medium">
+            <p *ngIf="!audioSettings.showError && !audioSettings.audioNotFound" class="text-center text-purple-600 dark:text-purple-300 font-medium">
               Loading audio...
             </p>
 
@@ -193,12 +193,17 @@
               Error loading audio. Please try again.
             </p>
 
-            
-             <!-- Not Found Text -->
-             <p *ngIf="audioSettings.audioNotFound" class="text-center text-red-600 dark:text-red-300 font-medium">
-              No Audio found for this destination
-            </p>
+                    <!-- No Audio Message -->
+        <div *ngIf="audioSettings.audioNotFound"
+        class="flex items-center justify-center gap-2 mx-auto mt-4 w-fit rounded-xl bg-yellow-50 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-4 py-2 text-sm shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 5v14l-5-5H2V9h2l5-5zm7.5 4.5l4 4m0-4l-4 4" />
+              </svg>
+        <span>No audio available for this destination.</span>
+        </div>
 
+          
           </div>
         </div>
 
