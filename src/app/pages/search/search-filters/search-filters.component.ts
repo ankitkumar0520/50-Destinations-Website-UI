@@ -168,6 +168,9 @@ export class SearchFiltersComponent implements OnInit, OnDestroy, AfterViewInit 
    * Initializes the component by subscribing to filter updates and loading initial data
    */
   ngOnInit() {
+    // Reset all filters when component is initialized
+    this.searchService.resetFilters();
+    
     this.searchService.filters$
       .pipe(
         takeUntil(this.destroy$)

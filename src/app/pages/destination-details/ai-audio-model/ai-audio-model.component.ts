@@ -55,6 +55,7 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
     selectedCode: 'en',
     selectAudioSrc: '',
     bufferedPercent: 0,
+    audioNotFound:false
   };
 
   constructor() {}
@@ -85,7 +86,7 @@ export class AiAudioModelComponent implements OnInit, OnDestroy {
               audiosrc: item.audio_file_path,
             }));
           } else {
-            this.audioSettings.showError = true;
+            this.audioSettings.audioNotFound=true;
             this.audioSettings.showLoadingIndicator = false;
           }
         },

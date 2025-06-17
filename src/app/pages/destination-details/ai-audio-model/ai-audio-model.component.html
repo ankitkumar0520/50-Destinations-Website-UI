@@ -193,6 +193,12 @@
               Error loading audio. Please try again.
             </p>
 
+            
+             <!-- Not Found Text -->
+             <p *ngIf="audioSettings.audioNotFound" class="text-center text-red-600 dark:text-red-300 font-medium">
+              No Audio found for this destination
+            </p>
+
           </div>
         </div>
 
